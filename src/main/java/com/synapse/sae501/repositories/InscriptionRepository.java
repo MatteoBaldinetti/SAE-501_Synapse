@@ -1,4 +1,7 @@
 package com.synapse.sae501.repositories;
 
-public interface InscriptionRepository {
+import com.synapse.sae501.models.InscriptionModel;
+import org.springframework.data.repository.CrudRepository;
+
+public interface InscriptionRepository extends CrudRepository<InscriptionModel, Long> {
 }

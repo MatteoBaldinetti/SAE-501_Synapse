@@ -20,8 +20,7 @@ public class Place {
     @Column(nullable = false)
     private int maxCapacity;
 
-    public Place(Long id, String city, String address, String zip, int maxCapacity) {
-        this.id = id;
+    public Place(String city, String address, String zip, int maxCapacity) {
         this.city = city;
         this.address = address;
         this.zip = zip;

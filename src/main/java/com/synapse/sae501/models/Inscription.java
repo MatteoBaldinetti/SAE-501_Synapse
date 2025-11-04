@@ -30,14 +30,13 @@ public class Inscription {
     @JoinColumn(name = "session_id", nullable = false)
     private Session session;
 
-    public Inscription(Session session, User user, float amount, Timestamp date, String status, Timestamp inscriptionDate, Long id) {
-        this.session = session;
-        this.user = user;
-        this.amount = amount;
-        this.date = date;
-        this.status = status;
+    public Inscription(Timestamp inscriptionDate, String status, Timestamp date, float amount, User user, Session session) {
         this.inscriptionDate = inscriptionDate;
-        this.id = id;
+        this.status = status;
+        this.date = date;
+        this.amount = amount;
+        this.user = user;
+        this.session = session;
     }
 
     public Long getId() {

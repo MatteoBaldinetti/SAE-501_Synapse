@@ -20,8 +20,7 @@ public class Instructor {
     @Column(nullable = false)
     private String specialty;
 
-    public Instructor(Long id, String firstName, String lastName, String contractType, String specialty) {
-        this.id = id;
+    public Instructor(String firstName, String lastName, String contractType, String specialty) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.contractType = contractType;

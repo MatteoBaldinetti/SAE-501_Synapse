@@ -31,8 +31,7 @@ public class Session {
     @JoinColumn(name = "place_id", nullable = false)
     private Place place;
 
-    public Session(Long id, Timestamp startDate, Timestamp endDate, int capacity, Training training, Instructor instructor, Place place) {
-        this.id = id;
+    public Session(Timestamp startDate, Timestamp endDate, int capacity, Training training, Instructor instructor, Place place) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.capacity = capacity;

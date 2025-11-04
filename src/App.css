@@ -1,3 +1,11 @@
 #formBox {
-    background-color: #cfcfcf;
+    background-color: #ededed;
+    width: 35vw;
+    height: 50vh;
+    border-radius: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 10px 10px 20px rgba(70, 70, 70, 0.2);
 }

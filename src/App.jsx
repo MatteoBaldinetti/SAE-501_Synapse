@@ -1,14 +1,13 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css"
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-    <div className="">
-
+    <div className="position-relative">
+      <div id="formBox" className="w-50 h-50 position-absolute top-50 start-50">
+        <p>Test</p>
+      </div>
     </div>
-    </>
   )
 }
 

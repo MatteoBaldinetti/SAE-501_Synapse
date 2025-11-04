@@ -18,15 +18,18 @@ public class ResultModel {
     @JoinColumn(name = "user_id")
     private UserModel user;
 
-    private List<SessionModel> sessions;
+    @ManyToOne
+    @JoinColumn(name = "session_id")
+    private SessionModel session;
 
     public ResultModel() {}
 
-    public ResultModel(float grade, String description, UserModel user, List<SessionModel> sessions) {
+    public ResultModel(Long id, float grade, String description, UserModel user, SessionModel session) {
+        this.id = id;
         this.grade = grade;
         this.description = description;
         this.user = user;
-        this.sessions = sessions;
+        this.session = session;
     }
 
     public Long getId() {
@@ -61,11 +64,11 @@ public class ResultModel {
         this.user = user;
     }
 
-    public List<SessionModel> getSessions() {
-        return sessions;
+    public SessionModel getSession() {
+        return session;
     }
 
-    public void setSessions(List<SessionModel> sessions) {
-        this.sessions = sessions;
+    public void setSession(SessionModel session) {
+        this.session = session;
     }
 }

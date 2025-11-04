@@ -2,8 +2,6 @@ package com.synapse.sae501.models;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 public class UserModel {
     @Id
@@ -21,9 +19,6 @@ public class UserModel {
     private String salt;
 
     private int type;
-
-    @ManyToOne
-    private List<ResultModel> results;
 
     public UserModel() {}
 

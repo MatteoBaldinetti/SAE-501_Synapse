@@ -10,23 +10,25 @@ public class Inscription {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private Timestamp inscriptionDate;
 
+    @Column(nullable = false)
     private String status;
 
+    @Column(nullable = false)
     private Timestamp date;
 
+    @Column(nullable = false)
     private float amount;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "session_id")
+    @JoinColumn(name = "session_id", nullable = false)
     private Session session;
-
-    public Inscription() {}
 
     public Inscription(Session session, User user, float amount, Timestamp date, String status, Timestamp inscriptionDate, Long id) {
         this.session = session;

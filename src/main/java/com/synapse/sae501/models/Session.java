@@ -10,25 +10,26 @@ public class Session {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private Timestamp startDate;
 
+    @Column(nullable = false)
     private Timestamp endDate;
 
+    @Column(nullable = false)
     private int capacity;
 
     @ManyToOne
-    @JoinColumn(name = "training_id")
+    @JoinColumn(name = "training_id", nullable = false)
     private Training training;
 
     @ManyToOne
-    @JoinColumn(name = "instructor_id")
+    @JoinColumn(name = "instructor_id", nullable = false)
     private Instructor instructor;
 
     @ManyToOne
-    @JoinColumn(name = "place_id")
+    @JoinColumn(name = "place_id", nullable = false)
     private Place place;
-
-    public Session() {}
 
     public Session(Long id, Timestamp startDate, Timestamp endDate, int capacity, Training training, Instructor instructor, Place place) {
         this.id = id;

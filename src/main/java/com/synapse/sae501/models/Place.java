@@ -1,9 +1,6 @@
 package com.synapse.sae501.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Place {
@@ -11,15 +8,17 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private String city;
 
+    @Column(nullable = false)
     private String address;
 
+    @Column(nullable = false)
     private String zip;
 
+    @Column(nullable = false)
     private int maxCapacity;
-
-    public Place() {}
 
     public Place(Long id, String city, String address, String zip, int maxCapacity) {
         this.id = id;

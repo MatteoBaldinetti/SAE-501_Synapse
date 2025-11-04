@@ -1,9 +1,6 @@
 package com.synapse.sae501.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Instructor {
@@ -11,15 +8,17 @@ public class Instructor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String firstName;
 
+    @Column(nullable = false)
     private String lastName;
 
+    @Column(nullable = false)
     private String contractType;
 
+    @Column(nullable = false)
     private String specialty;
-
-    public Instructor() {}
 
     public Instructor(Long id, String firstName, String lastName, String contractType, String specialty) {
         this.id = id;

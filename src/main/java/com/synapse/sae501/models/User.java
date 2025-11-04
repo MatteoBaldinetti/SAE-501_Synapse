@@ -3,25 +3,28 @@ package com.synapse.sae501.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private String firstName;
 
+    @Column(nullable = false)
     private String lastName;
 
+    @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     private String salt;
 
+    @Column(nullable = false)
     private int type;
-
-    public User() {}
 
     public User(String firstName, String lastName, String email, String password, String salt, int type) {
         this.firstName = firstName;

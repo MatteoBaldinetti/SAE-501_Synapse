@@ -8,19 +8,19 @@ public class Result {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private float grade;
 
+    @Column(nullable = false)
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "session_id")
+    @JoinColumn(name = "session_id", nullable = false)
     private Session session;
-
-    public Result() {}
 
     public Result(Long id, float grade, String description, User user, Session session) {
         this.id = id;

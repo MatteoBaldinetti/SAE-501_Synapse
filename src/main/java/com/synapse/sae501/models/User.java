@@ -3,6 +3,7 @@ package com.synapse.sae501.models;
 import jakarta.persistence.*;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

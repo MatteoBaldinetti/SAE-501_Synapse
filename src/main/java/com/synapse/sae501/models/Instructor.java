@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class Instructor {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @Column(nullable = false)

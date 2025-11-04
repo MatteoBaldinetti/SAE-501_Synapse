@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class Place {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
     @Column(nullable = false)

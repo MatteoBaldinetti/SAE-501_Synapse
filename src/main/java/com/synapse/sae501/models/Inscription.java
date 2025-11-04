@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 @Entity
 public class Inscription {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
     @Column(nullable = false)

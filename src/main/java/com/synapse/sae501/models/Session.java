@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 @Entity
 public class Session {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @Column(nullable = false)

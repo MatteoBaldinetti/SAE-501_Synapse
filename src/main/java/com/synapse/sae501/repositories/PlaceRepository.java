@@ -1,4 +1,7 @@
 package com.synapse.sae501.repositories;
 
-public interface PlaceRepository {
+import com.synapse.sae501.models.PlaceModel;
+import org.springframework.data.repository.CrudRepository;
+
+public interface PlaceRepository extends CrudRepository<PlaceModel, Long> {
 }

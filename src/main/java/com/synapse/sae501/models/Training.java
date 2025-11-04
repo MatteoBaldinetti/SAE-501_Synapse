@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class TrainingModel {
+public class Training {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,9 +21,9 @@ public class TrainingModel {
 
     private float price;
 
-    public TrainingModel() {}
+    public Training() {}
 
-    public TrainingModel(Long id, String title, String description, String category, float duration, float price) {
+    public Training(Long id, String title, String description, String category, float duration, float price) {
         this.id = id;
         this.title = title;
         this.description = description;

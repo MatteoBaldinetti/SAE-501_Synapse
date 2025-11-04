@@ -3,7 +3,7 @@ package com.synapse.sae501.models;
 import jakarta.persistence.*;
 
 @Entity
-public class UserModel {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -20,9 +20,9 @@ public class UserModel {
 
     private int type;
 
-    public UserModel() {}
+    public User() {}
 
-    public UserModel(String firstName, String lastName, String email, String password, String salt, int type) {
+    public User(String firstName, String lastName, String email, String password, String salt, int type) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

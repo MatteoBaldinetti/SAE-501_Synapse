@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-public class InscriptionModel {
+public class Inscription {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -20,15 +20,15 @@ public class InscriptionModel {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserModel user;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "session_id")
-    private SessionModel session;
+    private Session session;
 
-    public InscriptionModel() {}
+    public Inscription() {}
 
-    public InscriptionModel(SessionModel session, UserModel user, float amount, Timestamp date, String status, Timestamp inscriptionDate, Long id) {
+    public Inscription(Session session, User user, float amount, Timestamp date, String status, Timestamp inscriptionDate, Long id) {
         this.session = session;
         this.user = user;
         this.amount = amount;
@@ -78,19 +78,19 @@ public class InscriptionModel {
         this.amount = amount;
     }
 
-    public UserModel getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserModel user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public SessionModel getSession() {
+    public Session getSession() {
         return session;
     }
 
-    public void setSession(SessionModel session) {
+    public void setSession(Session session) {
         this.session = session;
     }
 }

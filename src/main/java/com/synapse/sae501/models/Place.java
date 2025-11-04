@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class PlaceModel {
+public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -19,9 +19,9 @@ public class PlaceModel {
 
     private int maxCapacity;
 
-    public PlaceModel() {}
+    public Place() {}
 
-    public PlaceModel(Long id, String city, String address, String zip, int maxCapacity) {
+    public Place(Long id, String city, String address, String zip, int maxCapacity) {
         this.id = id;
         this.city = city;
         this.address = address;

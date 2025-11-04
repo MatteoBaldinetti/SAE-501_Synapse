@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-public class SessionModel {
+public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,19 +18,19 @@ public class SessionModel {
 
     @ManyToOne
     @JoinColumn(name = "training_id")
-    private TrainingModel training;
+    private Training training;
 
     @ManyToOne
     @JoinColumn(name = "instructor_id")
-    private InstructorModel instructor;
+    private Instructor instructor;
 
     @ManyToOne
     @JoinColumn(name = "place_id")
-    private PlaceModel place;
+    private Place place;
 
-    public SessionModel() {}
+    public Session() {}
 
-    public SessionModel(Long id, Timestamp startDate, Timestamp endDate, int capacity, TrainingModel training, InstructorModel instructor, PlaceModel place) {
+    public Session(Long id, Timestamp startDate, Timestamp endDate, int capacity, Training training, Instructor instructor, Place place) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -72,27 +72,27 @@ public class SessionModel {
         this.capacity = capacity;
     }
 
-    public TrainingModel getTraining() {
+    public Training getTraining() {
         return training;
     }
 
-    public void setTraining(TrainingModel training) {
+    public void setTraining(Training training) {
         this.training = training;
     }
 
-    public InstructorModel getInstructor() {
+    public Instructor getInstructor() {
         return instructor;
     }
 
-    public void setInstructor(InstructorModel instructor) {
+    public void setInstructor(Instructor instructor) {
         this.instructor = instructor;
     }
 
-    public PlaceModel getPlace() {
+    public Place getPlace() {
         return place;
     }
 
-    public void setPlace(PlaceModel place) {
+    public void setPlace(Place place) {
         this.place = place;
     }
 }

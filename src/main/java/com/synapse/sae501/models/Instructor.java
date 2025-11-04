@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class InstructorModel {
+public class Instructor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,9 +19,9 @@ public class InstructorModel {
 
     private String specialty;
 
-    public InstructorModel() {}
+    public Instructor() {}
 
-    public InstructorModel(Long id, String firstName, String lastName, String contractType, String specialty) {
+    public Instructor(Long id, String firstName, String lastName, String contractType, String specialty) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

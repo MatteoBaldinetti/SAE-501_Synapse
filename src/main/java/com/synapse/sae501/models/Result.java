@@ -2,10 +2,8 @@ package com.synapse.sae501.models;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
-public class ResultModel {
+public class Result {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -16,15 +14,15 @@ public class ResultModel {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserModel user;
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "session_id")
-    private SessionModel session;
+    private Session session;
 
-    public ResultModel() {}
+    public Result() {}
 
-    public ResultModel(Long id, float grade, String description, UserModel user, SessionModel session) {
+    public Result(Long id, float grade, String description, User user, Session session) {
         this.id = id;
         this.grade = grade;
         this.description = description;
@@ -56,19 +54,19 @@ public class ResultModel {
         this.description = description;
     }
 
-    public UserModel getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserModel user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public SessionModel getSession() {
+    public Session getSession() {
         return session;
     }
 
-    public void setSession(SessionModel session) {
+    public void setSession(Session session) {
         this.session = session;
     }
 }

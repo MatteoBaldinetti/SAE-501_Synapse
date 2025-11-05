@@ -30,6 +30,8 @@ public class Inscription {
     @JoinColumn(name = "session_id", nullable = false)
     private Session session;
 
+    public Inscription() {}
+
     public Inscription(Timestamp inscriptionDate, String status, Timestamp date, float amount, User user, Session session) {
         this.inscriptionDate = inscriptionDate;
         this.status = status;

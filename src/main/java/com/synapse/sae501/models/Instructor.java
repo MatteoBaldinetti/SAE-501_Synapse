@@ -20,6 +20,8 @@ public class Instructor {
     @Column(nullable = false)
     private String specialty;
 
+    public Instructor() {}
+
     public Instructor(String firstName, String lastName, String contractType, String specialty) {
         this.firstName = firstName;
         this.lastName = lastName;

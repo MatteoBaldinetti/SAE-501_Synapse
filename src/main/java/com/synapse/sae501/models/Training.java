@@ -23,6 +23,8 @@ public class Training {
     @Column(nullable = false)
     private float price;
 
+    public Training() {}
+
     public Training(String title, String description, String category, float duration, float price) {
         this.title = title;
         this.description = description;

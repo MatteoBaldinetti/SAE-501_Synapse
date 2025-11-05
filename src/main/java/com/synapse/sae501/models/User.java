@@ -26,6 +26,8 @@ public class User {
     @Column(nullable = false)
     private int type;
 
+    public User() {}
+
     public User(String firstName, String lastName, String email, String password, String salt, int type) {
         this.firstName = firstName;
         this.lastName = lastName;

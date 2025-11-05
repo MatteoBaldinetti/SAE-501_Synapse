@@ -49,7 +49,7 @@ function Login() {
                 <label htmlFor="loginEmail" className="form-label">Email</label>
                 <input type="email" className="form-control" id="loginEmail" placeholder="prenom.nom@exemple.com" required />
               </div>
-              <div className="col-12 position-relative mb-3">
+              <div className="col-12 position-relative">
                 <label htmlFor="loginPassword" className="form-label">Mot de passe</label>
                 <div className="d-flex align-items-center position-relative">
                   <input type={showPassword ? "text" : "password"} className="form-control pe-5" id="loginPassword" required />
@@ -80,7 +80,7 @@ function Login() {
                 <input type="email" className="form-control" id="inputEmail" placeholder="prenom.nom@exemple.com" required />
               </div>
               <div className="row">
-                <div className="col-md-6 position-relative mb-3">
+                <div className="col-md-6 position-relative">
                   <label htmlFor="inputPassword" className="form-label">Mot de passe</label>
                   <div className="d-flex align-items-center position-relative">
                     <input type={showPassword ? "text" : "password"} className="form-control pe-5" id="inputPassword" required />
@@ -89,7 +89,7 @@ function Login() {
                     </div>
                   </div>
                 </div>
-                <div className="col-md-6 position-relative mb-3">
+                <div className="col-md-6 position-relative">
                   <label htmlFor="inputConfirmPassword" className="form-label">Confirmer le mot de passe</label>
                   <div className="d-flex align-items-center position-relative">
                     <input type={showConfirmPassword ? "text" : "password"} className="form-control pe-5" id="inputConfirmPassword" required />

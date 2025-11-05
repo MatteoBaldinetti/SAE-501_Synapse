@@ -22,6 +22,8 @@ public class Result {
     @JoinColumn(name = "session_id", nullable = false)
     private Session session;
 
+    protected Result() {}
+
     public Result(float grade, String description, User user, Session session) {
         this.grade = grade;
         this.description = description;

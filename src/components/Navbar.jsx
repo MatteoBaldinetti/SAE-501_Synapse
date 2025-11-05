@@ -31,7 +31,7 @@ function Navbar() {
                         </li>
                     </ul>
                     <button className="btn blue-button me-3" type="submit">Se connecter</button>
-                    <button className="btn blue-button" type="submit">S'inscrire</button>
+                    <button className="btn blue-button-outline" type="submit">S'inscrire</button>
                 </div>
             </div>
         </nav>

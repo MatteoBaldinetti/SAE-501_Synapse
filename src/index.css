@@ -4,6 +4,5 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
-  background-image: url('../public/images/login_background.webp');
-  background-size: contain;
+
 }

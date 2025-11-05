@@ -11,7 +11,7 @@ function App() {
     setShowPassword(false);
     setShowConfirmPassword(false);
     setIsConnexion((prev) => !prev);
-  }
+  };
 
   const EyeIcon = ({ visible }) => (
     <svg
@@ -31,7 +31,7 @@ function App() {
   return (
     <div id="formBox">
       <div className="p-4 d-flex flex-column justify-content-center h-100">
-        <h1 className="text-center mb-4">{isConnexion ? "Connexion" : "Inscription"}</h1>
+        <h1 className="text-center">{isConnexion ? "Connexion" : "Inscription"}</h1>
 
         <form className="d-flex flex-column h-100">
           <div className="flex-grow-1 d-flex flex-column justify-content-center">
@@ -55,22 +55,13 @@ function App() {
                   <div className="d-flex align-items-center position-relative">
                     <input
                       type={showPassword ? "text" : "password"}
-                      className="form-control flex-grow-1"
-                      style={{ paddingRight: "3rem" }}
+                      className="form-control pe-5"
+                      id="loginPassword"
                       required
                     />
                     <div
+                      className="eye-icon"
                       onClick={() => setShowPassword(!showPassword)}
-                      style={{
-                        position: "absolute",
-                        right: "0.5rem",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        cursor: "pointer",
-                        height: "100%",
-                        width: "24px",
-                      }}
                     >
                       <EyeIcon visible={!showPassword} />
                     </div>
@@ -78,7 +69,7 @@ function App() {
                 </div>
 
                 <div className="text-end">
-                  <a href="#" className="text-secondary small" onClick={e => e.preventDefault()}>
+                  <a href="#" className="text-secondary small" onClick={(e) => e.preventDefault()}>
                     Mot de passe oublié ?
                   </a>
                 </div>
@@ -110,27 +101,18 @@ function App() {
 
                 <div className="row">
                   {/* Password */}
-                  <div className="col-md-6 mb-3 position-relative">
+                  <div className="col-md-6 position-relative">
                     <label htmlFor="inputPassword" className="form-label">Mot de passe</label>
                     <div className="d-flex align-items-center position-relative">
                       <input
                         type={showPassword ? "text" : "password"}
-                        className="form-control flex-grow-1"
-                        style={{ paddingRight: "3rem" }}
+                        className="form-control pe-5"
+                        id="inputPassword"
                         required
                       />
                       <div
+                        className="eye-icon"
                         onClick={() => setShowPassword(!showPassword)}
-                        style={{
-                          position: "absolute",
-                          right: "0.5rem",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          cursor: "pointer",
-                          height: "100%",
-                          width: "24px",
-                        }}
                       >
                         <EyeIcon visible={!showPassword} />
                       </div>
@@ -138,31 +120,28 @@ function App() {
                   </div>
 
                   {/* Confirm Password */}
-                  <div className="col-md-6 mb-3 position-relative">
+                  <div className="col-md-6 position-relative">
                     <label htmlFor="inputConfirmPassword" className="form-label">Confirmer le mot de passe</label>
                     <div className="d-flex align-items-center position-relative">
                       <input
                         type={showConfirmPassword ? "text" : "password"}
-                        className="form-control flex-grow-1"
-                        style={{ paddingRight: "3rem" }}
+                        className="form-control pe-5"
+                        id="inputConfirmPassword"
                         required
                       />
                       <div
+                        className="eye-icon"
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        style={{
-                          position: "absolute",
-                          right: "0.5rem",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          cursor: "pointer",
-                          height: "100%",
-                          width: "24px",
-                        }}
                       >
                         <EyeIcon visible={!showConfirmPassword} />
                       </div>
                     </div>
+                  </div>
+
+                  <div className="text-start">
+                    <p className="text-secondary small">
+                      Minimum 8 caractères, doit contenir une majuscule et un caractère spécial.
+                    </p>
                   </div>
                 </div>
               </>
@@ -171,14 +150,13 @@ function App() {
 
           {/* Bouton + lien */}
           <div className="text-center mt-auto d-flex flex-column align-items-center">
-            <button type="submit" className="btn btn-primary w-50 fs-5 mb-2">
+            <button type="submit" className="btn blue-button w-50 fs-5 mb-2">
               {isConnexion ? "Se connecter" : "S'inscrire"}
             </button>
             <a
               href="#"
               onClick={(e) => { e.preventDefault(); changeForm(); }}
-              className="text-dark text-decoration-none"
-              style={{ cursor: "pointer" }}
+              className="text-dark text-decoration-none link-pointer"
             >
               {isConnexion
                 ? "Tu n’as pas de compte ? Inscris-toi !"

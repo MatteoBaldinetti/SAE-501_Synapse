@@ -1,1 +1,0 @@
-# SAE501_Synapse

@@ -37,7 +37,9 @@ public class UserController {
         return this.userService.updateUser(user, user.getId());
     }
 
-
-
-
+    @GetMapping("/email/{email}")
+    public User getUserByEmail(@PathVariable String email) {
+        System.out.println("email: " + email);
+        return userService.getUserByEmail(email);
+    }
 }

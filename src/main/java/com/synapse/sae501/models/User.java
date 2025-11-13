@@ -23,9 +23,6 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private String salt;
-
-    @Column(nullable = false)
     private int type;
 
     @OneToMany(mappedBy = "user")
@@ -36,12 +33,11 @@ public class User {
 
     public User() {}
 
-    public User(String firstname, String lastname, String email, String password, String salt, int type) {
+    public User(String firstname, String lastname, String email, String password, int type) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
-        this.salt = salt;
         this.type = type;
     }
 
@@ -83,14 +79,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 
     public int getType() {

@@ -3,6 +3,7 @@ package com.synapse.sae501.models;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 public class Session {
@@ -30,6 +31,12 @@ public class Session {
     @ManyToOne
     @JoinColumn(name = "place_id", nullable = false)
     private Place place;
+
+    @OneToMany(mappedBy = "session")
+    private List<Inscription> inscriptions;
+
+    @OneToMany(mappedBy = "session")
+    private List<Result> results;
 
     public Session() {}
 
@@ -96,5 +103,21 @@ public class Session {
 
     public void setPlace(Place place) {
         this.place = place;
+    }
+
+    public List<Inscription> getInscriptions() {
+        return inscriptions;
+    }
+
+    public void setInscriptions(List<Inscription> inscriptions) {
+        this.inscriptions = inscriptions;
+    }
+
+    public List<Result> getResults() {
+        return results;
+    }
+
+    public void setResults(List<Result> results) {
+        this.results = results;
     }
 }

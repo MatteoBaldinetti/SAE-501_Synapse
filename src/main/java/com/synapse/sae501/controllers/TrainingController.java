@@ -33,7 +33,7 @@ public class TrainingController {
 
     @PutMapping("/{id}")
     public Training updateTraining(@PathVariable Long id, @RequestBody Training training){
-        return this.trainingService.updateTraining(training, training.getId());
+        return this.trainingService.updateTraining(training, id);
     }
 
 }

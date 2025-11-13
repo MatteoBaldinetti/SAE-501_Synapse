@@ -35,7 +35,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User user) {
-        return this.userService.updateUser(user, user.getId());
+        return this.userService.updateUser(user, id);
     }
 
     @GetMapping("/email/{email}")

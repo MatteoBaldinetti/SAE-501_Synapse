@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/sessions")
+@CrossOrigin(origins = "*")
 public class SessionController {
 
     @Autowired

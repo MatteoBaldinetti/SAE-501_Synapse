@@ -8,6 +8,7 @@ import com.synapse.sae501.models.Result;
 
 @RestController
 @RequestMapping("/api/results")
+@CrossOrigin(origins = "*")
 public class ResultController {
 
     @Autowired

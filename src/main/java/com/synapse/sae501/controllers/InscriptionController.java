@@ -14,16 +14,24 @@ public class InscriptionController {
     private InscriptionService inscriptionService;
 
     @PostMapping
-    public Inscription createInscription(@RequestBody Inscription inscription){return this.inscriptionService.createInscription(inscription);}
-
-    @GetMapping("/{id}")
-    public Inscription getInscriptionById(@PathVariable Long id){return this.inscriptionService.getInscriptionById(id);}
+    public Inscription createInscription(@RequestBody Inscription inscription) {
+        return this.inscriptionService.createInscription(inscription);
+    }
 
     @GetMapping
-    public Iterable<Inscription> getAllInscriptions(){return this.inscriptionService.getAllInscriptions();}
+    public Iterable<Inscription> getAllInscriptions() {
+        return this.inscriptionService.getAllInscriptions();
+    }
+
+    @GetMapping("/{id}")
+    public Inscription getInscriptionById(@PathVariable Long id) {
+        return this.inscriptionService.getInscriptionById(id);
+    }
 
     @DeleteMapping("/{id}")
-    public void deleteInscriptionById(@PathVariable Long id){this.inscriptionService.deleteInscriptionById(id);}
+    public void deleteInscriptionById(@PathVariable Long id) {
+        this.inscriptionService.deleteInscriptionById(id);
+    }
 
     @PutMapping("/{id}")
     public Inscription updateInscription(@PathVariable Long id, @RequestBody Inscription inscription){

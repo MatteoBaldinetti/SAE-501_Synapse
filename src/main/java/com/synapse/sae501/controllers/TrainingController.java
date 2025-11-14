@@ -14,7 +14,9 @@ public class TrainingController {
     private TrainingService trainingService;
 
     @PostMapping
-    public Training createTraining(@RequestBody Training training){return this.trainingService.createTraining(training);}
+    public Training createTraining(@RequestBody Training training) {
+        return this.trainingService.createTraining(training);
+    }
 
     @GetMapping
     public Iterable<Training> getAllTrainings() {
@@ -22,7 +24,7 @@ public class TrainingController {
     }
 
     @GetMapping("/{id}")
-    public Training getTrainingById(@PathVariable Long id){
+    public Training getTrainingById(@PathVariable Long id) {
         return this.trainingService.getTrainingById(id);
     }
 
@@ -35,5 +37,4 @@ public class TrainingController {
     public Training updateTraining(@PathVariable Long id, @RequestBody Training training){
         return this.trainingService.updateTraining(training, id);
     }
-
 }

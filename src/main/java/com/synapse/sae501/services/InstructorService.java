@@ -24,7 +24,7 @@ public class InstructorService {
         return this.instructorRepository.findAll();
     }
 
-    public void  deleteInstructorById(Long id){
+    public void deleteInstructorById(Long id){
         this.instructorRepository.deleteById(id);
     }
 

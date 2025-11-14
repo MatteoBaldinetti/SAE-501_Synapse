@@ -15,12 +15,12 @@ public class TrainingService {
         return this.trainingRepository.save(training);
     }
 
-    public Iterable<Training> getAllTrainings(){
-        return this.trainingRepository.findAll();
-    }
-
     public Training getTrainingById(Long id){
         return this.trainingRepository.findById(id).get();
+    }
+
+    public Iterable<Training> getAllTrainings(){
+        return this.trainingRepository.findAll();
     }
 
     public void deleteTrainingById(Long id){

@@ -40,7 +40,6 @@ public class UserController {
 
     @GetMapping("/email/{email}")
     public User getUserByEmail(@PathVariable String email) {
-        System.out.println("email: " + email);
         return userService.getUserByEmail(email);
     }
 }

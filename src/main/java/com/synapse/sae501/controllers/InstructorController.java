@@ -14,16 +14,24 @@ public class InstructorController {
     private InstructorService instructorService;
 
     @PostMapping
-    public Instructor createInstructor(@RequestBody Instructor instructor){return this.instructorService.createInstructor(instructor);}
-
-    @GetMapping("/{id}")
-    public Instructor getInstructorById(@PathVariable Long id){return this.instructorService.getInstructorById(id);}
+    public Instructor createInstructor(@RequestBody Instructor instructor) {
+        return this.instructorService.createInstructor(instructor);
+    }
 
     @GetMapping
-    public Iterable<Instructor> getAllInstructors() {return this.instructorService.getAllInstructors();}
+    public Iterable<Instructor> getAllInstructors() {
+        return this.instructorService.getAllInstructors();
+    }
 
-    @DeleteMapping
-    public void deleteInstructorById(@RequestParam Long id){this.instructorService.deleteInstructorById(id);}
+    @GetMapping("/{id}")
+    public Instructor getInstructorById(@PathVariable Long id) {
+        return this.instructorService.getInstructorById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteInstructorById(@PathVariable Long id) {
+        this.instructorService.deleteInstructorById(id);
+    }
 
     @PutMapping("/{id}")
     public Instructor updateInstructor(@PathVariable Long id, @RequestBody Instructor instructor){

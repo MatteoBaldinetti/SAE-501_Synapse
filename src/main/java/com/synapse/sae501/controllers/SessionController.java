@@ -24,12 +24,12 @@ public class SessionController {
     }
 
     @GetMapping("/{id}")
-    public Session getSessionById(@PathVariable("id") Long id){
+    public Session getSessionById(@PathVariable Long id) {
         return sessionService.getSessionById(id);
     }
 
-    @DeleteMapping
-    public void deleteSessionById(@PathVariable("id") Long id) {
+    @DeleteMapping("/{id}")
+    public void deleteSessionById(@PathVariable Long id) {
         sessionService.deleteSessionById(id);
     }
 

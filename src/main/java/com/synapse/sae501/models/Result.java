@@ -1,6 +1,5 @@
 package com.synapse.sae501.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity

@@ -1,8 +1,12 @@
 import "../styles/Navbar.css";
 import smallLogo from "../assets/images/smallLogo.webp";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+
+import profilePicture from '../assets/images/profile_picture.webp';
 
 function Navbar() {
+    const { userEmail, userFirstname, userLastname, userType, logout } = useAuth();
     const navigate = useNavigate();
 
     const goToLogin = (isSignUp) => {
@@ -47,20 +51,51 @@ function Navbar() {
                         </li>
                     </ul>
 
-                    <button
-                        className="btn blue-button me-3"
-                        type="button"
-                        onClick={() => goToLogin(false)}
-                    >
-                        Se connecter
-                    </button>
-                    <button
-                        className="btn blue-button-outline"
-                        type="button"
-                        onClick={() => goToLogin(true)}
-                    >
-                        S'inscrire
-                    </button>
+                    {userEmail !== null ? (
+                        <div className="dropdown me-5">
+                            <img
+                                src={profilePicture}
+                                width={40}
+                                className="rounded-circle dropdown-toggle"
+                                id="dropdownUser"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                alt="Profil"
+                                style={{ cursor: "pointer" }}
+                            />
+
+                            <ul className="dropdown-menu dropdown-menu-end profile-dropdown" aria-labelledby="dropdownUser">
+                                <li><span className="dropdown-item-text fw-bold">{userFirstname} {userLastname}</span></li>
+                                <li><hr className="dropdown-divider" /></li>
+                                <li><Link className="dropdown-item" to="/profil">Mon profil</Link></li>
+
+                                <li><hr className="dropdown-divider" /></li>
+
+                                <li>
+                                    <button className="dropdown-item text-danger" onClick={logout}>
+                                        Se déconnecter
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    ) : (
+                        <>
+                            <button
+                                className="btn blue-button me-3"
+                                type="button"
+                                onClick={() => goToLogin(false)}
+                            >
+                                Se connecter
+                            </button>
+                            <button
+                                className="btn blue-button-outline"
+                                type="button"
+                                onClick={() => goToLogin(true)}
+                            >
+                                S'inscrire
+                            </button>
+                        </>
+                    )}
                 </div>
             </div>
         </nav>

@@ -9,8 +9,9 @@ import Login from "./pages/Login";
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
+    <Router>
+      <AuthProvider>
+
         <ScrollToTop />
         <Navbar />
         <Routes>
@@ -18,8 +19,8 @@ function App() {
           <Route path="/login" element={<Login />} />
         </Routes>
         <Footer />
-      </Router>
-    </AuthProvider>
+      </AuthProvider>
+    </Router>
   );
 }
 

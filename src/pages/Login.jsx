@@ -2,9 +2,10 @@ import { useState, useRef, useEffect } from "react";
 import "../styles/Login.css";
 import { useAuth } from "../contexts/AuthContext";
 import { useLocation } from "react-router-dom";
+import bcrypt from "bcryptjs";
 
 function Login() {
-  const { login, loading } = useAuth();
+  const { login, authLoading } = useAuth();
   const location = useLocation();
 
   const [isConnexion, setIsConnexion] = useState(!(location.state?.isSignUp ?? false));
@@ -62,21 +63,32 @@ function Login() {
     setError("");
 
     try {
+      const passwordRegex = /^(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
+
+      if (!passwordRegex.test(signupPassword)) {
+        setError("Le mot de passe ne répond pas au exigence");
+        return;
+      }
+
       if (signupPassword !== confirmPassword) {
         setError("Les mots de passe ne correspondent pas");
         return;
       }
-      //SALT
-      // bcrypt.genSalt(5)
-      const res = await fetch("http://localhost:8080/api/signup", {
+
+      const salt = await bcrypt.genSalt(5);
+
+      const newUser = {
+        firstname: firstname,
+        lastname: lastname,
+        email: signupEmail,
+        password: await bcrypt.hash(signupPassword, salt),
+        type: 0,
+      }
+
+      const res = await fetch("http://localhost:8080/api/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          firstname,
-          lastname,
-          email: signupEmail,
-          password: signupPassword,
-        }),
+        body: JSON.stringify(newUser),
       });
 
       if (!res.ok) throw new Error("Erreur lors de l'inscription");
@@ -136,8 +148,8 @@ function Login() {
                   </a>
                 </div>
                 <div className="form-bottom d-flex flex-column align-items-center">
-                  <button type="submit" className="btn blue-button w-50 fs-5 mb-2" disabled={loading}>
-                    {loading ? "Connexion..." : "Se connecter"}
+                  <button type="submit" className="btn blue-button w-50 fs-5 mb-2" disabled={authLoading}>
+                    {authLoading ? "Connexion..." : "Se connecter"}
                   </button>
                 </div>
               </form>
@@ -217,8 +229,8 @@ function Login() {
                   Minimum 8 caractères, doit contenir une majuscule et un caractère spécial.
                 </p>
                 <div className="form-bottom d-flex flex-column align-items-center">
-                  <button type="submit" className="btn blue-button w-50 fs-5 mb-2" disabled={loading}>
-                    {loading ? "Inscription..." : "S'inscrire"}
+                  <button type="submit" className="btn blue-button w-50 fs-5 mb-2" disabled={authLoading}>
+                    {authLoading ? "Inscription..." : "S'inscrire"}
                   </button>
                 </div>
               </form>

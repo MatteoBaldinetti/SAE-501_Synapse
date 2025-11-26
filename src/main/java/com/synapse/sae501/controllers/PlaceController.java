@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/place")
+@RequestMapping("/api/places")
 @CrossOrigin(origins = "*")
 public class PlaceController {
 

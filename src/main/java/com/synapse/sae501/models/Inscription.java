@@ -1,5 +1,6 @@
 package com.synapse.sae501.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
@@ -23,10 +24,12 @@ public class Inscription {
     private float amount;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "session_id", nullable = false)
     private Session session;
 

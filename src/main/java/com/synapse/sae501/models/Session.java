@@ -1,5 +1,7 @@
 package com.synapse.sae501.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
@@ -21,21 +23,26 @@ public class Session {
     private int capacity;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "training_id", nullable = false)
     private Training training;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "instructor_id", nullable = false)
     private Instructor instructor;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "place_id", nullable = false)
     private Place place;
 
     @OneToMany(mappedBy = "session")
+    @JsonManagedReference
     private List<Inscription> inscriptions;
 
     @OneToMany(mappedBy = "session")
+    @JsonManagedReference
     private List<Result> results;
 
     public Session() {}

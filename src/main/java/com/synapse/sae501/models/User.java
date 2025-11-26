@@ -1,5 +1,6 @@
 package com.synapse.sae501.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -26,9 +27,11 @@ public class User {
     private int type;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private List<Inscription> inscriptions;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private List<Result> results;
 
     public User() {}

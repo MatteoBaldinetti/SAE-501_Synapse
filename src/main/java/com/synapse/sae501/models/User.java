@@ -27,11 +27,9 @@ public class User {
     private int type;
 
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference
     private List<Inscription> inscriptions;
 
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference
     private List<Result> results;
 
     public User() {}

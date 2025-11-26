@@ -16,12 +16,10 @@ public class Result {
     private String description;
 
     @ManyToOne
-    @JsonBackReference
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
-    @JsonBackReference
     @JoinColumn(name = "session_id", nullable = false)
     private Session session;
 

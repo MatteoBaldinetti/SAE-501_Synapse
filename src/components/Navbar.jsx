@@ -6,7 +6,7 @@ import { useAuth } from "../contexts/AuthContext";
 import profilePicture from '../assets/images/profile_picture.webp';
 
 function Navbar() {
-    const { userEmail, userFirstname, userLastname, userType, logout } = useAuth();
+    const { userId, userEmail, userFirstname, userLastname, userType, logout } = useAuth();
     const navigate = useNavigate();
 
     const goToLogin = (isSignUp) => {
@@ -51,7 +51,7 @@ function Navbar() {
                         </li>
                     </ul>
 
-                    {userEmail !== null ? (
+                    {userId !== null ? (
                         <div className="dropdown me-5">
                             <img
                                 src={profilePicture}

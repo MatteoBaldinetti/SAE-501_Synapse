@@ -1,12 +1,10 @@
 import "../styles/Home.css";
-import { useAuth } from "../contexts/AuthContext";
 
 import famousCourse1 from '../assets/images/famous_course1.webp'
 import famousCourse2 from '../assets/images/famous_course2.webp'
 import famousCourse3 from '../assets/images/famous_course3.webp'
 
 function Home() {
-    const { userEmail, userFirstname, userLastname, userType } = useAuth();
     return (
         <>
             <header className="container my-5">

@@ -11,8 +11,19 @@ public class Training {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
+    @Lob
     private String description;
+
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
+    @Lob
+    private String detailedDescription;
+
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
+    @Lob
+    private String prerequisites;
+
+    private String imgName;
 
     @Column(nullable = false)
     private String category;
@@ -25,9 +36,12 @@ public class Training {
 
     public Training() {}
 
-    public Training(String title, String description, String category, float duration, float price) {
+    public Training(String title, String description, String detailedDescription, String prerequisites, String imgName, String category, float duration, float price) {
         this.title = title;
         this.description = description;
+        this.detailedDescription = detailedDescription;
+        this.prerequisites = prerequisites;
+        this.imgName = imgName;
         this.category = category;
         this.duration = duration;
         this.price = price;
@@ -55,6 +69,30 @@ public class Training {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDetailedDescription() {
+        return detailedDescription;
+    }
+
+    public void setDetailedDescription(String detailedDescription) {
+        this.detailedDescription = detailedDescription;
+    }
+
+    public String getPrerequisites() {
+        return prerequisites;
+    }
+
+    public void setPreRequisites(String prerequisites) {
+        this.prerequisites = prerequisites;
+    }
+
+    public String getImgName() {
+        return imgName;
+    }
+
+    public void setImgName(String imgName) {
+        this.imgName = imgName;
     }
 
     public String getCategory() {

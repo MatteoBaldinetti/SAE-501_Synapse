@@ -19,6 +19,11 @@ public class ImageController {
     @Autowired
     private ImageService imageService;
 
+    @GetMapping
+    public Iterable<Image> getAllImages() {
+        return imageService.getAllImages();
+    }
+
     @DeleteMapping("/{fileName}")
     public ResponseEntity<String> deleteImage(@PathVariable String fileName) {
         boolean deleted = imageService.deleteImage(fileName);

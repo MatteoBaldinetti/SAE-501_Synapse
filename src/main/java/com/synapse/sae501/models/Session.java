@@ -3,7 +3,6 @@ package com.synapse.sae501.models;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 public class Session {

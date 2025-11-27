@@ -25,11 +25,12 @@ public class User {
     @Column(nullable = false)
     private int type;
 
-    @OneToMany(mappedBy = "user")
-    private List<Inscription> inscriptions;
-
-    @OneToMany(mappedBy = "user")
-    private List<Result> results;
+//    Do not delete this, I commented this to fix the GET method from sending too much data.
+//    @OneToMany(mappedBy = "user")
+//    private List<Inscription> inscriptions;
+//
+//    @OneToMany(mappedBy = "user")
+//    private List<Result> results;
 
     public User() {}
 
@@ -87,21 +88,5 @@ public class User {
 
     public void setType(int type) {
         this.type = type;
-    }
-
-    public List<Inscription> getInscriptions() {
-        return inscriptions;
-    }
-
-    public void setInscriptions(List<Inscription> inscriptions) {
-        this.inscriptions = inscriptions;
-    }
-
-    public List<Result> getResults() {
-        return results;
-    }
-
-    public void setResults(List<Result> results) {
-        this.results = results;
     }
 }

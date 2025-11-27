@@ -32,11 +32,12 @@ public class Session {
     @JoinColumn(name = "place_id", nullable = false)
     private Place place;
 
-    @OneToMany(mappedBy = "session")
-    private List<Inscription> inscriptions;
-
-    @OneToMany(mappedBy = "session")
-    private List<Result> results;
+//    Do not delete this, I commented this to fix the GET method from sending too much data.
+//    @OneToMany(mappedBy = "session")
+//    private List<Inscription> inscriptions;
+//
+//    @OneToMany(mappedBy = "session")
+//    private List<Result> results;
 
     public Session() {}
 
@@ -103,21 +104,5 @@ public class Session {
 
     public void setPlace(Place place) {
         this.place = place;
-    }
-
-    public List<Inscription> getInscriptions() {
-        return inscriptions;
-    }
-
-    public void setInscriptions(List<Inscription> inscriptions) {
-        this.inscriptions = inscriptions;
-    }
-
-    public List<Result> getResults() {
-        return results;
-    }
-
-    public void setResults(List<Result> results) {
-        this.results = results;
     }
 }

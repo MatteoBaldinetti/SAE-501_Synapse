@@ -30,15 +30,20 @@ public class Inscription {
     @JoinColumn(name = "session_id", nullable = false)
     private Session session;
 
+    @ManyToOne
+    @JoinColumn(name = "training_id", nullable = false)
+    private Training training;
+
     public Inscription() {}
 
-    public Inscription(Timestamp inscriptionDate, String status, Timestamp date, float amount, User user, Session session) {
+    public Inscription(Timestamp inscriptionDate, String status, Timestamp date, float amount, User user, Session session, Training training) {
         this.inscriptionDate = inscriptionDate;
         this.status = status;
         this.date = date;
         this.amount = amount;
         this.user = user;
         this.session = session;
+        this.training = training;
     }
 
     public Long getId() {
@@ -95,5 +100,13 @@ public class Inscription {
 
     public void setSession(Session session) {
         this.session = session;
+    }
+
+    public Training getTraining() {
+        return training;
+    }
+
+    public void setTraining(Training training) {
+        this.training = training;
     }
 }

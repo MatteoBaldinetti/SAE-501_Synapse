@@ -17,6 +17,16 @@ public class Session {
     private Timestamp endDate;
 
     @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
+    @Lob
+    private String description;
+
+    @Column(nullable = false)
+    private float duration;
+
+    @Column(nullable = false)
     private int capacity;
 
     @ManyToOne
@@ -40,9 +50,12 @@ public class Session {
 
     public Session() {}
 
-    public Session(Timestamp startDate, Timestamp endDate, int capacity, Training training, Instructor instructor, Place place) {
+    public Session(Timestamp startDate, Timestamp endDate, String title, String description, float duration, int capacity, Training training, Instructor instructor, Place place) {
         this.startDate = startDate;
         this.endDate = endDate;
+        this.title = title;
+        this.description = description;
+        this.duration = duration;
         this.capacity = capacity;
         this.training = training;
         this.instructor = instructor;
@@ -71,6 +84,30 @@ public class Session {
 
     public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public float getDuration() {
+        return duration;
+    }
+
+    public void setDuration(float duration) {
+        this.duration = duration;
     }
 
     public int getCapacity() {

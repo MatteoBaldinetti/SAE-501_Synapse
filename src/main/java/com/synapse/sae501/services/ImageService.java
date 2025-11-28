@@ -24,7 +24,7 @@ public class ImageService {
     @Autowired
     private ImageRepository imageRepository;
 
-    private final String uploadDir = "uploads/images/";
+    private final String uploadDir = "/workspace/uploads/images/";
 
     public Iterable<Image> getAllImages() {
         return imageRepository.findAll();

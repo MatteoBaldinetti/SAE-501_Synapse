@@ -178,7 +178,7 @@ function CoursPayment() {
         <div className="container-fluid">
             <div className="row">
                 <div className="col-8 px-5 left-scroll-container">
-                    <div className="row pt-4 px-0 mb-3">
+                    <div className="row pt-4 px-1 mb-3">
                         <div className="col-12 d-flex align-items-center gap-4 cours-header mx-auto">
                             <Link className="btn btn-return" to={`/cours-detail/${data.id}`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width={20} height={30} viewBox="0 0 576 512"><path fill="#ffffff" d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 288 544 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-434.7 0 73.4-73.4c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-128 128z" /></svg>

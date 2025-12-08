@@ -6,7 +6,7 @@ import { useAuth } from "../contexts/AuthContext";
 import profilePicture from '../assets/images/profile_picture.webp';
 
 function Navbar() {
-    const { userId, userEmail, userFirstname, userLastname, userType, logout } = useAuth();
+    const { userId, userEmail, userFirstname, userLastname, userType, login, logout, authLoading } = useAuth();
     const navigate = useNavigate();
 
     const goToLogin = (isSignUp) => {

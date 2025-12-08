@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import "../styles/Home.css";
 
 import famousCourse1 from '../assets/images/famous_course1.webp'
@@ -13,7 +15,7 @@ function Home() {
                         <h1 id="header-title" className="text-center text-white">Libérez votre potentiel grâce à des<br />cours dispensés par des experts</h1>
                         <p className="text-white text-center fs-4">Rejoignez une communauté dynamique d'apprenants et acquérez des compétences très recherchées grâce à nos programmes de formation complets.</p>
                         <div className="d-flex justify-content-center">
-                            <button className="btn btn-lg blue-button">Voir nos cours</button>
+                            <Link className="btn btn-lg blue-button"  to="/cours">Voir nos cours</Link>
                         </div>
                     </div>
                 </div>

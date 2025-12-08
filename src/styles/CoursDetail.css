@@ -1,0 +1,35 @@
+.blue-background {
+    background-color: #9DCCFF4D;
+}
+
+.ariane-link {
+    text-decoration: none;
+}
+
+.ariane-link:hover {
+    text-decoration: underline;
+    color: #005D88 !important;
+}
+
+.active-ariane-link {
+    color: #005D88
+}
+
+.btn-return {
+    background-color: #005D88;
+}
+
+.btn-return:hover {
+    background-color: #0C232B;
+    color: white;
+}
+
+.btn-login-inscritpion {
+    background-color: #005D88;
+    color: white;
+}
+
+.btn-login-inscritpion:hover {
+    background-color: #0C232B;
+    color: white;
+}

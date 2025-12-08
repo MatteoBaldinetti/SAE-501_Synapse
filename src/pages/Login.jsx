@@ -3,6 +3,7 @@ import "../styles/Login.css";
 import { useAuth } from "../contexts/AuthContext";
 import { useLocation } from "react-router-dom";
 import bcrypt from "bcryptjs";
+import { API_URL } from "../constants/apiConstants";
 
 function Login() {
   const { login, authLoading } = useAuth();
@@ -85,7 +86,7 @@ function Login() {
         type: 0,
       }
 
-      const res = await fetch("http://localhost:8080/api/users", {
+      const res = await fetch(`${API_URL}/users`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newUser),

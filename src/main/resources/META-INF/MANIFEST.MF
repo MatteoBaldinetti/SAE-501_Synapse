@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Main-Class: com.synapse.sae501.Sae501Application
+

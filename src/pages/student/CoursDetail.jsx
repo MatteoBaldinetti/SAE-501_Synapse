@@ -1,8 +1,8 @@
 import "../styles/CoursDetail.css";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { API_URL } from "../constants/apiConstants";
-import { useAuth } from "../contexts/AuthContext";
+import { API_URL } from "../../constants/apiConstants";
+import { useAuth } from "../../contexts/AuthContext";
 
 function CoursDetail() {
     const { userId } = useAuth();

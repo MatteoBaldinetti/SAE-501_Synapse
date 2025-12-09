@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 
 import "../styles/Cours.css";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../../components/SearchBar";
 import { useEffect, useState } from "react";
-import { API_URL } from "../constants/apiConstants";
+import { API_URL } from "../../constants/apiConstants";
 
 function Cours() {
     const [data, setData] = useState([]);

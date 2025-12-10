@@ -1,0 +1,71 @@
+header {
+    position: relative;
+    background-image: url('../assets/images/home_header_background.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 0;
+}
+
+header>* {
+    position: relative;
+    z-index: 1;
+}
+
+#header-title {
+    font-size: 3vw;
+    font-weight: bold;
+}
+
+.blue-button {
+    background-color: #005D88;
+    color: white;
+}
+
+.blue-button:hover {
+    background-color: #0C232B;
+    color: white;
+}
+
+.blue-button-outline {
+    border: 2px solid #005D88;
+    color: #005D88;
+}
+
+.blue-button-outline:hover {
+    background-color: #0C232B;
+    color: white;
+}
+
+.famous-courses-image {
+    border-radius: 20px;
+    max-height: 25vh;
+    width: 100%;
+    object-fit: cover;
+}
+
+.grey-border-box {
+    border: 1px solid #DBDEE5;
+    border-radius: 15px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.grey-border-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}

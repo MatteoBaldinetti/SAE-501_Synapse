@@ -20,7 +20,7 @@ public class Inscription {
     private Timestamp date;
 
     @Column(nullable = false)
-    private float amount;
+    private Float amount;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -36,7 +36,7 @@ public class Inscription {
 
     public Inscription() {}
 
-    public Inscription(Timestamp inscriptionDate, String status, Timestamp date, float amount, User user, Session session, Training training) {
+    public Inscription(Timestamp inscriptionDate, String status, Timestamp date, Float amount, User user, Session session, Training training) {
         this.inscriptionDate = inscriptionDate;
         this.status = status;
         this.date = date;
@@ -78,11 +78,11 @@ public class Inscription {
         this.date = date;
     }
 
-    public float getAmount() {
+    public Float getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(Float amount) {
         this.amount = amount;
     }
 

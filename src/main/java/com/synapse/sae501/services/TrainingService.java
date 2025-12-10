@@ -2,8 +2,13 @@ package com.synapse.sae501.services;
 
 import com.synapse.sae501.models.Training;
 import com.synapse.sae501.repositories.TrainingRepository;
+import com.synapse.sae501.specifications.TrainingSpecifications;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TrainingService {
@@ -30,5 +35,37 @@ public class TrainingService {
     public Training updateTraining(Training training, Long id){
         training.setId(id);
         return this.trainingRepository.save(training);
+    }
+
+    public List<Training> searchTrainings(
+            Long id,
+            String title,
+            String description,
+            String detailedDescription,
+            String prerequisites,
+            String imgName,
+            String category,
+            Float duration,
+            Float price
+    ) {
+        List<Specification<Training>> specs = new ArrayList<>();
+
+        if (id != null) specs.add(TrainingSpecifications.hasId(id));
+        if (title != null) specs.add(TrainingSpecifications.hasTitle(title));
+        if (description != null) specs.add(TrainingSpecifications.hasDescription(description));
+        if (detailedDescription != null) specs.add(TrainingSpecifications.hasDetailedDescription(detailedDescription));
+        if (prerequisites != null) specs.add(TrainingSpecifications.hasPrerequisites(prerequisites));
+        if (imgName != null) specs.add(TrainingSpecifications.hasImgName(imgName));
+        if (category != null) specs.add(TrainingSpecifications.hasCategory(category));
+        if (duration != null) specs.add(TrainingSpecifications.hasDuration(duration));
+        if (price != null) specs.add(TrainingSpecifications.hasPrice(price));
+        
+
+        Specification<Training> finalSpec = specs.stream()
+                .reduce(Specification::and)
+                .orElse(null);
+
+
+        return finalSpec == null ? trainingRepository.findAll() : trainingRepository.findAll(finalSpec);
     }
 }

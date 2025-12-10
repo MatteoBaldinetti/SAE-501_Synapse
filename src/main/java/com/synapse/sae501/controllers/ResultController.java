@@ -1,9 +1,13 @@
 package com.synapse.sae501.controllers;
 
 import com.synapse.sae501.models.Result;
+import com.synapse.sae501.models.Session;
+import com.synapse.sae501.models.User;
 import com.synapse.sae501.services.ResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/results")
@@ -38,4 +42,13 @@ public class ResultController {
         return this.resultService.updateResult(result, id);
     }
 
+    @GetMapping("/search")
+    public List<Result> searchResults(@RequestParam(required = false) Long id,
+                                      @RequestParam(required = false) Float grade,
+                                      @RequestParam(required = false) String description,
+                                      @RequestParam(required = false) User user,
+                                      @RequestParam(required = false) Session session
+    ) {
+        return resultService.searchResults(id, grade, description, user, session);
+    }
 }

@@ -2,10 +2,13 @@ package com.synapse.sae501.services;
 
 import com.synapse.sae501.models.User;
 import com.synapse.sae501.repositories.UserRepository;
+import com.synapse.sae501.specifications.UserSpecifications;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.Dictionary;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -34,7 +37,28 @@ public class UserService {
         return this.userRepository.save(user);
     }
 
-    public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElse(new User());
+    public List<User> searchUsers(
+            Long id,
+            String firstname,
+            String lastname,
+            String email,
+            String password,
+            Integer type
+    ) {
+        List<Specification<User>> specs = new ArrayList<>();
+
+        if (id != null) specs.add(UserSpecifications.hasId(id));
+        if (firstname != null) specs.add(UserSpecifications.hasFirstname(firstname));
+        if (lastname != null) specs.add(UserSpecifications.hasLastname(lastname));
+        if (email != null) specs.add(UserSpecifications.hasEmail(email));
+        if (password != null) specs.add(UserSpecifications.hasPassword(password));
+        if (type != null) specs.add(UserSpecifications.hasType(type));
+
+        Specification<User> finalSpec = specs.stream()
+                .reduce(Specification::and)
+                .orElse(null);
+
+
+        return finalSpec == null ? userRepository.findAll() : userRepository.findAll(finalSpec);
     }
 }

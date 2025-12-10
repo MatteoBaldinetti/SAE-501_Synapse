@@ -24,10 +24,10 @@ public class Session {
     private String description;
 
     @Column(nullable = false)
-    private float duration;
+    private Float duration;
 
     @Column(nullable = false)
-    private int capacity;
+    private Integer capacity;
 
     @ManyToOne
     @JoinColumn(name = "training_id", nullable = false)
@@ -50,7 +50,7 @@ public class Session {
 
     public Session() {}
 
-    public Session(Timestamp startDate, Timestamp endDate, String title, String description, float duration, int capacity, Training training, Instructor instructor, Place place) {
+    public Session(Timestamp startDate, Timestamp endDate, String title, String description, Float duration, Integer capacity, Training training, Instructor instructor, Place place) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.title = title;
@@ -102,19 +102,19 @@ public class Session {
         this.description = description;
     }
 
-    public float getDuration() {
+    public Float getDuration() {
         return duration;
     }
 
-    public void setDuration(float duration) {
+    public void setDuration(Float duration) {
         this.duration = duration;
     }
 
-    public int getCapacity() {
+    public Integer getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
+    public void setCapacity(Integer capacity) {
         this.capacity = capacity;
     }
 

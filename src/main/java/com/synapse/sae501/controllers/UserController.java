@@ -5,6 +5,8 @@ import com.synapse.sae501.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin(origins = "*")
@@ -38,8 +40,14 @@ public class UserController {
         return this.userService.updateUser(user, id);
     }
 
-    @GetMapping("/email/{email}")
-    public User getUserByEmail(@PathVariable String email) {
-        return userService.getUserByEmail(email);
+    @GetMapping("/search")
+    public List<User> searchUsers(@RequestParam(required = false) Long id,
+                                  @RequestParam(required = false) String firstname,
+                                  @RequestParam(required = false) String lastname,
+                                  @RequestParam(required = false) String email,
+                                  @RequestParam(required = false) String password,
+                                  @RequestParam(required = false) Integer type
+    ) {
+        return userService.searchUsers(id, firstname, lastname, email, password, type);
     }
 }

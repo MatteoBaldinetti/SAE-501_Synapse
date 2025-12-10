@@ -18,11 +18,11 @@ public class Place {
     private String zip;
 
     @Column(nullable = false)
-    private int maxCapacity;
+    private Integer maxCapacity;
 
     public Place() {}
 
-    public Place(String city, String address, String zip, int maxCapacity) {
+    public Place(String city, String address, String zip, Integer maxCapacity) {
         this.city = city;
         this.address = address;
         this.zip = zip;
@@ -61,11 +61,11 @@ public class Place {
         this.zip = zip;
     }
 
-    public int getMaxCapacity() {
+    public Integer getMaxCapacity() {
         return maxCapacity;
     }
 
-    public void setMaxCapacity(int maxCapacity) {
+    public void setMaxCapacity(Integer maxCapacity) {
         this.maxCapacity = maxCapacity;
     }
 }

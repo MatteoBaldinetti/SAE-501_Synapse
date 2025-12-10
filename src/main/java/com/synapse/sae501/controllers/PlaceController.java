@@ -5,6 +5,8 @@ import com.synapse.sae501.services.PlaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/places")
 @CrossOrigin(origins = "*")
@@ -36,5 +38,15 @@ public class PlaceController {
     @PutMapping("/{id}")
     public Place updatePlace(@PathVariable Long id, @RequestBody Place place){
         return this.placeService.updatePlace(place, id);
+    }
+
+    @GetMapping("/search")
+    public List<Place> searchPlaces(@RequestParam(required = false) Long id,
+                                    @RequestParam(required = false) String city,
+                                    @RequestParam(required = false) String address,
+                                    @RequestParam(required = false) String zip,
+                                    @RequestParam(required = false) Integer maxCapacity
+    ) {
+        return placeService.searchPlaces(id, city, address, zip, maxCapacity);
     }
 }

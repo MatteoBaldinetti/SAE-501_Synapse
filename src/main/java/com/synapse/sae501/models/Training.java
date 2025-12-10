@@ -29,14 +29,14 @@ public class Training {
     private String category;
 
     @Column(nullable = false)
-    private float duration;
+    private Float duration;
 
     @Column(nullable = false)
-    private float price;
+    private Float price;
 
     public Training() {}
 
-    public Training(String title, String description, String detailedDescription, String prerequisites, String imgName, String category, float duration, float price) {
+    public Training(String title, String description, String detailedDescription, String prerequisites, String imgName, String category, Float duration, Float price) {
         this.title = title;
         this.description = description;
         this.detailedDescription = detailedDescription;
@@ -103,19 +103,19 @@ public class Training {
         this.category = category;
     }
 
-    public float getDuration() {
+    public Float getDuration() {
         return duration;
     }
 
-    public void setDuration(float duration) {
+    public void setDuration(Float duration) {
         this.duration = duration;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 }

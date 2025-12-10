@@ -9,7 +9,7 @@ public class Result {
     private Long id;
 
     @Column(nullable = false)
-    private float grade;
+    private Float grade;
 
     @Column(nullable = false)
     private String description;
@@ -24,7 +24,7 @@ public class Result {
 
     public Result() {}
 
-    public Result(float grade, String description, User user, Session session) {
+    public Result(Float grade, String description, User user, Session session) {
         this.grade = grade;
         this.description = description;
         this.user = user;
@@ -39,11 +39,11 @@ public class Result {
         this.id = id;
     }
 
-    public float getGrade() {
+    public Float getGrade() {
         return grade;
     }
 
-    public void setGrade(float grade) {
+    public void setGrade(Float grade) {
         this.grade = grade;
     }
 

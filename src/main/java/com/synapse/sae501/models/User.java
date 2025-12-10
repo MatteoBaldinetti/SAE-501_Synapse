@@ -21,7 +21,7 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private int type;
+    private Integer type;
 
 //    Do not delete this, I commented this to fix the GET method from sending too much data.
 //    @OneToMany(mappedBy = "user")
@@ -32,7 +32,7 @@ public class User {
 
     public User() {}
 
-    public User(String firstname, String lastname, String email, String password, int type) {
+    public User(String firstname, String lastname, String email, String password, Integer type) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
@@ -80,11 +80,11 @@ public class User {
         this.password = password;
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 }

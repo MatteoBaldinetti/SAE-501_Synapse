@@ -5,6 +5,8 @@ import com.synapse.sae501.services.TrainingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/trainings")
 @CrossOrigin(origins = "*")
@@ -36,5 +38,19 @@ public class TrainingController {
     @PutMapping("/{id}")
     public Training updateTraining(@PathVariable Long id, @RequestBody Training training){
         return this.trainingService.updateTraining(training, id);
+    }
+
+    @GetMapping("/search")
+    public List<Training> searchTrainings(@RequestParam(required = false) Long id,
+                                          @RequestParam(required = false) String title,
+                                          @RequestParam(required = false) String description,
+                                          @RequestParam(required = false) String detailedDescription,
+                                          @RequestParam(required = false) String prerequisites,
+                                          @RequestParam(required = false) String imgName,
+                                          @RequestParam(required = false) String category,
+                                          @RequestParam(required = false) Float duration,
+                                          @RequestParam(required = false) Float price
+    ) {
+        return trainingService.searchTrainings(id, title, description, detailedDescription, prerequisites, imgName, category, duration, price);
     }
 }

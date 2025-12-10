@@ -245,7 +245,7 @@ function CoursPayment() {
                             <div className="row">
                                 <div className="col-8">
                                     <div className="form-check mb-3">
-                                        <input className="form-check-input" type="checkbox" id="sameAddress" checked={sameAddress} onChange={toggleSameAddress} />
+                                        <input className="form-check-input checkbox-color" type="checkbox" id="sameAddress" checked={sameAddress} onChange={toggleSameAddress} />
                                         <label className="form-check-label" htmlFor="sameAddress">Utiliser la même adresse que les informations personnelles</label>
                                     </div>
                                 </div>

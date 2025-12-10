@@ -34,9 +34,11 @@ public class Training {
     @Column(nullable = false)
     private Float price;
 
+    private String learnText;
+
     public Training() {}
 
-    public Training(String title, String description, String detailedDescription, String prerequisites, String imgName, String category, Float duration, Float price) {
+    public Training(String title, String description, String detailedDescription, String prerequisites, String imgName, String category, Float duration, Float price,  String learnText) {
         this.title = title;
         this.description = description;
         this.detailedDescription = detailedDescription;
@@ -45,6 +47,7 @@ public class Training {
         this.category = category;
         this.duration = duration;
         this.price = price;
+        this.learnText = learnText;
     }
 
     public Long getId() {
@@ -83,7 +86,7 @@ public class Training {
         return prerequisites;
     }
 
-    public void setPreRequisites(String prerequisites) {
+    public void setPrerequisites(String prerequisites) {
         this.prerequisites = prerequisites;
     }
 
@@ -117,5 +120,13 @@ public class Training {
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    public String getLearnText() {
+        return learnText;
+    }
+
+    public void setLearnText(String learnText) {
+        this.learnText = learnText;
     }
 }

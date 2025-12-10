@@ -49,8 +49,9 @@ public class TrainingController {
                                           @RequestParam(required = false) String imgName,
                                           @RequestParam(required = false) String category,
                                           @RequestParam(required = false) Float duration,
-                                          @RequestParam(required = false) Float price
+                                          @RequestParam(required = false) Float price,
+                                          @RequestParam(required = false) String learnText
     ) {
-        return trainingService.searchTrainings(id, title, description, detailedDescription, prerequisites, imgName, category, duration, price);
+        return trainingService.searchTrainings(id, title, description, detailedDescription, prerequisites, imgName, category, duration, price, learnText);
     }
 }

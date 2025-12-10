@@ -49,4 +49,9 @@ public class TrainingSpecifications {
         return (root, query, criteriaBuilder) ->
                 price == null ? null : criteriaBuilder.equal(root.get("price"), price);
     }
+
+    public static Specification<Training> hasLearnText(String learnText) {
+        return (root, query, criteriaBuilder) ->
+                learnText == null ? null : criteriaBuilder.equal(root.get("learnText"), learnText);
+    }
 }

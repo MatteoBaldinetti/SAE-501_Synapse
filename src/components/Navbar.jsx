@@ -68,6 +68,7 @@ function Navbar() {
                                 <li><span className="dropdown-item-text fw-bold">{userFirstname} {userLastname}</span></li>
                                 <li><hr className="dropdown-divider" /></li>
                                 <li><Link className="dropdown-item" to="/profil">Mon profil</Link></li>
+                                <li><Link className="dropdown-item" to="/dashboard">Tableau de bord</Link></li>
 
                                 <li><hr className="dropdown-divider" /></li>
 

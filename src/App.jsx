@@ -6,9 +6,10 @@ import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import Cours from "./pages/Cours";
-import CoursDetail from "./pages/CoursDetail";
-import CoursPayment from "./pages/CoursPayment";
+import Cours from "./pages/student/Cours";
+import CoursDetail from "./pages/student/CoursDetail";
+import CoursPayment from "./pages/student/CoursPayment";
+import Dashboard from "./pages/student/DashBoard";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/cours" element={<Cours />} />
           <Route path="/cours-detail/:id" element={<CoursDetail />} />
           <Route path="/cours-payment" element={<CoursPayment />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
         <Footer />
       </AuthProvider>

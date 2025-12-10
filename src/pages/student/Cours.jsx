@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import "../styles/Cours.css";
+import "../../styles/Cours.css";
 import SearchBar from "../../components/SearchBar";
 import { useEffect, useState } from "react";
 import { API_URL } from "../../constants/apiConstants";

@@ -1,4 +1,4 @@
-import "../styles/CoursPayment.css";
+import "../../styles/CoursPayment.css";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { API_URL } from "../../constants/apiConstants";

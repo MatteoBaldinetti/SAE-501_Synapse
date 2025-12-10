@@ -1,0 +1,24 @@
+body {
+    background-color: #e8f2ed;
+}
+
+.selected-button {
+    cursor: default !important;
+    background-color: #2EE88A;
+}
+
+.selected-button:hover{
+    background-color: #2EE88A !important;
+}
+
+.gestionnaire > div{
+    border-radius: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.gestionnaire > div:hover{
+    cursor: pointer;
+    background-color: #2ee88b4f;
+    transition: background-color 0.2s ease;
+}
+

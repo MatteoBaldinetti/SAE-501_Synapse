@@ -43,7 +43,8 @@ public class UserService {
             String lastname,
             String email,
             String password,
-            Integer type
+            Integer type,
+            String phoneNumber
     ) {
         List<Specification<User>> specs = new ArrayList<>();
 
@@ -53,6 +54,7 @@ public class UserService {
         if (email != null) specs.add(UserSpecifications.hasEmail(email));
         if (password != null) specs.add(UserSpecifications.hasPassword(password));
         if (type != null) specs.add(UserSpecifications.hasType(type));
+        if (phoneNumber != null) specs.add(UserSpecifications.hasPhoneNumber(phoneNumber));
 
         Specification<User> finalSpec = specs.stream()
                 .reduce(Specification::and)

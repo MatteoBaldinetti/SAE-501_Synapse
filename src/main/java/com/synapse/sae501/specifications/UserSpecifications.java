@@ -34,4 +34,9 @@ public class UserSpecifications {
         return (root, query, criteriaBuilder) ->
                 type == null ? null : criteriaBuilder.equal(root.get("type"), type);
     }
+
+    public static Specification<User> hasPhoneNumber(String phoneNumber) {
+        return (root, query, criteriaBuilder) ->
+                phoneNumber == null ? null : criteriaBuilder.equal(root.get("phoneNumber"), phoneNumber);
+    }
 }

@@ -23,6 +23,8 @@ public class User {
     @Column(nullable = false)
     private Integer type;
 
+    private String phoneNumber;
+
 //    Do not delete this, I commented this to fix the GET method from sending too much data.
 //    @OneToMany(mappedBy = "user")
 //    private List<Inscription> inscriptions;
@@ -32,12 +34,13 @@ public class User {
 
     public User() {}
 
-    public User(String firstname, String lastname, String email, String password, Integer type) {
+    public User(String firstname, String lastname, String email, String password, Integer type, String phoneNumber) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
         this.type = type;
+        this.phoneNumber = phoneNumber;
     }
 
     public Long getId() {
@@ -86,5 +89,13 @@ public class User {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

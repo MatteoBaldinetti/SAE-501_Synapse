@@ -1,8 +1,6 @@
 package com.synapse.sae501.specifications;
 
 import com.synapse.sae501.models.Result;
-import com.synapse.sae501.models.Session;
-import com.synapse.sae501.models.User;
 import org.springframework.data.jpa.domain.Specification;
 
 public class ResultSpecifications {
@@ -22,13 +20,13 @@ public class ResultSpecifications {
                 description == null ? null : criteriaBuilder.equal(root.get("description"), description);
     }
 
-    public static Specification<Result> hasUser(User user) {
+    public static Specification<Result> hasUserId(Long userId) {
         return (root, query, criteriaBuilder) ->
-                user == null ? null : criteriaBuilder.equal(root.get("user"), user);
+                userId == null ? null : criteriaBuilder.equal(root.get("user").get("id"), userId);
     }
 
-    public static Specification<Result> hasSession(Session session) {
+    public static Specification<Result> hasSessionId(Long sessionId) {
         return (root, query, criteriaBuilder) ->
-                session == null ? null : criteriaBuilder.equal(root.get("session"), session);
+                sessionId == null ? null : criteriaBuilder.equal(root.get("session").get("id"), sessionId);
     }
 }

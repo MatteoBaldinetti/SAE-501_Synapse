@@ -1,9 +1,6 @@
 package com.synapse.sae501.services;
 
 import com.synapse.sae501.models.Inscription;
-import com.synapse.sae501.models.Session;
-import com.synapse.sae501.models.Training;
-import com.synapse.sae501.models.User;
 import com.synapse.sae501.repositories.InscriptionRepository;
 import com.synapse.sae501.specifications.InscriptionSpecifications;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +44,9 @@ public class InscriptionService {
             String status,
             Timestamp date,
             Float amount,
-            User user,
-            Session session,
-            Training training
+            Long userId,
+            Long sessionId,
+            Long trainingId
     ) {
         List<Specification<Inscription>> specs = new ArrayList<>();
 
@@ -58,9 +55,9 @@ public class InscriptionService {
         if (status != null) specs.add(InscriptionSpecifications.hasStatus(status));
         if (date != null) specs.add(InscriptionSpecifications.hasDate(date));
         if (amount != null) specs.add(InscriptionSpecifications.hasAmount(amount));
-        if (user != null) specs.add(InscriptionSpecifications.hasUser(user));
-        if (session != null) specs.add(InscriptionSpecifications.hasSession(session));
-        if (training != null) specs.add(InscriptionSpecifications.hasTraining(training));
+        if (userId != null) specs.add(InscriptionSpecifications.hasUserId(userId));
+        if (sessionId != null) specs.add(InscriptionSpecifications.hasSessionId(sessionId));
+        if (trainingId != null) specs.add(InscriptionSpecifications.hasTrainingId(trainingId));
 
         Specification<Inscription> finalSpec = specs.stream()
                 .reduce(Specification::and)

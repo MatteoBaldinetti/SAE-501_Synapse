@@ -1,9 +1,6 @@
 package com.synapse.sae501.specifications;
 
 import com.synapse.sae501.models.Inscription;
-import com.synapse.sae501.models.Session;
-import com.synapse.sae501.models.Training;
-import com.synapse.sae501.models.User;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.sql.Timestamp;
@@ -35,18 +32,18 @@ public class InscriptionSpecifications {
                 amount == null ? null : criteriaBuilder.equal(root.get("amount"), amount);
     }
 
-    public static Specification<Inscription> hasUser(User user) {
+    public static Specification<Inscription> hasUserId(Long userId) {
         return (root, query, criteriaBuilder) ->
-                user == null ? null : criteriaBuilder.equal(root.get("user"), user);
+                userId == null ? null : criteriaBuilder.equal(root.get("user").get("id"), userId);
     }
 
-    public static Specification<Inscription> hasSession(Session session) {
+    public static Specification<Inscription> hasSessionId(Long sessionId) {
         return (root, query, criteriaBuilder) ->
-                session == null ? null : criteriaBuilder.equal(root.get("session"), session);
+                sessionId == null ? null : criteriaBuilder.equal(root.get("session").get("id"), sessionId);
     }
 
-    public static Specification<Inscription> hasTraining(Training training) {
+    public static Specification<Inscription> hasTrainingId(Long trainingId) {
         return (root, query, criteriaBuilder) ->
-                training == null ? null : criteriaBuilder.equal(root.get("training"), training);
+                trainingId == null ? null : criteriaBuilder.equal(root.get("training").get("id"), trainingId);
     }
 }

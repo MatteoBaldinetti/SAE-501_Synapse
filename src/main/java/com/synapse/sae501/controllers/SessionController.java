@@ -1,9 +1,6 @@
 package com.synapse.sae501.controllers;
 
-import com.synapse.sae501.models.Instructor;
-import com.synapse.sae501.models.Place;
 import com.synapse.sae501.models.Session;
-import com.synapse.sae501.models.Training;
 import com.synapse.sae501.services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -52,10 +49,10 @@ public class SessionController {
                                         @RequestParam(required = false) String description,
                                         @RequestParam(required = false) Float duration,
                                         @RequestParam(required = false) Integer capacity,
-                                        @RequestParam(required = false) Training training,
-                                        @RequestParam(required = false) Instructor instructor,
-                                        @RequestParam(required = false) Place place
+                                        @RequestParam(required = false) Long trainingId,
+                                        @RequestParam(required = false) Long instructorId,
+                                        @RequestParam(required = false) Long placeId
     ) {
-        return sessionService.searchSessions(id, startDate, endDate, title, description, duration, capacity, training, instructor, place);
+        return sessionService.searchSessions(id, startDate, endDate, title, description, duration, capacity, trainingId, instructorId, placeId);
     }
 }

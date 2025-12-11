@@ -1,9 +1,6 @@
 package com.synapse.sae501.services;
 
-import com.synapse.sae501.models.Instructor;
-import com.synapse.sae501.models.Place;
 import com.synapse.sae501.models.Session;
-import com.synapse.sae501.models.Training;
 import com.synapse.sae501.repositories.SessionRepository;
 import com.synapse.sae501.specifications.SessionSpecifications;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +46,9 @@ public class SessionService {
             String description,
             Float duration,
             Integer capacity,
-            Training training,
-            Instructor instructor,
-            Place place
+            Long trainingId,
+            Long instructorId,
+            Long placeId
     ) {
         List<Specification<Session>> specs = new ArrayList<>();
 
@@ -62,9 +59,9 @@ public class SessionService {
         if (description != null) specs.add(SessionSpecifications.hasDescription(description));
         if (duration != null) specs.add(SessionSpecifications.hasDuration(duration));
         if (capacity != null) specs.add(SessionSpecifications.hasCapacity(capacity));
-        if (training != null) specs.add(SessionSpecifications.hasTraining(training));
-        if (instructor != null) specs.add(SessionSpecifications.hasInstructor(instructor));
-        if (place != null) specs.add(SessionSpecifications.hasPlace(place));
+        if (trainingId != null) specs.add(SessionSpecifications.hasTrainingId(trainingId));
+        if (instructorId != null) specs.add(SessionSpecifications.hasInstructorId(instructorId));
+        if (placeId != null) specs.add(SessionSpecifications.hasPlaceId(placeId));
 
         Specification<Session> finalSpec = specs.stream()
                 .reduce(Specification::and)

@@ -1,9 +1,6 @@
 package com.synapse.sae501.controllers;
 
 import com.synapse.sae501.models.Inscription;
-import com.synapse.sae501.models.Session;
-import com.synapse.sae501.models.Training;
-import com.synapse.sae501.models.User;
 import com.synapse.sae501.services.InscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -50,10 +47,10 @@ public class InscriptionController {
                                                 @RequestParam(required = false) String status,
                                                 @RequestParam(required = false) Timestamp date,
                                                 @RequestParam(required = false) Float amount,
-                                                @RequestParam(required = false) User user,
-                                                @RequestParam(required = false) Session session,
-                                                @RequestParam(required = false) Training training
+                                                @RequestParam(required = false) Long userId,
+                                                @RequestParam(required = false) Long sessionId,
+                                                @RequestParam(required = false) Long trainingId
     ) {
-        return inscriptionService.searchInscriptions(id, inscriptionDate, status, date, amount, user, session, training);
+        return inscriptionService.searchInscriptions(id, inscriptionDate, status, date, amount, userId, sessionId, trainingId);
     }
 }

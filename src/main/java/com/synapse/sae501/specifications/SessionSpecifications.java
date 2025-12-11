@@ -1,9 +1,6 @@
 package com.synapse.sae501.specifications;
 
-import com.synapse.sae501.models.Instructor;
-import com.synapse.sae501.models.Place;
 import com.synapse.sae501.models.Session;
-import com.synapse.sae501.models.Training;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.sql.Timestamp;
@@ -44,18 +41,18 @@ public class SessionSpecifications {
                 capacity == null ? null : criteriaBuilder.equal(root.get("capacity"), capacity);
     }
 
-    public static Specification<Session> hasTraining(Training training) {
+    public static Specification<Session> hasTrainingId(Long trainingId) {
         return (root, query, criteriaBuilder) ->
-                training == null ? null : criteriaBuilder.equal(root.get("training"), training);
+                trainingId == null ? null : criteriaBuilder.equal(root.get("training").get("id"), trainingId);
     }
 
-    public static Specification<Session> hasInstructor(Instructor instructor) {
+    public static Specification<Session> hasInstructorId(Long instructorId) {
         return (root, query, criteriaBuilder) ->
-                instructor == null ? null : criteriaBuilder.equal(root.get("instructor"), instructor);
+                instructorId == null ? null : criteriaBuilder.equal(root.get("instructor").get("id"), instructorId);
     }
 
-    public static Specification<Session> hasPlace(Place place) {
+    public static Specification<Session> hasPlaceId(Long placeId) {
         return (root, query, criteriaBuilder) ->
-                place == null ? null : criteriaBuilder.equal(root.get("place"), place);
+                placeId == null ? null : criteriaBuilder.equal(root.get("place").get("id"), placeId);
     }
 }

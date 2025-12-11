@@ -1,7 +1,5 @@
 package com.synapse.sae501.services;
 
-import com.synapse.sae501.models.Session;
-import com.synapse.sae501.models.User;
 import com.synapse.sae501.repositories.ResultRepository;
 import com.synapse.sae501.specifications.ResultSpecifications;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,16 +42,16 @@ public class ResultService {
         Long id,
         Float grade,
         String description,
-        User user,
-        Session session
+        Long userId,
+        Long sessionId
     ) {
         List<Specification<Result>> specs = new ArrayList<>();
 
         if (id != null) specs.add(ResultSpecifications.hasId(id));
         if (grade != null) specs.add(ResultSpecifications.hasGrade(grade));
         if (description != null) specs.add(ResultSpecifications.hasDescription(description));
-        if (user != null) specs.add(ResultSpecifications.hasUser(user));
-        if (session != null) specs.add(ResultSpecifications.hasSession(session));
+        if (userId != null) specs.add(ResultSpecifications.hasUserId(userId));
+        if (sessionId != null) specs.add(ResultSpecifications.hasSessionId(sessionId));
 
         Specification<Result> finalSpec = specs.stream()
                 .reduce(Specification::and)

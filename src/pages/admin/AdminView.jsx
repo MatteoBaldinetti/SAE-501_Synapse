@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../../styles/AdminDashboard.css";
 import AdminFormation from "../../components/admin/Admin_formation";
+import AdminDashboard from "../../components/admin/Admin_dashboard";
 
 function AdminView() {
   const [CurrentLayout, SetCurrentLayout] = useState("dashboard");
@@ -21,10 +22,9 @@ function AdminView() {
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 640 640"
-                  className="me-2"
                   style={{ width: "1.5em", height: "1.5em" }}
                 >
-                  <path d="M304 70.1C313.1 61.9 326.9 61.9 336 70.1L568 278.1C577.9 286.9 578.7 302.1 569.8 312C560.9 321.9 545.8 322.7 535.9 313.8L527.9 306.6L527.9 511.9C527.9 547.2 499.2 575.9 463.9 575.9L175.9 575.9C140.6 575.9 111.9 547.2 111.9 511.9L111.9 306.6L103.9 313.8C94 322.6 78.9 321.8 70 312C61.1 302.2 62 287 71.8 278.1L304 70.1zM320 120.2L160 263.7L160 512C160 520.8 167.2 528 176 528L224 528L224 424C224 384.2 256.2 352 296 352L344 352C383.8 352 416 384.2 416 424L416 528L464 528C472.8 528 480 520.8 480 512L480 263.7L320 120.3zM272 528L368 528L368 424C368 410.7 357.3 400 344 400L296 400C282.7 400 272 410.7 272 424L272 528z" />
+                  <path d="M128 128C128 110.3 113.7 96 96 96C78.3 96 64 110.3 64 128L64 464C64 508.2 99.8 544 144 544L544 544C561.7 544 576 529.7 576 512C576 494.3 561.7 480 544 480L144 480C135.2 480 128 472.8 128 464L128 128zM534.6 214.6C547.1 202.1 547.1 181.8 534.6 169.3C522.1 156.8 501.8 156.8 489.3 169.3L384 274.7L326.6 217.4C314.1 204.9 293.8 204.9 281.3 217.4L185.3 313.4C172.8 325.9 172.8 346.2 185.3 358.7C197.8 371.2 218.1 371.2 230.6 358.7L304 285.3L361.4 342.7C373.9 355.2 394.2 355.2 406.7 342.7L534.7 214.7z" />
                 </svg>
                 <span>Tableau de bord</span>
               </div>
@@ -95,7 +95,8 @@ function AdminView() {
             </div>
           </div>
           <div className="col-9">
-            {CurrentLayout === "Formation" && <AdminFormation />}
+            {CurrentLayout === "dashboard" && <AdminDashboard />}
+            {CurrentLayout === "formation" && <AdminFormation />}
           </div>
         </div>
       </div>

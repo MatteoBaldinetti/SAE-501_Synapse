@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 9.5.0, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 9.5.0, for Linux (aarch64)
 --
 -- Host: localhost    Database: txlforma
 -- ------------------------------------------------------
@@ -414,7 +414,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'camille.dupont@example.fr','Camille','Dupont','MotDePasseTest123!',1,NULL,NULL),(2,'lucas.moreau@example.fr','Lucas','Moreau','PasswordTest456!',2,NULL,NULL),(3,'sofia.bernard@example.fr','Sofia','Bernard','Secret789!',1,NULL,NULL);
+INSERT INTO `user` VALUES (1,'camille.dupont@example.fr','Camille','Dupont','MotDePasseTest123!',1,NULL,NULL),(2,'lucas.moreau@example.fr','Lucas','Moreau','PasswordTest456!',2,NULL,NULL),(3,'sofia.bernard@example.fr','Sofia','Bernard','Secret789!',1,NULL,NULL),(52,'matteo.baldinetti1@gmail.com','Mattéo','Baldinetti','$2b$05$k/lfZKCa26eJ2.cN/RTIq.dxKgQT5NL4s/zOa2KWUXe7tDER9cUXi',0,NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -436,10 +436,9 @@ CREATE TABLE `user_seq` (
 
 LOCK TABLES `user_seq` WRITE;
 /*!40000 ALTER TABLE `user_seq` DISABLE KEYS */;
-INSERT INTO `user_seq` VALUES (101);
+INSERT INTO `user_seq` VALUES (151);
 /*!40000 ALTER TABLE `user_seq` ENABLE KEYS */;
 UNLOCK TABLES;
-SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -450,4 +449,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-12 10:49:47
+-- Dump completed on 2025-12-12 10:54:49

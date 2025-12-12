@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 9.5.0, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 9.5.0, for Linux (aarch64)
 --
 -- Host: localhost    Database: txlforma
 -- ------------------------------------------------------
@@ -16,50 +16,52 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `image`
+-- Table structure for table `file`
 --
 
-DROP TABLE IF EXISTS `image`;
+DROP TABLE IF EXISTS `file`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `image` (
+CREATE TABLE `file` (
   `id` bigint NOT NULL,
-  `file_name` varchar(255) DEFAULT NULL,
-  `uploaded_at` datetime(6) DEFAULT NULL,
-  `url` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `file_name` varchar(255) NOT NULL,
+  `uploaded_at` datetime(6) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UKdda6rwnjeromd54wdcf7eg6iy` (`file_name`),
+  UNIQUE KEY `UKb1ejaa6ldbypierrjmet5y18k` (`url`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `image`
+-- Dumping data for table `file`
 --
 
-LOCK TABLES `image` WRITE;
-/*!40000 ALTER TABLE `image` DISABLE KEYS */;
-/*!40000 ALTER TABLE `image` ENABLE KEYS */;
+LOCK TABLES `file` WRITE;
+/*!40000 ALTER TABLE `file` DISABLE KEYS */;
+/*!40000 ALTER TABLE `file` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `image_seq`
+-- Table structure for table `file_seq`
 --
 
-DROP TABLE IF EXISTS `image_seq`;
+DROP TABLE IF EXISTS `file_seq`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `image_seq` (
+CREATE TABLE `file_seq` (
   `next_val` bigint DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `image_seq`
+-- Dumping data for table `file_seq`
 --
 
-LOCK TABLES `image_seq` WRITE;
-/*!40000 ALTER TABLE `image_seq` DISABLE KEYS */;
-INSERT INTO `image_seq` VALUES (1);
-/*!40000 ALTER TABLE `image_seq` ENABLE KEYS */;
+LOCK TABLES `file_seq` WRITE;
+/*!40000 ALTER TABLE `file_seq` DISABLE KEYS */;
+INSERT INTO `file_seq` VALUES (1);
+/*!40000 ALTER TABLE `file_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -348,6 +350,7 @@ CREATE TABLE `training` (
   `prerequisites` longtext NOT NULL,
   `price` float NOT NULL,
   `title` varchar(255) NOT NULL,
+  `learn_text` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -358,7 +361,7 @@ CREATE TABLE `training` (
 
 LOCK TABLES `training` WRITE;
 /*!40000 ALTER TABLE `training` DISABLE KEYS */;
-INSERT INTO `training` VALUES (1,'Informatique','Introduction aux fondamentaux du développement web : HTML, CSS et JavaScript.','Cette formation initie les participants aux technologies de base du web. Nous abordons la structure d’une page HTML, la mise en forme avec CSS (box model, flexbox, grid) et les principes de base de JavaScript (variables, fonctions, DOM). Les sessions alternent théorie et ateliers pratiques : vous construirez une mini-application responsive de A à Z. À la fin du cours, vous serez capable de créer et déployer une page web simple, de connaître les bonnes pratiques d’accessibilité et d’optimisation des performances.',14,'dev-web-init.jpg','Aucun prérequis technique nécessaire ; curiosité pour l’informatique recommandée.',450,'Initiation au développement web'),(2,'Design','Méthodes et outils pour concevoir des interfaces centrées utilisateur.','La formation couvre le processus complet : recherche utilisateur, personas, architecture de l’information, wireframes, prototypage et tests utilisateurs. Des cas concrets permettent de comprendre l’importance de l’accessibilité, de la hiérarchie visuelle et des micro-interactions. Des ateliers guident les participants de l’idéation au prototype cliquable. Les apprenants reçoivent des retours personnalisés pour améliorer leur design.',21,'ux-ui-conception.jpg','Connaissance de base en informatique ; intérêt pour le design.',750,'Conception UX/UI pour produits numériques'),(3,'Management','Principes et pratiques agiles pour piloter des équipes efficacement.','Cette formation explore Scrum, Kanban, les cérémonies agile, la gestion du backlog, la planification, la rétrospective et les métriques. Grâce à des simulations de sprint et des jeux de rôles, les participants apprennent à prioriser la valeur, animer une équipe et favoriser la livraison continue. L’accent est mis sur le leadership agile, la communication et la gestion du changement dans les organisations.',16,'agile-gestion.jpg','Expérience professionnelle recommandée.',600,'Gestion de projet agile');
+INSERT INTO `training` VALUES (1,'Informatique','Introduction aux fondamentaux du développement web : HTML, CSS et JavaScript.','Cette formation initie les participants aux technologies de base du web. Nous abordons la structure d’une page HTML, la mise en forme avec CSS (box model, flexbox, grid) et les principes de base de JavaScript (variables, fonctions, DOM). Les sessions alternent théorie et ateliers pratiques : vous construirez une mini-application responsive de A à Z. À la fin du cours, vous serez capable de créer et déployer une page web simple, de connaître les bonnes pratiques d’accessibilité et d’optimisation des performances.',14,'dev-web-init.jpg','Aucun prérequis technique nécessaire ; curiosité pour l’informatique recommandée.',450,'Initiation au développement web',NULL),(2,'Design','Méthodes et outils pour concevoir des interfaces centrées utilisateur.','La formation couvre le processus complet : recherche utilisateur, personas, architecture de l’information, wireframes, prototypage et tests utilisateurs. Des cas concrets permettent de comprendre l’importance de l’accessibilité, de la hiérarchie visuelle et des micro-interactions. Des ateliers guident les participants de l’idéation au prototype cliquable. Les apprenants reçoivent des retours personnalisés pour améliorer leur design.',21,'ux-ui-conception.jpg','Connaissance de base en informatique ; intérêt pour le design.',750,'Conception UX/UI pour produits numériques',NULL),(3,'Management','Principes et pratiques agiles pour piloter des équipes efficacement.','Cette formation explore Scrum, Kanban, les cérémonies agile, la gestion du backlog, la planification, la rétrospective et les métriques. Grâce à des simulations de sprint et des jeux de rôles, les participants apprennent à prioriser la valeur, animer une équipe et favoriser la livraison continue. L’accent est mis sur le leadership agile, la communication et la gestion du changement dans les organisations.',16,'agile-gestion.jpg','Expérience professionnelle recommandée.',600,'Gestion de projet agile',NULL);
 /*!40000 ALTER TABLE `training` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -398,6 +401,8 @@ CREATE TABLE `user` (
   `lastname` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `type` int NOT NULL,
+  `img_name` varchar(255) DEFAULT NULL,
+  `phone_number` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UKob8kqyqqgmefl0aco34akdtpe` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -409,7 +414,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'camille.dupont@example.fr','Camille','Dupont','MotDePasseTest123!',1),(2,'lucas.moreau@example.fr','Lucas','Moreau','PasswordTest456!',2),(3,'sofia.bernard@example.fr','Sofia','Bernard','Secret789!',1);
+INSERT INTO `user` VALUES (1,'camille.dupont@example.fr','Camille','Dupont','MotDePasseTest123!',1,NULL,NULL),(2,'lucas.moreau@example.fr','Lucas','Moreau','PasswordTest456!',2,NULL,NULL),(3,'sofia.bernard@example.fr','Sofia','Bernard','Secret789!',1,NULL,NULL),(52,'matteo.baldinetti1@gmail.com','Mattéo','Baldinetti','$2b$05$k/lfZKCa26eJ2.cN/RTIq.dxKgQT5NL4s/zOa2KWUXe7tDER9cUXi',0,NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -431,7 +436,7 @@ CREATE TABLE `user_seq` (
 
 LOCK TABLES `user_seq` WRITE;
 /*!40000 ALTER TABLE `user_seq` DISABLE KEYS */;
-INSERT INTO `user_seq` VALUES (101);
+INSERT INTO `user_seq` VALUES (151);
 /*!40000 ALTER TABLE `user_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -444,4 +449,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-27 14:11:28
+-- Dump completed on 2025-12-12 10:54:49

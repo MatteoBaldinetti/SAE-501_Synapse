@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import java.time.LocalDateTime;
 
 @Entity
-public class Image {
+public class File {
     @Id
     @GeneratedValue
     private Long id;

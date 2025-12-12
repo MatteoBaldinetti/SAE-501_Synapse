@@ -1,7 +1,7 @@
 package com.synapse.sae501.services;
 
-import com.synapse.sae501.models.Image;
-import com.synapse.sae501.repositories.ImageRepository;
+import com.synapse.sae501.models.File;
+import com.synapse.sae501.repositories.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -19,29 +19,29 @@ import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 
 @Service
-public class ImageService {
+public class FileService {
 
     @Autowired
-    private ImageRepository imageRepository;
+    private FileRepository fileRepository;
 
-    private final String uploadDir = "/workspace/uploads/images/";
+    private final String uploadDir = "/workspace/uploads/";
 
-    public Iterable<Image> getAllImages() {
-        return imageRepository.findAll();
+    public Iterable<File> getAllImages() {
+        return fileRepository.findAll();
     }
 
     public boolean deleteImage(String fileName) {
-        Optional<Image> optionalImage = imageRepository.findByFileName(fileName);
+        Optional<File> optionalImage = fileRepository.findByFileName(fileName);
 
         if (optionalImage.isEmpty()) {
             return false;
         }
 
-        Image image = optionalImage.get();
+        File file = optionalImage.get();
         try {
             Path path = Paths.get(uploadDir + fileName);
             Files.deleteIfExists(path);
-            imageRepository.delete(image);
+            fileRepository.delete(file);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,7 +49,7 @@ public class ImageService {
         }
     }
 
-    public Image uploadImage(MultipartFile file) throws IOException {
+    public File uploadImage(MultipartFile file) throws IOException {
         Files.createDirectories(Paths.get(uploadDir));
 
         String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
@@ -57,11 +57,11 @@ public class ImageService {
 
         Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
-        Image img = new Image();
+        File img = new File();
         img.setFileName(fileName);
-        img.setUrl("/api/images/download/" + fileName);
+        img.setUrl("/api/files/download/" + fileName);
 
-        return imageRepository.save(img);
+        return fileRepository.save(img);
     }
 
     public ResponseEntity<Resource> downloadImage(String fileName) throws MalformedURLException {

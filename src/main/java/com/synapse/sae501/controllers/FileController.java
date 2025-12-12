@@ -1,7 +1,7 @@
 package com.synapse.sae501.controllers;
 
-import com.synapse.sae501.models.Image;
-import com.synapse.sae501.services.ImageService;
+import com.synapse.sae501.models.File;
+import com.synapse.sae501.services.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
@@ -13,34 +13,34 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 
 @RestController
-@RequestMapping("/api/images")
-public class ImageController {
+@RequestMapping("/api/files")
+public class FileController {
 
     @Autowired
-    private ImageService imageService;
+    private FileService fileService;
 
     @GetMapping
-    public Iterable<Image> getAllImages() {
-        return imageService.getAllImages();
+    public Iterable<File> getAllImages() {
+        return fileService.getAllImages();
     }
 
     @DeleteMapping("/{fileName}")
     public ResponseEntity<String> deleteImage(@PathVariable String fileName) {
-        boolean deleted = imageService.deleteImage(fileName);
+        boolean deleted = fileService.deleteImage(fileName);
 
         if (deleted) {
-            return ResponseEntity.ok("Image deleted successfully.");
+            return ResponseEntity.ok("File deleted successfully.");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Image not found or could not be deleted.");
+                    .body("File not found or could not be deleted.");
         }
     }
 
     @PostMapping("/upload")
     public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile image) {
         try {
-            Image savedImage = imageService.uploadImage(image);
-            return ResponseEntity.ok(savedImage);
+            File savedFile = fileService.uploadImage(image);
+            return ResponseEntity.ok(savedFile);
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Upload failed.");
@@ -50,7 +50,7 @@ public class ImageController {
     @GetMapping("/download/{fileName}")
     public ResponseEntity<Resource> downloadImage(@PathVariable String fileName) {
         try {
-            return imageService.downloadImage(fileName);
+            return fileService.downloadImage(fileName);
         } catch (MalformedURLException e) {
             return ResponseEntity.notFound().build();
         }

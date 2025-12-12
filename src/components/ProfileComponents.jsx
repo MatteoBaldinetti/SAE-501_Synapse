@@ -1,13 +1,80 @@
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
+import { API_URL } from "../constants/apiConstants";
+import { useAuth } from "../contexts/AuthContext";
 import profilePicture from '../assets/images/profile_picture.webp';
 
-function ProfileCompontents({ userEmail, userFirstname, userLastname }) {
+function ProfileCompontents({ userId, userEmail, userFirstname, userLastname, userPhone }) {
+
+    const { updateContext } = useAuth();
+
     const [modifierProfil, setModifierProfil] = useState(false);
+
+    const [lastnameInput, setLastnameInput] = useState(userLastname);
+    const [firstnameInput, setFirstnameInput] = useState(userFirstname);
+    const [emailInput, setEmailInput] = useState(userEmail);
+    const [phoneInput, setPhoneInput] = useState(userPhone ?? "");
+
+    const [errors, setErrors] = useState({});
 
     const handleProfilChangeButtonPress = () => {
         setModifierProfil(true);
+    };
+
+    const handleUpdateProfileButtonPress = async () => {
+        const previousPlayer = await fetch(`${API_URL}/users/${userId}`);
+        const jsonPreviousPlayer = await previousPlayer.json();
+
+        const updatedPlayer = {
+            id: userId,
+            firstname: firstnameInput,
+            lastname: lastnameInput,
+            email: emailInput,
+            password: jsonPreviousPlayer.password,
+            type: jsonPreviousPlayer.type,
+            phoneNumber: phoneInput,
+        }
+
+        const res = await fetch(`${API_URL}/users/${userId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedPlayer),
+        });
+
+        updateContext(updatedPlayer.id, updatedPlayer.email, updatedPlayer.firstname, updatedPlayer.lastname, updatedPlayer.type, updatedPlayer.phoneNumber)
+
+        setModifierProfil(false);
     }
+
+    const handleInputChange = (e) => {
+        const { id, value } = e.target;
+        let newValue = value;
+
+        if (id === "phone") {
+            let digits = newValue.replace(/\D/g, "").slice(0, 10);
+            newValue = digits.replace(/(\d{2})(?=\d)/g, "$1 ");
+            setPhoneInput(newValue);
+            return;
+        }
+
+        if (id === "email") setEmailInput(newValue);
+
+        if (id === "lastname") setLastnameInput(newValue);
+        if (id === "firstname") setFirstnameInput(newValue);
+    };
+
+    useEffect(() => {
+        const newErrors = {};
+
+        if (emailInput && !/^\S+@\S+\.\S+$/.test(emailInput)) {
+            newErrors.email = "Email invalide";
+        }
+
+        if (phoneInput && phoneInput.replace(/\s/g, "").length !== 10) {
+            newErrors.phone = "Téléphone invalide";
+        }
+
+        setErrors(newErrors);
+    }, [emailInput, phoneInput]);
 
 
     return (
@@ -21,39 +88,114 @@ function ProfileCompontents({ userEmail, userFirstname, userLastname }) {
                     </div>
                 </div>
             </div>
+
             <div className='row mt-5'>
-                <div className='col-6'>
+                <div className='col-6 mb-3'>
                     <h5>Nom</h5>
-                    <p className='text-secondary'>{userLastname}</p>
+                    {modifierProfil ? (
+                        <input
+                            type="text"
+                            id="lastname"
+                            value={lastnameInput}
+                            onChange={handleInputChange}
+                            className="form-control pe-5"
+                            required
+                        />
+                    ) : (
+                        <p className='text-secondary'>{userLastname}</p>
+                    )}
                 </div>
-                <div className='col-6'>
+
+                <div className='col-6 mb-3'>
                     <h5>Prénom</h5>
-                    <p className='text-secondary'>{userFirstname}</p>
+                    {modifierProfil ? (
+                        <input
+                            type="text"
+                            id="firstname"
+                            value={firstnameInput}
+                            onChange={handleInputChange}
+                            className="form-control pe-5"
+                            required
+                        />
+                    ) : (
+                        <p className='text-secondary'>{userFirstname}</p>
+                    )}
                 </div>
             </div>
-            <div className='row'>
+
+            <div className='row mb-4'>
                 <div className='col-6'>
                     <h5>Email</h5>
-                    <p className='text-secondary'>{userEmail}</p>
+                    {modifierProfil ? (
+                        <>
+                            <input
+                                type="email"
+                                id="email"
+                                value={emailInput}
+                                onChange={handleInputChange}
+                                className={`form-control pe-5 ${errors.email ? "is-invalid" : ""}`}
+                                required
+                            />
+                            {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+                        </>
+                    ) : (
+                        <p className='text-secondary'>{userEmail}</p>
+                    )}
                 </div>
+
                 <div className='col-6'>
                     <h5>Mot de passe</h5>
-                    <p className='text-secondary'>●●●●●●●●●</p>
+                    {modifierProfil ? (
+                        <div className="mt-3">
+                            <a className="text-secondary text-decoration-none link-pointer">
+                                Modifier votre mot de passe ?
+                            </a>
+                        </div>
+                    ) : (
+                        <p className='text-secondary'>●●●●●●●●●</p>
+                    )}
                 </div>
             </div>
-            <div className='row'>
+
+            <div className='row mb-4'>
                 <div className='col-6'>
                     <h5>Téléphone</h5>
-                    <p className='text-secondary'>+33 6 54 43 09 82</p>
+                    {modifierProfil ? (
+                        <>
+                            <input
+                                type="text"
+                                id="phone"
+                                value={phoneInput}
+                                onChange={handleInputChange}
+                                className={`form-control pe-5 ${errors.phone ? "is-invalid" : ""}`}
+                                placeholder="Non obligatoire"
+                            />
+                            {errors.phone && <div className="invalid-feedback">{errors.phone}</div>}
+                        </>
+                    ) : (
+                        <p className='text-secondary'>
+                            {userPhone ? userPhone : "Non renseigné"}
+                        </p>
+                    )}
                 </div>
             </div>
+
             <div className='row'>
                 <div className='col-6'>
-                    <button className="btn btn-blue" onClick={handleProfilChangeButtonPress}>Modifier votre profil</button>
+                    {modifierProfil ? (
+                        <button className="btn btn-blue" onClick={handleUpdateProfileButtonPress}>
+                            Mettre à jour les données
+                        </button>
+                    ) : (
+                        <button className="btn btn-blue" onClick={handleProfilChangeButtonPress}>
+                            Modifier votre profil
+                        </button>
+                    )}
+
                 </div>
             </div>
-        </div>
-    )
+        </div >
+    );
 }
 
 export default ProfileCompontents;

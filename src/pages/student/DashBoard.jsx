@@ -6,7 +6,7 @@ import ProfileCompontents from "../../components/ProfileComponents";
 import { useAuth } from "../../contexts/AuthContext";
 
 function Dashboard() {
-    const { userId, userEmail, userFirstname, userLastname, userType, login, logout, authLoading } = useAuth();
+    const { userId, userEmail, userFirstname, userLastname, userType, userPhone, login, logout, authLoading } = useAuth();
 
     const [CurrentLayout, SetCurrentLayout] = useState("profile");
 
@@ -66,7 +66,7 @@ function Dashboard() {
                         {CurrentLayout === "profile" && (
                             <div className="p-5">
                                 <h2 className="mb-5">Votre profile</h2>
-                                <ProfileCompontents userEmail={userEmail} userFirstname={userFirstname} userLastname={userLastname} />
+                                <ProfileCompontents userId={userId} userEmail={userEmail} userFirstname={userFirstname} userLastname={userLastname} userPhone={userPhone} />
                             </div>
                         )}
                     </div>

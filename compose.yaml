@@ -32,7 +32,7 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: txlforma
     volumes:
-      - api_uploads:/workspace/uploads/images
+      - api_uploads:/workspace/uploads
 
 volumes:
   db_data:

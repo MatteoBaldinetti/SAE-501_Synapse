@@ -6,8 +6,8 @@ COPY target/txlforma-latest.jar app.jar
 
 EXPOSE 8080
 
-RUN mkdir -p /workspace/uploads/images
+RUN mkdir -p /workspace/uploads
 
-VOLUME ["/workspace/uploads/images"]
+VOLUME ["/workspace/uploads"]
 
 ENTRYPOINT ["java","-jar","app.jar"]

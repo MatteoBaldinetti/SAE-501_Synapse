@@ -39,4 +39,9 @@ public class UserSpecifications {
         return (root, query, criteriaBuilder) ->
                 phoneNumber == null ? null : criteriaBuilder.equal(root.get("phoneNumber"), phoneNumber);
     }
+
+    public static Specification<User> hasImgName(String imgName) {
+        return (root, query, criteriaBuilder) ->
+                imgName == null ? null : criteriaBuilder.equal(root.get("imgName"), imgName);
+    }
 }

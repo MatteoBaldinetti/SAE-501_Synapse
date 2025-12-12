@@ -47,8 +47,9 @@ public class UserController {
                                   @RequestParam(required = false) String email,
                                   @RequestParam(required = false) String password,
                                   @RequestParam(required = false) Integer type,
-                                  @RequestParam(required = false) String phoneNumber
+                                  @RequestParam(required = false) String phoneNumber,
+                                  @RequestParam(required = false) String imgName
     ) {
-        return userService.searchUsers(id, firstname, lastname, email, password, type, phoneNumber);
+        return userService.searchUsers(id, firstname, lastname, email, password, type, phoneNumber, imgName);
     }
 }

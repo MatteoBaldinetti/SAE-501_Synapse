@@ -25,6 +25,8 @@ public class User {
 
     private String phoneNumber;
 
+    private String imgName;
+
 //    Do not delete this, I commented this to fix the GET method from sending too much data.
 //    @OneToMany(mappedBy = "user")
 //    private List<Inscription> inscriptions;
@@ -34,13 +36,14 @@ public class User {
 
     public User() {}
 
-    public User(String firstname, String lastname, String email, String password, Integer type, String phoneNumber) {
+    public User(String firstname, String lastname, String email, String password, Integer type, String phoneNumber, String imgName) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
         this.type = type;
         this.phoneNumber = phoneNumber;
+        this.imgName = imgName;
     }
 
     public Long getId() {
@@ -97,5 +100,13 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getImgName() {
+        return imgName;
+    }
+
+    public void setImgName(String imgName) {
+        this.imgName = imgName;
     }
 }

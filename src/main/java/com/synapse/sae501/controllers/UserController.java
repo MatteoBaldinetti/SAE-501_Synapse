@@ -2,7 +2,10 @@ package com.synapse.sae501.controllers;
 
 import com.synapse.sae501.models.User;
 import com.synapse.sae501.services.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,34 +13,39 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin(origins = "*")
+@Tag(name = "users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
-        return this.userService.createUser(user);
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User result = userService.createUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
     @GetMapping
     public Iterable<User> getAllUsers() {
-        return this.userService.getAllUsers();
+        return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
-        return this.userService.getUserById(id);
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        User result = userService.getUserById(id);
+        return  ResponseEntity.ok(result);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUserById(@PathVariable Long id) {
-        this.userService.deleteUserById(id);
+    public ResponseEntity<Void> deleteUserById(@PathVariable Long id) {
+        userService.deleteUserById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
-        return this.userService.updateUser(user, id);
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User user) {
+        User result = userService.updateUser(user, id);
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/search")

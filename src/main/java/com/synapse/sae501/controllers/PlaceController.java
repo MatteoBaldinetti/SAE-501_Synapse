@@ -2,7 +2,10 @@ package com.synapse.sae501.controllers;
 
 import com.synapse.sae501.models.Place;
 import com.synapse.sae501.services.PlaceService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,34 +13,39 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/places")
 @CrossOrigin(origins = "*")
+@Tag(name = "places")
 public class PlaceController {
 
     @Autowired
     private PlaceService placeService;
 
     @PostMapping
-    public Place createPlace(@RequestBody Place place) {
-        return this.placeService.createPlace(place);
+    public ResponseEntity<Place> createPlace(@RequestBody Place place) {
+        Place result = placeService.createPlace(place);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
     @GetMapping
     public Iterable<Place> getAllPlaces(){
-        return this.placeService.getAllPlaces();
+        return placeService.getAllPlaces();
     }
 
     @GetMapping("/{id}")
-    public Place getPlace(@PathVariable Long id) {
-        return this.placeService.getPlaceById(id);
+    public ResponseEntity<Place> getPlace(@PathVariable Long id) {
+        Place result = placeService.getPlaceById(id);
+        return ResponseEntity.ok(result);
     }
 
     @DeleteMapping("/{id}")
-    public void deletePlace(@PathVariable Long id) {
-        this.placeService.deletePlaceById(id);
+    public ResponseEntity<Void> deletePlace(@PathVariable Long id) {
+        placeService.deletePlaceById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    public Place updatePlace(@PathVariable Long id, @RequestBody Place place){
-        return this.placeService.updatePlace(place, id);
+    public ResponseEntity<Place> updatePlace(@PathVariable Long id, @RequestBody Place place){
+        Place result = placeService.updatePlace(place, id);
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/search")

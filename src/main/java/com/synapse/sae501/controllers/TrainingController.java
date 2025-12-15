@@ -2,7 +2,10 @@ package com.synapse.sae501.controllers;
 
 import com.synapse.sae501.models.Training;
 import com.synapse.sae501.services.TrainingService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,34 +13,39 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/trainings")
 @CrossOrigin(origins = "*")
+@Tag(name = "trainings")
 public class TrainingController {
 
     @Autowired
     private TrainingService trainingService;
 
     @PostMapping
-    public Training createTraining(@RequestBody Training training) {
-        return this.trainingService.createTraining(training);
+    public ResponseEntity<Training> createTraining(@RequestBody Training training) {
+        Training result = trainingService.createTraining(training);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
     @GetMapping
     public Iterable<Training> getAllTrainings() {
-        return this.trainingService.getAllTrainings();
+        return trainingService.getAllTrainings();
     }
 
     @GetMapping("/{id}")
-    public Training getTrainingById(@PathVariable Long id) {
-        return this.trainingService.getTrainingById(id);
+    public ResponseEntity<Training> getTrainingById(@PathVariable Long id) {
+        Training result = trainingService.getTrainingById(id);
+        return ResponseEntity.ok(result);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTrainingById(@PathVariable Long id){
-        this.trainingService.deleteTrainingById(id);
+    public ResponseEntity<Void> deleteTrainingById(@PathVariable Long id){
+        trainingService.deleteTrainingById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    public Training updateTraining(@PathVariable Long id, @RequestBody Training training){
-        return this.trainingService.updateTraining(training, id);
+    public ResponseEntity<Training> updateTraining(@PathVariable Long id, @RequestBody Training training){
+        Training result = trainingService.updateTraining(training, id);
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/search")

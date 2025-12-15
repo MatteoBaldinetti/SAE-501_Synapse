@@ -2,7 +2,10 @@ package com.synapse.sae501.controllers;
 
 import com.synapse.sae501.models.Result;
 import com.synapse.sae501.services.ResultService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,34 +13,39 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/results")
 @CrossOrigin(origins = "*")
+@Tag(name = "results")
 public class ResultController {
 
     @Autowired
     private ResultService resultService;
 
     @PostMapping
-    public Result createResult(@RequestBody Result result) {
-        return this.resultService.createResult(result);
+    public ResponseEntity<Result> createResult(@RequestBody Result result) {
+        Result result1 = resultService.createResult(result);
+        return ResponseEntity.status(HttpStatus.CREATED).body(result1);
     }
 
     @GetMapping
     public Iterable<Result> getAllResults() {
-        return this.resultService.getAllResults();
+        return resultService.getAllResults();
     }
 
     @GetMapping("/{id}")
-    public Result getResultById(@PathVariable Long id) {
-        return this.resultService.getResultById(id);
+    public ResponseEntity<Result> getResultById(@PathVariable Long id) {
+        Result result = resultService.getResultById(id);
+        return ResponseEntity.ok(result);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteResultById(@PathVariable Long id) {
-        this.resultService.deleteResultById(id);
+    public ResponseEntity<Void> deleteResultById(@PathVariable Long id) {
+        resultService.deleteResultById(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
-    public Result updateResult(@PathVariable Long id, @RequestBody Result result) {
-        return this.resultService.updateResult(result, id);
+    public ResponseEntity<Result> updateResult(@PathVariable Long id, @RequestBody Result result) {
+        Result result1 = resultService.updateResult(result, id);
+        return ResponseEntity.ok(result1);
     }
 
     @GetMapping("/search")

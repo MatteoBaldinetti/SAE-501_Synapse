@@ -22,6 +22,14 @@ public class File {
     @Column(nullable = false)
     private LocalDateTime uploadedAt =  LocalDateTime.now();
 
+    public File() {}
+
+    public File(String fileName, String url, LocalDateTime uploadedAt) {
+        this.fileName = fileName;
+        this.url = url;
+        this.uploadedAt = uploadedAt;
+    }
+
     public Long getId() {
         return id;
     }

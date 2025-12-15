@@ -26,18 +26,18 @@ public class FileService {
 
     private final String uploadDir = "/workspace/uploads/";
 
-    public Iterable<File> getAllImages() {
+    public Iterable<File> getAllFiles() {
         return fileRepository.findAll();
     }
 
-    public boolean deleteImage(String fileName) {
-        Optional<File> optionalImage = fileRepository.findByFileName(fileName);
+    public boolean deleteFile(String fileName) {
+        Optional<File> optionalFile = fileRepository.findByFileName(fileName);
 
-        if (optionalImage.isEmpty()) {
+        if (optionalFile.isEmpty()) {
             return false;
         }
 
-        File file = optionalImage.get();
+        File file = optionalFile.get();
         try {
             Path path = Paths.get(uploadDir + fileName);
             Files.deleteIfExists(path);
@@ -49,7 +49,7 @@ public class FileService {
         }
     }
 
-    public File uploadImage(MultipartFile file) throws IOException {
+    public File uploadFile(MultipartFile file) throws IOException {
         Files.createDirectories(Paths.get(uploadDir));
 
         String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
@@ -64,7 +64,7 @@ public class FileService {
         return fileRepository.save(img);
     }
 
-    public ResponseEntity<Resource> downloadImage(String fileName) throws MalformedURLException {
+    public ResponseEntity<Resource> downloadFile(String fileName) throws MalformedURLException {
         Path path = Paths.get(uploadDir + fileName);
 
         Resource resource = new UrlResource(path.toUri());

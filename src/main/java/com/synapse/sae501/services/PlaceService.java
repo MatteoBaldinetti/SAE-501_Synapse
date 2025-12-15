@@ -24,7 +24,7 @@ public class PlaceService {
         return this.placeRepository.findById(id).get();
     }
 
-    public Iterable<Place> getAllPlaces() {
+    public List<Place> getAllPlaces() {
         return this.placeRepository.findAll();
     }
 

@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,7 +27,7 @@ public class FileService {
 
     private final String uploadDir = "/workspace/uploads/";
 
-    public Iterable<File> getAllFiles() {
+    public List<File> getAllFiles() {
         return fileRepository.findAll();
     }
 
@@ -44,7 +45,6 @@ public class FileService {
             fileRepository.delete(file);
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
             return false;
         }
     }

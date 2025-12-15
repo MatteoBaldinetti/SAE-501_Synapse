@@ -27,7 +27,7 @@ public class SessionController {
     }
 
     @GetMapping
-    public Iterable<Session> getAllSessions(){
+    public List<Session> getAllSessions(){
         return sessionService.getAllSessions();
     }
 

@@ -25,7 +25,7 @@ public class ResultService {
         return this.resultRepository.findById(id).get();
     }
 
-    public Iterable<Result> getAllResults() {
+    public List<Result> getAllResults() {
         return this.resultRepository.findAll();
     }
 

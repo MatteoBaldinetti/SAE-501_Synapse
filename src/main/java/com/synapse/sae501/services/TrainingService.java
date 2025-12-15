@@ -24,7 +24,7 @@ public class TrainingService {
         return this.trainingRepository.findById(id).get();
     }
 
-    public Iterable<Training> getAllTrainings(){
+    public List<Training> getAllTrainings(){
         return this.trainingRepository.findAll();
     }
 

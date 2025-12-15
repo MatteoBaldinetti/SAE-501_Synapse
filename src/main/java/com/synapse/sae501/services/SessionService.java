@@ -25,7 +25,7 @@ public class SessionService {
         return this.sessionRepository.findById(id).get();
     }
 
-    public Iterable<Session> getAllSessions(){
+    public List<Session> getAllSessions(){
         return this.sessionRepository.findAll();
     }
 

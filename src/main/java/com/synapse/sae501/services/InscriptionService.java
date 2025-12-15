@@ -25,7 +25,7 @@ public class InscriptionService {
         return this.inscriptionRepository.findById(id).get();
     }
 
-    public Iterable<Inscription> getAllInscriptions(){
+    public List<Inscription> getAllInscriptions(){
         return this.inscriptionRepository.findAll();
     }
 

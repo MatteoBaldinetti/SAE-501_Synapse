@@ -24,7 +24,7 @@ public class InstructorService {
         return this.instructorRepository.findById(id).get();
     }
 
-    public Iterable<Instructor> getAllInstructors()
+    public List<Instructor> getAllInstructors()
     {
         return this.instructorRepository.findAll();
     }

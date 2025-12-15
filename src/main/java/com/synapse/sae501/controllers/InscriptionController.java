@@ -27,7 +27,7 @@ public class InscriptionController {
     }
 
     @GetMapping
-    public Iterable<Inscription> getAllInscriptions() {
+    public List<Inscription> getAllInscriptions() {
         return inscriptionService.getAllInscriptions();
     }
 

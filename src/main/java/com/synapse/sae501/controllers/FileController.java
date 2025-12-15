@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/files")
@@ -23,7 +24,7 @@ public class FileController {
     private FileService fileService;
 
     @GetMapping
-    public Iterable<File> getAllFiles() {
+    public List<File> getAllFiles() {
         return fileService.getAllFiles();
     }
 
@@ -45,7 +46,6 @@ public class FileController {
             File savedFile = fileService.uploadFile(file);
             return ResponseEntity.ok(savedFile);
         } catch (IOException e) {
-            e.printStackTrace();
             return ResponseEntity.badRequest().body("Upload failed.");
         }
     }

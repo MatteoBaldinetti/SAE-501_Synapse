@@ -26,7 +26,7 @@ public class TrainingController {
     }
 
     @GetMapping
-    public Iterable<Training> getAllTrainings() {
+    public List<Training> getAllTrainings() {
         return trainingService.getAllTrainings();
     }
 

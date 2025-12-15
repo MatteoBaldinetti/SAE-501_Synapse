@@ -26,7 +26,7 @@ public class InstructorController {
     }
 
     @GetMapping
-    public Iterable<Instructor> getAllInstructors() {
+    public List<Instructor> getAllInstructors() {
         return instructorService.getAllInstructors();
     }
 

@@ -26,7 +26,7 @@ public class ResultController {
     }
 
     @GetMapping
-    public Iterable<Result> getAllResults() {
+    public List<Result> getAllResults() {
         return resultService.getAllResults();
     }
 

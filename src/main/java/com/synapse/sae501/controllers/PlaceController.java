@@ -26,7 +26,7 @@ public class PlaceController {
     }
 
     @GetMapping
-    public Iterable<Place> getAllPlaces(){
+    public List<Place> getAllPlaces(){
         return placeService.getAllPlaces();
     }
 

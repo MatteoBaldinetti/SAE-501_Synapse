@@ -24,7 +24,7 @@ public class UserService {
         return this.userRepository.findById(id).get();
     }
 
-    public Iterable<User> getAllUsers() {
+    public List<User> getAllUsers() {
         return this.userRepository.findAll();
     }
 

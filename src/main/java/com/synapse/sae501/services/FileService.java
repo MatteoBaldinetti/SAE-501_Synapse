@@ -43,7 +43,7 @@ public class FileService {
             Files.deleteIfExists(path);
             fileRepository.delete(file);
         } catch (IOException e) {
-            throw new BadRequestException("Failed to delete file " + fileName);
+            throw new BadRequestException("Failed to delete file '" + fileName + "': " + e.getMessage());
         }
     }
 
@@ -70,7 +70,7 @@ public class FileService {
             return fileRepository.save(img);
 
         } catch (IOException e) {
-            throw new BadRequestException("Failed to upload file");
+            throw new BadRequestException("Failed to upload file:" + e.getMessage());
         }
     }
 
@@ -92,7 +92,7 @@ public class FileService {
                     .header(HttpHeaders.CONTENT_TYPE, contentType)
                     .body(resource);
         } catch (MalformedURLException e) {
-            throw new BadRequestException("Failed to upload file");
+            throw new BadRequestException("Failed to download file '" + fileName + "': " + e.getMessage());
         }
     }
 }

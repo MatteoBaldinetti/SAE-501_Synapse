@@ -31,11 +31,11 @@ public class FileService {
         return fileRepository.findAll();
     }
 
-    public boolean deleteFile(String fileName) {
+    public void deleteFile(String fileName) {
         Optional<File> optionalFile = fileRepository.findByFileName(fileName);
 
         if (optionalFile.isEmpty()) {
-            return false;
+            return;
         }
 
         File file = optionalFile.get();
@@ -43,10 +43,7 @@ public class FileService {
             Path path = Paths.get(uploadDir + fileName);
             Files.deleteIfExists(path);
             fileRepository.delete(file);
-            return true;
-        } catch (IOException e) {
-            return false;
-        }
+        } catch (IOException _) {}
     }
 
     public File uploadFile(MultipartFile file) throws IOException {

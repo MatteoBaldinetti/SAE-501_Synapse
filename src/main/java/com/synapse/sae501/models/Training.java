@@ -2,6 +2,8 @@ package com.synapse.sae501.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Training {
     @Id
@@ -35,6 +37,9 @@ public class Training {
     private Float price;
 
     private String learnText;
+
+    @OneToMany(mappedBy = "training")
+    private List<Inscription> inscriptions;
 
     public Training() {}
 

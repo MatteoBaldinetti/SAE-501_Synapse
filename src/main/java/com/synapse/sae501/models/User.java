@@ -2,6 +2,8 @@ package com.synapse.sae501.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class User {
     @Id
@@ -27,12 +29,11 @@ public class User {
 
     private String imgName;
 
-//    Do not delete this, I commented this to fix the GET method from sending too much data.
-//    @OneToMany(mappedBy = "user")
-//    private List<Inscription> inscriptions;
-//
-//    @OneToMany(mappedBy = "user")
-//    private List<Result> results;
+    @OneToMany(mappedBy = "user")
+    private List<Inscription> inscriptions;
+
+    @OneToMany(mappedBy = "user")
+    private List<Result> results;
 
     public User() {}
 

@@ -2,6 +2,10 @@ package com.synapse.sae501.controllers;
 
 import com.synapse.sae501.models.Instructor;
 import com.synapse.sae501.services.InstructorService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,48 +17,87 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/instructors")
 @CrossOrigin(origins = "*")
-@Tag(name = "instructors")
+@Tag(name = "Instructors", description = "Endpoints for managing instructors")
 public class InstructorController {
 
     @Autowired
     private InstructorService instructorService;
 
+    @Operation(summary = "Create a new instructor")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Instructor created successfully"),
+            @ApiResponse(responseCode = "400", description = "Failed to create instructor")
+    })
     @PostMapping
-    public ResponseEntity<Instructor> createInstructor(@RequestBody Instructor instructor) {
+    public ResponseEntity<Instructor> createInstructor(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instructor object")
+            @RequestBody Instructor instructor
+    ) {
         Instructor result = instructorService.createInstructor(instructor);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
+    @Operation(summary = "Get all instructors")
+    @ApiResponse(responseCode = "200", description = "List of instructors retrieved successfully")
     @GetMapping
     public ResponseEntity<List<Instructor>> getAllInstructors() {
         List<Instructor> result = instructorService.getAllInstructors();
         return ResponseEntity.ok(result);
     }
 
+    @Operation(summary = "Get instructor by ID")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Instructor retrieved successfully"),
+            @ApiResponse(responseCode = "404", description = "Instructor not found")
+    })
     @GetMapping("/{id}")
-    public ResponseEntity<Instructor> getInstructorById(@PathVariable Long id) {
+    public ResponseEntity<Instructor> getInstructorById(
+            @Parameter(description = "Instructor ID")
+            @PathVariable Long id
+    ) {
         Instructor result = instructorService.getInstructorById(id);
         return ResponseEntity.ok(result);
     }
 
+    @Operation(summary = "Delete instructor by ID")
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Instructor deleted successfully"),
+            @ApiResponse(responseCode = "404", description = "Instructor not found")
+    })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteInstructorById(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteInstructorById(
+            @Parameter(description = "Instructor ID")
+            @PathVariable Long id
+    ) {
         instructorService.deleteInstructorById(id);
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Update instructor")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Instructor updated successfully"),
+            @ApiResponse(responseCode = "404", description = "Instructor not found")
+    })
     @PutMapping("/{id}")
-    public ResponseEntity<Instructor> updateInstructor(@PathVariable Long id, @RequestBody Instructor instructor) {
+    public ResponseEntity<Instructor> updateInstructor(
+            @Parameter(description = "Instructor ID")
+            @PathVariable Long id,
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instructor object")
+            @RequestBody Instructor instructor
+    ) {
         Instructor result = instructorService.updateInstructor(instructor, id);
         return ResponseEntity.ok(result);
     }
 
+    @Operation(summary = "Search instructors with filters")
+    @ApiResponse(responseCode = "200", description = "List of instructors retrieved successfully")
     @GetMapping("/search")
-    public ResponseEntity<List<Instructor>> searchInstructors(@RequestParam(required = false) Long id,
-                                              @RequestParam(required = false) String firstName,
-                                              @RequestParam(required = false) String lastName,
-                                              @RequestParam(required = false) String contractType,
-                                              @RequestParam(required = false) String specialty
+    public ResponseEntity<List<Instructor>> searchInstructors(
+            @Parameter(description = "Instructor ID") @RequestParam(required = false) Long id,
+            @Parameter(description = "") @RequestParam(required = false) String firstName,
+            @Parameter(description = "") @RequestParam(required = false) String lastName,
+            @Parameter(description = "") @RequestParam(required = false) String contractType,
+            @Parameter(description = "") @RequestParam(required = false) String specialty
     ) {
         List<Instructor> result = instructorService.searchInstructors(id, firstName, lastName, contractType, specialty);
         return ResponseEntity.ok(result);

@@ -3,6 +3,7 @@ package com.synapse.sae501.models;
 import jakarta.persistence.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 public class Session {
@@ -41,12 +42,11 @@ public class Session {
     @JoinColumn(name = "place_id", nullable = false)
     private Place place;
 
-//    Do not delete this, I commented this to fix the GET method from sending too much data.
-//    @OneToMany(mappedBy = "session")
-//    private List<Inscription> inscriptions;
-//
-//    @OneToMany(mappedBy = "session")
-//    private List<Result> results;
+    @OneToMany(mappedBy = "session")
+    private List<Inscription> inscriptions;
+
+    @OneToMany(mappedBy = "session")
+    private List<Result> results;
 
     public Session() {}
 

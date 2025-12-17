@@ -1,14 +1,31 @@
-import { Link } from "react-router-dom";
 import "../../styles/Dashboard.css";
 import { useEffect, useState } from "react";
-import { API_URL } from "../../constants/apiConstants";
-import ProfileCompontents from "../../components/ProfileComponents";
+import ProfileComponents from "../../components/ProfileComponents";
 import { useAuth } from "../../contexts/AuthContext";
+import TableCours from "../../components/TableCours";
 
 function Dashboard() {
-    const { userId, userEmail, userFirstname, userLastname, userType, login, logout, authLoading } = useAuth();
+    const { userId, userEmail, userFirstname, userLastname, userType, userPhone, login, logout, authLoading } = useAuth();
 
-    const [CurrentLayout, SetCurrentLayout] = useState("profile");
+    const [currentLayout, SetCurrentLayout] = useState("profile");
+    const [courseStatusLayout, setCourseStatusLayout] = useState("inscrit");
+
+    const [userSession, setUserSession] = useState([])
+
+    useEffect(() => {
+        if (currentLayout !== "cours") return;
+        const fetchData = async () => {
+            const res = await fetch(`http://localhost:8080/api/users/${1}/trainings`);
+            const json = await res.json();
+            setUserSession(json);
+        }
+        fetchData();
+    }, [currentLayout])
+
+    // Reset des layout quand on change
+    useEffect(() => {
+        setCourseStatusLayout("inscrit");
+    }, [currentLayout])
 
     return (
         <div>
@@ -18,7 +35,7 @@ function Dashboard() {
                         <div className="gestionnaire mx-3">
                             <h4>Tableau de bord</h4>
                             <div
-                                className={`${CurrentLayout === "profile" ? "selected-button" : ""
+                                className={`${currentLayout === "profile" ? "selected-button" : ""
                                     } d-flex align-items-center p-2 my-2`}
                                 onClick={() => SetCurrentLayout("profile")}
                             >
@@ -33,7 +50,7 @@ function Dashboard() {
                                 <span>Profile</span>
                             </div>
                             <div
-                                className={`${CurrentLayout === "cours" ? "selected-button" : ""} d-flex align-items-center p-2 my-2`}
+                                className={`${currentLayout === "cours" ? "selected-button" : ""} d-flex align-items-center p-2 my-2`}
                                 onClick={() => SetCurrentLayout("cours")}
                             >
                                 <svg
@@ -47,7 +64,7 @@ function Dashboard() {
                                 <span>Cours</span>
                             </div>
                             <div
-                                className={`${CurrentLayout === "paiement" ? "selected-button" : ""} d-flex align-items-center p-2 my-2`}
+                                className={`${currentLayout === "paiement" ? "selected-button" : ""} d-flex align-items-center p-2 my-2`}
                                 onClick={() => SetCurrentLayout("paiement")}
                             >
                                 <svg
@@ -62,11 +79,82 @@ function Dashboard() {
                             </div>
                         </div>
                     </div>
-                    <div className="col-9">
-                        {CurrentLayout === "profile" && (
+                    <div className="col-9 dashboard">
+                        {currentLayout === "profile" && (
                             <div className="p-5">
                                 <h2 className="mb-5">Votre profile</h2>
-                                <ProfileCompontents userEmail={userEmail} userFirstname={userFirstname} userLastname={userLastname} />
+                                <ProfileComponents userId={userId} userEmail={userEmail} userFirstname={userFirstname} userLastname={userLastname} userPhone={userPhone} />
+                            </div>
+                        )}
+
+                        {currentLayout === "cours" && (
+                            <div className="p-5">
+                                <h2 className="mb-5">Vos cours</h2>
+                                <div className="d-flex gap-5 mb-4 border-bottom">
+                                    <span
+                                        className={`cours-tab ${courseStatusLayout === "inscrit" ? "active" : ""}`}
+                                        onClick={() => setCourseStatusLayout("inscrit")}
+                                    >
+                                        Inscrit
+                                    </span>
+
+                                    <span
+                                        className={`cours-tab ${courseStatusLayout === "termine" ? "active" : ""}`}
+                                        onClick={() => setCourseStatusLayout("termine")}
+                                    >
+                                        Terminé
+                                    </span>
+
+                                    <span
+                                        className={`cours-tab ${courseStatusLayout === "annule" ? "active" : ""}`}
+                                        onClick={() => setCourseStatusLayout("annule")}
+                                    >
+                                        Annulé
+                                    </span>
+                                </div>
+
+                                <TableCours />
+
+                                {courseStatusLayout === "termine" && (
+                                    <>
+                                        <h2 className="my-5 pt-5">Vos évaluations</h2>
+                                        <div className="container">
+                                            <div className="row mx-1 p-3 border border-dark rounded-top-3 bg-white">
+                                                <div className="col-4">
+                                                    <h6>Nom du cours</h6>
+                                                </div>
+                                                <div className="col-4">
+                                                    <h6>Note</h6>
+                                                </div>
+                                                <div className="col-4">
+                                                    <h6>Commentaire</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        )}
+
+                        {currentLayout === "paiement" && (
+                            <div className="p-5">
+                                <h2 className="mb-5">Vos paiement</h2>
+                                <div className="container">
+                                    <div className="row mx-1 p-3 border border-dark rounded-top-3 bg-white">
+                                        <div className="col-3">
+                                            <h6>Nom du cours</h6>
+                                        </div>
+                                        <div className="col-3">
+                                            <h6>Montant payé</h6>
+                                        </div>
+                                        <div className="col-3">
+                                            <h6>Status</h6>
+                                        </div>
+                                        <div className="col-3">
+                                            <h6>Date</h6>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         )}
                     </div>

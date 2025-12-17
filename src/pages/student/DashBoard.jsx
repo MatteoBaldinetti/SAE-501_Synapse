@@ -83,7 +83,7 @@ function Dashboard() {
                         {currentLayout === "profile" && (
                             <div className="p-5">
                                 <h2 className="mb-5">Votre profile</h2>
-                                <ProfileComponents userId={userId} userEmail={userEmail} userFirstname={userFirstname} userLastname={userLastname} userPhone={userPhone} />
+                                <ProfileComponents userId={userId} userEmail={userEmail} userFirstname={userFirstname} userLastname={userLastname} userPhone={userPhone} logout={logout} />
                             </div>
                         )}
 

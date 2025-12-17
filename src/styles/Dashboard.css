@@ -42,12 +42,12 @@
 }
 
 .btn-delete {
-    border: 2px solid red;
-    color: red;
+    background-color: red;
+    color: white;
 }
 
 .btn-delete:hover {
-    background-color: red;
+    background-color: #0C232B;
     color: white;
 }
 

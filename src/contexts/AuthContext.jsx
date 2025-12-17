@@ -98,6 +98,7 @@ export function AuthProvider({ children }) {
         localStorage.removeItem("lastname");
         localStorage.removeItem("type");
         localStorage.removeItem("phone")
+        navigate("/");
     };
 
     const updateContext = (userId, userEmail, userFirstname, userLastname, userType, userPhone) => {

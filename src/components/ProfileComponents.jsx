@@ -4,7 +4,7 @@ import { useAuth } from "../contexts/AuthContext";
 import profilePicture from '../assets/images/profile_picture.webp';
 import ConfirmationDeleteModal from './ConfirmationDeleteModal';
 
-function ProfileComponents({ userId, userEmail, userFirstname, userLastname, userPhone }) {
+function ProfileComponents({ userId, userEmail, userFirstname, userLastname, userPhone, logout}) {
 
     const { updateContext } = useAuth();
 
@@ -52,12 +52,11 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
     }
 
     const handleDeleteProfile = async () => {
-        console.log(`${API_URL}/users/${userId}`)
         const res = await fetch(`${API_URL}/users/${userId}`, {
             method: "DELETE",
         });
-
-        console.log(res)
+        setShowPopUpDelete(false);
+        logout();
     }
 
     const handleInputChange = (e) => {

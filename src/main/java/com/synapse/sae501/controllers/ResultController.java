@@ -94,8 +94,8 @@ public class ResultController {
     @GetMapping("/search")
     public ResponseEntity<List<Result>> searchResults(
             @Parameter(description = "Result ID") @RequestParam(required = false) Long id,
-            @Parameter(description = "") @RequestParam(required = false) Float grade,
-            @Parameter(description = "") @RequestParam(required = false) String description,
+            @Parameter(description = "Grade") @RequestParam(required = false) Float grade,
+            @Parameter(description = "Description") @RequestParam(required = false) String description,
             @Parameter(description = "User ID") @RequestParam(required = false) Long userId,
             @Parameter(description = "Session ID") @RequestParam(required = false) Long sessionId
     ) {

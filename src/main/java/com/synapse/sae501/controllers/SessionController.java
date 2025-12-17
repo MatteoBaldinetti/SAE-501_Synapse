@@ -95,12 +95,12 @@ public class SessionController {
     @GetMapping("/search")
     public ResponseEntity<List<Session>> searchSessions(
             @Parameter(description = "Session ID") @RequestParam(required = false) Long id,
-            @Parameter(description = "") @RequestParam(required = false) Timestamp startDate,
-            @Parameter(description = "") @RequestParam(required = false) Timestamp endDate,
-            @Parameter(description = "") @RequestParam(required = false) String title,
-            @Parameter(description = "") @RequestParam(required = false) String description,
-            @Parameter(description = "") @RequestParam(required = false) Float duration,
-            @Parameter(description = "") @RequestParam(required = false) Integer capacity,
+            @Parameter(description = "Start date") @RequestParam(required = false) Timestamp startDate,
+            @Parameter(description = "End date") @RequestParam(required = false) Timestamp endDate,
+            @Parameter(description = "Title") @RequestParam(required = false) String title,
+            @Parameter(description = "Description") @RequestParam(required = false) String description,
+            @Parameter(description = "Duration") @RequestParam(required = false) Float duration,
+            @Parameter(description = "Capacity") @RequestParam(required = false) Integer capacity,
             @Parameter(description = "Training ID") @RequestParam(required = false) Long trainingId,
             @Parameter(description = "Instructor ID") @RequestParam(required = false) Long instructorId,
             @Parameter(description = "Place ID") @RequestParam(required = false) Long placeId

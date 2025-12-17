@@ -14,8 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.List;
 
 @RestController
@@ -55,16 +53,12 @@ public class FileController {
             @ApiResponse(responseCode = "400", description = "Upload failed")
     })
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> uploadFile(
+    public ResponseEntity<File> uploadFile(
             @Parameter(description = "File to upload")
             @RequestPart("file") MultipartFile file
     ) {
-        try {
-            File savedFile = fileService.uploadFile(file);
-            return ResponseEntity.ok(savedFile);
-        } catch (IOException e) {
-            return ResponseEntity.badRequest().body("Upload failed.");
-        }
+        File savedFile = fileService.uploadFile(file);
+        return ResponseEntity.ok(savedFile);
     }
 
     @Operation(summary = "Download a file")
@@ -77,10 +71,6 @@ public class FileController {
             @Parameter(description = "Name of the file")
             @PathVariable String fileName
     ) {
-        try {
-            return fileService.downloadFile(fileName);
-        } catch (MalformedURLException e) {
-            return ResponseEntity.notFound().build();
-        }
+        return fileService.downloadFile(fileName);
     }
 }

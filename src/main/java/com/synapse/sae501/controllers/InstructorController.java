@@ -94,10 +94,10 @@ public class InstructorController {
     @GetMapping("/search")
     public ResponseEntity<List<Instructor>> searchInstructors(
             @Parameter(description = "Instructor ID") @RequestParam(required = false) Long id,
-            @Parameter(description = "") @RequestParam(required = false) String firstName,
-            @Parameter(description = "") @RequestParam(required = false) String lastName,
-            @Parameter(description = "") @RequestParam(required = false) String contractType,
-            @Parameter(description = "") @RequestParam(required = false) String specialty
+            @Parameter(description = "First name") @RequestParam(required = false) String firstName,
+            @Parameter(description = "Last name") @RequestParam(required = false) String lastName,
+            @Parameter(description = "Contract type") @RequestParam(required = false) String contractType,
+            @Parameter(description = "Specialty") @RequestParam(required = false) String specialty
     ) {
         List<Instructor> result = instructorService.searchInstructors(id, firstName, lastName, contractType, specialty);
         return ResponseEntity.ok(result);

@@ -92,10 +92,10 @@ public class PlaceController {
     @GetMapping("/search")
     public ResponseEntity<List<Place>> searchPlaces(
             @Parameter(description = "Place ID") @RequestParam(required = false) Long id,
-            @Parameter(description = "") @RequestParam(required = false) String city,
-            @Parameter(description = "") @RequestParam(required = false) String address,
-            @Parameter(description = "") @RequestParam(required = false) String zip,
-            @Parameter(description = "") @RequestParam(required = false) Integer maxCapacity
+            @Parameter(description = "City") @RequestParam(required = false) String city,
+            @Parameter(description = "Address") @RequestParam(required = false) String address,
+            @Parameter(description = "ZIP Code") @RequestParam(required = false) String zip,
+            @Parameter(description = "Max capacity") @RequestParam(required = false) Integer maxCapacity
     ) {
         List<Place> result = placeService.searchPlaces(id, city, address, zip, maxCapacity);
         return ResponseEntity.ok(result);

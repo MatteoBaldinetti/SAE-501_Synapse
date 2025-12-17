@@ -1,5 +1,6 @@
 package com.synapse.sae501.services;
 
+import com.synapse.sae501.exceptions.ResourceNotFoundException;
 import com.synapse.sae501.models.User;
 import com.synapse.sae501.repositories.UserRepository;
 import com.synapse.sae501.specifications.UserSpecifications;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class UserService {
@@ -22,7 +22,8 @@ public class UserService {
     }
 
     public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User object with ID " + id + " not found"));
     }
 
     public List<User> getAllUsers() {
@@ -30,10 +31,12 @@ public class UserService {
     }
 
     public void deleteUserById(Long id) {
+        getUserById(id);
         userRepository.deleteById(id);
     }
 
     public User updateUser(User user, Long id) {
+        getUserById(id);
         user.setId(id);
         return userRepository.save(user);
     }

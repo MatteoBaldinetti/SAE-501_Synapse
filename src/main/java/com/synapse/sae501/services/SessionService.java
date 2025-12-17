@@ -1,5 +1,6 @@
 package com.synapse.sae501.services;
 
+import com.synapse.sae501.exceptions.ResourceNotFoundException;
 import com.synapse.sae501.models.Session;
 import com.synapse.sae501.repositories.SessionRepository;
 import com.synapse.sae501.specifications.SessionSpecifications;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class SessionService {
@@ -23,7 +23,8 @@ public class SessionService {
     }
 
     public Session getSessionById(Long id) {
-        return sessionRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        return sessionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Session object with ID " + id + " not found"));
     }
 
     public List<Session> getAllSessions() {
@@ -31,10 +32,12 @@ public class SessionService {
     }
 
     public void deleteSessionById(Long id) {
+        getSessionById(id);
         sessionRepository.deleteById(id);
     }
 
     public Session updateSession(Session session, Long id) {
+        getSessionById(id);
         session.setId(id);
         return sessionRepository.save(session);
     }

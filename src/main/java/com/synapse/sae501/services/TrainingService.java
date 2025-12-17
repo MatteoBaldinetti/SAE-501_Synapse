@@ -1,5 +1,6 @@
 package com.synapse.sae501.services;
 
+import com.synapse.sae501.exceptions.ResourceNotFoundException;
 import com.synapse.sae501.models.Training;
 import com.synapse.sae501.repositories.TrainingRepository;
 import com.synapse.sae501.specifications.TrainingSpecifications;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class TrainingService {
@@ -22,7 +22,8 @@ public class TrainingService {
     }
 
     public Training getTrainingById(Long id) {
-        return trainingRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        return trainingRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Training object with ID " + id + " not found"));
     }
 
     public List<Training> getAllTrainings() {
@@ -30,10 +31,12 @@ public class TrainingService {
     }
 
     public void deleteTrainingById(Long id) {
+        getTrainingById(id);
         trainingRepository.deleteById(id);
     }
 
     public Training updateTraining(Training training, Long id) {
+        getTrainingById(id);
         training.setId(id);
         return trainingRepository.save(training);
     }

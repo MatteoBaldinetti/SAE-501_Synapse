@@ -1,5 +1,6 @@
 package com.synapse.sae501.services;
 
+import com.synapse.sae501.exceptions.ResourceNotFoundException;
 import com.synapse.sae501.models.Place;
 import com.synapse.sae501.repositories.PlaceRepository;
 import com.synapse.sae501.specifications.PlaceSpecifications;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class PlaceService {
@@ -22,7 +22,8 @@ public class PlaceService {
     }
 
     public Place getPlaceById(Long id) {
-        return placeRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        return placeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Place object with ID " + id + " not found"));
     }
 
     public List<Place> getAllPlaces() {
@@ -30,10 +31,12 @@ public class PlaceService {
     }
 
     public void deletePlaceById(Long id) {
+        getPlaceById(id);
         placeRepository.deleteById(id);
     }
 
     public Place updatePlace(Place place, Long id) {
+        getPlaceById(id);
         place.setId(id);
         return placeRepository.save(place);
     }

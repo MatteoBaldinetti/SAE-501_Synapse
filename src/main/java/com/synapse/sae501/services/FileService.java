@@ -1,5 +1,7 @@
 package com.synapse.sae501.services;
 
+import com.synapse.sae501.exceptions.BadRequestException;
+import com.synapse.sae501.exceptions.ResourceNotFoundException;
 import com.synapse.sae501.models.File;
 import com.synapse.sae501.repositories.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FileService {
@@ -33,47 +34,65 @@ public class FileService {
     }
 
     public void deleteFile(String fileName) {
-        Optional<File> optionalFile = fileRepository.findByFileName(fileName);
+        File file = fileRepository.findByFileName(fileName)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("File '" + fileName + "' not found"));
 
-        if (optionalFile.isEmpty()) {
-            return;
-        }
-
-        File file = optionalFile.get();
         try {
             Path path = Paths.get(uploadDir + fileName);
             Files.deleteIfExists(path);
             fileRepository.delete(file);
-        } catch (IOException _) {}
+        } catch (IOException e) {
+            throw new BadRequestException("Failed to delete file " + fileName);
+        }
     }
 
-    public File uploadFile(MultipartFile file) throws IOException {
-        Files.createDirectories(Paths.get(uploadDir));
+    public File uploadFile(MultipartFile file) {
 
-        String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
-        Path path = Paths.get(uploadDir + fileName);
-
-        Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-
-        File img = new File(fileName, "/api/files/download/" + fileName, LocalDateTime.now());
-
-        return fileRepository.save(img);
-    }
-
-    public ResponseEntity<Resource> downloadFile(String fileName) throws MalformedURLException {
-        Path path = Paths.get(uploadDir + fileName);
-
-        Resource resource = new UrlResource(path.toUri());
-        if (!resource.exists()) {
-            return ResponseEntity.notFound().build();
+        if (file == null || file.isEmpty()) {
+            throw new BadRequestException("Uploaded file is empty");
         }
 
-        String contentType = "application/octet-stream";
+        try {
+            Files.createDirectories(Paths.get(uploadDir));
 
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment; filename=\"" + fileName + "\"")
-                .header(HttpHeaders.CONTENT_TYPE, contentType)
-                .body(resource);
+            String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+            Path path = Paths.get(uploadDir, fileName);
+
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+
+            File img = new File(
+                    fileName,
+                    "/api/files/download/" + fileName,
+                    LocalDateTime.now()
+            );
+
+            return fileRepository.save(img);
+
+        } catch (IOException e) {
+            throw new BadRequestException("Failed to upload file");
+        }
+    }
+
+    public ResponseEntity<Resource> downloadFile(String fileName) {
+        try {
+            Path path = Paths.get(uploadDir + fileName);
+
+            Resource resource = new UrlResource(path.toUri());
+
+            if (!resource.exists()) {
+                throw new ResourceNotFoundException("File '" + fileName + "' not found");
+            }
+
+            String contentType = "application/octet-stream";
+
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION,
+                            "attachment; filename=\"" + fileName + "\"")
+                    .header(HttpHeaders.CONTENT_TYPE, contentType)
+                    .body(resource);
+        } catch (MalformedURLException e) {
+            throw new BadRequestException("Failed to upload file");
+        }
     }
 }

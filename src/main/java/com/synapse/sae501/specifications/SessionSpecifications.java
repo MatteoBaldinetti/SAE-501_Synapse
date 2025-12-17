@@ -10,52 +10,52 @@ import java.sql.Timestamp;
 
 public class SessionSpecifications {
     public static Specification<Session> hasId(Long id) {
-        return (root, query, criteriaBuilder) ->
+        return (root, _, criteriaBuilder) ->
                 id == null ? null : criteriaBuilder.equal(root.get("id"), id);
     }
 
     public static Specification<Session> hasStartDate(Timestamp startDate) {
-        return (root, query, criteriaBuilder) ->
+        return (root, _, criteriaBuilder) ->
                 startDate == null ? null : criteriaBuilder.equal(root.get("startDate"), startDate);
     }
 
     public static Specification<Session> hasEndDate(Timestamp endDate) {
-        return (root, query, criteriaBuilder) ->
+        return (root, _, criteriaBuilder) ->
                 endDate == null ? null : criteriaBuilder.equal(root.get("endDate"), endDate);
     }
 
     public static Specification<Session> hasTitle(String title) {
-        return (root, query, criteriaBuilder) ->
+        return (root, _, criteriaBuilder) ->
                 title == null ? null : criteriaBuilder.equal(root.get("title"), title);
     }
 
     public static Specification<Session> hasDescription(String description) {
-        return (root, query, criteriaBuilder) ->
+        return (root, _, criteriaBuilder) ->
                 description == null ? null : criteriaBuilder.equal(root.get("description"), description);
     }
 
     public static Specification<Session> hasDuration(Float duration) {
-        return (root, query, criteriaBuilder) ->
+        return (root, _, criteriaBuilder) ->
                 duration == null ? null : criteriaBuilder.equal(root.get("duration"), duration);
     }
 
     public static Specification<Session> hasCapacity(Integer capacity) {
-        return (root, query, criteriaBuilder) ->
+        return (root, _, criteriaBuilder) ->
                 capacity == null ? null : criteriaBuilder.equal(root.get("capacity"), capacity);
     }
 
     public static Specification<Session> hasTrainingId(Long trainingId) {
-        return (root, query, criteriaBuilder) ->
+        return (root, _, criteriaBuilder) ->
                 trainingId == null ? null : criteriaBuilder.equal(root.get("training").get("id"), trainingId);
     }
 
     public static Specification<Session> hasInstructorId(Long instructorId) {
-        return (root, query, criteriaBuilder) ->
+        return (root, _, criteriaBuilder) ->
                 instructorId == null ? null : criteriaBuilder.equal(root.get("instructor").get("id"), instructorId);
     }
 
     public static Specification<Session> hasPlaceId(Long placeId) {
-        return (root, query, criteriaBuilder) ->
+        return (root, _, criteriaBuilder) ->
                 placeId == null ? null : criteriaBuilder.equal(root.get("place").get("id"), placeId);
     }
 

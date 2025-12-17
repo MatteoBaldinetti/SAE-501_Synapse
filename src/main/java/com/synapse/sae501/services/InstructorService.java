@@ -1,5 +1,6 @@
 package com.synapse.sae501.services;
 
+import com.synapse.sae501.exceptions.ResourceNotFoundException;
 import com.synapse.sae501.models.Instructor;
 import com.synapse.sae501.repositories.InstructorRepository;
 import com.synapse.sae501.specifications.InstructorSpecifications;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class InstructorService {
@@ -22,7 +22,8 @@ public class InstructorService {
     }
 
     public Instructor getInstructorById(Long id) {
-        return instructorRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        return instructorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Instructor object with ID " + id + " not found"));
     }
 
     public List<Instructor> getAllInstructors() {
@@ -30,10 +31,12 @@ public class InstructorService {
     }
 
     public void deleteInstructorById(Long id) {
+        getInstructorById(id);
         instructorRepository.deleteById(id);
     }
 
     public Instructor updateInstructor(Instructor instructor, Long id) {
+        getInstructorById(id);
         instructor.setId(id);
         return instructorRepository.save(instructor);
     }

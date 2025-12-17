@@ -99,13 +99,13 @@ public class UserController {
     @GetMapping("/search")
     public ResponseEntity<List<User>> searchUsers(
             @Parameter(description = "User ID") @RequestParam(required = false) Long id,
-            @Parameter(description = "") @RequestParam(required = false) String firstname,
-            @Parameter(description = "") @RequestParam(required = false) String lastname,
-            @Parameter(description = "") @RequestParam(required = false) String email,
-            @Parameter(description = "") @RequestParam(required = false) String password,
-            @Parameter(description = "") @RequestParam(required = false) Integer type,
-            @Parameter(description = "") @RequestParam(required = false) String phoneNumber,
-            @Parameter(description = "") @RequestParam(required = false) String imgName
+            @Parameter(description = "First name") @RequestParam(required = false) String firstname,
+            @Parameter(description = "Last name") @RequestParam(required = false) String lastname,
+            @Parameter(description = "Email") @RequestParam(required = false) String email,
+            @Parameter(description = "Password") @RequestParam(required = false) String password,
+            @Parameter(description = "Type of account") @RequestParam(required = false) Integer type,
+            @Parameter(description = "Phone number") @RequestParam(required = false) String phoneNumber,
+            @Parameter(description = "Image name") @RequestParam(required = false) String imgName
     ) {
         List<User> result = userService.searchUsers(id, firstname, lastname, email, password, type, phoneNumber, imgName);
         return ResponseEntity.ok(result);

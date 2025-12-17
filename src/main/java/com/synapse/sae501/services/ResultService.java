@@ -1,5 +1,6 @@
 package com.synapse.sae501.services;
 
+import com.synapse.sae501.exceptions.ResourceNotFoundException;
 import com.synapse.sae501.repositories.ResultRepository;
 import com.synapse.sae501.specifications.ResultSpecifications;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import com.synapse.sae501.models.Result;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class ResultService {
@@ -23,7 +23,8 @@ public class ResultService {
     }
 
     public Result getResultById(Long id) {
-        return resultRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        return resultRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Result object with ID " + id + " not found"));
     }
 
     public List<Result> getAllResults() {
@@ -31,10 +32,12 @@ public class ResultService {
     }
 
     public void deleteResultById(Long id) {
+        getResultById(id);
         resultRepository.deleteById(id);
     }
 
     public Result updateResult(Result result, Long id) {
+        getResultById(id);
         result.setId(id);
         return resultRepository.save(result);
     }

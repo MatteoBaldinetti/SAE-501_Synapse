@@ -95,10 +95,10 @@ public class InscriptionController {
     @GetMapping("/search")
     public ResponseEntity<List<Inscription>> searchInscriptions(
             @Parameter(description = "Inscription ID") @RequestParam(required = false) Long id,
-            @Parameter(description = "") @RequestParam(required = false) Timestamp inscriptionDate,
-            @Parameter(description = "") @RequestParam(required = false) String status,
-            @Parameter(description = "") @RequestParam(required = false) Timestamp date,
-            @Parameter(description = "") @RequestParam(required = false) Float amount,
+            @Parameter(description = "Inscription date") @RequestParam(required = false) Timestamp inscriptionDate,
+            @Parameter(description = "Status") @RequestParam(required = false) String status,
+            @Parameter(description = "Date") @RequestParam(required = false) Timestamp date,
+            @Parameter(description = "Amount") @RequestParam(required = false) Float amount,
             @Parameter(description = "User ID") @RequestParam(required = false) Long userId,
             @Parameter(description = "Session ID") @RequestParam(required = false) Long sessionId,
             @Parameter(description = "Training ID") @RequestParam(required = false) Long trainingId

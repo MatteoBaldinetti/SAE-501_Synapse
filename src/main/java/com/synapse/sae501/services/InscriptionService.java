@@ -1,5 +1,6 @@
 package com.synapse.sae501.services;
 
+import com.synapse.sae501.exceptions.ResourceNotFoundException;
 import com.synapse.sae501.models.Inscription;
 import com.synapse.sae501.repositories.InscriptionRepository;
 import com.synapse.sae501.specifications.InscriptionSpecifications;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @Service
 public class InscriptionService {
@@ -23,7 +23,8 @@ public class InscriptionService {
     }
 
     public Inscription getInscriptionById(Long id) {
-        return inscriptionRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        return inscriptionRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Inscription object with ID " + id + " not found"));
     }
 
     public List<Inscription> getAllInscriptions() {
@@ -31,10 +32,12 @@ public class InscriptionService {
     }
 
     public void deleteInscriptionById(Long id) {
+        getInscriptionById(id);
         inscriptionRepository.deleteById(id);
     }
 
     public Inscription updateInscription(Inscription inscription, Long id) {
+        getInscriptionById(id);
         inscription.setId(id);
         return inscriptionRepository.save(inscription);
     }

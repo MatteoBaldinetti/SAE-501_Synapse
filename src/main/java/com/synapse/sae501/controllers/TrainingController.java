@@ -94,15 +94,15 @@ public class TrainingController {
     @GetMapping("/search")
     public ResponseEntity<List<Training>> searchTrainings(
             @Parameter(description = "Training ID") @RequestParam(required = false) Long id,
-            @Parameter(description = "") @RequestParam(required = false) String title,
-            @Parameter(description = "") @RequestParam(required = false) String description,
-            @Parameter(description = "") @RequestParam(required = false) String detailedDescription,
-            @Parameter(description = "") @RequestParam(required = false) String prerequisites,
-            @Parameter(description = "") @RequestParam(required = false) String imgName,
-            @Parameter(description = "") @RequestParam(required = false) String category,
-            @Parameter(description = "") @RequestParam(required = false) Float duration,
-            @Parameter(description = "") @RequestParam(required = false) Float price,
-            @Parameter(description = "") @RequestParam(required = false) String learnText
+            @Parameter(description = "Title") @RequestParam(required = false) String title,
+            @Parameter(description = "Description") @RequestParam(required = false) String description,
+            @Parameter(description = "Detailed description") @RequestParam(required = false) String detailedDescription,
+            @Parameter(description = "Prerequisites") @RequestParam(required = false) String prerequisites,
+            @Parameter(description = "Image name") @RequestParam(required = false) String imgName,
+            @Parameter(description = "Category") @RequestParam(required = false) String category,
+            @Parameter(description = "Duration") @RequestParam(required = false) Float duration,
+            @Parameter(description = "Price") @RequestParam(required = false) Float price,
+            @Parameter(description = "Learn text") @RequestParam(required = false) String learnText
     ) {
         List<Training> result = trainingService.searchTrainings(id, title, description, detailedDescription, prerequisites, imgName, category, duration, price, learnText);
         return ResponseEntity.ok(result);

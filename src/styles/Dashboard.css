@@ -41,6 +41,16 @@
     color: white;
 }
 
+.btn-delete {
+    border: 2px solid red;
+    color: red;
+}
+
+.btn-delete:hover {
+    background-color: red;
+    color: white;
+}
+
 .cours-tab {
     padding-bottom: 12px;
     cursor: pointer;

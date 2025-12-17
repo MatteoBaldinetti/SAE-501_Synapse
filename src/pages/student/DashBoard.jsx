@@ -10,6 +10,18 @@ function Dashboard() {
     const [currentLayout, SetCurrentLayout] = useState("profile");
     const [courseStatusLayout, setCourseStatusLayout] = useState("inscrit");
 
+    const [userSession, setUserSession] = useState([])
+
+    useEffect(() => {
+        if (currentLayout !== "cours") return;
+        const fetchData = async () => {
+            const res = await fetch(`http://localhost:8080/api/users/${1}/trainings`);
+            const json = await res.json();
+            setUserSession(json);
+        }
+        fetchData();
+    }, [currentLayout])
+
     // Reset des layout quand on change
     useEffect(() => {
         setCourseStatusLayout("inscrit");
@@ -106,15 +118,17 @@ function Dashboard() {
                                 {courseStatusLayout === "termine" && (
                                     <>
                                         <h2 className="my-5 pt-5">Vos évaluations</h2>
-                                        <div className="row mx-1 p-3 border border-dark rounded-top-3 bg-white">
-                                            <div className="col-4">
-                                                <h6>Nom du cours</h6>
-                                            </div>
-                                            <div className="col-4">
-                                                <h6>Note</h6>
-                                            </div>
-                                            <div className="col-4">
-                                                <h6>Commentaire</h6>
+                                        <div className="container">
+                                            <div className="row mx-1 p-3 border border-dark rounded-top-3 bg-white">
+                                                <div className="col-4">
+                                                    <h6>Nom du cours</h6>
+                                                </div>
+                                                <div className="col-4">
+                                                    <h6>Note</h6>
+                                                </div>
+                                                <div className="col-4">
+                                                    <h6>Commentaire</h6>
+                                                </div>
                                             </div>
                                         </div>
                                     </>
@@ -125,18 +139,20 @@ function Dashboard() {
                         {currentLayout === "paiement" && (
                             <div className="p-5">
                                 <h2 className="mb-5">Vos paiement</h2>
-                                <div className="row mx-1 p-3 border border-dark rounded-top-3 bg-white">
-                                    <div className="col-3">
-                                        <h6>Nom du cours</h6>
-                                    </div>
-                                    <div className="col-3">
-                                        <h6>Montant payé</h6>
-                                    </div>
-                                    <div className="col-3">
-                                        <h6>Status</h6>
-                                    </div>
-                                    <div className="col-3">
-                                        <h6>Date</h6>
+                                <div className="container">
+                                    <div className="row mx-1 p-3 border border-dark rounded-top-3 bg-white">
+                                        <div className="col-3">
+                                            <h6>Nom du cours</h6>
+                                        </div>
+                                        <div className="col-3">
+                                            <h6>Montant payé</h6>
+                                        </div>
+                                        <div className="col-3">
+                                            <h6>Status</h6>
+                                        </div>
+                                        <div className="col-3">
+                                            <h6>Date</h6>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

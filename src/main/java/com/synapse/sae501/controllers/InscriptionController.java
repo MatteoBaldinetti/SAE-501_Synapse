@@ -27,8 +27,9 @@ public class InscriptionController {
     }
 
     @GetMapping
-    public List<Inscription> getAllInscriptions() {
-        return inscriptionService.getAllInscriptions();
+    public ResponseEntity<List<Inscription>> getAllInscriptions() {
+        List<Inscription> result = inscriptionService.getAllInscriptions();
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{id}")
@@ -50,7 +51,7 @@ public class InscriptionController {
     }
 
     @GetMapping("/search")
-    public List<Inscription> searchInscriptions(@RequestParam(required = false) Long id,
+    public ResponseEntity<List<Inscription>> searchInscriptions(@RequestParam(required = false) Long id,
                                                 @RequestParam(required = false) Timestamp inscriptionDate,
                                                 @RequestParam(required = false) String status,
                                                 @RequestParam(required = false) Timestamp date,
@@ -59,6 +60,7 @@ public class InscriptionController {
                                                 @RequestParam(required = false) Long sessionId,
                                                 @RequestParam(required = false) Long trainingId
     ) {
-        return inscriptionService.searchInscriptions(id, inscriptionDate, status, date, amount, userId, sessionId, trainingId);
+        List<Inscription> result = inscriptionService.searchInscriptions(id, inscriptionDate, status, date, amount, userId, sessionId, trainingId);
+        return ResponseEntity.ok(result);
     }
 }

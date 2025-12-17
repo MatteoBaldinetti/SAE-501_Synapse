@@ -26,8 +26,9 @@ public class PlaceController {
     }
 
     @GetMapping
-    public List<Place> getAllPlaces(){
-        return placeService.getAllPlaces();
+    public ResponseEntity<List<Place>> getAllPlaces(){
+        List<Place> result = placeService.getAllPlaces();
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{id}")
@@ -49,12 +50,13 @@ public class PlaceController {
     }
 
     @GetMapping("/search")
-    public List<Place> searchPlaces(@RequestParam(required = false) Long id,
+    public ResponseEntity<List<Place>> searchPlaces(@RequestParam(required = false) Long id,
                                     @RequestParam(required = false) String city,
                                     @RequestParam(required = false) String address,
                                     @RequestParam(required = false) String zip,
                                     @RequestParam(required = false) Integer maxCapacity
     ) {
-        return placeService.searchPlaces(id, city, address, zip, maxCapacity);
+        List<Place> result = placeService.searchPlaces(id, city, address, zip, maxCapacity);
+        return ResponseEntity.ok(result);
     }
 }

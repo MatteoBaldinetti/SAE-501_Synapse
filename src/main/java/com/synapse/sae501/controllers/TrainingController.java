@@ -26,8 +26,9 @@ public class TrainingController {
     }
 
     @GetMapping
-    public List<Training> getAllTrainings() {
-        return trainingService.getAllTrainings();
+    public ResponseEntity<List<Training>> getAllTrainings() {
+        List<Training> result = trainingService.getAllTrainings();
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{id}")
@@ -49,7 +50,7 @@ public class TrainingController {
     }
 
     @GetMapping("/search")
-    public List<Training> searchTrainings(@RequestParam(required = false) Long id,
+    public ResponseEntity<List<Training>> searchTrainings(@RequestParam(required = false) Long id,
                                           @RequestParam(required = false) String title,
                                           @RequestParam(required = false) String description,
                                           @RequestParam(required = false) String detailedDescription,
@@ -60,6 +61,7 @@ public class TrainingController {
                                           @RequestParam(required = false) Float price,
                                           @RequestParam(required = false) String learnText
     ) {
-        return trainingService.searchTrainings(id, title, description, detailedDescription, prerequisites, imgName, category, duration, price, learnText);
+        List<Training> result = trainingService.searchTrainings(id, title, description, detailedDescription, prerequisites, imgName, category, duration, price, learnText);
+        return ResponseEntity.ok(result);
     }
 }

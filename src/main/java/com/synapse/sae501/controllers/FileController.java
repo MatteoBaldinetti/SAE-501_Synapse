@@ -24,8 +24,9 @@ public class FileController {
     private FileService fileService;
 
     @GetMapping
-    public List<File> getAllFiles() {
-        return fileService.getAllFiles();
+    public ResponseEntity<List<File>> getAllFiles() {
+        List<File> file = fileService.getAllFiles();
+        return ResponseEntity.ok(file);
     }
 
     @DeleteMapping("/{fileName}")

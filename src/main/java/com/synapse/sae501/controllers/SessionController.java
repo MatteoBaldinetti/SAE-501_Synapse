@@ -27,8 +27,9 @@ public class SessionController {
     }
 
     @GetMapping
-    public List<Session> getAllSessions(){
-        return sessionService.getAllSessions();
+    public ResponseEntity<List<Session>> getAllSessions(){
+        List<Session> result = sessionService.getAllSessions();
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{id}")
@@ -50,7 +51,7 @@ public class SessionController {
     }
 
     @GetMapping("/search")
-    public List<Session> searchSessions(@RequestParam(required = false) Long id,
+    public ResponseEntity<List<Session>> searchSessions(@RequestParam(required = false) Long id,
                                         @RequestParam(required = false) Timestamp startDate,
                                         @RequestParam(required = false) Timestamp endDate,
                                         @RequestParam(required = false) String title,
@@ -61,6 +62,7 @@ public class SessionController {
                                         @RequestParam(required = false) Long instructorId,
                                         @RequestParam(required = false) Long placeId
     ) {
-        return sessionService.searchSessions(id, startDate, endDate, title, description, duration, capacity, trainingId, instructorId, placeId);
+        List<Session> result = sessionService.searchSessions(id, startDate, endDate, title, description, duration, capacity, trainingId, instructorId, placeId);
+        return ResponseEntity.ok(result);
     }
 }

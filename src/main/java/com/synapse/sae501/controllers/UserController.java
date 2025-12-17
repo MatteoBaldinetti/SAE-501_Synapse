@@ -26,8 +26,9 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> result = userService.getAllUsers();
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{id}")
@@ -49,7 +50,7 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public List<User> searchUsers(@RequestParam(required = false) Long id,
+    public ResponseEntity<List<User>> searchUsers(@RequestParam(required = false) Long id,
                                   @RequestParam(required = false) String firstname,
                                   @RequestParam(required = false) String lastname,
                                   @RequestParam(required = false) String email,
@@ -58,6 +59,7 @@ public class UserController {
                                   @RequestParam(required = false) String phoneNumber,
                                   @RequestParam(required = false) String imgName
     ) {
-        return userService.searchUsers(id, firstname, lastname, email, password, type, phoneNumber, imgName);
+        List<User> result = userService.searchUsers(id, firstname, lastname, email, password, type, phoneNumber, imgName);
+        return ResponseEntity.ok(result);
     }
 }

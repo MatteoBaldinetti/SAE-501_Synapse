@@ -26,8 +26,9 @@ public class InstructorController {
     }
 
     @GetMapping
-    public List<Instructor> getAllInstructors() {
-        return instructorService.getAllInstructors();
+    public ResponseEntity<List<Instructor>> getAllInstructors() {
+        List<Instructor> result = instructorService.getAllInstructors();
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{id}")
@@ -49,12 +50,13 @@ public class InstructorController {
     }
 
     @GetMapping("/search")
-    public List<Instructor> searchInstructors(@RequestParam(required = false) Long id,
+    public ResponseEntity<List<Instructor>> searchInstructors(@RequestParam(required = false) Long id,
                                               @RequestParam(required = false) String firstName,
                                               @RequestParam(required = false) String lastName,
                                               @RequestParam(required = false) String contractType,
                                               @RequestParam(required = false) String specialty
     ) {
-        return instructorService.searchInstructors(id, firstName, lastName, contractType, specialty);
+        List<Instructor> result = instructorService.searchInstructors(id, firstName, lastName, contractType, specialty);
+        return ResponseEntity.ok(result);
     }
 }

@@ -26,8 +26,9 @@ public class ResultController {
     }
 
     @GetMapping
-    public List<Result> getAllResults() {
-        return resultService.getAllResults();
+    public ResponseEntity<List<Result>> getAllResults() {
+        List<Result> result = resultService.getAllResults();
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{id}")
@@ -49,12 +50,13 @@ public class ResultController {
     }
 
     @GetMapping("/search")
-    public List<Result> searchResults(@RequestParam(required = false) Long id,
+    public ResponseEntity<List<Result>> searchResults(@RequestParam(required = false) Long id,
                                       @RequestParam(required = false) Float grade,
                                       @RequestParam(required = false) String description,
                                       @RequestParam(required = false) Long userId,
                                       @RequestParam(required = false) Long sessionId
     ) {
-        return resultService.searchResults(id, grade, description, userId, sessionId);
+        List<Result> result = resultService.searchResults(id, grade, description, userId, sessionId);
+        return ResponseEntity.ok(result);
     }
 }

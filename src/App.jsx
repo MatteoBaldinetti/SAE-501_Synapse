@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Cours from "./pages/student/Cours";
 import CoursDetail from "./pages/student/CoursDetail";
 import CoursPayment from "./pages/student/CoursPayment";
+import AdminView from "./pages/admin/AdminView";
 import Dashboard from "./pages/student/DashBoard";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="/cours" element={<Cours />} />
           <Route path="/cours-detail/:id" element={<CoursDetail />} />
           <Route path="/cours-payment" element={<CoursPayment />} />
+          <Route path="/admin" element={<AdminView />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
         <Footer />

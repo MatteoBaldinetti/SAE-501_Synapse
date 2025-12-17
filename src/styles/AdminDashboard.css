@@ -7,6 +7,10 @@ body {
     background-color: #2EE88A;
 }
 
+.text-admin {
+    color: #2EE88A;
+}
+
 .selected-button:hover{
     background-color: #2EE88A !important;
 }

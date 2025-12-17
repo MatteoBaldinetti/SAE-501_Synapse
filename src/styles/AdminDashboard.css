@@ -1,6 +1,8 @@
-body {
+.admin-view {
     background-color: #e8f2ed;
+    min-height: 100vh;
 }
+
 
 .selected-button {
     cursor: default !important;

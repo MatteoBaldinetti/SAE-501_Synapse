@@ -7,7 +7,7 @@ function AdminView() {
   const [CurrentLayout, SetCurrentLayout] = useState("dashboard");
 
   return (
-    <div>
+    <div className="admin-view">
       <div className="container-fluid py-5">
         <div className="row">
           <div className="col-3">

@@ -1,0 +1,37 @@
+.blue-background {
+    background-color: #9DCCFF4D;
+}
+
+.link-container-background {
+    background-color: #F8F9FA;
+}
+
+.selected-button {
+    cursor: default !important;
+    background-color: #0183ca;
+}
+
+.selected-button:hover{
+    background-color: #0183ca !important;
+}
+
+.gestionnaire > div{
+    border-radius: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.gestionnaire > div:hover{
+    cursor: pointer;
+    background-color: #005d8871;
+    transition: background-color 0.2s ease;
+}
+
+.btn-blue {
+    background-color: #005D88;
+    color: white;
+}
+
+.btn-blue:hover {
+  background-color: #0C232B;
+  color: white;
+}

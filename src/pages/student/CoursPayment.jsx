@@ -161,7 +161,7 @@ function CoursPayment() {
           </div>
           <div className="row">
             <div className="col-md-6 mb-3">
-              <label className="form-label">Date d’expiration</label>
+              <label className="form-label">Date d'expiration</label>
               <input
                 type="text"
                 className="form-control"
@@ -430,7 +430,7 @@ function CoursPayment() {
                 />
               </div>
               <div className="mb-3">
-                <label className="form-label">Complément d’adresse</label>
+                <label className="form-label">Complément d'adresse</label>
                 <input
                   type="text"
                   className="form-control"

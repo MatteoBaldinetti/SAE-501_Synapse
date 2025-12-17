@@ -1,0 +1,41 @@
+.blue-button {
+  background-color: #005D88;
+  color: white;
+}
+
+.blue-button:hover {
+  background-color: #0C232B;
+  color: white;
+}
+
+.blue-button-outline {
+  border: 2px solid #005D88;
+  color: #005D88;
+}
+
+.blue-button-outline:hover {
+  background-color: #0C232B;
+  color: white;
+}
+
+.nav-link {
+  transition: transform 0.3s ease;
+
+}
+
+.nav-link:hover {
+  transform: translateY(-5px);
+}
+
+.profile-dropdown {
+  min-width: 220px;
+}
+
+.profile-dropdown .dropdown-item {
+  font-size: 1.05rem;
+  padding: 10px 15px;
+}
+
+.profile-dropdown li {
+  margin-bottom: 2px;
+}

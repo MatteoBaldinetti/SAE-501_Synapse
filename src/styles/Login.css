@@ -1,0 +1,84 @@
+#formContainer {
+  background-image: url('../assets/images/login_background.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#formBox {
+  background-color: white;
+  width: 100%;
+  max-width: 35vw;
+  border-radius: 20px;
+  box-shadow: 10px 10px 20px rgba(70,70,70,0.2);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.form-wrapper {
+  transition: height 0.5s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.form-content {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.2s ease, transform 0.5s ease;
+}
+
+.form-content.active {
+  opacity: 1;
+  transform: translateY(0);
+  position: relative;
+  z-index: 10
+}
+
+.form-bottom {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  height: 100%;
+  width: 24px;
+}
+
+.blue-button {
+  background-color: #005D88;
+  color: white;
+}
+
+.blue-button:hover {
+  background-color: #0C232B;
+}
+
+.link-pointer {
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  #formBox {
+    max-width: 90vw;
+    padding: 1.5rem;
+  }
+}

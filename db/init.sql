@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 9.5.0, for Linux (aarch64)
+-- MySQL dump 10.13  Distrib 9.5.0, for Linux (x86_64)
 --
 -- Host: localhost    Database: txlforma
 -- ------------------------------------------------------
@@ -77,16 +77,16 @@ CREATE TABLE `inscription` (
   `date` datetime(6) NOT NULL,
   `inscription_date` datetime(6) NOT NULL,
   `status` varchar(255) NOT NULL,
-  `session_id` bigint NOT NULL,
-  `training_id` bigint NOT NULL,
-  `user_id` bigint NOT NULL,
+  `session_id` bigint DEFAULT NULL,
+  `training_id` bigint DEFAULT NULL,
+  `user_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKb3ckm4ansfumlubaocw95dwep` (`session_id`),
   KEY `FK8mqp9u7d8g2dl06y6rogdln2q` (`training_id`),
   KEY `FKabev4trxvkjaltn385ykbr62x` (`user_id`),
-  CONSTRAINT `FK8mqp9u7d8g2dl06y6rogdln2q` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`),
-  CONSTRAINT `FKabev4trxvkjaltn385ykbr62x` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `FKb3ckm4ansfumlubaocw95dwep` FOREIGN KEY (`session_id`) REFERENCES `session` (`id`)
+  CONSTRAINT `FK8mqp9u7d8g2dl06y6rogdln2q` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `FKabev4trxvkjaltn385ykbr62x` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `FKb3ckm4ansfumlubaocw95dwep` FOREIGN KEY (`session_id`) REFERENCES `session` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -96,7 +96,7 @@ CREATE TABLE `inscription` (
 
 LOCK TABLES `inscription` WRITE;
 /*!40000 ALTER TABLE `inscription` DISABLE KEYS */;
-INSERT INTO `inscription` VALUES (1,450,'2025-11-27 14:00:00.000000','2025-11-27 14:00:00.000000','CONFIRMÉ',1,1,1),(2,750,'2025-11-28 10:30:00.000000','2025-11-28 10:30:00.000000','EN_ATTENTE',2,2,2),(3,600,'2026-01-05 09:15:00.000000','2026-01-05 09:15:00.000000','PAYÉ',3,3,3);
+INSERT INTO `inscription` VALUES (1,450,'2025-11-27 14:00:00.000000','2025-11-27 14:00:00.000000','CONFIRM',1,1,1),(2,750,'2025-11-28 10:30:00.000000','2025-11-28 10:30:00.000000','EN_ATTENTE',2,2,2),(3,600,'2026-01-05 09:15:00.000000','2026-01-05 09:15:00.000000','PAY',3,3,3);
 /*!40000 ALTER TABLE `inscription` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,7 +118,7 @@ CREATE TABLE `inscription_seq` (
 
 LOCK TABLES `inscription_seq` WRITE;
 /*!40000 ALTER TABLE `inscription_seq` DISABLE KEYS */;
-INSERT INTO `inscription_seq` VALUES (101);
+INSERT INTO `inscription_seq` VALUES (1);
 /*!40000 ALTER TABLE `inscription_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,7 +145,7 @@ CREATE TABLE `instructor` (
 
 LOCK TABLES `instructor` WRITE;
 /*!40000 ALTER TABLE `instructor` DISABLE KEYS */;
-INSERT INTO `instructor` VALUES (1,'Intervenant freelance','Élodie','Martin','Développement web et pédagogie numérique'),(2,'CDI','Antoine','Leclerc','Design UX/UI et accessibilité'),(3,'Intervenant freelance','Nadia','Roux','Management de projet et méthodes agiles');
+INSERT INTO `instructor` VALUES (1,'Intervenant freelance','lodie','Martin','Dveloppement web et pdagogie numrique'),(2,'CDI','Antoine','Leclerc','Design UX/UI et accessibilit'),(3,'Intervenant freelance','Nadia','Roux','Management de projet et mthodes agiles');
 /*!40000 ALTER TABLE `instructor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,7 +167,7 @@ CREATE TABLE `instructor_seq` (
 
 LOCK TABLES `instructor_seq` WRITE;
 /*!40000 ALTER TABLE `instructor_seq` DISABLE KEYS */;
-INSERT INTO `instructor_seq` VALUES (101);
+INSERT INTO `instructor_seq` VALUES (1);
 /*!40000 ALTER TABLE `instructor_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,7 +194,7 @@ CREATE TABLE `place` (
 
 LOCK TABLES `place` WRITE;
 /*!40000 ALTER TABLE `place` DISABLE KEYS */;
-INSERT INTO `place` VALUES (1,'12 rue de la République','Lyon',30,'69002'),(2,'45 avenue des Champs-Élysées','Paris',20,'75008'),(3,'3 boulevard Longchamp','Marseille',25,'13001');
+INSERT INTO `place` VALUES (1,'12 rue de la Rpublique','Lyon',30,'69002'),(2,'45 avenue des Champs-lyses','Paris',20,'75008'),(3,'3 boulevard Longchamp','Marseille',25,'13001');
 /*!40000 ALTER TABLE `place` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -216,7 +216,7 @@ CREATE TABLE `place_seq` (
 
 LOCK TABLES `place_seq` WRITE;
 /*!40000 ALTER TABLE `place_seq` DISABLE KEYS */;
-INSERT INTO `place_seq` VALUES (101);
+INSERT INTO `place_seq` VALUES (1);
 /*!40000 ALTER TABLE `place_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -231,13 +231,13 @@ CREATE TABLE `result` (
   `id` bigint NOT NULL,
   `description` varchar(255) NOT NULL,
   `grade` float NOT NULL,
-  `session_id` bigint NOT NULL,
-  `user_id` bigint NOT NULL,
+  `session_id` bigint DEFAULT NULL,
+  `user_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK6o0tmj4m6ay1iub6t7o6t9e4g` (`session_id`),
   KEY `FKpjjrrf0483ih2cvyfmx70a16b` (`user_id`),
-  CONSTRAINT `FK6o0tmj4m6ay1iub6t7o6t9e4g` FOREIGN KEY (`session_id`) REFERENCES `session` (`id`),
-  CONSTRAINT `FKpjjrrf0483ih2cvyfmx70a16b` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `FK6o0tmj4m6ay1iub6t7o6t9e4g` FOREIGN KEY (`session_id`) REFERENCES `session` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `FKpjjrrf0483ih2cvyfmx70a16b` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -247,7 +247,7 @@ CREATE TABLE `result` (
 
 LOCK TABLES `result` WRITE;
 /*!40000 ALTER TABLE `result` DISABLE KEYS */;
-INSERT INTO `result` VALUES (1,'Très bonne maîtrise des concepts et projet final solide.',16.5,1,1),(2,'Prototype correct mais nécessite des améliorations sur l\'organisation de l\'information.',13,2,2),(3,'Bonne participation, rituels agiles compris et capacité à animer une mêlée.',15,3,3);
+INSERT INTO `result` VALUES (1,'Trs bonne matrise des concepts et projet final solide.',16.5,1,1),(2,'Prototype correct mais ncessite des amliorations sur l\'organisation de l\'information.',13,2,2),(3,'Bonne participation, rituels agiles compris et capacit  animer une mle.',15,3,3);
 /*!40000 ALTER TABLE `result` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,7 +269,7 @@ CREATE TABLE `result_seq` (
 
 LOCK TABLES `result_seq` WRITE;
 /*!40000 ALTER TABLE `result_seq` DISABLE KEYS */;
-INSERT INTO `result_seq` VALUES (101);
+INSERT INTO `result_seq` VALUES (1);
 /*!40000 ALTER TABLE `result_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -288,16 +288,16 @@ CREATE TABLE `session` (
   `end_date` datetime(6) NOT NULL,
   `start_date` datetime(6) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `instructor_id` bigint NOT NULL,
-  `place_id` bigint NOT NULL,
-  `training_id` bigint NOT NULL,
+  `instructor_id` bigint DEFAULT NULL,
+  `place_id` bigint DEFAULT NULL,
+  `training_id` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK8l1v75brk9afixg1li5ymt7nj` (`instructor_id`),
   KEY `FKfwc7jdtbpfd501p8kqnqbn0ww` (`place_id`),
   KEY `FKrohssa00dtaqto152b65nucfc` (`training_id`),
-  CONSTRAINT `FK8l1v75brk9afixg1li5ymt7nj` FOREIGN KEY (`instructor_id`) REFERENCES `instructor` (`id`),
-  CONSTRAINT `FKfwc7jdtbpfd501p8kqnqbn0ww` FOREIGN KEY (`place_id`) REFERENCES `place` (`id`),
-  CONSTRAINT `FKrohssa00dtaqto152b65nucfc` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`)
+  CONSTRAINT `FK8l1v75brk9afixg1li5ymt7nj` FOREIGN KEY (`instructor_id`) REFERENCES `instructor` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `FKfwc7jdtbpfd501p8kqnqbn0ww` FOREIGN KEY (`place_id`) REFERENCES `place` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `FKrohssa00dtaqto152b65nucfc` FOREIGN KEY (`training_id`) REFERENCES `training` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -307,7 +307,7 @@ CREATE TABLE `session` (
 
 LOCK TABLES `session` WRITE;
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
-INSERT INTO `session` VALUES (1,20,'Session intensive de 5 jours couvrant HTML, CSS, JavaScript et atelier final de mise en ligne.',35,'2025-12-12 17:30:00.000000','2025-12-08 09:00:00.000000','Session Intensive - Dév Web (déc. 2025)',1,1,1),(2,12,'Atelier complet : personas, wireframes, prototypage et tests utilisateurs.',40,'2026-01-23 16:30:00.000000','2026-01-15 09:30:00.000000','Atelier UX/UI - Prototype & Tests (janv. 2026)',2,2,2),(3,18,'Session courte axée pratique : simulation de sprints et gestion du backlog.',18,'2026-02-12 17:00:00.000000','2026-02-10 10:00:00.000000','Sprint Agile - Initiation (févr. 2026)',3,3,3);
+INSERT INTO `session` VALUES (1,20,'Session intensive de 5 jours couvrant HTML, CSS, JavaScript et atelier final de mise en ligne.',35,'2025-12-12 17:30:00.000000','2025-12-08 09:00:00.000000','Session Intensive - Dv Web (dc. 2025)',1,1,1),(2,12,'Atelier complet : personas, wireframes, prototypage et tests utilisateurs.',40,'2026-01-23 16:30:00.000000','2026-01-15 09:30:00.000000','Atelier UX/UI - Prototype & Tests (janv. 2026)',2,2,2),(3,18,'Session courte axe pratique : simulation de sprints et gestion du backlog.',18,'2026-02-12 17:00:00.000000','2026-02-10 10:00:00.000000','Sprint Agile - Initiation (fvr. 2026)',3,3,3);
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -329,7 +329,7 @@ CREATE TABLE `session_seq` (
 
 LOCK TABLES `session_seq` WRITE;
 /*!40000 ALTER TABLE `session_seq` DISABLE KEYS */;
-INSERT INTO `session_seq` VALUES (101);
+INSERT INTO `session_seq` VALUES (1);
 /*!40000 ALTER TABLE `session_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -347,10 +347,10 @@ CREATE TABLE `training` (
   `detailed_description` longtext NOT NULL,
   `duration` float NOT NULL,
   `img_name` varchar(255) DEFAULT NULL,
+  `learn_text` varchar(255) DEFAULT NULL,
   `prerequisites` longtext NOT NULL,
   `price` float NOT NULL,
   `title` varchar(255) NOT NULL,
-  `learn_text` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -361,7 +361,7 @@ CREATE TABLE `training` (
 
 LOCK TABLES `training` WRITE;
 /*!40000 ALTER TABLE `training` DISABLE KEYS */;
-INSERT INTO `training` VALUES (1,'Informatique','Introduction aux fondamentaux du développement web : HTML, CSS et JavaScript.','Cette formation initie les participants aux technologies de base du web. Nous abordons la structure d’une page HTML, la mise en forme avec CSS (box model, flexbox, grid) et les principes de base de JavaScript (variables, fonctions, DOM). Les sessions alternent théorie et ateliers pratiques : vous construirez une mini-application responsive de A à Z. À la fin du cours, vous serez capable de créer et déployer une page web simple, de connaître les bonnes pratiques d’accessibilité et d’optimisation des performances.',14,'dev-web-init.jpg','Aucun prérequis technique nécessaire ; curiosité pour l’informatique recommandée.',450,'Initiation au développement web',NULL),(2,'Design','Méthodes et outils pour concevoir des interfaces centrées utilisateur.','La formation couvre le processus complet : recherche utilisateur, personas, architecture de l’information, wireframes, prototypage et tests utilisateurs. Des cas concrets permettent de comprendre l’importance de l’accessibilité, de la hiérarchie visuelle et des micro-interactions. Des ateliers guident les participants de l’idéation au prototype cliquable. Les apprenants reçoivent des retours personnalisés pour améliorer leur design.',21,'ux-ui-conception.jpg','Connaissance de base en informatique ; intérêt pour le design.',750,'Conception UX/UI pour produits numériques',NULL),(3,'Management','Principes et pratiques agiles pour piloter des équipes efficacement.','Cette formation explore Scrum, Kanban, les cérémonies agile, la gestion du backlog, la planification, la rétrospective et les métriques. Grâce à des simulations de sprint et des jeux de rôles, les participants apprennent à prioriser la valeur, animer une équipe et favoriser la livraison continue. L’accent est mis sur le leadership agile, la communication et la gestion du changement dans les organisations.',16,'agile-gestion.jpg','Expérience professionnelle recommandée.',600,'Gestion de projet agile',NULL);
+INSERT INTO `training` VALUES (1,'Informatique','Introduction aux fondamentaux du dveloppement web : HTML, CSS et JavaScript.','Cette formation initie les participants aux technologies de base du web. Nous abordons la structure dune page HTML, la mise en forme avec CSS (box model, flexbox, grid) et les principes de base de JavaScript (variables, fonctions, DOM). Les sessions alternent thorie et ateliers pratiques : vous construirez une mini-application responsive de A  Z.  la fin du cours, vous serez capable de crer et dployer une page web simple, de connatre les bonnes pratiques daccessibilit et doptimisation des performances.',14,'dev-web-init.jpg',NULL,'Aucun prrequis technique ncessaire ; curiosit pour linformatique recommande.',450,'Initiation au dveloppement web'),(2,'Design','Mthodes et outils pour concevoir des interfaces centres utilisateur.','La formation couvre le processus complet : recherche utilisateur, personas, architecture de linformation, wireframes, prototypage et tests utilisateurs. Des cas concrets permettent de comprendre limportance de laccessibilit, de la hirarchie visuelle et des micro-interactions. Des ateliers guident les participants de lidation au prototype cliquable. Les apprenants reoivent des retours personnaliss pour amliorer leur design.',21,'ux-ui-conception.jpg',NULL,'Connaissance de base en informatique ; intrt pour le design.',750,'Conception UX/UI pour produits numriques'),(3,'Management','Principes et pratiques agiles pour piloter des quipes efficacement.','Cette formation explore Scrum, Kanban, les crmonies agile, la gestion du backlog, la planification, la rtrospective et les mtriques. Grce  des simulations de sprint et des jeux de rles, les participants apprennent  prioriser la valeur, animer une quipe et favoriser la livraison continue. Laccent est mis sur le leadership agile, la communication et la gestion du changement dans les organisations.',16,'agile-gestion.jpg',NULL,'Exprience professionnelle recommande.',600,'Gestion de projet agile');
 /*!40000 ALTER TABLE `training` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -383,7 +383,7 @@ CREATE TABLE `training_seq` (
 
 LOCK TABLES `training_seq` WRITE;
 /*!40000 ALTER TABLE `training_seq` DISABLE KEYS */;
-INSERT INTO `training_seq` VALUES (101);
+INSERT INTO `training_seq` VALUES (1);
 /*!40000 ALTER TABLE `training_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -398,11 +398,11 @@ CREATE TABLE `user` (
   `id` bigint NOT NULL,
   `email` varchar(255) NOT NULL,
   `firstname` varchar(255) NOT NULL,
+  `img_name` varchar(255) DEFAULT NULL,
   `lastname` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `type` int NOT NULL,
-  `img_name` varchar(255) DEFAULT NULL,
   `phone_number` varchar(255) DEFAULT NULL,
+  `type` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UKob8kqyqqgmefl0aco34akdtpe` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -414,7 +414,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'camille.dupont@example.fr','Camille','Dupont','MotDePasseTest123!',1,NULL,NULL),(2,'lucas.moreau@example.fr','Lucas','Moreau','PasswordTest456!',2,NULL,NULL),(3,'sofia.bernard@example.fr','Sofia','Bernard','Secret789!',1,NULL,NULL),(52,'matteo.baldinetti1@gmail.com','Mattéo','Baldinetti','$2b$05$k/lfZKCa26eJ2.cN/RTIq.dxKgQT5NL4s/zOa2KWUXe7tDER9cUXi',0,NULL,NULL);
+INSERT INTO `user` VALUES (1,'camille.dupont@example.fr','Camille',NULL,'Dupont','MotDePasseTest123!',NULL,1),(2,'lucas.moreau@example.fr','Lucas',NULL,'Moreau','PasswordTest456!',NULL,2),(3,'sofia.bernard@example.fr','Sofia',NULL,'Bernard','Secret789!',NULL,1),(52,'matteo.baldinetti1@gmail.com','Matto',NULL,'Baldinetti','$2b$05$k/lfZKCa26eJ2.cN/RTIq.dxKgQT5NL4s/zOa2KWUXe7tDER9cUXi',NULL,0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -436,7 +436,7 @@ CREATE TABLE `user_seq` (
 
 LOCK TABLES `user_seq` WRITE;
 /*!40000 ALTER TABLE `user_seq` DISABLE KEYS */;
-INSERT INTO `user_seq` VALUES (151);
+INSERT INTO `user_seq` VALUES (1);
 /*!40000 ALTER TABLE `user_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -449,4 +449,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-12 10:54:49
+-- Dump completed on 2025-12-17 14:40:47

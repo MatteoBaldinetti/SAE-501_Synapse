@@ -2,6 +2,8 @@ package com.synapse.sae501.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Instructor {
     @Id
@@ -19,6 +21,9 @@ public class Instructor {
 
     @Column(nullable = false)
     private String specialty;
+
+    @OneToMany(mappedBy = "instructor")
+    private List<Session> sessions;
 
     public Instructor() {}
 

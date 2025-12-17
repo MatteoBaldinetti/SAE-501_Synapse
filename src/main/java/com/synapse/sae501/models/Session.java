@@ -1,6 +1,8 @@
 package com.synapse.sae501.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -31,15 +33,18 @@ public class Session {
     private Integer capacity;
 
     @ManyToOne
-    @JoinColumn(name = "training_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @JoinColumn(name = "training_id")
     private Training training;
 
     @ManyToOne
-    @JoinColumn(name = "instructor_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @JoinColumn(name = "instructor_id")
     private Instructor instructor;
 
     @ManyToOne
-    @JoinColumn(name = "place_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @JoinColumn(name = "place_id")
     private Place place;
 
     @OneToMany(mappedBy = "session")

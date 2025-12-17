@@ -10,6 +10,7 @@ import com.synapse.sae501.models.Result;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ResultService {
@@ -18,24 +19,24 @@ public class ResultService {
     private ResultRepository resultRepository;
 
     public Result createResult(Result result) {
-        return this.resultRepository.save(result);
+        return resultRepository.save(result);
     }
 
     public Result getResultById(Long id) {
-        return this.resultRepository.findById(id).get();
+        return resultRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     public List<Result> getAllResults() {
-        return this.resultRepository.findAll();
+        return resultRepository.findAll();
     }
 
     public void deleteResultById(Long id) {
-        this.resultRepository.deleteById(id);
+        resultRepository.deleteById(id);
     }
 
     public Result updateResult(Result result, Long id) {
         result.setId(id);
-        return this.resultRepository.save(result);
+        return resultRepository.save(result);
     }
 
     public List<Result> searchResults(

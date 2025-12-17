@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,9 +55,7 @@ public class FileService {
 
         Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
-        File img = new File();
-        img.setFileName(fileName);
-        img.setUrl("/api/files/download/" + fileName);
+        File img = new File(fileName, "/api/files/download/" + fileName, LocalDateTime.now());
 
         return fileRepository.save(img);
     }
@@ -66,7 +65,7 @@ public class FileService {
 
         Resource resource = new UrlResource(path.toUri());
         if (!resource.exists()) {
-            return  ResponseEntity.notFound().build();
+            return ResponseEntity.notFound().build();
         }
 
         String contentType = "application/octet-stream";

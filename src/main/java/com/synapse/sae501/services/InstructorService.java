@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class InstructorService {
@@ -16,26 +17,25 @@ public class InstructorService {
     @Autowired
     private InstructorRepository instructorRepository;
 
-    public Instructor createInstructor(Instructor instructor){
-        return this.instructorRepository.save(instructor);
+    public Instructor createInstructor(Instructor instructor) {
+        return instructorRepository.save(instructor);
     }
 
-    public Instructor getInstructorById(Long id){
-        return this.instructorRepository.findById(id).get();
+    public Instructor getInstructorById(Long id) {
+        return instructorRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
-    public List<Instructor> getAllInstructors()
-    {
-        return this.instructorRepository.findAll();
+    public List<Instructor> getAllInstructors() {
+        return instructorRepository.findAll();
     }
 
-    public void deleteInstructorById(Long id){
-        this.instructorRepository.deleteById(id);
+    public void deleteInstructorById(Long id) {
+        instructorRepository.deleteById(id);
     }
 
-    public Instructor updateInstructor(Instructor instructor, Long id){
+    public Instructor updateInstructor(Instructor instructor, Long id) {
         instructor.setId(id);
-        return this.instructorRepository.save(instructor);
+        return instructorRepository.save(instructor);
     }
 
     public List<Instructor> searchInstructors(

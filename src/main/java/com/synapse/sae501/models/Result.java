@@ -1,6 +1,8 @@
 package com.synapse.sae501.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
 public class Result {
@@ -15,11 +17,13 @@ public class Result {
     private String description;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "session_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @JoinColumn(name = "session_id")
     private Session session;
 
     public Result() {}

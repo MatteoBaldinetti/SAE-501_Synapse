@@ -2,6 +2,8 @@ package com.synapse.sae501.models;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Place {
     @Id
@@ -19,6 +21,9 @@ public class Place {
 
     @Column(nullable = false)
     private Integer maxCapacity;
+
+    @OneToMany(mappedBy = "place")
+    private List<Session> sessions;
 
     public Place() {}
 

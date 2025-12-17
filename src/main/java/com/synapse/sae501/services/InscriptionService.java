@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class InscriptionService {
@@ -17,25 +18,25 @@ public class InscriptionService {
     @Autowired
     private InscriptionRepository inscriptionRepository;
 
-    public Inscription createInscription(Inscription inscription){
+    public Inscription createInscription(Inscription inscription) {
         return inscriptionRepository.save(inscription);
     }
 
-    public Inscription getInscriptionById(Long id){
-        return this.inscriptionRepository.findById(id).get();
+    public Inscription getInscriptionById(Long id) {
+        return inscriptionRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
-    public List<Inscription> getAllInscriptions(){
-        return this.inscriptionRepository.findAll();
+    public List<Inscription> getAllInscriptions() {
+        return inscriptionRepository.findAll();
     }
 
-    public void deleteInscriptionById(Long id){
-        this.inscriptionRepository.deleteById(id);
+    public void deleteInscriptionById(Long id) {
+        inscriptionRepository.deleteById(id);
     }
 
-    public Inscription updateInscription(Inscription inscription, Long id){
+    public Inscription updateInscription(Inscription inscription, Long id) {
         inscription.setId(id);
-        return this.inscriptionRepository.save(inscription);
+        return inscriptionRepository.save(inscription);
     }
 
     public List<Inscription> searchInscriptions(

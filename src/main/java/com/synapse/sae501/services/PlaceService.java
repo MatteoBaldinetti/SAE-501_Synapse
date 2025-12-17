@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class PlaceService {
@@ -16,25 +17,25 @@ public class PlaceService {
     @Autowired
     private PlaceRepository placeRepository;
 
-    public Place createPlace(Place place){
-        return this.placeRepository.save(place);
+    public Place createPlace(Place place) {
+        return placeRepository.save(place);
     }
 
-    public Place getPlaceById(Long id){
-        return this.placeRepository.findById(id).get();
+    public Place getPlaceById(Long id) {
+        return placeRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     public List<Place> getAllPlaces() {
-        return this.placeRepository.findAll();
+        return placeRepository.findAll();
     }
 
-    public void deletePlaceById(Long id){
-        this.placeRepository.deleteById(id);
+    public void deletePlaceById(Long id) {
+        placeRepository.deleteById(id);
     }
 
-    public Place updatePlace(Place place, Long id){
+    public Place updatePlace(Place place, Long id) {
         place.setId(id);
-        return this.placeRepository.save(place);
+        return placeRepository.save(place);
     }
 
     public List<Place> searchPlaces(

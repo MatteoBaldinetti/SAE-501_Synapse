@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class SessionService {
@@ -17,25 +18,25 @@ public class SessionService {
     @Autowired
     private SessionRepository sessionRepository;
 
-    public Session createSession(Session session){
-        return this.sessionRepository.save(session);
+    public Session createSession(Session session) {
+        return sessionRepository.save(session);
     }
 
-    public Session getSessionById(Long id){
-        return this.sessionRepository.findById(id).get();
+    public Session getSessionById(Long id) {
+        return sessionRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
-    public List<Session> getAllSessions(){
-        return this.sessionRepository.findAll();
+    public List<Session> getAllSessions() {
+        return sessionRepository.findAll();
     }
 
-    public void deleteSessionById(Long id){
-        this.sessionRepository.deleteById(id);
+    public void deleteSessionById(Long id) {
+        sessionRepository.deleteById(id);
     }
 
-    public Session updateSession(Session session, Long id){
+    public Session updateSession(Session session, Long id) {
         session.setId(id);
-        return this.sessionRepository.save(session);
+        return sessionRepository.save(session);
     }
 
     public List<Session> searchSessions(

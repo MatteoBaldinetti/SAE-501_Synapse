@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class UserService {
@@ -16,25 +17,25 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User createUser(User user){
-        return this.userRepository.save(user);
+    public User createUser(User user) {
+        return userRepository.save(user);
     }
 
-    public User getUserById(Long id){
-        return this.userRepository.findById(id).get();
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     public List<User> getAllUsers() {
-        return this.userRepository.findAll();
+        return userRepository.findAll();
     }
 
-    public void deleteUserById(Long id){
-        this.userRepository.deleteById(id);
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
     }
 
-    public User updateUser(User user, Long id){
+    public User updateUser(User user, Long id) {
         user.setId(id);
-        return this.userRepository.save(user);
+        return userRepository.save(user);
     }
 
     public List<User> searchUsers(

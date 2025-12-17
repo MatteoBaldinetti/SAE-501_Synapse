@@ -1,6 +1,8 @@
 package com.synapse.sae501.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.sql.Timestamp;
 
@@ -23,15 +25,18 @@ public class Inscription {
     private Float amount;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "session_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @JoinColumn(name = "session_id")
     private Session session;
 
     @ManyToOne
-    @JoinColumn(name = "training_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @JoinColumn(name = "training_id")
     private Training training;
 
     public Inscription() {}

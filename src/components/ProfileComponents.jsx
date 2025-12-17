@@ -3,7 +3,7 @@ import { API_URL } from "../constants/apiConstants";
 import { useAuth } from "../contexts/AuthContext";
 import profilePicture from '../assets/images/profile_picture.webp';
 
-function ProfileCompontents({ userId, userEmail, userFirstname, userLastname, userPhone }) {
+function ProfileComponents({ userId, userEmail, userFirstname, userLastname, userPhone }) {
 
     const { updateContext } = useAuth();
 
@@ -198,4 +198,4 @@ function ProfileCompontents({ userId, userEmail, userFirstname, userLastname, us
     );
 }
 
-export default ProfileCompontents;
+export default ProfileComponents;

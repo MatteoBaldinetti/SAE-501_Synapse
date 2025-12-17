@@ -2,6 +2,11 @@
     background-color: #9DCCFF4D;
 }
 
+.dashboard {
+    height: 90vh;
+    overflow-y: auto;
+}
+
 .link-container-background {
     background-color: #F8F9FA;
 }
@@ -11,16 +16,16 @@
     background-color: #0183ca;
 }
 
-.selected-button:hover{
+.selected-button:hover {
     background-color: #0183ca !important;
 }
 
-.gestionnaire > div{
+.gestionnaire>div {
     border-radius: 10px;
     transition: background-color 0.2s ease;
 }
 
-.gestionnaire > div:hover{
+.gestionnaire>div:hover {
     cursor: pointer;
     background-color: #005d8871;
     transition: background-color 0.2s ease;
@@ -32,6 +37,34 @@
 }
 
 .btn-blue:hover {
-  background-color: #0C232B;
-  color: white;
+    background-color: #0C232B;
+    color: white;
+}
+
+.cours-tab {
+    padding-bottom: 12px;
+    cursor: pointer;
+    color: #6b7280;
+    font-weight: 500;
+    position: relative;
+    transition: color 0.25s ease;
+}
+
+.cours-tab::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #005D88;
+    transition: width 0.3s ease;
+}
+
+.cours-tab.active {
+    color: #111827;
+}
+
+.cours-tab.active::after {
+    width: 100%;
 }

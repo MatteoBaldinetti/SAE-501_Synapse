@@ -70,4 +70,9 @@ public class SessionService {
 
         return finalSpec == null ? sessionRepository.findAll() : sessionRepository.findAll(finalSpec);
     }
+
+    public List<Session> getSessionsByUser(Long userId) {
+        Specification<Session> spec = SessionSpecifications.hasUser(userId);
+        return sessionRepository.findAll(spec);
+    }
 }

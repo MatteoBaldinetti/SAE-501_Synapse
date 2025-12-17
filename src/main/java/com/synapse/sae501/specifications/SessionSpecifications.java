@@ -1,6 +1,9 @@
 package com.synapse.sae501.specifications;
 
+import com.synapse.sae501.models.Inscription;
 import com.synapse.sae501.models.Session;
+import com.synapse.sae501.models.User;
+import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.sql.Timestamp;
@@ -54,5 +57,19 @@ public class SessionSpecifications {
     public static Specification<Session> hasPlaceId(Long placeId) {
         return (root, query, criteriaBuilder) ->
                 placeId == null ? null : criteriaBuilder.equal(root.get("place").get("id"), placeId);
+    }
+
+    public static Specification<Session> hasUser(Long userId) {
+        return (root, query, cb) -> {
+            if (userId == null) return null;
+
+            assert query != null;
+            query.distinct(true);
+
+            Join<Session, Inscription> inscriptionJoin = root.join("inscriptions");
+            Join<Inscription, User> userJoin = inscriptionJoin.join("user");
+
+            return cb.equal(userJoin.get("id"), userId);
+        };
     }
 }

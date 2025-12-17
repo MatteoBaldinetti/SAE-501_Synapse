@@ -1,6 +1,18 @@
+import { useEffect } from "react";
 import "../styles/ConfirmationDeleteModal.css";
 
 function ConfirmationDeleteModal({ visible, onClose, onConfirm }) {
+    useEffect(() => {
+        if (visible) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [visible]);
+
     if (!visible) return null;
 
     return (

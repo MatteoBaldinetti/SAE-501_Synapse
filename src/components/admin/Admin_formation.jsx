@@ -27,7 +27,7 @@ function AdminFormation() {
             <button className="btn btn-primary">Ajouter</button>
           </div>
         </div>
-        <div className="row">
+        <div className="row mt-3">
           <div className="col-12 mx-auto">
             <SearchBar
               placeholder="Rechercher une formation"
@@ -41,7 +41,7 @@ function AdminFormation() {
           </div>
         </div>
         <div className="container">
-          <div className="row mt-3 p-3 border border-dark rounded-top-3 bg-white">
+          <div className="row mt-3 p-3 border rounded-top-3 bg-white">
             <div className="col-4">
               <b>Titre</b>
             </div>

@@ -1,0 +1,19 @@
+.ca-confirm {
+    background-color: #005D88;
+    color:white
+}
+
+.ca-confirm:hover {
+    background-color: #0C232B;
+    color: white;
+}
+
+.ca-choose {
+    color: #005D88;
+    border: 2px solid #005D88;
+}
+
+.ca-choose:hover {
+    background-color: #0C232B;
+    color: white;
+}

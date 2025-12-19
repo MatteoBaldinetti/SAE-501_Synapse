@@ -11,6 +11,7 @@ import CoursDetail from "./pages/student/CoursDetail";
 import CoursPayment from "./pages/student/CoursPayment";
 import AdminView from "./pages/admin/AdminView";
 import Dashboard from "./pages/student/DashBoard";
+import Contact from "./pages/Contact";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/cours-payment" element={<CoursPayment />} />
           <Route path="/admin" element={<AdminView />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
         <Footer />
       </AuthProvider>

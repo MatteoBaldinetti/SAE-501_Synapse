@@ -5,7 +5,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import TableCours from "../../components/TableCours";
 
 function Dashboard() {
-    const { userId, userEmail, userFirstname, userLastname, userType, userPhone, login, logout, authLoading } = useAuth();
+    const { userId, userEmail, userFirstname, userLastname, userType, userPhone, userImage, login, logout, authLoading } = useAuth();
 
     const [currentLayout, SetCurrentLayout] = useState("profile");
     const [courseStatusLayout, setCourseStatusLayout] = useState("inscrit");
@@ -83,7 +83,7 @@ function Dashboard() {
                         {currentLayout === "profile" && (
                             <div className="p-5">
                                 <h2 className="mb-5">Votre profile</h2>
-                                <ProfileComponents userId={userId} userEmail={userEmail} userFirstname={userFirstname} userLastname={userLastname} userPhone={userPhone} logout={logout} />
+                                <ProfileComponents userId={userId} userEmail={userEmail} userFirstname={userFirstname} userLastname={userLastname} userPhone={userPhone} userImage={userImage} logout={logout} />
                             </div>
                         )}
 
@@ -113,7 +113,7 @@ function Dashboard() {
                                     </span>
                                 </div>
 
-                                <TableCours data={userSession} userId={1} statusLayout={courseStatusLayout}/>
+                                <TableCours data={userSession} userId={userId} statusLayout={courseStatusLayout}/>
 
                                 {courseStatusLayout === "termine" && (
                                     <>

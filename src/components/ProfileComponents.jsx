@@ -4,7 +4,10 @@ import { useAuth } from "../contexts/AuthContext";
 import profilePicture from '../assets/images/profile_picture.webp';
 import ConfirmationDeleteModal from './ConfirmationDeleteModal';
 
-function ProfileComponents({ userId, userEmail, userFirstname, userLastname, userPhone, logout}) {
+import "../styles/ProfileComponents.css"
+import ProfileImageUploadModal from './ProfileImageUploadModal';
+
+function ProfileComponents({ userId, userEmail, userFirstname, userLastname, userPhone, userImage, logout }) {
 
     const { updateContext } = useAuth();
 
@@ -14,7 +17,9 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
     const [firstnameInput, setFirstnameInput] = useState(userFirstname);
     const [emailInput, setEmailInput] = useState(userEmail);
     const [phoneInput, setPhoneInput] = useState(userPhone ?? "");
+
     const [showPopUpDelete, setShowPopUpDelete] = useState(false);
+    const [showProfilePictureChange, setShowProfilePictureChange] = useState(false);
 
     const [errors, setErrors] = useState({});
 
@@ -34,6 +39,7 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
             password: jsonPreviousPlayer.password,
             type: jsonPreviousPlayer.type,
             phoneNumber: phoneInput,
+            imgName: jsonPreviousPlayer.imgName
         }
 
         const res = await fetch(`${API_URL}/users/${userId}`, {
@@ -42,7 +48,7 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
             body: JSON.stringify(updatedPlayer),
         });
 
-        updateContext(updatedPlayer.id, updatedPlayer.email, updatedPlayer.firstname, updatedPlayer.lastname, updatedPlayer.type, updatedPlayer.phoneNumber)
+        updateContext(updatedPlayer.id, updatedPlayer.email, updatedPlayer.firstname, updatedPlayer.lastname, updatedPlayer.type, updatedPlayer.phoneNumber, updatedPlayer.imgName)
 
         setModifierProfil(false);
     }
@@ -90,13 +96,64 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
         setErrors(newErrors);
     }, [emailInput, phoneInput]);
 
+    const handleProfilePictureChange = () => {
+        setShowProfilePictureChange(true);
+    }
+
+    const handleUpdateProfilePicture = async (file) => {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        const sendImage = await fetch(`${API_URL}/files/upload`, {
+            method: "POST",
+            body: formData,
+        })
+
+        const jsonRes = await sendImage.json();
+
+        const previousPlayer = await fetch(`${API_URL}/users/${userId}`);
+        const jsonPreviousPlayer = await previousPlayer.json();
+
+        const updatedPlayer = {
+            id: userId,
+            firstname: firstnameInput,
+            lastname: lastnameInput,
+            email: emailInput,
+            password: jsonPreviousPlayer.password,
+            type: jsonPreviousPlayer.type,
+            phoneNumber: phoneInput,
+            imgName: jsonRes.fileName
+        }
+
+        const res = await fetch(`${API_URL}/users/${userId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedPlayer),
+        });
+
+        updateContext(updatedPlayer.id, updatedPlayer.email, updatedPlayer.firstname, updatedPlayer.lastname, updatedPlayer.type, updatedPlayer.phoneNumber, updatedPlayer.imgName)
+        
+        window.location.reload();
+    }
 
     return (
         <>
             <div className="container">
                 <div className="row">
                     <div className="col-12 d-flex align-items-center">
-                        <img src={profilePicture} width={110} className="me-4" />
+                        <div className="profile-image-wrapper me-4" onClick={handleProfilePictureChange}>
+                            <img
+                                src={userImage === null || userImage === ""
+                                    ? profilePicture
+                                    : `${API_URL}/files/download/${userImage}`}
+                                className="profile-image"
+                                alt="Photo de profil"
+                            />
+
+                            <div className="profile-image-overlay">
+                                <i className="bi bi-pencil-fill"></i>
+                            </div>
+                        </div>
                         <div>
                             <h4 className="mb-0">{userFirstname} {userLastname}</h4>
                             <p className="mb-0 text-secondary">{userEmail}</p>
@@ -220,6 +277,12 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
                 visible={showPopUpDelete}
                 onClose={() => setShowPopUpDelete(false)}
                 onConfirm={handleDeleteProfile}
+            />
+
+            <ProfileImageUploadModal
+                visible={showProfilePictureChange}
+                onClose={() => setShowProfilePictureChange(false)}
+                onConfirm={handleUpdateProfilePicture}
             />
         </>
     );

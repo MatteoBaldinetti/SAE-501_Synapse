@@ -1,0 +1,71 @@
+.upload-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.upload-modal-wrapper {
+    background-color: #ffffff;
+    border-radius: 20px;
+    width: 35vw;
+    min-width: 340px;
+    padding: 2rem;
+    text-align: center;
+}
+
+.upload-title {
+    margin-bottom: 1.5rem;
+}
+
+.upload-preview {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+}
+
+.upload-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.upload-btn-primary {
+    background-color: #005D88;
+    color: white;
+}
+
+.upload-btn-primary:hover {
+    background-color: #0C232B;
+    color: white;
+}
+
+.upload-btn-outline {
+    border: 2px solid #005D88;
+    color: #005D88;
+}
+
+.upload-btn-outline:hover {
+    background-color: #0C232B;
+    color: white
+}
+
+.upload-btn-cancel {
+    background-color: red;
+    color: white;
+}
+
+.upload-btn-cancel:hover {
+    background-color: #0C232B;
+    color: white;
+}
+
+.upload-error {
+    color: red;
+    margin-top: 1rem;
+}

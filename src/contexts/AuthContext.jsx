@@ -37,6 +37,11 @@ export function AuthProvider({ children }) {
         return savedPhone ? JSON.parse(savedPhone) : null;
     });
 
+    const [userImage, setUserImage] = useState(() => {
+        const savedImage = localStorage.getItem("image");
+        return savedImage ? JSON.parse(savedImage) : null;
+    });
+
     const [authLoading, setAuthLoading] = useState(false);
 
     const login = async (email, password) => {
@@ -63,13 +68,15 @@ export function AuthProvider({ children }) {
                 setUserFirstName(data.firstname);
                 setUserLastName(data.lastname);
                 setUserType(data.type);
-                setUserPhone(data.phoneNumber)
+                setUserPhone(data.phoneNumber);
+                setUserImage(data.imgName);
                 localStorage.setItem("id", JSON.stringify(data.id));
                 localStorage.setItem("email", JSON.stringify(data.email));
                 localStorage.setItem("firstname", JSON.stringify(data.firstname));
                 localStorage.setItem("lastname", JSON.stringify(data.lastname));
                 localStorage.setItem("type", JSON.stringify(data.type));
                 localStorage.setItem("phone", JSON.stringify(data.phoneNumber));
+                localStorage.setItem("image", JSON.stringify(data.imgName));
                 setAuthLoading(false);
                 navigate("/");
 
@@ -98,10 +105,11 @@ export function AuthProvider({ children }) {
         localStorage.removeItem("lastname");
         localStorage.removeItem("type");
         localStorage.removeItem("phone")
+        localStorage.removeItem("image")
         navigate("/");
     };
 
-    const updateContext = (userId, userEmail, userFirstname, userLastname, userType, userPhone) => {
+    const updateContext = (userId, userEmail, userFirstname, userLastname, userType, userPhone, userImage) => {
         setAuthLoading(true);
         setUserId(userId)
         setUserEmail(userEmail);
@@ -115,10 +123,11 @@ export function AuthProvider({ children }) {
         localStorage.setItem("lastname", JSON.stringify(userLastname));
         localStorage.setItem("type", JSON.stringify(userType));
         localStorage.setItem("phone", JSON.stringify(userPhone));
+        localStorage.setItem("image", JSON.stringify(userImage));
         setAuthLoading(false);
     }
 
-    const value = { userId, userEmail, userFirstname, userLastname, userType, userPhone, login, logout, updateContext, authLoading };
+    const value = { userId, userEmail, userFirstname, userLastname, userType, userPhone, userImage, login, logout, updateContext, authLoading };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

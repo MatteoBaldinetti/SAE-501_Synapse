@@ -1,6 +1,8 @@
 package com.synapse.sae501.services;
 
+import com.synapse.sae501.dto.UserCreationDTO;
 import com.synapse.sae501.exceptions.ResourceNotFoundException;
+import com.synapse.sae501.mappers.UserMapper;
 import com.synapse.sae501.models.User;
 import com.synapse.sae501.repositories.UserRepository;
 import com.synapse.sae501.specifications.UserSpecifications;
@@ -17,7 +19,10 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User createUser(User user) {
+    private final UserMapper userMapper = new UserMapper();
+
+    public User createUser(UserCreationDTO userCreationDTO) {
+        User user = userMapper.userCreationDTOToUser(userCreationDTO);
         return userRepository.save(user);
     }
 
@@ -35,8 +40,9 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public User updateUser(User user, Long id) {
+    public User updateUser(UserCreationDTO userDTO, Long id) {
         getUserById(id);
+        User user = userMapper.userCreationDTOToUser(userDTO);
         user.setId(id);
         return userRepository.save(user);
     }

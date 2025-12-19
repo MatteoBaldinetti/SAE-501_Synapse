@@ -1,9 +1,13 @@
 package com.synapse.sae501.controllers;
 
+import com.synapse.sae501.dto.TrainingCreationDTO;
+import com.synapse.sae501.exceptions.ApiError;
 import com.synapse.sae501.models.Training;
 import com.synapse.sae501.services.TrainingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,14 +30,14 @@ public class TrainingController {
     @Operation(summary = "Create a new training")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Training created successfully"),
-            @ApiResponse(responseCode = "400", description = "Failed to create training")
+            @ApiResponse(responseCode = "400", description = "Failed to create training", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping
     public ResponseEntity<Training> createTraining(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Training object")
-            @RequestBody Training training
+            @RequestBody TrainingCreationDTO trainingDTO
     ) {
-        Training result = trainingService.createTraining(training);
+        Training result = trainingService.createTraining(trainingDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
@@ -48,7 +52,7 @@ public class TrainingController {
     @Operation(summary = "Get training by ID")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Training retrieved successfully"),
-            @ApiResponse(responseCode = "404", description = "Training not found")
+            @ApiResponse(responseCode = "404", description = "Training not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @GetMapping("/{id}")
     public ResponseEntity<Training> getTrainingById(
@@ -62,7 +66,7 @@ public class TrainingController {
     @Operation(summary = "Delete training by ID")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Training deleted successfully"),
-            @ApiResponse(responseCode = "404", description = "Training not found")
+            @ApiResponse(responseCode = "404", description = "Training not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTrainingById(
@@ -76,16 +80,16 @@ public class TrainingController {
     @Operation(summary = "Update training")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Training updated successfully"),
-            @ApiResponse(responseCode = "404", description = "Training not found")
+            @ApiResponse(responseCode = "404", description = "Training not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PutMapping("/{id}")
     public ResponseEntity<Training> updateTraining(
             @Parameter(description = "Training ID")
             @PathVariable Long id,
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Training object")
-            @RequestBody Training training
+            @RequestBody TrainingCreationDTO trainingDTO
     ) {
-        Training result = trainingService.updateTraining(training, id);
+        Training result = trainingService.updateTraining(trainingDTO, id);
         return ResponseEntity.ok(result);
     }
 

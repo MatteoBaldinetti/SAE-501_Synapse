@@ -1,9 +1,12 @@
 package com.synapse.sae501.controllers;
 
+import com.synapse.sae501.exceptions.ApiError;
 import com.synapse.sae501.models.File;
 import com.synapse.sae501.services.FileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -36,7 +39,7 @@ public class FileController {
     @Operation(summary = "Delete file by file name")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "File deleted successfully"),
-            @ApiResponse(responseCode = "404", description = "File not found")
+            @ApiResponse(responseCode = "404", description = "File not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @DeleteMapping("/{fileName}")
     public ResponseEntity<Void> deleteFile(
@@ -50,7 +53,7 @@ public class FileController {
     @Operation(summary = "Upload a file")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "File uploaded successfully"),
-            @ApiResponse(responseCode = "400", description = "Upload failed")
+            @ApiResponse(responseCode = "400", description = "Upload failed", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<File> uploadFile(
@@ -64,7 +67,7 @@ public class FileController {
     @Operation(summary = "Download a file")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "File downloaded successfully"),
-            @ApiResponse(responseCode = "404", description = "File not found")
+            @ApiResponse(responseCode = "404", description = "File not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @GetMapping("/download/{fileName}")
     public ResponseEntity<Resource> downloadFile(

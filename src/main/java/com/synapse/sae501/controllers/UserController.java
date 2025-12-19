@@ -1,11 +1,15 @@
 package com.synapse.sae501.controllers;
 
+import com.synapse.sae501.dto.UserCreationDTO;
+import com.synapse.sae501.exceptions.ApiError;
 import com.synapse.sae501.models.Session;
 import com.synapse.sae501.models.User;
 import com.synapse.sae501.services.SessionService;
 import com.synapse.sae501.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,14 +35,14 @@ public class UserController {
     @Operation(summary = "Create a new user")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "User created successfully"),
-            @ApiResponse(responseCode = "400", description = "Failed to create user")
+            @ApiResponse(responseCode = "400", description = "Failed to create user", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping
     public ResponseEntity<User> createUser(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "User object")
-            @RequestBody User user
+            @RequestBody UserCreationDTO userDTO
     ) {
-        User result = userService.createUser(user);
+        User result = userService.createUser(userDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
@@ -53,7 +57,7 @@ public class UserController {
     @Operation(summary = "Get user by ID")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "User retrieved successfully"),
-            @ApiResponse(responseCode = "404", description = "User not found")
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(
@@ -67,7 +71,7 @@ public class UserController {
     @Operation(summary = "Delete user by ID")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "User deleted successfully"),
-            @ApiResponse(responseCode = "404", description = "User not found")
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUserById(
@@ -81,16 +85,16 @@ public class UserController {
     @Operation(summary = "Update user")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "User updated successfully"),
-            @ApiResponse(responseCode = "404", description = "User not found")
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(
             @Parameter(description = "User ID")
             @PathVariable Long id,
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "User object")
-            @RequestBody User user
+            @RequestBody UserCreationDTO userDTO
     ) {
-        User result = userService.updateUser(user, id);
+        User result = userService.updateUser(userDTO, id);
         return ResponseEntity.ok(result);
     }
 
@@ -114,9 +118,9 @@ public class UserController {
     @Operation(summary = "Get all sessions linked to a user")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "List of sessions retrieved successfully"),
-            @ApiResponse(responseCode = "404", description = "User not found")
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
-    @GetMapping("/{userId}/sessions")
+    @GetMapping("/{user}/sessions")
     public ResponseEntity<List<Session>> getSessionsByUser(
             @Parameter(description = "User ID")
             @PathVariable Long userId

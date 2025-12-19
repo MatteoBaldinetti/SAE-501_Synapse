@@ -1,6 +1,8 @@
 package com.synapse.sae501.services;
 
+import com.synapse.sae501.dto.PlaceCreationDTO;
 import com.synapse.sae501.exceptions.ResourceNotFoundException;
+import com.synapse.sae501.mappers.PlaceMapper;
 import com.synapse.sae501.models.Place;
 import com.synapse.sae501.repositories.PlaceRepository;
 import com.synapse.sae501.specifications.PlaceSpecifications;
@@ -17,7 +19,10 @@ public class PlaceService {
     @Autowired
     private PlaceRepository placeRepository;
 
-    public Place createPlace(Place place) {
+    private final PlaceMapper placeMapper = new PlaceMapper();
+
+    public Place createPlace(PlaceCreationDTO placeCreationDTO) {
+        Place place = placeMapper.placeCreationDTOToPlace(placeCreationDTO);
         return placeRepository.save(place);
     }
 
@@ -35,8 +40,9 @@ public class PlaceService {
         placeRepository.deleteById(id);
     }
 
-    public Place updatePlace(Place place, Long id) {
+    public Place updatePlace(PlaceCreationDTO placeCreationDTO, Long id) {
         getPlaceById(id);
+        Place place = placeMapper.placeCreationDTOToPlace(placeCreationDTO);
         place.setId(id);
         return placeRepository.save(place);
     }

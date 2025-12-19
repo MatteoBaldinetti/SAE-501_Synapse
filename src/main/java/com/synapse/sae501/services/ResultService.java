@@ -1,6 +1,8 @@
 package com.synapse.sae501.services;
 
+import com.synapse.sae501.dto.ResultCreationDTO;
 import com.synapse.sae501.exceptions.ResourceNotFoundException;
+import com.synapse.sae501.mappers.ResultMapper;
 import com.synapse.sae501.repositories.ResultRepository;
 import com.synapse.sae501.specifications.ResultSpecifications;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,10 @@ public class ResultService {
     @Autowired
     private ResultRepository resultRepository;
 
-    public Result createResult(Result result) {
+    private final ResultMapper resultMapper = new ResultMapper();
+
+    public Result createResult(ResultCreationDTO resultCreationDTO) {
+        Result result = resultMapper.resultCreationDTOToResult(resultCreationDTO);
         return resultRepository.save(result);
     }
 
@@ -36,8 +41,9 @@ public class ResultService {
         resultRepository.deleteById(id);
     }
 
-    public Result updateResult(Result result, Long id) {
+    public Result updateResult(ResultCreationDTO resultCreationDTO, Long id) {
         getResultById(id);
+        Result result = resultMapper.resultCreationDTOToResult(resultCreationDTO);
         result.setId(id);
         return resultRepository.save(result);
     }

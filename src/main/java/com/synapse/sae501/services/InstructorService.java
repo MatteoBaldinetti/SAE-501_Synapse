@@ -1,6 +1,8 @@
 package com.synapse.sae501.services;
 
+import com.synapse.sae501.dto.InstructorCreationDTO;
 import com.synapse.sae501.exceptions.ResourceNotFoundException;
+import com.synapse.sae501.mappers.InstructorMapper;
 import com.synapse.sae501.models.Instructor;
 import com.synapse.sae501.repositories.InstructorRepository;
 import com.synapse.sae501.specifications.InstructorSpecifications;
@@ -17,7 +19,10 @@ public class InstructorService {
     @Autowired
     private InstructorRepository instructorRepository;
 
-    public Instructor createInstructor(Instructor instructor) {
+    private final InstructorMapper instructorMapper = new InstructorMapper();
+
+    public Instructor createInstructor(InstructorCreationDTO instructorCreationDTO) {
+        Instructor instructor = instructorMapper.instructorCreationDTOToInstructor(instructorCreationDTO);
         return instructorRepository.save(instructor);
     }
 
@@ -35,8 +40,9 @@ public class InstructorService {
         instructorRepository.deleteById(id);
     }
 
-    public Instructor updateInstructor(Instructor instructor, Long id) {
+    public Instructor updateInstructor(InstructorCreationDTO instructorCreationDTO, Long id) {
         getInstructorById(id);
+        Instructor instructor = instructorMapper.instructorCreationDTOToInstructor(instructorCreationDTO);
         instructor.setId(id);
         return instructorRepository.save(instructor);
     }

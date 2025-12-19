@@ -1,9 +1,13 @@
 package com.synapse.sae501.controllers;
 
+import com.synapse.sae501.dto.PlaceCreationDTO;
+import com.synapse.sae501.exceptions.ApiError;
 import com.synapse.sae501.models.Place;
 import com.synapse.sae501.services.PlaceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,13 +30,14 @@ public class PlaceController {
     @Operation(summary = "Create a new place")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Place created successfully"),
-            @ApiResponse(responseCode = "400", description = "Failed to create place")
+            @ApiResponse(responseCode = "400", description = "Failed to create place", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping
     public ResponseEntity<Place> createPlace(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Place object")
-            @RequestBody Place place) {
-        Place result = placeService.createPlace(place);
+            @RequestBody PlaceCreationDTO placeDTO
+    ) {
+        Place result = placeService.createPlace(placeDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
@@ -47,7 +52,7 @@ public class PlaceController {
     @Operation(summary = "Get place by ID")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Place retrieved successfully"),
-            @ApiResponse(responseCode = "404", description = "Place not found")
+            @ApiResponse(responseCode = "404", description = "Place not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @GetMapping("/{id}")
     public ResponseEntity<Place> getPlaceById(
@@ -61,7 +66,7 @@ public class PlaceController {
     @Operation(summary = "Delete place by ID")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Place deleted successfully"),
-            @ApiResponse(responseCode = "404", description = "Place not found")
+            @ApiResponse(responseCode = "404", description = "Place not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePlaceById(
@@ -75,15 +80,16 @@ public class PlaceController {
     @Operation(summary = "Update place")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Place updated successfully"),
-            @ApiResponse(responseCode = "404", description = "Place not found")
+            @ApiResponse(responseCode = "404", description = "Place not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PutMapping("/{id}")
     public ResponseEntity<Place> updatePlace(
             @Parameter(description = "Place ID")
             @PathVariable Long id,
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Place object")
-            @RequestBody Place place){
-        Place result = placeService.updatePlace(place, id);
+            @RequestBody PlaceCreationDTO placeDTO
+    ) {
+        Place result = placeService.updatePlace(placeDTO, id);
         return ResponseEntity.ok(result);
     }
 

@@ -1,9 +1,13 @@
 package com.synapse.sae501.controllers;
 
+import com.synapse.sae501.dto.InscriptionCreationDTO;
+import com.synapse.sae501.exceptions.ApiError;
 import com.synapse.sae501.models.Inscription;
 import com.synapse.sae501.services.InscriptionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,14 +31,14 @@ public class InscriptionController {
     @Operation(summary = "Create a new inscription")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Inscription created successfully"),
-            @ApiResponse(responseCode = "400", description = "Failed to create inscription")
+            @ApiResponse(responseCode = "400", description = "Failed to create inscription", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping
     public ResponseEntity<Inscription> createInscription(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Inscription object")
-            @RequestBody Inscription inscription
+            @RequestBody InscriptionCreationDTO inscriptionDTO
     ) {
-        Inscription result = inscriptionService.createInscription(inscription);
+        Inscription result = inscriptionService.createInscription(inscriptionDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
@@ -49,7 +53,7 @@ public class InscriptionController {
     @Operation(summary = "Get inscription by ID")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Inscription retrieved successfully"),
-            @ApiResponse(responseCode = "404", description = "Inscription not found")
+            @ApiResponse(responseCode = "404", description = "Inscription not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @GetMapping("/{id}")
     public ResponseEntity<Inscription> getInscriptionById(
@@ -63,7 +67,7 @@ public class InscriptionController {
     @Operation(summary = "Delete inscription by ID")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Inscription deleted successfully"),
-            @ApiResponse(responseCode = "404", description = "Inscription not found")
+            @ApiResponse(responseCode = "404", description = "Inscription not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInscriptionById(
@@ -77,16 +81,16 @@ public class InscriptionController {
     @Operation(summary = "Update inscription")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Inscription updated successfully"),
-            @ApiResponse(responseCode = "404", description = "Inscription not found")
+            @ApiResponse(responseCode = "404", description = "Inscription not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PutMapping("/{id}")
     public ResponseEntity<Inscription> updateInscription(
             @Parameter(description = "Inscription ID")
             @PathVariable Long id,
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Inscription object")
-            @RequestBody Inscription inscription
+            @RequestBody InscriptionCreationDTO inscriptionDTO
     ) {
-        Inscription result = inscriptionService.updateInscription(inscription, id);
+        Inscription result = inscriptionService.updateInscription(inscriptionDTO, id);
         return ResponseEntity.ok(result);
     }
 

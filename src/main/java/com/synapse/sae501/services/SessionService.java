@@ -1,6 +1,8 @@
 package com.synapse.sae501.services;
 
+import com.synapse.sae501.dto.SessionCreationDTO;
 import com.synapse.sae501.exceptions.ResourceNotFoundException;
+import com.synapse.sae501.mappers.SessionMapper;
 import com.synapse.sae501.models.Session;
 import com.synapse.sae501.repositories.SessionRepository;
 import com.synapse.sae501.specifications.SessionSpecifications;
@@ -18,7 +20,10 @@ public class SessionService {
     @Autowired
     private SessionRepository sessionRepository;
 
-    public Session createSession(Session session) {
+    private final SessionMapper sessionMapper = new SessionMapper();
+
+    public Session createSession(SessionCreationDTO sessionCreationDTO) {
+        Session session = sessionMapper.sessionCreationDTOToSession(sessionCreationDTO);
         return sessionRepository.save(session);
     }
 
@@ -36,8 +41,9 @@ public class SessionService {
         sessionRepository.deleteById(id);
     }
 
-    public Session updateSession(Session session, Long id) {
+    public Session updateSession(SessionCreationDTO sessionCreationDTO, Long id) {
         getSessionById(id);
+        Session session = sessionMapper.sessionCreationDTOToSession(sessionCreationDTO);
         session.setId(id);
         return sessionRepository.save(session);
     }

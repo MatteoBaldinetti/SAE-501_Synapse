@@ -1,6 +1,8 @@
 package com.synapse.sae501.services;
 
+import com.synapse.sae501.dto.TrainingCreationDTO;
 import com.synapse.sae501.exceptions.ResourceNotFoundException;
+import com.synapse.sae501.mappers.TrainingMapper;
 import com.synapse.sae501.models.Training;
 import com.synapse.sae501.repositories.TrainingRepository;
 import com.synapse.sae501.specifications.TrainingSpecifications;
@@ -17,7 +19,10 @@ public class TrainingService {
     @Autowired
     private TrainingRepository trainingRepository;
 
-    public Training createTraining(Training training) {
+    private final TrainingMapper trainingMapper = new TrainingMapper();
+
+    public Training createTraining(TrainingCreationDTO trainingCreationDTO) {
+        Training training = trainingMapper.trainingCreationDTOToTraining(trainingCreationDTO);
         return trainingRepository.save(training);
     }
 
@@ -35,8 +40,9 @@ public class TrainingService {
         trainingRepository.deleteById(id);
     }
 
-    public Training updateTraining(Training training, Long id) {
+    public Training updateTraining(TrainingCreationDTO trainingCreationDTO, Long id) {
         getTrainingById(id);
+        Training training = trainingMapper.trainingCreationDTOToTraining(trainingCreationDTO);
         training.setId(id);
         return trainingRepository.save(training);
     }

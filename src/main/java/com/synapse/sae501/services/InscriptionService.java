@@ -1,6 +1,8 @@
 package com.synapse.sae501.services;
 
+import com.synapse.sae501.dto.InscriptionCreationDTO;
 import com.synapse.sae501.exceptions.ResourceNotFoundException;
+import com.synapse.sae501.mappers.InscriptionMapper;
 import com.synapse.sae501.models.Inscription;
 import com.synapse.sae501.repositories.InscriptionRepository;
 import com.synapse.sae501.specifications.InscriptionSpecifications;
@@ -18,7 +20,10 @@ public class InscriptionService {
     @Autowired
     private InscriptionRepository inscriptionRepository;
 
-    public Inscription createInscription(Inscription inscription) {
+    private final InscriptionMapper inscriptionMapper = new InscriptionMapper();
+
+    public Inscription createInscription(InscriptionCreationDTO inscriptionCreationDTO) {
+        Inscription inscription = inscriptionMapper.inscriptionCreationDTOToInscription(inscriptionCreationDTO);
         return inscriptionRepository.save(inscription);
     }
 
@@ -36,8 +41,9 @@ public class InscriptionService {
         inscriptionRepository.deleteById(id);
     }
 
-    public Inscription updateInscription(Inscription inscription, Long id) {
+    public Inscription updateInscription(InscriptionCreationDTO inscriptionCreationDTO, Long id) {
         getInscriptionById(id);
+        Inscription inscription = inscriptionMapper.inscriptionCreationDTOToInscription(inscriptionCreationDTO);
         inscription.setId(id);
         return inscriptionRepository.save(inscription);
     }

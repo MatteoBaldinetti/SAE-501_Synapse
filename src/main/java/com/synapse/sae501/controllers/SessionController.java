@@ -1,9 +1,13 @@
 package com.synapse.sae501.controllers;
 
+import com.synapse.sae501.dto.SessionCreationDTO;
+import com.synapse.sae501.exceptions.ApiError;
 import com.synapse.sae501.models.Session;
 import com.synapse.sae501.services.SessionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,14 +31,14 @@ public class SessionController {
     @Operation(summary = "Create a new session")
     @ApiResponses({
             @ApiResponse(responseCode = "201", description = "Session created successfully"),
-            @ApiResponse(responseCode = "400", description = "Failed to create session")
+            @ApiResponse(responseCode = "400", description = "Failed to create session", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PostMapping
     public ResponseEntity<Session> createSession(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Session object")
-            @RequestBody Session session
+            @RequestBody SessionCreationDTO sessionDTO
     ) {
-        Session result = sessionService.createSession(session);
+        Session result = sessionService.createSession(sessionDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
     }
 
@@ -49,7 +53,7 @@ public class SessionController {
     @Operation(summary = "Get session by ID")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Session retrieved successfully"),
-            @ApiResponse(responseCode = "404", description = "Session not found")
+            @ApiResponse(responseCode = "404", description = "Session not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @GetMapping("/{id}")
     public ResponseEntity<Session> getSessionById(
@@ -63,7 +67,7 @@ public class SessionController {
     @Operation(summary = "Delete session by ID")
     @ApiResponses({
             @ApiResponse(responseCode = "204", description = "Session deleted successfully"),
-            @ApiResponse(responseCode = "404", description = "Session not found")
+            @ApiResponse(responseCode = "404", description = "Session not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSessionById(
@@ -77,16 +81,16 @@ public class SessionController {
     @Operation(summary = "Update session")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Session updated successfully"),
-            @ApiResponse(responseCode = "404", description = "Session not found")
+            @ApiResponse(responseCode = "404", description = "Session not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
     @PutMapping("/{id}")
     public ResponseEntity<Session> updateSession(
             @Parameter(description = "Session ID")
             @PathVariable Long id,
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Session object")
-            @RequestBody Session session
+            @RequestBody SessionCreationDTO sessionDTO
     ) {
-        Session result = sessionService.updateSession(session, id);
+        Session result = sessionService.updateSession(sessionDTO, id);
         return ResponseEntity.ok(result);
     }
 

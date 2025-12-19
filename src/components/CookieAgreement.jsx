@@ -1,6 +1,6 @@
 import "../styles/CookieAgreement.css";
 
-function CookieAgreement({ visible, onConfirm, onEdit }) {
+function CookieAgreement({ visible, onConfirm }) {
   if (!visible) return null;
 
   return (
@@ -36,4 +36,7 @@ function CookieAgreement({ visible, onConfirm, onEdit }) {
     </div>
   );
 }
+
+function editCookiesAgreement() {}
+
 export default CookieAgreement;

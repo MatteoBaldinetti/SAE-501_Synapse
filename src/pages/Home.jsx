@@ -10,10 +10,11 @@ function Home() {
   const [showCookieAgreement, setShowCookieAgreement] = useState(false);
 
   useEffect(() => {
-    const setLocalStorage = async () => {
-      const temp = await localStorage.getItem("hasAcceptedCookies");
-      console.log(temp);
-      if (temp === null || temp === false) {
+    const setLocalStorage = () => {
+      if (
+        localStorage.getItem("hasAcceptedCookies") === null ||
+        localStorage.getItem("hasAcceptedCookies") === false
+      ) {
         setShowCookieAgreement(true);
       }
     };
@@ -22,6 +23,7 @@ function Home() {
 
   function userAcceptCookies() {
     localStorage.setItem("hasAcceptedCookies", true);
+    setShowCookieAgreement(false);
   }
 
   return (
@@ -29,6 +31,7 @@ function Home() {
       <CookieAgreement
         visible={showCookieAgreement}
         onConfirm={userAcceptCookies}
+        onEdit={showCookieAgreement}
       />
       <header className="container my-5">
         <div className="row">

@@ -96,7 +96,7 @@ CREATE TABLE `inscription` (
 
 LOCK TABLES `inscription` WRITE;
 /*!40000 ALTER TABLE `inscription` DISABLE KEYS */;
-INSERT INTO `inscription` VALUES (1,450,'2025-11-27 14:00:00.000000','2025-11-27 14:00:00.000000','CONFIRM',1,1,1),(2,750,'2025-11-28 10:30:00.000000','2025-11-28 10:30:00.000000','EN_ATTENTE',2,2,2),(3,600,'2026-01-05 09:15:00.000000','2026-01-05 09:15:00.000000','PAY',3,3,3);
+INSERT INTO `inscription` VALUES (1,450,'2025-11-27 14:00:00.000000','2025-11-27 14:00:00.000000','CONFIRMÉ',1,1,1),(2,750,'2025-11-28 10:30:00.000000','2025-11-28 10:30:00.000000','EN_ATTENTE',2,2,2),(3,600,'2026-01-05 09:15:00.000000','2026-01-05 09:15:00.000000','PAYÉ',3,3,3);
 /*!40000 ALTER TABLE `inscription` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -118,7 +118,7 @@ CREATE TABLE `inscription_seq` (
 
 LOCK TABLES `inscription_seq` WRITE;
 /*!40000 ALTER TABLE `inscription_seq` DISABLE KEYS */;
-INSERT INTO `inscription_seq` VALUES (1);
+INSERT INTO `inscription_seq` VALUES (101);
 /*!40000 ALTER TABLE `inscription_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,7 +145,7 @@ CREATE TABLE `instructor` (
 
 LOCK TABLES `instructor` WRITE;
 /*!40000 ALTER TABLE `instructor` DISABLE KEYS */;
-INSERT INTO `instructor` VALUES (1,'Intervenant freelance','lodie','Martin','Dveloppement web et pdagogie numrique'),(2,'CDI','Antoine','Leclerc','Design UX/UI et accessibilit'),(3,'Intervenant freelance','Nadia','Roux','Management de projet et mthodes agiles');
+INSERT INTO `instructor` VALUES (1,'Intervenant freelance','lodie','Martin','Développement web et pédagogie numérique'),(2,'CDI','Antoine','Leclerc','Design UX/UI et accessibilité'),(3,'Intervenant freelance','Nadia','Roux','Management de projet et méthodes agiles');
 /*!40000 ALTER TABLE `instructor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -167,7 +167,7 @@ CREATE TABLE `instructor_seq` (
 
 LOCK TABLES `instructor_seq` WRITE;
 /*!40000 ALTER TABLE `instructor_seq` DISABLE KEYS */;
-INSERT INTO `instructor_seq` VALUES (1);
+INSERT INTO `instructor_seq` VALUES (101);
 /*!40000 ALTER TABLE `instructor_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,7 +194,7 @@ CREATE TABLE `place` (
 
 LOCK TABLES `place` WRITE;
 /*!40000 ALTER TABLE `place` DISABLE KEYS */;
-INSERT INTO `place` VALUES (1,'12 rue de la Rpublique','Lyon',30,'69002'),(2,'45 avenue des Champs-lyses','Paris',20,'75008'),(3,'3 boulevard Longchamp','Marseille',25,'13001');
+INSERT INTO `place` VALUES (1,'12 rue de la République','Lyon',30,'69002'),(2,'45 avenue des Champs-Élysées','Paris',20,'75008'),(3,'3 boulevard Longchamp','Marseille',25,'13001');
 /*!40000 ALTER TABLE `place` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -216,7 +216,7 @@ CREATE TABLE `place_seq` (
 
 LOCK TABLES `place_seq` WRITE;
 /*!40000 ALTER TABLE `place_seq` DISABLE KEYS */;
-INSERT INTO `place_seq` VALUES (1);
+INSERT INTO `place_seq` VALUES (101);
 /*!40000 ALTER TABLE `place_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -247,7 +247,7 @@ CREATE TABLE `result` (
 
 LOCK TABLES `result` WRITE;
 /*!40000 ALTER TABLE `result` DISABLE KEYS */;
-INSERT INTO `result` VALUES (1,'Trs bonne matrise des concepts et projet final solide.',16.5,1,1),(2,'Prototype correct mais ncessite des amliorations sur l\'organisation de l\'information.',13,2,2),(3,'Bonne participation, rituels agiles compris et capacit  animer une mle.',15,3,3);
+INSERT INTO `result` VALUES (1,'Très bonne maîtrise des concepts et projet final solide.',16.5,1,1),(2,'Prototype correct mais nécessite des améliorations sur l\'organisation de l\'information.',13,2,2),(3,'Bonne participation, rituels agiles compris et capacité à animer une équipe.',15,3,3);
 /*!40000 ALTER TABLE `result` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,7 +269,7 @@ CREATE TABLE `result_seq` (
 
 LOCK TABLES `result_seq` WRITE;
 /*!40000 ALTER TABLE `result_seq` DISABLE KEYS */;
-INSERT INTO `result_seq` VALUES (1);
+INSERT INTO `result_seq` VALUES (101);
 /*!40000 ALTER TABLE `result_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,7 +307,7 @@ CREATE TABLE `session` (
 
 LOCK TABLES `session` WRITE;
 /*!40000 ALTER TABLE `session` DISABLE KEYS */;
-INSERT INTO `session` VALUES (1,20,'Session intensive de 5 jours couvrant HTML, CSS, JavaScript et atelier final de mise en ligne.',35,'2025-12-12 17:30:00.000000','2025-12-08 09:00:00.000000','Session Intensive - Dv Web (dc. 2025)',1,1,1),(2,12,'Atelier complet : personas, wireframes, prototypage et tests utilisateurs.',40,'2026-01-23 16:30:00.000000','2026-01-15 09:30:00.000000','Atelier UX/UI - Prototype & Tests (janv. 2026)',2,2,2),(3,18,'Session courte axe pratique : simulation de sprints et gestion du backlog.',18,'2026-02-12 17:00:00.000000','2026-02-10 10:00:00.000000','Sprint Agile - Initiation (fvr. 2026)',3,3,3);
+INSERT INTO `session` VALUES (1,20,'Session intensive de 5 jours couvrant HTML, CSS, JavaScript et atelier final de mise en ligne.',35,'2025-12-12 17:30:00.000000','2025-12-08 09:00:00.000000','Session Intensive - Dév Web (déc. 2025)',1,1,1),(2,12,'Atelier complet : personas, wireframes, prototypage et tests utilisateurs.',40,'2026-01-23 16:30:00.000000','2026-01-15 09:30:00.000000','Atelier UX/UI - Prototype & Tests (janv. 2026)',2,2,2),(3,18,'Session courte axe pratique : simulation de sprints et gestion du backlog.',18,'2026-02-12 17:00:00.000000','2026-02-10 10:00:00.000000','Sprint Agile - Initiation (févr. 2026)',3,3,3);
 /*!40000 ALTER TABLE `session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -329,7 +329,7 @@ CREATE TABLE `session_seq` (
 
 LOCK TABLES `session_seq` WRITE;
 /*!40000 ALTER TABLE `session_seq` DISABLE KEYS */;
-INSERT INTO `session_seq` VALUES (1);
+INSERT INTO `session_seq` VALUES (101);
 /*!40000 ALTER TABLE `session_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -361,7 +361,7 @@ CREATE TABLE `training` (
 
 LOCK TABLES `training` WRITE;
 /*!40000 ALTER TABLE `training` DISABLE KEYS */;
-INSERT INTO `training` VALUES (1,'Informatique','Introduction aux fondamentaux du dveloppement web : HTML, CSS et JavaScript.','Cette formation initie les participants aux technologies de base du web. Nous abordons la structure dune page HTML, la mise en forme avec CSS (box model, flexbox, grid) et les principes de base de JavaScript (variables, fonctions, DOM). Les sessions alternent thorie et ateliers pratiques : vous construirez une mini-application responsive de A  Z.  la fin du cours, vous serez capable de crer et dployer une page web simple, de connatre les bonnes pratiques daccessibilit et doptimisation des performances.',14,'dev-web-init.jpg',NULL,'Aucun prrequis technique ncessaire ; curiosit pour linformatique recommande.',450,'Initiation au dveloppement web'),(2,'Design','Mthodes et outils pour concevoir des interfaces centres utilisateur.','La formation couvre le processus complet : recherche utilisateur, personas, architecture de linformation, wireframes, prototypage et tests utilisateurs. Des cas concrets permettent de comprendre limportance de laccessibilit, de la hirarchie visuelle et des micro-interactions. Des ateliers guident les participants de lidation au prototype cliquable. Les apprenants reoivent des retours personnaliss pour amliorer leur design.',21,'ux-ui-conception.jpg',NULL,'Connaissance de base en informatique ; intrt pour le design.',750,'Conception UX/UI pour produits numriques'),(3,'Management','Principes et pratiques agiles pour piloter des quipes efficacement.','Cette formation explore Scrum, Kanban, les crmonies agile, la gestion du backlog, la planification, la rtrospective et les mtriques. Grce  des simulations de sprint et des jeux de rles, les participants apprennent  prioriser la valeur, animer une quipe et favoriser la livraison continue. Laccent est mis sur le leadership agile, la communication et la gestion du changement dans les organisations.',16,'agile-gestion.jpg',NULL,'Exprience professionnelle recommande.',600,'Gestion de projet agile');
+INSERT INTO `training` VALUES (1,'Informatique','Introduction aux fondamentaux du développement web : HTML, CSS et JavaScript.','Cette formation initie les participants aux technologies de base du web. Nous abordons la structure d\'une page HTML, la mise en forme avec CSS (box model, flexbox, grid) et les principes de base de JavaScript (variables, fonctions, DOM). Les sessions alternent théorie et ateliers pratiques : vous construirez une mini-application responsive de A à Z. À la fin du cours, vous serez capable de créer et déployer une page web simple, de connaître les bonnes pratiques d\'accessibilité et d\'optimisation des performances.',14,'dev-web-init.jpg',NULL,'Aucun prérequis technique nécessaire ; curiosité pour l\'informatique recommandée.',450,'Initiation au développement web'),(2,'Design','Méthodes et outils pour concevoir des interfaces centrées utilisateur.','La formation couvre le processus complet : recherche utilisateur, personas, architecture de l\'information, wireframes, prototypage et tests utilisateurs. Des cas concrets permettent de comprendre l\'importance de l\'accessibilité, de la hiérarchie visuelle et des micro-interactions. Des ateliers guident les participants de l\'idéation au prototype cliquable. Les apprenants reçoivent des retours personnalisés pour améliorer leur design.',21,'ux-ui-conception.jpg',NULL,'Connaissance de base en informatique ; intérêt pour le design.',750,'Conception UX/UI pour produits numériques'),(3,'Management','Principes et pratiques agiles pour piloter des équipes efficacement.','Cette formation explore Scrum, Kanban, les cérémonies agiles, la gestion du backlog, la planification, la rétrospective et les métriques. Grâce à des simulations de sprint et des jeux de rôles, les participants apprennent à prioriser la valeur, animer une équipe et favoriser la livraison continue. L’accent est mis sur le leadership agile, la communication et la gestion du changement dans les organisations.',16,'agile-gestion.jpg',NULL,'Exprience professionnelle recommande.',600,'Gestion de projet agile');
 /*!40000 ALTER TABLE `training` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -383,7 +383,7 @@ CREATE TABLE `training_seq` (
 
 LOCK TABLES `training_seq` WRITE;
 /*!40000 ALTER TABLE `training_seq` DISABLE KEYS */;
-INSERT INTO `training_seq` VALUES (1);
+INSERT INTO `training_seq` VALUES (101);
 /*!40000 ALTER TABLE `training_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -414,7 +414,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'camille.dupont@example.fr','Camille',NULL,'Dupont','MotDePasseTest123!',NULL,1),(2,'lucas.moreau@example.fr','Lucas',NULL,'Moreau','PasswordTest456!',NULL,2),(3,'sofia.bernard@example.fr','Sofia',NULL,'Bernard','Secret789!',NULL,1),(52,'matteo.baldinetti1@gmail.com','Matto',NULL,'Baldinetti','$2b$05$k/lfZKCa26eJ2.cN/RTIq.dxKgQT5NL4s/zOa2KWUXe7tDER9cUXi',NULL,0);
+INSERT INTO `user` VALUES (1,'camille.dupont@example.fr','Camille',NULL,'Dupont','MotDePasseTest123!',NULL,1),(2,'lucas.moreau@example.fr','Lucas',NULL,'Moreau','PasswordTest456!',NULL,2),(3,'sofia.bernard@example.fr','Sofia',NULL,'Bernard','Secret789!',NULL,1),(52,'matteo.baldinetti1@gmail.com','Mattéo',NULL,'Baldinetti','$2b$05$k/lfZKCa26eJ2.cN/RTIq.dxKgQT5NL4s/zOa2KWUXe7tDER9cUXi',NULL,0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -436,7 +436,7 @@ CREATE TABLE `user_seq` (
 
 LOCK TABLES `user_seq` WRITE;
 /*!40000 ALTER TABLE `user_seq` DISABLE KEYS */;
-INSERT INTO `user_seq` VALUES (1);
+INSERT INTO `user_seq` VALUES (151);
 /*!40000 ALTER TABLE `user_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -449,4 +449,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-17 14:40:47
+-- Dump completed on 2025-12-28 21:05:15

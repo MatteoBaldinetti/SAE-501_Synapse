@@ -57,6 +57,7 @@ function Navbar() {
                             <img
                                 src={userImage === null || userImage === "" ? profilePicture : `${API_URL}/files/download/${userImage}`}
                                 width={40}
+                                height={40}
                                 className="rounded-circle dropdown-toggle"
                                 id="dropdownUser"
                                 data-bs-toggle="dropdown"

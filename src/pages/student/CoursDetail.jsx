@@ -18,8 +18,6 @@ function CoursDetail() {
         fetchData();
     }, []);
 
-    console.log(data.id)
-
     return (
         <div className="blue-background container-fluid">
 
@@ -60,6 +58,16 @@ function CoursDetail() {
 
                         <h4 className="mt-5">Description</h4>
                         <p>{data.detailedDescription}</p>
+
+                        <div className="image-row">
+                            <div className="d-flex justify-content-center align-items-center">
+                                <img
+                                    src={`${API_URL}/files/download/${data.imgName}`}
+                                    alt={data.title}
+                                    className="cours-image"
+                                />
+                            </div>
+                        </div>
 
                         <h4 className="mt-5">Prérequis</h4>
                         <p>{data.prerequisites}</p>

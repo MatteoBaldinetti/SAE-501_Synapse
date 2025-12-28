@@ -9,10 +9,10 @@ function Footer() {
                         {/* Liens */}
                         <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 text-md-start">
                             <h5 className="text-uppercase mb-4 font-weight-bold">Liens</h5>
-                            <p><Link to="/" className="text-white text-decoration-none">Accueil</Link></p>
-                            <p><Link to="/about" className="text-white text-decoration-none">À propos</Link></p>
-                            <p><Link to="/services" className="text-white text-decoration-none">Services</Link></p>
-                            <p><Link to="/contact" className="text-white text-decoration-none">Contact</Link></p>
+                            <p><Link to="/mentions-legales" className="text-white text-decoration-none">Mentions légales</Link></p>
+                            <p><Link to="/rgpd" className="text-white text-decoration-none">RGPD</Link></p>
+                            <p><Link to="/politique-confidentialite" className="text-white text-decoration-none">Politique de confidentialité</Link></p>
+                            <p><Link to="/cookies" className="text-white text-decoration-none">Politique des cookies</Link></p>
                         </div>
 
                         {/* Réseaux sociaux */}

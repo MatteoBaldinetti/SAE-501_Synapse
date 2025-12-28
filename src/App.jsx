@@ -12,6 +12,10 @@ import CoursPayment from "./pages/student/CoursPayment";
 import AdminView from "./pages/admin/AdminView";
 import Dashboard from "./pages/student/DashBoard";
 import Contact from "./pages/Contact";
+import MentionsLegales from "./pages/MentionsLegales";
+import RGPD from "./pages/RGPD";
+import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
+import Cookies from "./pages/Cookies";
 
 function App() {
   return (
@@ -28,6 +32,10 @@ function App() {
           <Route path="/admin" element={<AdminView />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/mentions-legales" element={<MentionsLegales />} />
+          <Route path="/rgpd" element={<RGPD />} />
+          <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
+          <Route path="/cookies" element={<Cookies />} />
         </Routes>
         <Footer />
       </AuthProvider>

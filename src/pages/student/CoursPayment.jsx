@@ -544,7 +544,7 @@ function CoursPayment() {
             <p className="fw-bold">Total : {data.price}€</p>
             <p className="small-text text-secondary">
               En validant votre achat, vous acceptez ces{" "}
-              <Link className="cgu-link" to={"/"}>
+              <Link className="cgu-link" to={"/cgu"}>
                 Conditions générales d'utilisation
               </Link>
             </p>

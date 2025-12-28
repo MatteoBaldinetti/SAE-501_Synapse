@@ -9,12 +9,30 @@ function Footer() {
                         {/* Liens */}
                         <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 text-md-start">
                             <h5 className="text-uppercase mb-4 font-weight-bold">Liens</h5>
-                            <p><Link to="/mentions-legales" className="text-white text-decoration-none">Mentions légales</Link></p>
-                            <p><Link to="/rgpd" className="text-white text-decoration-none">RGPD</Link></p>
-                            <p><Link to="/politique-confidentialite" className="text-white text-decoration-none">Politique de confidentialité</Link></p>
-                            <p><Link to="/cookies" className="text-white text-decoration-none">Politique des cookies</Link></p>
+                            <p>
+                                <Link to="/cgu" className="text-white text-decoration-none">
+                                    Conditions générales d’utilisation
+                                </Link>
+                            </p>
+                            <p>
+                                <Link to="/mentions-legales" className="text-white text-decoration-none">
+                                    Mentions légales
+                                </Link>
+                            </p>
+                            <p>
+                                <Link to="/rgpd" className="text-white text-decoration-none">
+                                    RGPD
+                                </Link>
+                            </p>
+                            <p>
+                                <Link
+                                    to="/politique-confidentialite"
+                                    className="text-white text-decoration-none"
+                                >
+                                    Politique de confidentialité
+                                </Link>
+                            </p>
                         </div>
-
                         {/* Réseaux sociaux */}
                         <div className="col-md-6 col-lg-6 col-xl-6 mx-auto mt-3 text-md-center">
                             <h5 className="text-uppercase mb-4 font-weight-bold">Suivez-nous</h5>

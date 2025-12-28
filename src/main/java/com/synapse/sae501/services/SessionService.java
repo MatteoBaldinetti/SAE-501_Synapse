@@ -20,7 +20,11 @@ public class SessionService {
     @Autowired
     private SessionRepository sessionRepository;
 
-    private final SessionMapper sessionMapper = new SessionMapper();
+    private final SessionMapper sessionMapper;
+
+    public SessionService(SessionMapper sessionMapper) {
+        this.sessionMapper = sessionMapper;
+    }
 
     public Session createSession(SessionCreationDTO sessionCreationDTO) {
         Session session = sessionMapper.sessionCreationDTOToSession(sessionCreationDTO);

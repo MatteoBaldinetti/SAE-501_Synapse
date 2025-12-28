@@ -5,13 +5,20 @@ import com.synapse.sae501.models.Inscription;
 import com.synapse.sae501.services.SessionService;
 import com.synapse.sae501.services.TrainingService;
 import com.synapse.sae501.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class InscriptionMapper {
 
-    @Autowired UserService userService = new UserService();
-    @Autowired SessionService sessionService = new SessionService();
-    @Autowired TrainingService trainingService = new TrainingService();
+    private final UserService userService;
+    private final SessionService sessionService;
+    private final TrainingService trainingService;
+
+    public InscriptionMapper(UserService userService, SessionService sessionService, TrainingService trainingService) {
+        this.userService = userService;
+        this.sessionService = sessionService;
+        this.trainingService = trainingService;
+    }
 
     public Inscription inscriptionCreationDTOToInscription(InscriptionCreationDTO inscriptionCreationDTO) {
         return new Inscription(

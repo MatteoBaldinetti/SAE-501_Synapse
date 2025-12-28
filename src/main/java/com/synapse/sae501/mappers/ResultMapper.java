@@ -4,12 +4,18 @@ import com.synapse.sae501.dto.ResultCreationDTO;
 import com.synapse.sae501.models.Result;
 import com.synapse.sae501.services.SessionService;
 import com.synapse.sae501.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ResultMapper {
 
-    @Autowired UserService userService;
-    @Autowired SessionService sessionService;
+    private final UserService userService;
+    private final SessionService sessionService;
+
+    public ResultMapper(UserService userService, SessionService sessionService) {
+        this.userService = userService;
+        this.sessionService = sessionService;
+    }
 
     public Result resultCreationDTOToResult(ResultCreationDTO resultCreationDTO){
         return new Result(

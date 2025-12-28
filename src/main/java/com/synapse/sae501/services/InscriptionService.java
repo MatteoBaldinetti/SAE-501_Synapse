@@ -20,7 +20,11 @@ public class InscriptionService {
     @Autowired
     private InscriptionRepository inscriptionRepository;
 
-    private final InscriptionMapper inscriptionMapper = new InscriptionMapper();
+    private final InscriptionMapper inscriptionMapper;
+
+    public InscriptionService(InscriptionMapper inscriptionMapper) {
+        this.inscriptionMapper = inscriptionMapper;
+    }
 
     public Inscription createInscription(InscriptionCreationDTO inscriptionCreationDTO) {
         Inscription inscription = inscriptionMapper.inscriptionCreationDTOToInscription(inscriptionCreationDTO);

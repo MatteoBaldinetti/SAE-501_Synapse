@@ -20,7 +20,11 @@ public class ResultService {
     @Autowired
     private ResultRepository resultRepository;
 
-    private final ResultMapper resultMapper = new ResultMapper();
+    private final ResultMapper resultMapper;
+
+    public ResultService(ResultMapper resultMapper) {
+        this.resultMapper = resultMapper;
+    }
 
     public Result createResult(ResultCreationDTO resultCreationDTO) {
         Result result = resultMapper.resultCreationDTOToResult(resultCreationDTO);

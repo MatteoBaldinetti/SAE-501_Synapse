@@ -40,11 +40,11 @@ function TableCours(props) {
         fetchData();
     }, [props])
 
-    function isPast(isoDate) {
+    const isPast = (isoDate) => {
         return new Date(isoDate) < new Date();
     }
 
-    function formatDateISO(isoDate) {
+    const formatDateISO = (isoDate) => {
         const date = new Date(isoDate);
 
         const day = String(date.getDate()).padStart(2, '0');

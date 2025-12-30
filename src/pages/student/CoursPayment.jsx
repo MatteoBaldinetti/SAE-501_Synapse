@@ -3,8 +3,11 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { API_URL } from "../../constants/apiConstants";
 import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function CoursPayment() {
+  const navigate = useNavigate();
+  
   const { userId } = useAuth();
 
   const location = useLocation();
@@ -117,6 +120,29 @@ function CoursPayment() {
     }, 300);
   };
 
+  const handlePayment = async () => {
+    const session = await fetch(`${API_URL}/sessions/search?userId=1&trainingId=${data.id}`);
+    const sessionJson = await session.json();
+
+    const inscirption = {
+      inscriptionDate: new Date().toISOString(),
+      status: "CONFIRM",
+      date: new Date().toISOString(),
+      amount: data.price,
+      user: {id: userId},
+      session: {id: sessionJson[0].id},
+      training: {id:data.id}
+    }
+
+    const res = await fetch(`${API_URL}/inscriptions`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(inscirption),
+    });
+
+    navigate("/payment-confirmation")
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(`${API_URL}/trainings/${id}`);
@@ -205,7 +231,7 @@ function CoursPayment() {
         <>
           <h6>Google Pay</h6>
           <p className="text-secondary">
-            Google Pay sera disponible prochainement.
+            Vous serez redirigé vers Google Pay pour finaliser votre paiement.
           </p>
           <button className="btn btn-dark">Google Pay</button>
         </>
@@ -315,9 +341,8 @@ function CoursPayment() {
                   </label>
                   <input
                     type="text"
-                    className={`form-control ${
-                      errors.postalCode ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${errors.postalCode ? "is-invalid" : ""
+                      }`}
                     id="postalCode"
                     required
                     value={personalInfo.postalCode}
@@ -348,9 +373,8 @@ function CoursPayment() {
                   </label>
                   <input
                     type="email"
-                    className={`form-control ${
-                      errors.email ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${errors.email ? "is-invalid" : ""
+                      }`}
                     id="email"
                     required
                     value={personalInfo.email}
@@ -364,9 +388,8 @@ function CoursPayment() {
                   <label className="form-label">Téléphone</label>
                   <input
                     type="tel"
-                    className={`form-control ${
-                      errors.phone ? "is-invalid" : ""
-                    }`}
+                    className={`form-control ${errors.phone ? "is-invalid" : ""
+                      }`}
                     id="phone"
                     value={personalInfo.phone}
                     onChange={handlePersonalChange}
@@ -549,7 +572,7 @@ function CoursPayment() {
               </Link>
             </p>
             <div className="d-flex justify-content-center align-items-center">
-              <button className="btn btn-payment d-flex align-items-center justify-content-center gap-2">
+              <button className="btn btn-payment d-flex align-items-center justify-content-center gap-2" onClick={handlePayment}>
                 <svg
                   width={20}
                   height={20}

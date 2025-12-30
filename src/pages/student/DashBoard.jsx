@@ -28,9 +28,9 @@ function Dashboard() {
             }
 
             if (currentLayout === "paiement") {
-                const res2 = await fetch(`${API_URL}/inscriptions/search?userId=${userId}`);
-                const json2 = await res2.json();
-                setUserPayment(json2);
+                const res = await fetch(`${API_URL}/inscriptions/search?userId=${userId}`);
+                const json = await res.json();
+                setUserPayment(json.reverse());
             }
         }
         fetchData();
@@ -54,6 +54,7 @@ function Dashboard() {
     }
 
     const handleDownloadBill = (payment) => {
+        // Création du PDF
         const doc = new jsPDF();
 
         const img = new Image();
@@ -64,14 +65,10 @@ function Dashboard() {
         const logoHeight = (img.height * logoWidth) / img.width;
 
         img.onload = () => {
-            // =====================
             // LOGO
-            // =====================
             doc.addImage(img, "JPEG", 14, 15, logoWidth, logoHeight);
 
-            // =====================
-            // ENTREPRISE
-            // =====================
+            // INFO ENTREPRISE
             doc.setFontSize(10);
             doc.text(
                 "4 rue de la Paix\n75000 Paris\ncontact@txlforma.com\n+33 6 12 34 56 78",
@@ -79,9 +76,7 @@ function Dashboard() {
                 42
             );
 
-            // =====================
             // FACTURE INFO
-            // =====================
             doc.setFontSize(16);
             doc.text("FACTURE", 150, 20);
 
@@ -89,9 +84,7 @@ function Dashboard() {
             doc.text(`Numéro : FAC-${payment.id}`, 150, 28);
             doc.text(`Date : ${formatDateISO(payment.date)}`, 150, 34);
 
-            // =====================
             // CLIENT
-            // =====================
             doc.setFontSize(12);
             doc.text("Facturé à :", 14, 70);
 
@@ -100,28 +93,22 @@ function Dashboard() {
             doc.text(userEmail, 14, 84);
             if (userPhone) doc.text(userPhone, 14, 90);
 
-            // =====================
-            // TABLE
-            // =====================
+            // TABLEAU
             autoTable(doc, {
                 startY: 105,
                 head: [["Formation", "Prix"]],
                 body: [[payment.training.title, `${payment.amount} €`]],
-                headStyles: { fillColor: [41, 128, 185] },
+                headStyles: { fillColor: [0, 93, 136] },
                 styles: { fontSize: 10 }
             });
 
-            // =====================
             // TOTAL
-            // =====================
             const finalY = doc.lastAutoTable.finalY + 10;
             doc.setFontSize(12);
             doc.text("Total :", 140, finalY);
             doc.text(`${payment.amount} €`, 170, finalY);
 
-            // =====================
             // FOOTER
-            // =====================
             doc.setFontSize(9);
             doc.text(
                 "Merci pour votre confiance.\nTXLFORMA - Organisme de formation professionnelle",
@@ -129,9 +116,7 @@ function Dashboard() {
                 280
             );
 
-            // =====================
-            // SAVE
-            // =====================
+            // SAUVEGARDE
             doc.save(`facture-FAC-${payment.id}.pdf`);
         };
     };

@@ -1,0 +1,43 @@
+.content-container {
+    min-height: 90vh;
+    display: grid;
+    place-items: center;
+}
+
+.success-icon {
+    width: 90px;
+    height: 90px;
+    background-color: #eaf7ee;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.payment-info {
+    max-width: 400px;
+    background-color: #f8f9fa;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+.blue-button {
+    background-color: #005D88;
+    color: white;
+}
+
+.blue-button:hover {
+    background-color: #0C232B;
+    color: white;
+}
+
+.blue-button-outline {
+    border: 2px solid #005D88;
+    color: #005D88;
+}
+
+.blue-button-outline:hover {
+    background-color: #0C232B;
+    color: white;
+}

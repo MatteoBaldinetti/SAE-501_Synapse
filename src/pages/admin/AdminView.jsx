@@ -2,9 +2,12 @@ import { useState } from "react";
 import "../../styles/AdminDashboard.css";
 import AdminFormation from "../../components/admin/Admin_formation";
 import AdminDashboard from "../../components/admin/Admin_dashboard";
+import AdminSession from "../../components/admin/AdminSession";
 
 function AdminView() {
   const [CurrentLayout, SetCurrentLayout] = useState("dashboard");
+
+  document.title = "Admin - Dashboard";
 
   return (
     <div className="admin-view">
@@ -98,6 +101,7 @@ function AdminView() {
           <div className="col-9">
             {CurrentLayout === "dashboard" && <AdminDashboard />}
             {CurrentLayout === "formation" && <AdminFormation />}
+            {CurrentLayout === "sessions" && <AdminSession />}
           </div>
         </div>
       </div>

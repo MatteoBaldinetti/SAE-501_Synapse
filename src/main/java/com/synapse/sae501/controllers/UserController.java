@@ -120,7 +120,7 @@ public class UserController {
             @ApiResponse(responseCode = "200", description = "List of sessions retrieved successfully"),
             @ApiResponse(responseCode = "404", description = "User not found", content = @Content(schema = @Schema(implementation = ApiError.class)))
     })
-    @GetMapping("/{user}/sessions")
+    @GetMapping("/{userId}/sessions")
     public ResponseEntity<List<Session>> getSessionsByUser(
             @Parameter(description = "User ID")
             @PathVariable Long userId

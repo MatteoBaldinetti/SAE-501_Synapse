@@ -39,3 +39,7 @@
 .profile-dropdown li {
   margin-bottom: 2px;
 }
+
+.profile-avatar {
+  object-fit: cover;
+}

@@ -75,7 +75,7 @@ function CoursDetail() {
                 </div>
 
                 <div className="row pb-5">
-                    <div className="col-md-12 d-flex justify-content-center">
+                    <div className="col-md-6 d-flex justify-content-center">
                         {userId !== null ? (
                             <Link className="btn btn-login-inscritpion" to={"/cours-payment"} state={data.id}>
                                 Incrivez vous à une session
@@ -86,8 +86,12 @@ function CoursDetail() {
                             </Link>
                         )}
                     </div>
+                    <div className="col-md-6 d-flex justify-content-center">
+                            <Link className="btn btn-3d" to={"/3d-viewer"} state={{ modelUrl: '/models/keyboard.glb' }}>
+                                Voir les outils en 3D
+                            </Link>
+                    </div>
                 </div>
-
             </div>
         </div>
     );

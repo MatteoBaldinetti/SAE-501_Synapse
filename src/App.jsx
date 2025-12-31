@@ -17,6 +17,7 @@ import MentionsLegales from "./pages/MentionsLegales";
 import RGPD from "./pages/RGPD";
 import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
 import CGU from "./pages/CGU";
+import ThreeDViewer from "./pages/3d/ThreeDViewer";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
           <Route path="/mentions-legales" element={<MentionsLegales />} />
           <Route path="/rgpd" element={<RGPD />} />
           <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
+          <Route path="/3d-viewer" element={<ThreeDViewer />} />
         </Routes>
         <Footer />
       </AuthProvider>

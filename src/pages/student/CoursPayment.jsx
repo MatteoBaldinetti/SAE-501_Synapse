@@ -124,10 +124,10 @@ function CoursPayment() {
     const session = await fetch(`${API_URL}/sessions/search?userId=1&trainingId=${data.id}`);
     const sessionJson = await session.json();
 
-    const inscirption = {
+    const inscription = {
       inscriptionDate: new Date().toISOString(),
       status: "CONFIRM",
-      date: new Date().toISOString(),
+      date: sessionJson[0].endDate,
       amount: data.price,
       user: {id: userId},
       session: {id: sessionJson[0].id},
@@ -137,7 +137,7 @@ function CoursPayment() {
     const res = await fetch(`${API_URL}/inscriptions`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(inscirption),
+      body: JSON.stringify(inscription),
     });
 
     navigate("/payment-confirmation")

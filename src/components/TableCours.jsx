@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 import { API_URL } from "../constants/apiConstants";
 
-function TableCours(props) {
+function TableCours({ data, userId, statusLayout }) {
 
     const [formattedData, setFormattedData] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = [];
-            for (let i = 0; i < props.data.length; i++) {
-                const sessionId = props.data[i].id;
-                const trainingId = props.data[i].training.id;
+            const tempData = [];
+            for (let i = 0; i < data.length; i++) {
+                const sessionId = data[i].id;
+                const trainingId = data[i].training.id;
 
-                const resInscription = await fetch(`${API_URL}/inscriptions/search?userId=${props.userId}&sessionId=${sessionId}`);
+                const resInscription = await fetch(`${API_URL}/inscriptions/search?userId=${userId}&sessionId=${sessionId}`);
                 const jsonInscription = await resInscription.json();
 
                 const resTraining = await fetch(`${API_URL}/trainings/${trainingId}`);
@@ -21,39 +21,47 @@ function TableCours(props) {
                 const formattedJson = {
                     id: i,
                     title: jsonTraining.title,
-                    duration: props.data[i].duration,
-                    inscirptionDate: jsonInscription[0].inscriptionDate,
-                }
+                    duration: data[i].duration,
+                    inscriptionDate: jsonInscription[0]?.inscriptionDate,
+                };
 
-                if (isPast(props.data[i].endDate)) {
-                    if (props.statusLayout === "termine") {
-                        data.push(formattedJson);
-                    }
-                } else {
-                    if (props.statusLayout !== "termine") {
-                        data.push(formattedJson);
-                    }
+                if (statusLayout === "annule" && jsonInscription[0]?.status === "CANCEL") {
+                    tempData.push(formattedJson);
+                } else if (statusLayout === "termine" && isPast(data[i].endDate)) {
+                    tempData.push(formattedJson);
+                } else if (statusLayout === "inscrit" && !isPast(data[i].endDate)) {
+                    tempData.push(formattedJson);
                 }
             }
-            setFormattedData(data);
-        }
-        fetchData();
-    }, [props])
+            setFormattedData(tempData);
+        };
 
-    const isPast = (isoDate) => {
-        return new Date(isoDate) < new Date();
-    }
+        fetchData();
+    }, [data, userId, statusLayout]);
+
+    const isPast = (isoDate) => new Date(isoDate) < new Date();
 
     const formatDateISO = (isoDate) => {
+        if (!isoDate) return "-";
         const date = new Date(isoDate);
-
         const day = String(date.getDate()).padStart(2, '0');
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const year = date.getFullYear();
         const hours = String(date.getHours()).padStart(2, '0');
         const minutes = String(date.getMinutes()).padStart(2, '0');
-
         return `${day}/${month}/${year} à ${hours}:${minutes}`;
+    };
+
+    // JSX return
+    if (formattedData.length === 0) {
+        // No courses for this status
+        return (
+            <h4 className="text-center">
+                {statusLayout === "inscrit" && "Vous n'êtes pas encore inscrit à un cours"}
+                {statusLayout === "termine" && "Vous n'avez terminé aucun cours"}
+                {statusLayout === "annule" && "Vous n'avez annulé aucun cours"}
+            </h4>
+        );
     }
 
     return (
@@ -74,16 +82,16 @@ function TableCours(props) {
                     <div className="col-4">
                         <h6>{cours.title}</h6>
                     </div>
-                    <div className="col-4">
-                        <h6>{cours.duration}h</h6>
+                    <div className="col-4"
+                    ><h6>{cours.duration}h</h6>
                     </div>
                     <div className="col-4">
-                        <h6>{formatDateISO(cours.inscirptionDate)}</h6>
+                        <h6>{formatDateISO(cours.inscriptionDate)}</h6>
                     </div>
                 </div>
             ))}
         </div>
-    )
+    );
 }
 
 export default TableCours;

@@ -38,12 +38,14 @@ public class Training {
 
     private String learnText;
 
+    private String modelFileName;
+
     @OneToMany(mappedBy = "training")
     private List<Inscription> inscriptions;
 
     public Training() {}
 
-    public Training(String title, String description, String detailedDescription, String prerequisites, String imgName, String category, Float duration, Float price,  String learnText) {
+    public Training(String title, String description, String detailedDescription, String prerequisites, String imgName, String category, Float duration, Float price,  String learnText, String modelFileName) {
         this.title = title;
         this.description = description;
         this.detailedDescription = detailedDescription;
@@ -53,6 +55,7 @@ public class Training {
         this.duration = duration;
         this.price = price;
         this.learnText = learnText;
+        this.modelFileName = modelFileName;
     }
 
     public Long getId() {
@@ -133,5 +136,13 @@ public class Training {
 
     public void setLearnText(String learnText) {
         this.learnText = learnText;
+    }
+
+    public String getModelFileName() {
+        return modelFileName;
+    }
+
+    public void setModelFileName(String modelFileName) {
+        this.modelFileName = modelFileName;
     }
 }

@@ -54,4 +54,9 @@ public class TrainingSpecifications {
         return (root, _, criteriaBuilder) ->
                 learnText == null ? null : criteriaBuilder.equal(root.get("learnText"), learnText);
     }
+
+    public static Specification<Training> hasModelFileName(String modelFileName) {
+        return (root, _, criteriaBuilder) ->
+                modelFileName == null ? null : criteriaBuilder.equal(root.get("modelFileName"), modelFileName);
+    }
 }

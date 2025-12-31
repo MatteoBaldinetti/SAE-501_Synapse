@@ -15,7 +15,8 @@ public class TrainingMapper {
                 trainingCreationDTO.category(),
                 trainingCreationDTO.duration(),
                 trainingCreationDTO.price(),
-                trainingCreationDTO.learnText()
+                trainingCreationDTO.learnText(),
+                trainingCreationDTO.modelFileName()
         );
     }
 }

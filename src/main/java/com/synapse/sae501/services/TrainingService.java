@@ -57,7 +57,8 @@ public class TrainingService {
             String category,
             Float duration,
             Float price,
-            String learnText
+            String learnText,
+            String modelFileName
     ) {
         List<Specification<Training>> specs = new ArrayList<>();
 
@@ -71,6 +72,7 @@ public class TrainingService {
         if (duration != null) specs.add(TrainingSpecifications.hasDuration(duration));
         if (price != null) specs.add(TrainingSpecifications.hasPrice(price));
         if (learnText != null) specs.add(TrainingSpecifications.hasLearnText(learnText));
+        if (modelFileName != null) specs.add(TrainingSpecifications.hasModelFileName(modelFileName));
 
         Specification<Training> finalSpec = specs.stream()
                 .reduce(Specification::and)

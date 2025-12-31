@@ -9,6 +9,7 @@ public record TrainingCreationDTO(
         String category,
         Float duration,
         Float price,
-        String learnText
+        String learnText,
+        String modelFileName
 ) {
 }

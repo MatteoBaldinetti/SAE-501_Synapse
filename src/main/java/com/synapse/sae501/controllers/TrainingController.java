@@ -106,9 +106,10 @@ public class TrainingController {
             @Parameter(description = "Category") @RequestParam(required = false) String category,
             @Parameter(description = "Duration") @RequestParam(required = false) Float duration,
             @Parameter(description = "Price") @RequestParam(required = false) Float price,
-            @Parameter(description = "Learn text") @RequestParam(required = false) String learnText
+            @Parameter(description = "Learn text") @RequestParam(required = false) String learnText,
+            @Parameter(description = "3D model file name") @RequestParam(required = false) String modelFileName
     ) {
-        List<Training> result = trainingService.searchTrainings(id, title, description, detailedDescription, prerequisites, imgName, category, duration, price, learnText);
+        List<Training> result = trainingService.searchTrainings(id, title, description, detailedDescription, prerequisites, imgName, category, duration, price, learnText, modelFileName);
         return ResponseEntity.ok(result);
     }
 }

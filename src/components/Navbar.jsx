@@ -41,12 +41,6 @@ function Navbar() {
                         <li className="nav-item me-3">
                             <Link className="nav-link" to="/cours">Cours</Link>
                         </li>
-                        <li className="nav-item me-3">
-                            <Link className="nav-link" to="/instructeurs">Instructeurs</Link>
-                        </li>
-                        <li className="nav-item me-3">
-                            <Link className="nav-link" to="/apropos">À propos</Link>
-                        </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/contact">Contact</Link>
                         </li>

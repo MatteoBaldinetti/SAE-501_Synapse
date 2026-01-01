@@ -18,6 +18,10 @@ import RGPD from "./pages/RGPD";
 import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
 import CGU from "./pages/CGU";
 import ThreeDViewer from "./pages/3d/ThreeDViewer";
+import CourseCatalog from "./pages/prof/CourseCatalog";
+import CourseContent from "./pages/prof/CourseContent";
+import MyStudents from "./pages/prof/MyStudents";
+import ProfDashboard from "./pages/prof/ProfDashboard";
 
 function App() {
   return (
@@ -34,6 +38,10 @@ function App() {
           <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
           <Route path="/admin" element={<AdminView />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/catalogue" element={<CourseCatalog />} />
+          <Route path="/course-content" element={<CourseContent />} />
+          <Route path="/mes-eleves" element={<MyStudents />} />
+          <Route path="/prof-dashboard" element={<ProfDashboard />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/cgu" element={<CGU />} />
           <Route path="/mentions-legales" element={<MentionsLegales />} />

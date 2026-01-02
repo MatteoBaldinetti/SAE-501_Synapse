@@ -45,8 +45,6 @@ function CoursPayment() {
 
   const [errors, setErrors] = useState({});
 
-  /* ================= HANDLERS ================= */
-
   const handlePersonalChange = (e) => {
     const { id, value } = e.target;
     let newValue = value;
@@ -125,8 +123,6 @@ function CoursPayment() {
     }, 300);
   };
 
-  /* ================= VALIDATION ================= */
-
   const isFormValid = () => {
     const requiredPersonalFields = [
       "firstName",
@@ -163,8 +159,6 @@ function CoursPayment() {
     return true;
   };
 
-  /* ================= PAYMENT ================= */
-
   const handlePayment = async () => {
     if (!isFormValid()) return;
 
@@ -191,8 +185,6 @@ function CoursPayment() {
 
     navigate("/payment-confirmation");
   };
-
-  /* ================= EFFECTS ================= */
 
   useEffect(() => {
     const fetchData = async () => {
@@ -226,8 +218,6 @@ function CoursPayment() {
 
     setErrors(newErrors);
   }, [personalInfo, cardData]);
-
-  /* ================= JSX ================= */
 
   const renderDrawer = (method) => {
     if (method === "card") {

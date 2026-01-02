@@ -1,3 +1,12 @@
+/**
+ * RGPD.jsx - Page d'information RGPD
+ * 
+ * Affiche les informations relatives au RGPD et à la protection des données.
+ * 
+ * Route : /rgpd
+ * Utilisé par : App.jsx, Footer.jsx
+ */
+
 import "../App.css"
 
 function RGPD() {

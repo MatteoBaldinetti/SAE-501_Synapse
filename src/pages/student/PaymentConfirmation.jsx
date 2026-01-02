@@ -1,3 +1,17 @@
+/**
+ * PaymentConfirmation.jsx - Page de confirmation de paiement
+ * 
+ * Affiche :
+ * - Message de confirmation du paiement
+ * - Récapitulatif de la commande
+ * - Informations sur la session choisie
+ * - Prochaines étapes
+ * - Lien vers le tableau de bord
+ * 
+ * Route : /payment-confirmation
+ * Utilisé par : App.jsx
+ */
+
 import { Link, useLocation } from "react-router-dom";
 import "../../styles/PaymentConfirmation.css";
 

@@ -1,3 +1,17 @@
+/**
+ * TableCours.jsx - Tableau d'affichage des formations
+ * 
+ * Affiche la liste des formations disponibles sous forme de tableau/grille avec :
+ * - Image de la formation
+ * - Titre et catégorie
+ * - Description courte
+ * - Prix et durée
+ * - Bouton d'accès aux détails
+ * 
+ * Utilisé par : Cours.jsx
+ * Dépendances : API_URL
+ */
+
 import { useState, useEffect } from "react";
 import { API_URL } from "../constants/apiConstants";
 

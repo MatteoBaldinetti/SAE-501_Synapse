@@ -1,3 +1,17 @@
+/**
+ * Cours.jsx - Page de liste des formations disponibles
+ * 
+ * Affiche :
+ * - Barre de recherche pour filtrer les formations
+ * - Liste/grille de toutes les formations disponibles
+ * - Filtres par catégorie, prix, durée
+ * - Pagination si nécessaire
+ * 
+ * Route : /cours
+ * Utilisé par : App.jsx
+ * Dépendances : SearchBar, TableCours, API_URL
+ */
+
 import { Link } from "react-router-dom";
 
 import "../../styles/Cours.css";

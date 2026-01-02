@@ -1,13 +1,25 @@
+/**
+ * CoursPayment.jsx - Page de paiement d'une formation
+ * 
+ * Permet à l'utilisateur de :
+ * - Voir le récapitulatif de sa commande
+ * - Sélectionner une session
+ * - Saisir ses informations de paiement
+ * - Valider le paiement
+ * 
+ * Route : /cours-payment
+ * Utilisé par : App.jsx
+ * Dépendances : API_URL
+ */
+
 import "../../styles/CoursPayment.css";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { API_URL } from "../../constants/apiConstants";
 import { useAuth } from "../../contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 function CoursPayment() {
   const navigate = useNavigate();
-  
   const { userId } = useAuth();
 
   const location = useLocation();
@@ -73,14 +85,18 @@ function CoursPayment() {
   const handleBillingChange = (e) => {
     const { name, value } = e.target;
     let newValue = value;
-    if (name === "postalCode")
+
+    if (name === "postalCode") {
       newValue = newValue.replace(/\D/g, "").slice(0, 5);
+    }
+
     setBillingInfo((prev) => ({ ...prev, [name]: newValue }));
   };
 
   const toggleSameAddress = () => {
     const newValue = !sameAddress;
     setSameAddress(newValue);
+
     if (newValue) {
       setBillingInfo({
         company: "",
@@ -94,13 +110,14 @@ function CoursPayment() {
 
   const handleCardChange = (e) => {
     const { name, value } = e.target;
+
     if (name === "number") {
       let digits = value.replace(/\D/g, "").slice(0, 16);
       digits = digits.replace(/(.{4})/g, "$1 ").trim();
-      setCardData((prev) => ({ ...prev, [name]: digits }));
+      setCardData((prev) => ({ ...prev, number: digits }));
     } else if (name === "cvc") {
       let digits = value.replace(/\D/g, "").slice(0, 3);
-      setCardData((prev) => ({ ...prev, [name]: digits }));
+      setCardData((prev) => ({ ...prev, cvc: digits }));
     }
   };
 
@@ -120,8 +137,48 @@ function CoursPayment() {
     }, 300);
   };
 
+  const isFormValid = () => {
+    const requiredPersonalFields = [
+      "firstName",
+      "lastName",
+      "address1",
+      "postalCode",
+      "city",
+      "email",
+    ];
+
+    for (const field of requiredPersonalFields) {
+      if (!personalInfo[field]?.trim()) return false;
+    }
+
+    if (!sameAddress) {
+      const requiredBillingFields = ["address1", "postalCode", "city"];
+      for (const field of requiredBillingFields) {
+        if (!billingInfo[field]?.trim()) return false;
+      }
+    }
+
+    if (payment === "card") {
+      if (
+        cardData.number.replace(/\s/g, "").length !== 16 ||
+        cardData.cvc.length !== 3 ||
+        cardData.exp.length !== 5
+      ) {
+        return false;
+      }
+    }
+
+    if (Object.keys(errors).length > 0) return false;
+
+    return true;
+  };
+
   const handlePayment = async () => {
-    const session = await fetch(`${API_URL}/sessions/search?userId=1&trainingId=${data.id}`);
+    if (!isFormValid()) return;
+
+    const session = await fetch(
+      `${API_URL}/sessions/search?userId=${userId}&trainingId=${data.id}`
+    );
     const sessionJson = await session.json();
 
     const inscription = {
@@ -129,41 +186,50 @@ function CoursPayment() {
       status: "CONFIRM",
       date: sessionJson[0].endDate,
       amount: data.price,
-      user: {id: userId},
-      session: {id: sessionJson[0].id},
-      training: {id:data.id}
-    }
+      user: { id: userId },
+      session: { id: sessionJson[0].id },
+      training: { id: data.id },
+    };
 
-    const res = await fetch(`${API_URL}/inscriptions`, {
+    await fetch(`${API_URL}/inscriptions`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(inscription),
     });
 
-    navigate("/payment-confirmation")
-  }
+    navigate("/payment-confirmation");
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(`${API_URL}/trainings/${id}`);
-      const data = await res.json();
-      setData(data);
+      const json = await res.json();
+      setData(json);
     };
     fetchData();
   }, [id]);
 
   useEffect(() => {
     const newErrors = {};
+
     if (personalInfo.postalCode && personalInfo.postalCode.length !== 5)
       newErrors.postalCode = "Code postal invalide";
+
     if (personalInfo.email && !/^\S+@\S+\.\S+$/.test(personalInfo.email))
       newErrors.email = "Email invalide";
-    if (personalInfo.phone && personalInfo.phone.length !== 10)
+
+    if (
+      personalInfo.phone &&
+      personalInfo.phone.replace(/\s/g, "").length !== 10
+    )
       newErrors.phone = "Téléphone invalide";
+
     if (cardData.number && cardData.number.replace(/\s/g, "").length !== 16)
       newErrors.number = "Numéro de carte invalide";
+
     if (cardData.cvc && cardData.cvc.length !== 3)
       newErrors.cvc = "CVC invalide";
+
     setErrors(newErrors);
   }, [personalInfo, cardData]);
 
@@ -185,19 +251,19 @@ function CoursPayment() {
               <div className="invalid-feedback">{errors.number}</div>
             )}
           </div>
+
           <div className="row">
             <div className="col-md-6 mb-3">
               <label className="form-label">Date d'expiration</label>
               <input
                 type="text"
                 className="form-control"
-                name="exp"
                 placeholder="MM/AA"
                 value={cardData.exp}
                 onChange={handleCardDate}
-                maxLength={5}
               />
             </div>
+
             <div className="col-md-6 mb-3">
               <label className="form-label">CVC</label>
               <input
@@ -214,7 +280,9 @@ function CoursPayment() {
           </div>
         </>
       );
-    } else if (method === "paypal") {
+    }
+
+    if (method === "paypal") {
       return (
         <>
           <h6>PayPal</h6>
@@ -226,7 +294,9 @@ function CoursPayment() {
           </button>
         </>
       );
-    } else if (method === "googlepay") {
+    }
+
+    if (method === "googlepay") {
       return (
         <>
           <h6>Google Pay</h6>
@@ -572,7 +642,7 @@ function CoursPayment() {
               </Link>
             </p>
             <div className="d-flex justify-content-center align-items-center">
-              <button className="btn btn-payment d-flex align-items-center justify-content-center gap-2" onClick={handlePayment}>
+              <button className="btn btn-payment d-flex align-items-center justify-content-center gap-2" onClick={handlePayment} disabled={!isFormValid()}>
                 <svg
                   width={20}
                   height={20}
@@ -586,6 +656,7 @@ function CoursPayment() {
                 </svg>
                 Payer {data.price}€
               </button>
+              
             </div>
             <p className="mt-4 fw-bold text-center">
               Garantie satisfait ou remboursé de 30 jours

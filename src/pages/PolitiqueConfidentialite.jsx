@@ -1,3 +1,12 @@
+/**
+ * PolitiqueConfidentialite.jsx - Page de politique de confidentialité
+ * 
+ * Affiche la politique de confidentialité du site.
+ * 
+ * Route : /politique-confidentialite
+ * Utilisé par : App.jsx, Footer.jsx
+ */
+
 import "../App.css"
 
 function PolitiqueConfidentialite() {

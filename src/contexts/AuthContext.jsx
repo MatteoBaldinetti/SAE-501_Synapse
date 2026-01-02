@@ -1,137 +1,179 @@
+/**
+ * AuthContext.jsx - Contexte d'authentification global de l'application
+ *
+ * Ce contexte gère l'état d'authentification de l'utilisateur dans toute l'application.
+ * Il fournit :
+ * - Les informations de l'utilisateur connecté (id, email, nom, prénom, type, téléphone, image)
+ * - Les fonctions d'authentification (login, logout, updateContext)
+ * - La persistance des données dans le localStorage
+ *
+ * Fonctions disponibles :
+ * - login(email, password) : Connecte un utilisateur avec vérification bcrypt du mot de passe
+ * - logout() : Déconnecte l'utilisateur et nettoie le localStorage
+ * - updateContext(...) : Met à jour les informations de l'utilisateur dans le contexte et le localStorage
+ *
+ * État géré :
+ * - userId, userEmail, userFirstname, userLastname, userType, userPhone, userImage
+ * - authLoading : indique si une opération d'authentification est en cours
+ *
+ * Utilisé par : App.jsx (via AuthProvider)
+ * Consommé par : Navbar.jsx, ProfileComponents.jsx, AdminView.jsx, Dashboard.jsx, et autres composants
+ * Dépendances : API_URL, bcrypt
+ */
+
 import { createContext, useState, useContext, useEffect } from "react";
 import { API_URL } from "../constants/apiConstants";
-import { useNavigate } from "react-router-dom"; import bcrypt from "bcryptjs";
+import { useNavigate } from "react-router-dom";
+import bcrypt from "bcryptjs";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [userId, setUserId] = useState(() => {
-        const savedId = localStorage.getItem("id");
-        return savedId ? JSON.parse(savedId) : null;
-    });
+  const [userId, setUserId] = useState(() => {
+    const savedId = localStorage.getItem("id");
+    return savedId ? JSON.parse(savedId) : null;
+  });
 
-    const [userEmail, setUserEmail] = useState(() => {
-        const savedEmail = localStorage.getItem("email");
-        return savedEmail ? JSON.parse(savedEmail) : null;
-    });
+  const [userEmail, setUserEmail] = useState(() => {
+    const savedEmail = localStorage.getItem("email");
+    return savedEmail ? JSON.parse(savedEmail) : null;
+  });
 
-    const [userFirstname, setUserFirstName] = useState(() => {
-        const savedFirstname = localStorage.getItem("firstname");
-        return savedFirstname ? JSON.parse(savedFirstname) : null;
-    });
+  const [userFirstname, setUserFirstName] = useState(() => {
+    const savedFirstname = localStorage.getItem("firstname");
+    return savedFirstname ? JSON.parse(savedFirstname) : null;
+  });
 
-    const [userLastname, setUserLastName] = useState(() => {
-        const savedLastname = localStorage.getItem("lastname");
-        return savedLastname ? JSON.parse(savedLastname) : null;
-    });
+  const [userLastname, setUserLastName] = useState(() => {
+    const savedLastname = localStorage.getItem("lastname");
+    return savedLastname ? JSON.parse(savedLastname) : null;
+  });
 
-    const [userType, setUserType] = useState(() => {
-        const savedType = localStorage.getItem("type");
-        return savedType ? JSON.parse(savedType) : null;
-    });
+  const [userType, setUserType] = useState(() => {
+    const savedType = localStorage.getItem("type");
+    return savedType ? JSON.parse(savedType) : null;
+  });
 
-    const [userPhone, setUserPhone] = useState(() => {
-        const savedPhone = localStorage.getItem("phone");
-        return savedPhone ? JSON.parse(savedPhone) : null;
-    });
+  const [userPhone, setUserPhone] = useState(() => {
+    const savedPhone = localStorage.getItem("phone");
+    return savedPhone ? JSON.parse(savedPhone) : null;
+  });
 
-    const [userImage, setUserImage] = useState(() => {
-        const savedImage = localStorage.getItem("image");
-        return savedImage ? JSON.parse(savedImage) : null;
-    });
+  const [userImage, setUserImage] = useState(() => {
+    const savedImage = localStorage.getItem("image");
+    return savedImage ? JSON.parse(savedImage) : null;
+  });
 
-    const [authLoading, setAuthLoading] = useState(false);
+  const [authLoading, setAuthLoading] = useState(false);
 
-    const login = async (email, password) => {
-        setAuthLoading(true);
-        try {
-            const res = await fetch(`${API_URL}/users/search?email=${email}`);
+  const login = async (email, password) => {
+    setAuthLoading(true);
+    try {
+      const res = await fetch(`${API_URL}/users/search?email=${email}`);
 
-            if (!res.ok) {
-                throw new Error("Erreur lors de la connexion");
-            }
+      if (!res.ok) {
+        throw new Error("Erreur lors de la connexion");
+      }
 
-            let data = await res.json();
-            data = data[0];
+      let data = await res.json();
+      data = data[0];
 
-            if (data.email === null) {
-                throw new Error("Aucun utilisateur trouvé pour cette adresse mail");
-            }
+      if (data.email === null) {
+        throw new Error("Aucun utilisateur trouvé pour cette adresse mail");
+      }
 
-            const isValid = await bcrypt.compare(password, data.password);
+      const isValid = await bcrypt.compare(password, data.password);
 
-            if (isValid) {
-                setUserId(data.id)
-                setUserEmail(data.email);
-                setUserFirstName(data.firstname);
-                setUserLastName(data.lastname);
-                setUserType(data.type);
-                setUserPhone(data.phoneNumber);
-                setUserImage(data.imgName);
-                localStorage.setItem("id", JSON.stringify(data.id));
-                localStorage.setItem("email", JSON.stringify(data.email));
-                localStorage.setItem("firstname", JSON.stringify(data.firstname));
-                localStorage.setItem("lastname", JSON.stringify(data.lastname));
-                localStorage.setItem("type", JSON.stringify(data.type));
-                localStorage.setItem("phone", JSON.stringify(data.phoneNumber));
-                localStorage.setItem("image", JSON.stringify(data.imgName));
-                setAuthLoading(false);
-                navigate("/");
-
-            } else {
-                throw new Error("Mot de passe incorrect");
-            }
-
-        } catch (err) {
-            console.error(err);
-            throw err;
-        } finally {
-            setAuthLoading(false);
-        }
-    };
-
-    const logout = () => {
-        setUserId(null);
-        setUserEmail(null);
-        setUserFirstName(null);
-        setUserLastName(null);
-        setUserType(null);
-        setUserPhone(null);
-        localStorage.removeItem("id");
-        localStorage.removeItem("email");
-        localStorage.removeItem("firstname");
-        localStorage.removeItem("lastname");
-        localStorage.removeItem("type");
-        localStorage.removeItem("phone")
-        localStorage.removeItem("image")
-        navigate("/");
-    };
-
-    const updateContext = (userId, userEmail, userFirstname, userLastname, userType, userPhone, userImage) => {
-        setAuthLoading(true);
-        setUserId(userId)
-        setUserEmail(userEmail);
-        setUserFirstName(userFirstname);
-        setUserLastName(userLastname);
-        setUserType(userType);
-        setUserPhone(userPhone)
-        localStorage.setItem("id", JSON.stringify(userId));
-        localStorage.setItem("email", JSON.stringify(userEmail));
-        localStorage.setItem("firstname", JSON.stringify(userFirstname));
-        localStorage.setItem("lastname", JSON.stringify(userLastname));
-        localStorage.setItem("type", JSON.stringify(userType));
-        localStorage.setItem("phone", JSON.stringify(userPhone));
-        localStorage.setItem("image", JSON.stringify(userImage));
+      if (isValid) {
+        setUserId(data.id);
+        setUserEmail(data.email);
+        setUserFirstName(data.firstname);
+        setUserLastName(data.lastname);
+        setUserType(data.type);
+        setUserPhone(data.phoneNumber);
+        setUserImage(data.imgName);
+        localStorage.setItem("id", JSON.stringify(data.id));
+        localStorage.setItem("email", JSON.stringify(data.email));
+        localStorage.setItem("firstname", JSON.stringify(data.firstname));
+        localStorage.setItem("lastname", JSON.stringify(data.lastname));
+        localStorage.setItem("type", JSON.stringify(data.type));
+        localStorage.setItem("phone", JSON.stringify(data.phoneNumber));
+        localStorage.setItem("image", JSON.stringify(data.imgName));
         setAuthLoading(false);
+        navigate("/");
+      } else {
+        throw new Error("Mot de passe incorrect");
+      }
+    } catch (err) {
+      console.error(err);
+      throw err;
+    } finally {
+      setAuthLoading(false);
     }
+  };
 
-    const value = { userId, userEmail, userFirstname, userLastname, userType, userPhone, userImage, login, logout, updateContext, authLoading };
+  const logout = () => {
+    setUserId(null);
+    setUserEmail(null);
+    setUserFirstName(null);
+    setUserLastName(null);
+    setUserType(null);
+    setUserPhone(null);
+    localStorage.removeItem("id");
+    localStorage.removeItem("email");
+    localStorage.removeItem("firstname");
+    localStorage.removeItem("lastname");
+    localStorage.removeItem("type");
+    localStorage.removeItem("phone");
+    localStorage.removeItem("image");
+    navigate("/");
+  };
 
-    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  const updateContext = (
+    userId,
+    userEmail,
+    userFirstname,
+    userLastname,
+    userType,
+    userPhone,
+    userImage
+  ) => {
+    setAuthLoading(true);
+    setUserId(userId);
+    setUserEmail(userEmail);
+    setUserFirstName(userFirstname);
+    setUserLastName(userLastname);
+    setUserType(userType);
+    setUserPhone(userPhone);
+    localStorage.setItem("id", JSON.stringify(userId));
+    localStorage.setItem("email", JSON.stringify(userEmail));
+    localStorage.setItem("firstname", JSON.stringify(userFirstname));
+    localStorage.setItem("lastname", JSON.stringify(userLastname));
+    localStorage.setItem("type", JSON.stringify(userType));
+    localStorage.setItem("phone", JSON.stringify(userPhone));
+    localStorage.setItem("image", JSON.stringify(userImage));
+    setAuthLoading(false);
+  };
+
+  const value = {
+    userId,
+    userEmail,
+    userFirstname,
+    userLastname,
+    userType,
+    userPhone,
+    userImage,
+    login,
+    logout,
+    updateContext,
+    authLoading,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
-    return useContext(AuthContext);
+  return useContext(AuthContext);
 }

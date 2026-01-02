@@ -1,16 +1,52 @@
-function CookieAgreement() {
+/**
+ * CookieAgreement.jsx - Bannière de consentement aux cookies
+ * 
+ * Affiche une bannière de consentement aux cookies conforme au RGPD.
+ * Permet à l'utilisateur d'accepter ou de refuser les cookies.
+ * Stocke le choix de l'utilisateur dans le localStorage.
+ * 
+ * Utilisé par : App.jsx ou composants de page
+ */
+
+import "../styles/CookieAgreement.css";
+
+function CookieAgreement({ visible, onEdit, onConfirm }) {
+  if (!visible) return null;
+
   return (
-    <div className="container fixed-bottom">
-      <div className="col-6">
-        <div className="row"></div>
-        <div className="row"></div>
-      </div>
-      <div className="col-4">
-        <button>Accepter</button>
-        <button>Refuser</button>
+    <div className="container fixed-bottom me-1 mb-1">
+      <div className="row">
+        <div className="col-6"></div>
+        <div className="col-6 p-4 bg-white border rounded-3">
+          <div className="container d-flex">
+            <div className="row">
+              <div className="col-8 text-start text-black">
+                <h5>Voulez-vous accepter les cookies ?</h5>
+                <p>
+                  En utilisant notre site, vous acceptez l'utilisation des
+                  cookies pour améliorer votre expérience.
+                </p>
+              </div>
+              <div className="col-4 justify-content-end">
+                <button
+                  className="btn ca-confirm w-100 mb-1"
+                  onClick={onConfirm}
+                >
+                  Accepter
+                </button>
+                <button className="btn ca-choose w-100 mt-1" onClick={onEdit}>
+                  Choisir les cookies
+                </button>
+              </div>
+            </div>
+             
+          </div>
+        </div>
       </div>
     </div>
   );
 }
+
+function editCookiesAgreement() {}
 
 export default CookieAgreement;

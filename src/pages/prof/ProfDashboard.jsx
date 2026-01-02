@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../constants/apiConstants";
-import ProfSidebar from "../../components/ProfSidebar";
+import ProfSidebarCollapsible from "../../components/ProfSidebarCollapsible";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -127,14 +127,15 @@ function ProfDashboard() {
   };
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
-      <ProfSidebar />
+    <div style={{ backgroundColor: "#FFECC8", minHeight: "100vh" }}>
+      <div className="container-fluid">
+        <div className="row">
+          {/* Sidebar */}
+          <ProfSidebarCollapsible />
 
-      <div style={{ flex: 1, backgroundColor: "#FFECC8" }}>
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-12">
-              <div className="d-flex justify-content-between align-items-center mt-4 mb-4 px-4">
+          {/* Main Content */}
+          <div className="col p-5">
+              <div className="d-flex justify-content-between align-items-center mb-4">
                 <div className="d-flex align-items-center">
                   <button
                     onClick={() => navigate(-1)}
@@ -176,6 +177,7 @@ function ProfDashboard() {
                   </button>
                 </div>
                 <button
+                  onClick={() => navigate("/sessions")}
                   className="btn"
                   style={{
                     backgroundColor: "#FFA500",
@@ -190,7 +192,7 @@ function ProfDashboard() {
                 </button>
               </div>
 
-              <div className="px-4">
+              <div>
                 <h2>Tableau de bord Professeur</h2>
                 <p className="text-secondary">
                   Vue d'ensemble de vos cours et de vos performances
@@ -198,7 +200,7 @@ function ProfDashboard() {
               </div>
 
               {/* Mes cours Section */}
-              <div className="px-4 mt-4">
+              <div className="mt-4">
                 <h4 className="mb-3">Mes cours</h4>
                 <div
                   className="bg-white rounded-3 p-4"
@@ -242,7 +244,7 @@ function ProfDashboard() {
               </div>
 
               {/* Statistiques Section */}
-              <div className="px-4 mt-4 pb-5">
+              <div className="mt-4 pb-5">
                 <h4 className="mb-3">Statistiques</h4>
                 <div className="row g-4">
                   {/* Progression des élèves */}
@@ -288,7 +290,6 @@ function ProfDashboard() {
                   </div>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       </div>

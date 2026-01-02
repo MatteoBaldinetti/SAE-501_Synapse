@@ -48,6 +48,8 @@ import CourseCatalog from "./pages/prof/CourseCatalog";
 import CourseContent from "./pages/prof/CourseContent";
 import MyStudents from "./pages/prof/MyStudents";
 import ProfDashboard from "./pages/prof/ProfDashboard";
+import Sessions from "./pages/prof/Sessions";
+import ProfProfile from "./pages/prof/ProfProfile";
 import ResetPassword from "./pages/ResetPassword";
 
 function App() {
@@ -72,6 +74,8 @@ function App() {
           <Route path="/course-content" element={<CourseContent />} />
           <Route path="/mes-eleves" element={<MyStudents />} />
           <Route path="/prof-dashboard" element={<ProfDashboard />} />
+          <Route path="/sessions" element={<Sessions />} />
+          <Route path="/prof-profile/:id" element={<ProfProfile />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/cgu" element={<CGU />} />
           <Route path="/mentions-legales" element={<MentionsLegales />} />

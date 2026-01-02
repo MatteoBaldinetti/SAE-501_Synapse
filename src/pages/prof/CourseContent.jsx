@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../../constants/apiConstants";
+import ProfSidebarCollapsible from "../../components/ProfSidebarCollapsible";
 
 function CourseContent() {
   const navigate = useNavigate();
@@ -246,91 +247,39 @@ function CourseContent() {
       <div className="container-fluid">
         <div className="row">
           {/* Sidebar */}
-          <div className="col-2 p-0" style={{ backgroundColor: "#FFE4B5" }}>
-            <div className="p-3">
-              <div className="d-flex justify-content-between align-items-center mb-3">
-                <h5 className="mb-0">Gestionnaire</h5>
-                <button
-                  className="btn btn-sm"
-                  style={{
-                    backgroundColor: "#FFA500",
-                    border: "none",
-                    borderRadius: "5px",
-                    padding: "5px 10px",
-                  }}
-                >
-                  <span style={{ fontSize: "20px", color: "white" }}>−</span>
-                </button>
-              </div>
-
-              <div
-                className={`d-flex align-items-center p-2 mb-2 ${
-                  currentSection === "formation" ? "bg-warning" : ""
-                }`}
-                style={{
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                }}
-                onClick={() => setCurrentSection("formation")}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  style={{ width: "20px", height: "20px", marginRight: "10px" }}
-                >
-                  <path d="M3 3h18v2H3V3zm0 4h18v2H3V7zm0 4h18v2H3v-2zm0 4h18v2H3v-2zm0 4h18v2H3v-2z" />
-                </svg>
-                <span>Tableau de bord / Formation</span>
-              </div>
-
-              <div
-                className={`d-flex align-items-center p-2 mb-2 ${
-                  currentSection === "sessions" ? "bg-warning" : ""
-                }`}
-                style={{
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                }}
-                onClick={() => setCurrentSection("sessions")}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  style={{ width: "20px", height: "20px", marginRight: "10px" }}
-                >
-                  <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" />
-                </svg>
-                <span>Sessions</span>
-              </div>
-
-              <div
-                className={`d-flex align-items-center p-2 mb-2 ${
-                  currentSection === "inscriptions" ? "bg-warning" : ""
-                }`}
-                style={{
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                }}
-                onClick={() => setCurrentSection("inscriptions")}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  style={{ width: "20px", height: "20px", marginRight: "10px" }}
-                >
-                  <path d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
-                </svg>
-                <span>Inscriptions</span>
-              </div>
-            </div>
-          </div>
+          <ProfSidebarCollapsible />
 
           {/* Main Content */}
-          <div className="col-10 p-5">
-            <h2 className="mb-2">Contenu du cours</h2>
+          <div className="col p-5">
+            <div className="d-flex align-items-center mb-4">
+              <button
+                onClick={() => navigate(-1)}
+                className="btn me-3"
+                style={{
+                  backgroundColor: "#ff8c00",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "8px",
+                  padding: "10px 15px",
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+                  />
+                </svg>
+              </button>
+              <div>
+                <h2 className="mb-0">Contenu du cours</h2>
+              </div>
+            </div>
             <p className="text-secondary mb-4">
               Gérez le contenu de votre cours
             </p>
@@ -651,32 +600,6 @@ function CourseContent() {
                 {isLoading ? "Chargement..." : "Enregistrer le brouillon"}
               </button>
             </div>
-
-            {/* Footer */}
-            <footer className="mt-5 pt-4 border-top">
-              <div className="d-flex justify-content-between mb-3">
-                <Link
-                  to="/mentions-legales"
-                  className="text-decoration-none text-dark"
-                >
-                  Terms of Service
-                </Link>
-                <Link
-                  to="/politique-confidentialite"
-                  className="text-decoration-none text-dark"
-                >
-                  Privacy Policy
-                </Link>
-                <Link to="/contact" className="text-decoration-none text-dark">
-                  Contact Us
-                </Link>
-              </div>
-              <div className="text-center">
-                <p className="text-secondary mb-0">
-                  © 2025 TXL FORMA. All rights reserved.
-                </p>
-              </div>
-            </footer>
           </div>
         </div>
       </div>

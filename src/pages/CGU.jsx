@@ -1,19 +1,37 @@
 /**
  * CGU.jsx - Page des Conditions Générales d'Utilisation
- * 
+ *
  * Affiche les conditions générales d'utilisation de la plateforme.
- * 
+ *
  * Route : /cgu
  * Utilisé par : App.jsx, Footer.jsx
+ *
+ * Paramètre URL : type
+ * - 0 = membre (fond blanc par défaut)
+ * - 1 = enseignant (fond #FFECC8)
+ * - 2 = admin (fond #E3F2FD)
  */
 
 import "../App.css"
+import { useSearchParams } from "react-router-dom"
 
 function CGU() {
+    const [searchParams] = useSearchParams();
+    const type = searchParams.get("type") || "0";
+
+    const getBackgroundColor = () => {
+        switch(type) {
+            case "1": return "#FFECC8"; // Enseignant
+            case "2": return "#E3F2FD"; // Admin
+            default: return "#FFFFFF"; // Membre
+        }
+    };
+
     return (
-        <div className="container legal-container my-5">
-            <div className="row">
-                <div className="col-md-10 mx-auto">
+        <div style={{ backgroundColor: getBackgroundColor(), minHeight: "100vh" }}>
+            <div className="container legal-container my-5">
+                <div className="row">
+                    <div className="col-md-10 mx-auto">
 
                     <h2 className="mb-4">Conditions Générales d’Utilisation</h2>
 
@@ -77,6 +95,7 @@ function CGU() {
                         de litige, les tribunaux compétents seront ceux du ressort de Paris.
                     </p>
 
+                    </div>
                 </div>
             </div>
         </div>

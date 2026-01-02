@@ -59,7 +59,6 @@ function ProfSidebar() {
         backgroundColor: "#FFECC8",
         minHeight: "100vh",
         padding: "20px 0",
-        borderRight: "2px solid #1a1a1a",
       }}
     >
       <h5
@@ -84,10 +83,6 @@ function ProfSidebar() {
               color: "#1a1a1a",
               backgroundColor:
                 location.pathname === item.path ? "#FFA500" : "transparent",
-              borderLeft:
-                location.pathname === item.path
-                  ? "4px solid #1a1a1a"
-                  : "4px solid transparent",
               transition: "all 0.2s ease",
             }}
             onMouseEnter={(e) => {

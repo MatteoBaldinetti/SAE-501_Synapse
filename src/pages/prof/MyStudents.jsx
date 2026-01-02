@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../constants/apiConstants";
+import ProfSidebarCollapsible from "../../components/ProfSidebarCollapsible";
 
 function MyStudents() {
   const [inscriptions, setInscriptions] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [editingInscription, setEditingInscription] = useState(null);
+  const [editNote, setEditNote] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,51 +29,177 @@ function MyStudents() {
     );
   });
 
-  const getStatusBadge = (status) => {
+  // Update inscription status
+  const updateStatus = async (inscriptionId, newStatus) => {
+    try {
+      const inscription = inscriptions.find((i) => i.id === inscriptionId);
+      const response = await fetch(`${API_URL}/inscriptions/${inscriptionId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...inscription,
+          status: newStatus,
+          user: { id: inscription.user.id },
+          session: inscription.session ? { id: inscription.session.id } : null,
+          training: inscription.training ? { id: inscription.training.id } : null,
+        }),
+      });
+
+      if (response.ok) {
+        // Refresh data
+        const res = await fetch(`${API_URL}/inscriptions`);
+        const data = await res.json();
+        setInscriptions(data);
+      }
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+
+  // Open edit modal
+  const handleEditClick = (inscription) => {
+    setEditingInscription(inscription);
+    setEditNote(inscription.amount || "");
+  };
+
+  // Save edited note
+  const handleSaveNote = async () => {
+    if (!editingInscription) return;
+
+    const noteValue = parseFloat(editNote);
+    if (isNaN(noteValue) || noteValue < 0 || noteValue > 20) {
+      alert("La note doit être entre 0 et 20");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_URL}/inscriptions/${editingInscription.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...editingInscription,
+          amount: noteValue,
+          user: { id: editingInscription.user.id },
+          session: editingInscription.session ? { id: editingInscription.session.id } : null,
+          training: editingInscription.training ? { id: editingInscription.training.id } : null,
+        }),
+      });
+
+      if (response.ok) {
+        // Refresh data
+        const res = await fetch(`${API_URL}/inscriptions`);
+        const data = await res.json();
+        setInscriptions(data);
+        setEditingInscription(null);
+        setEditNote("");
+      } else {
+        alert("Erreur lors de la modification de la note");
+      }
+    } catch (error) {
+      console.error("Error updating note:", error);
+      alert("Erreur lors de la modification de la note");
+    }
+  };
+
+  const getStatusBadge = (inscriptionId, status) => {
     if (status === "PRESENT" || status === "Présent") {
       return (
-        <span
-          className="badge"
-          style={{
-            backgroundColor: "#d4edda",
-            color: "#155724",
-            border: "1px solid #c3e6cb",
-            padding: "5px 12px",
-            borderRadius: "20px",
-          }}
-        >
-          Présent
-        </span>
+        <div className="btn-group" role="group">
+          <button
+            className="btn btn-sm"
+            style={{
+              backgroundColor: "#d4edda",
+              color: "#155724",
+              border: "1px solid #c3e6cb",
+              borderRadius: "20px 0 0 20px",
+              padding: "5px 12px",
+              fontWeight: "bold",
+            }}
+          >
+            Présent
+          </button>
+          <button
+            className="btn btn-sm"
+            onClick={() => updateStatus(inscriptionId, "ABSENT")}
+            style={{
+              backgroundColor: "#f8d7da",
+              color: "#721c24",
+              border: "1px solid #f5c6cb",
+              borderRadius: "0 20px 20px 0",
+              padding: "5px 12px",
+              opacity: 0.5,
+            }}
+            title="Marquer comme absent"
+          >
+            Absent
+          </button>
+        </div>
       );
     } else if (status === "ABSENT" || status === "Absent") {
       return (
-        <span
-          className="badge"
-          style={{
-            backgroundColor: "#f8d7da",
-            color: "#721c24",
-            border: "1px solid #f5c6cb",
-            padding: "5px 12px",
-            borderRadius: "20px",
-          }}
-        >
-          Absent
-        </span>
+        <div className="btn-group" role="group">
+          <button
+            className="btn btn-sm"
+            onClick={() => updateStatus(inscriptionId, "PRESENT")}
+            style={{
+              backgroundColor: "#d4edda",
+              color: "#155724",
+              border: "1px solid #c3e6cb",
+              borderRadius: "20px 0 0 20px",
+              padding: "5px 12px",
+              opacity: 0.5,
+            }}
+            title="Marquer comme présent"
+          >
+            Présent
+          </button>
+          <button
+            className="btn btn-sm"
+            style={{
+              backgroundColor: "#f8d7da",
+              color: "#721c24",
+              border: "1px solid #f5c6cb",
+              borderRadius: "0 20px 20px 0",
+              padding: "5px 12px",
+              fontWeight: "bold",
+            }}
+          >
+            Absent
+          </button>
+        </div>
       );
     } else {
       return (
-        <button
-          className="btn btn-sm"
-          style={{
-            backgroundColor: "transparent",
-            border: "1px solid #1a1a1a",
-            color: "#1a1a1a",
-            borderRadius: "20px",
-            padding: "5px 12px",
-          }}
-        >
-          Ajouter
-        </button>
+        <div className="btn-group" role="group">
+          <button
+            className="btn btn-sm"
+            onClick={() => updateStatus(inscriptionId, "PRESENT")}
+            style={{
+              backgroundColor: "#d4edda",
+              border: "1px solid #c3e6cb",
+              color: "#155724",
+              borderRadius: "20px 0 0 20px",
+              padding: "5px 10px",
+              fontSize: "12px",
+            }}
+          >
+            Présent
+          </button>
+          <button
+            className="btn btn-sm"
+            onClick={() => updateStatus(inscriptionId, "ABSENT")}
+            style={{
+              backgroundColor: "#f8d7da",
+              border: "1px solid #f5c6cb",
+              color: "#721c24",
+              borderRadius: "0 20px 20px 0",
+              padding: "5px 10px",
+              fontSize: "12px",
+            }}
+          >
+            Absent
+          </button>
+        </div>
       );
     }
   };
@@ -83,10 +212,12 @@ function MyStudents() {
 
   return (
     <div style={{ backgroundColor: "#FFECC8", minHeight: "100vh" }}>
-      <div className="container">
+      <div className="container-fluid">
         <div className="row">
-          <div className="col-10 mx-auto">
-            <div className="d-flex align-items-center mt-5 mb-4">
+          <ProfSidebarCollapsible />
+
+          <div className="col p-5">
+            <div className="d-flex align-items-center mb-4">
               <button
                 onClick={() => navigate(-1)}
                 className="btn me-3"
@@ -113,12 +244,8 @@ function MyStudents() {
               </button>
               <h2 className="mb-0">Mes élèves</h2>
             </div>
-          </div>
-        </div>
 
-        <div className="row mt-3">
-          <div className="col-10 mx-auto">
-            <div className="position-relative">
+            <div className="position-relative mb-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -151,13 +278,9 @@ function MyStudents() {
                 }}
               />
             </div>
-          </div>
-        </div>
 
-        <div className="row mt-4 pb-5">
-          <div className="col-10 mx-auto">
             <div
-              className="bg-white rounded-3"
+              className="bg-white rounded-3 mt-4 pb-5"
               style={{
                 border: "2px solid #1a1a1a",
                 overflow: "hidden",
@@ -196,7 +319,7 @@ function MyStudents() {
                         {inscription.user?.email || "-"}
                       </td>
                       <td style={{ padding: "15px", verticalAlign: "middle" }}>
-                        {getStatusBadge(inscription.status)}
+                        {getStatusBadge(inscription.id, inscription.status)}
                       </td>
                       <td style={{ padding: "15px", verticalAlign: "middle" }}>
                         {formatDate(inscription.date || inscription.inscriptionDate)}
@@ -206,6 +329,7 @@ function MyStudents() {
                       </td>
                       <td style={{ padding: "15px", verticalAlign: "middle" }}>
                         <button
+                          onClick={() => handleEditClick(inscription)}
                           className="btn btn-sm"
                           style={{
                             backgroundColor: "transparent",
@@ -223,6 +347,84 @@ function MyStudents() {
                 </tbody>
               </table>
             </div>
+
+            {/* Modal d'édition de note */}
+            {editingInscription && (
+              <div
+                style={{
+                  position: "fixed",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  zIndex: 1000,
+                }}
+                onClick={() => setEditingInscription(null)}
+              >
+                <div
+                  className="bg-white rounded-3 p-4"
+                  style={{
+                    border: "2px solid #1a1a1a",
+                    minWidth: "400px",
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <h5 className="mb-3">
+                    Modifier la note de {editingInscription.user?.firstname}{" "}
+                    {editingInscription.user?.lastname}
+                  </h5>
+                  <div className="mb-3">
+                    <label className="form-label">Note (sur 20)</label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      value={editNote}
+                      onChange={(e) => setEditNote(e.target.value)}
+                      min="0"
+                      max="20"
+                      step="0.5"
+                      style={{
+                        border: "1px solid #cbd5e0",
+                        borderRadius: "8px",
+                        padding: "10px",
+                      }}
+                    />
+                  </div>
+                  <div className="d-flex gap-2 justify-content-end">
+                    <button
+                      onClick={() => setEditingInscription(null)}
+                      className="btn"
+                      style={{
+                        backgroundColor: "#F5F5F5",
+                        color: "#1a1a1a",
+                        border: "1px solid #D3D3D3",
+                        borderRadius: "8px",
+                        padding: "8px 20px",
+                      }}
+                    >
+                      Annuler
+                    </button>
+                    <button
+                      onClick={handleSaveNote}
+                      className="btn"
+                      style={{
+                        backgroundColor: "#28a745",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "8px",
+                        padding: "8px 20px",
+                      }}
+                    >
+                      Enregistrer
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

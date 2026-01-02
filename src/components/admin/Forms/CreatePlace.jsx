@@ -1,3 +1,17 @@
+/**
+ * CreatePlace.jsx - Formulaire de création d'un lieu
+ * 
+ * Permet de créer un nouveau lieu de formation avec :
+ * - Nom du lieu
+ * - Adresse complète
+ * - Ville et code postal
+ * - Capacité d'accueil
+ * - Équipements disponibles
+ * 
+ * Utilisé par : AdminPlaces.jsx
+ * Dépendances : API_URL
+ */
+
 import { useState } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";

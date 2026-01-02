@@ -1,3 +1,17 @@
+/**
+ * AdminFormation.jsx - Gestion des formations (admin)
+ * 
+ * Interface de gestion des formations permettant de :
+ * - Lister toutes les formations
+ * - Créer une nouvelle formation (via CreateFormation)
+ * - Modifier une formation existante (via EditFormation)
+ * - Supprimer une formation
+ * - Rechercher et filtrer les formations
+ * 
+ * Utilisé par : AdminView.jsx
+ * Dépendances : CreateFormation, EditFormation, API_URL
+ */
+
 import { useState, useEffect } from "react";
 import SearchBar from "../SearchBar";
 import CreateFormation from "./Forms/CreateFormation";

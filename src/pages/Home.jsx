@@ -1,3 +1,17 @@
+/**
+ * Home.jsx - Page d'accueil de l'application
+ * 
+ * Affiche :
+ * - Bannière de présentation avec slogan
+ * - Présentation des formations phares
+ * - Témoignages d'étudiants
+ * - Statistiques clés
+ * - Appel à l'action (inscription, découverte des cours)
+ * 
+ * Route : /
+ * Utilisé par : App.jsx
+ */
+
 import { Link } from "react-router-dom";
 import CookieAgreement from "../components/CookieAgreement.jsx";
 import "../styles/Home.css";

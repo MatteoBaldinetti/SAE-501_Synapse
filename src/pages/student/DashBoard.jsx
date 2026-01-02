@@ -1,3 +1,18 @@
+/**
+ * DashBoard.jsx - Tableau de bord étudiant
+ * 
+ * Affiche pour l'étudiant :
+ * - Ses formations en cours
+ * - Ses formations terminées
+ * - Ses prochaines sessions
+ * - Son profil (via ProfileComponents)
+ * - Ses certificats/badges
+ * 
+ * Route : /dashboard
+ * Utilisé par : App.jsx
+ * Dépendances : AuthContext, ProfileComponents, API_URL
+ */
+
 import "../../styles/Dashboard.css";
 import { useEffect, useState } from "react";
 import ProfileComponents from "../../components/ProfileComponents";

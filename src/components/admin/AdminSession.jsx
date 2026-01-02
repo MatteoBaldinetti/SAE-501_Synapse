@@ -1,3 +1,17 @@
+/**
+ * AdminSession.jsx - Gestion des sessions de formation (admin)
+ * 
+ * Interface de gestion des sessions permettant de :
+ * - Lister toutes les sessions
+ * - Créer une nouvelle session (via CreateSession)
+ * - Modifier une session existante (via EditSession)
+ * - Supprimer une session
+ * - Voir les détails : nom de session, formation associée, dates, nombre d'inscrits
+ * 
+ * Utilisé par : AdminView.jsx
+ * Dépendances : CreateSession, EditSession, API_URL
+ */
+
 import { useState, useEffect } from "react";
 import SearchBar from "../SearchBar";
 import CreateSession from "./Forms/CreateSession";

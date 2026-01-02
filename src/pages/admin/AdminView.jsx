@@ -1,3 +1,25 @@
+/**
+ * AdminView.jsx - Vue principale de l'interface d'administration
+ *
+ * Page conteneur de l'interface admin avec :
+ * - Sidebar de navigation (Dashboard, Formations, Sessions, Comptes, Instructeurs, Lieux, Profil)
+ * - Zone de contenu dynamique affichant le composant sélectionné
+ * - Gestion de l'état de navigation entre les différentes sections
+ *
+ * Sections disponibles :
+ * - dashboard : AdminDashboard
+ * - formation : AdminFormation
+ * - sessions : AdminSession
+ * - accounts : AdminAccounts
+ * - instructors : AdminInstructors
+ * - places : AdminPlaces
+ * - profile : ProfileComponents
+ *
+ * Route : /admin
+ * Utilisé par : App.jsx
+ * Dépendances : AuthContext, tous les composants Admin
+ */
+
 import { useState } from "react";
 import "../../styles/AdminDashboard.css";
 import AdminFormation from "../../components/admin/AdminFormation";

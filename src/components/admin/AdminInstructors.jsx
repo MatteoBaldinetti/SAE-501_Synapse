@@ -1,3 +1,17 @@
+/**
+ * AdminInstructors.jsx - Gestion des instructeurs (admin)
+ * 
+ * Interface de gestion des instructeurs permettant de :
+ * - Lister tous les instructeurs
+ * - Créer un nouvel instructeur (via CreateInstructor)
+ * - Modifier un instructeur existant (via EditInstructor)
+ * - Supprimer un instructeur
+ * - Voir les informations : nom, spécialités, sessions assignées
+ * 
+ * Utilisé par : AdminView.jsx
+ * Dépendances : CreateInstructor, EditInstructor, API_URL
+ */
+
 import { useState, useEffect } from "react";
 import SearchBar from "../SearchBar";
 import CreateInstructor from "./Forms/CreateInstructor";

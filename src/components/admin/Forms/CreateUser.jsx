@@ -1,3 +1,16 @@
+/**
+ * CreateUser.jsx - Formulaire de création d'un utilisateur
+ * 
+ * Permet de créer un nouveau compte utilisateur avec :
+ * - Informations personnelles (nom, prénom, email)
+ * - Mot de passe (hashé avec bcrypt)
+ * - Type d'utilisateur (étudiant, admin, instructeur)
+ * - Numéro de téléphone (optionnel)
+ * 
+ * Utilisé par : AdminAccounts.jsx
+ * Dépendances : API_URL, bcrypt
+ */
+
 import { useState } from "react";
 import bcrypt from "bcryptjs";
 

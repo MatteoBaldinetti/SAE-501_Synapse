@@ -1,3 +1,13 @@
+/**
+ * EditInstructor.jsx - Formulaire de modification d'un instructeur
+ * 
+ * Permet de modifier un instructeur existant.
+ * Pré-remplit le formulaire avec les données actuelles de l'instructeur.
+ * 
+ * Utilisé par : AdminInstructors.jsx
+ * Dépendances : API_URL
+ */
+
 import { useState, useEffect } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";

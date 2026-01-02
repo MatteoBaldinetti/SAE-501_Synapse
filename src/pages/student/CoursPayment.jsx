@@ -1,3 +1,17 @@
+/**
+ * CoursPayment.jsx - Page de paiement d'une formation
+ * 
+ * Permet à l'utilisateur de :
+ * - Voir le récapitulatif de sa commande
+ * - Sélectionner une session
+ * - Saisir ses informations de paiement
+ * - Valider le paiement
+ * 
+ * Route : /cours-payment
+ * Utilisé par : App.jsx
+ * Dépendances : API_URL
+ */
+
 import "../../styles/CoursPayment.css";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";

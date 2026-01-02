@@ -1,3 +1,13 @@
+/**
+ * EditFormation.jsx - Formulaire de modification d'une formation
+ * 
+ * Permet de modifier une formation existante avec les mêmes champs que CreateFormation.
+ * Pré-remplit le formulaire avec les données actuelles de la formation.
+ * 
+ * Utilisé par : AdminFormation.jsx
+ * Dépendances : API_URL
+ */
+
 import { useState, useEffect } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";

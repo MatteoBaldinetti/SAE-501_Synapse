@@ -1,3 +1,23 @@
+/**
+ * CreateFormation.jsx - Formulaire de création d'une nouvelle formation
+ *
+ * Ce composant permet aux administrateurs de créer une nouvelle formation avec :
+ * - Informations générales (titre, catégorie, description courte et détaillée)
+ * - Contenu pédagogique (ce que vous allez apprendre, prérequis)
+ * - Détails pratiques (durée, prix)
+ * - Upload d'image de la formation (avec aperçu en temps réel)
+ * - Nom du fichier modèle (optionnel)
+ *
+ * Fonctionnalités :
+ * - Upload automatique de l'image vers le serveur
+ * - Aperçu de l'image avant soumission
+ * - Validation des champs requis
+ * - Gestion des erreurs d'upload et de création
+ *
+ * Utilisé par : AdminFormation.jsx
+ * Dépendances : API_URL
+ */
+
 import { useState } from "react";
 import { API_URL } from "../../../constants/apiConstants";
 

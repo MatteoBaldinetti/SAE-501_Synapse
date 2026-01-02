@@ -1,3 +1,17 @@
+/**
+ * AdminDashboard.jsx - Tableau de bord administrateur
+ * 
+ * Affiche les statistiques et métriques principales :
+ * - Nombre total d'utilisateurs
+ * - Nombre de formations actives
+ * - Nombre de sessions en cours
+ * - Revenus générés
+ * - Graphiques et visualisations de données
+ * 
+ * Utilisé par : AdminView.jsx
+ * Dépendances : API_URL
+ */
+
 import { useAuth } from "../../contexts/AuthContext";
 import { useEffect, useRef, useState } from "react";
 import {

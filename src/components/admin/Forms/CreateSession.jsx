@@ -1,3 +1,18 @@
+/**
+ * CreateSession.jsx - Formulaire de création d'une session
+ * 
+ * Permet de créer une nouvelle session de formation avec :
+ * - Sélection de la formation associée
+ * - Nom de la session
+ * - Dates de début et de fin
+ * - Sélection de l'instructeur
+ * - Sélection du lieu
+ * - Nombre de places disponibles
+ * 
+ * Utilisé par : AdminSession.jsx
+ * Dépendances : API_URL
+ */
+
 import { useState, useEffect } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";

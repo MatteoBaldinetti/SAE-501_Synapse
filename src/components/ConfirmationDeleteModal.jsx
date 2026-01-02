@@ -1,3 +1,15 @@
+/**
+ * ConfirmationDeleteModal.jsx - Modal de confirmation de suppression
+ * 
+ * Modal générique de confirmation pour les actions de suppression :
+ * - Suppression de compte utilisateur
+ * - Suppression de formation
+ * - Suppression de session
+ * - Etc.
+ * 
+ * Utilisé par : ProfileComponents.jsx, AdminFormation.jsx, AdminSession.jsx, AdminAccounts.jsx, etc.
+ */
+
 import { useEffect } from "react";
 import "../styles/ConfirmationDeleteModal.css";
 

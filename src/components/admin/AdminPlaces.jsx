@@ -1,3 +1,17 @@
+/**
+ * AdminPlaces.jsx - Gestion des lieux de formation (admin)
+ * 
+ * Interface de gestion des lieux permettant de :
+ * - Lister tous les lieux de formation
+ * - Créer un nouveau lieu (via CreatePlace)
+ * - Modifier un lieu existant (via EditPlace)
+ * - Supprimer un lieu
+ * - Voir les informations : nom, adresse, capacité
+ * 
+ * Utilisé par : AdminView.jsx
+ * Dépendances : CreatePlace, EditPlace, API_URL
+ */
+
 import { useState, useEffect } from "react";
 import SearchBar from "../SearchBar";
 import CreatePlace from "./Forms/CreatePlace";

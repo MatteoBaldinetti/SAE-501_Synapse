@@ -1,3 +1,13 @@
+/**
+ * EditPlace.jsx - Formulaire de modification d'un lieu
+ * 
+ * Permet de modifier un lieu de formation existant.
+ * Pré-remplit le formulaire avec les données actuelles du lieu.
+ * 
+ * Utilisé par : AdminPlaces.jsx
+ * Dépendances : API_URL
+ */
+
 import { useState, useEffect } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";

@@ -1,3 +1,20 @@
+/**
+ * Navbar.jsx - Barre de navigation principale de l'application
+ *
+ * Composant de navigation responsive qui affiche :
+ * - Le logo de l'application (lien vers l'accueil)
+ * - Les liens de navigation (Accueil, Cours, Contact)
+ * - Pour les utilisateurs non connectés : boutons "Se connecter" et "S'inscrire"
+ * - Pour les utilisateurs connectés :
+ *   - Photo de profil cliquable
+ *   - Menu déroulant avec accès au tableau de bord et déconnexion
+ *
+ * Utilise le contexte AuthContext pour gérer l'état d'authentification
+ *
+ * Utilisé par : App.jsx
+ * Dépendances : AuthContext, API_URL
+ */
+
 import "../styles/Navbar.css";
 import smallLogo from "../assets/images/smallLogo.webp";
 import { Link, useNavigate } from "react-router-dom";

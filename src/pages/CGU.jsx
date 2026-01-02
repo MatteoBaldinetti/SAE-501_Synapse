@@ -1,3 +1,12 @@
+/**
+ * CGU.jsx - Page des Conditions Générales d'Utilisation
+ * 
+ * Affiche les conditions générales d'utilisation de la plateforme.
+ * 
+ * Route : /cgu
+ * Utilisé par : App.jsx, Footer.jsx
+ */
+
 import "../App.css"
 
 function CGU() {

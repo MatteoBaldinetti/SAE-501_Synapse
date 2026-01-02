@@ -1,3 +1,13 @@
+/**
+ * EditUser.jsx - Formulaire de modification d'un utilisateur
+ * 
+ * Permet de modifier un compte utilisateur existant.
+ * Pré-remplit le formulaire avec les données actuelles de l'utilisateur.
+ * 
+ * Utilisé par : AdminAccounts.jsx
+ * Dépendances : API_URL
+ */
+
 import { useState, useEffect } from "react";
 import bcrypt from "bcryptjs";
 

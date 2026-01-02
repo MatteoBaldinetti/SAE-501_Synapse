@@ -1,3 +1,29 @@
+/**
+ * App.jsx - Composant racine de l'application Synapse
+ *
+ * Ce fichier définit la structure principale de l'application avec :
+ * - La configuration du routeur React Router
+ * - Le contexte d'authentification (AuthProvider)
+ * - Les composants globaux (Navbar, Footer, ScrollToTop)
+ * - Toutes les routes de l'application
+ *
+ * Routes disponibles :
+ * - / : Page d'accueil
+ * - /login : Connexion/Inscription
+ * - /cours : Liste des formations
+ * - /cours-detail/:id : Détails d'une formation
+ * - /cours-payment : Paiement d'une formation
+ * - /payment-confirmation : Confirmation de paiement
+ * - /dashboard : Tableau de bord étudiant
+ * - /admin : Interface d'administration
+ * - /contact : Page de contact
+ * - /cgu, /mentions-legales, /rgpd, /politique-confidentialite : Pages légales
+ * - /3d-viewer : Visualiseur 3D
+ * - /reset-password : Réinitialisation du mot de passe
+ *
+ * Utilisé par : main.jsx
+ */
+
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -32,14 +58,20 @@ function App() {
           <Route path="/cours" element={<Cours />} />
           <Route path="/cours-detail/:id" element={<CoursDetail />} />
           <Route path="/cours-payment" element={<CoursPayment />} />
-          <Route path="/payment-confirmation" element={<PaymentConfirmation />} />
+          <Route
+            path="/payment-confirmation"
+            element={<PaymentConfirmation />}
+          />
           <Route path="/admin" element={<AdminView />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/cgu" element={<CGU />} />
           <Route path="/mentions-legales" element={<MentionsLegales />} />
           <Route path="/rgpd" element={<RGPD />} />
-          <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
+          <Route
+            path="/politique-confidentialite"
+            element={<PolitiqueConfidentialite />}
+          />
           <Route path="/3d-viewer" element={<ThreeDViewer />} />
           <Route path="/reset-password" element={<ResetPassword />} />
         </Routes>

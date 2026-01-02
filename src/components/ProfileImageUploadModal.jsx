@@ -1,3 +1,14 @@
+/**
+ * ProfileImageUploadModal.jsx - Modal d'upload de photo de profil
+ * 
+ * Modal permettant à l'utilisateur de :
+ * - Sélectionner une nouvelle photo de profil
+ * - Prévisualiser l'image avant upload
+ * - Confirmer ou annuler l'upload
+ * 
+ * Utilisé par : ProfileComponents.jsx
+ */
+
 import { useEffect, useRef, useState } from "react";
 import "../styles/ProfileImageUploadModal.css";
 

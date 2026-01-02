@@ -1,3 +1,16 @@
+/**
+ * ResetPassword.jsx - Page de réinitialisation du mot de passe
+ * 
+ * Permet à un utilisateur de :
+ * - Demander la réinitialisation de son mot de passe
+ * - Saisir un nouveau mot de passe
+ * - Confirmer le nouveau mot de passe
+ * 
+ * Route : /reset-password
+ * Utilisé par : App.jsx
+ * Dépendances : API_URL, bcrypt
+ */
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../constants/apiConstants";

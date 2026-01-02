@@ -1,3 +1,17 @@
+/**
+ * AdminAccounts.jsx - Gestion des comptes utilisateurs (admin)
+ * 
+ * Interface de gestion des utilisateurs permettant de :
+ * - Lister tous les comptes utilisateurs
+ * - Créer un nouveau compte (via CreateUser)
+ * - Modifier un compte existant (via EditUser)
+ * - Supprimer un compte
+ * - Filtrer par type d'utilisateur (étudiant, admin, instructeur)
+ * 
+ * Utilisé par : AdminView.jsx
+ * Dépendances : CreateUser, EditUser, API_URL
+ */
+
 import { useState, useEffect } from "react";
 import SearchBar from "../SearchBar";
 import CreateUser from "./Forms/CreateUser";

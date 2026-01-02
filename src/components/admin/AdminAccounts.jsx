@@ -83,7 +83,7 @@ function AdminAccounts() {
         <div className="row">
           <div className="d-flex justify-content-between col-12 mx-auto">
             <h3>Comptes</h3>
-            <button className="btn btn-primary" onClick={handleAddUser}>
+            <button className="btn btn-admin" onClick={handleAddUser}>
               Ajouter
             </button>
           </div>
@@ -127,7 +127,7 @@ function AdminAccounts() {
               <div className="col-2">{getPermission(users.type)}</div>
               <div className="col-2">
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-admin"
                   onClick={() => handleEditUser(users.id)}
                 >
                   Modifier

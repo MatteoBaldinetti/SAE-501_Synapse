@@ -383,7 +383,7 @@ function EditSession({ sessionId, onClose }) {
                 <div className="d-flex gap-2">
                   <button
                     type="submit"
-                    className="btn btn-primary"
+                    className="btn btn-admin"
                     disabled={loading}
                   >
                     {loading ? "Modification en cours..." : "Modifier"}

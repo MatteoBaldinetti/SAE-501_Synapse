@@ -28,3 +28,24 @@
     transition: background-color 0.2s ease;
 }
 
+.btn-admin {
+    background-color: #2EE88A;
+    border: none;
+}
+
+.btn-admin:hover {
+    background-color: #14683e;
+    color: white;
+    border: none;
+}
+
+.admin-sidebar {
+    background-color: #F8F9FA;
+    height: calc(100vh + 7rem);
+    margin-top: -3rem;
+    margin-bottom: -3rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+

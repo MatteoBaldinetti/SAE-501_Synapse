@@ -145,7 +145,7 @@ function CreatePlace({ onClose }) {
               <div className="d-flex gap-2 mt-4">
                 <button
                   type="submit"
-                  className="btn btn-primary"
+                  className="btn btn-admin"
                   disabled={loading}
                 >
                   {loading ? "Création en cours..." : "Créer"}

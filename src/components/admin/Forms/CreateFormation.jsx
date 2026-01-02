@@ -1,6 +1,5 @@
 import { useState } from "react";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+import { API_URL } from "../../../constants/apiConstants";
 
 function CreateFormation({ onClose }) {
   const [formData, setFormData] = useState({
@@ -18,6 +17,9 @@ function CreateFormation({ onClose }) {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,13 +29,67 @@ function CreateFormation({ onClose }) {
     }));
   };
 
+  const handleUploadImage = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const sendImage = await fetch(`${API_URL}/files/upload`, {
+      method: "POST",
+      body: formData,
+    });
+
+    const result = await sendImage.json();
+    console.log(result);
+    return result;
+  };
+
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Vérifier le type de fichier
+    if (!file.type.startsWith("image/")) {
+      setError("Veuillez sélectionner un fichier image valide");
+      return;
+    }
+
+    // Créer un aperçu de l'image
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+
+    // Uploader l'image
+    setUploadingImage(true);
+    setError(null);
+    try {
+      const result = await handleUploadImage(file);
+      if (result && result.fileName) {
+        setFormData((prev) => ({
+          ...prev,
+          imgName: result.fileName,
+        }));
+        setImageFile(file);
+      } else {
+        throw new Error("Erreur lors de l'upload de l'image");
+      }
+    } catch (err) {
+      setError(err.message);
+      setImagePreview(null);
+      console.error("Erreur upload:", err);
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/api/trainings`, {
+      const response = await fetch(`${API_URL}/trainings`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -220,18 +276,40 @@ function CreateFormation({ onClose }) {
 
                 <div className="col-md-4 mb-4">
                   <label htmlFor="imgName" className="form-label">
-                    Nom de l'image <span className="text-danger">*</span>
+                    Image de la formation <span className="text-danger">*</span>
                   </label>
                   <input
-                    type="text"
+                    type="file"
                     className="form-control"
                     id="imgName"
                     name="imgName"
-                    value={formData.imgName}
-                    onChange={handleChange}
-                    placeholder="Ex: formation.jpg"
-                    required
+                    onChange={handleImageChange}
+                    accept="image/*"
+                    required={!formData.imgName}
                   />
+                  {uploadingImage && (
+                    <div className="text-primary mt-2">
+                      <small>Upload en cours...</small>
+                    </div>
+                  )}
+                  {imagePreview && (
+                    <div className="mt-2">
+                      <img
+                        src={imagePreview}
+                        alt="Aperçu"
+                        style={{
+                          maxWidth: "100%",
+                          maxHeight: "150px",
+                          objectFit: "cover",
+                          borderRadius: "8px",
+                          border: "1px solid #dee2e6",
+                        }}
+                      />
+                      <div className="text-success mt-1">
+                        <small>✓ Image uploadée: {formData.imgName}</small>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -254,7 +332,7 @@ function CreateFormation({ onClose }) {
               <div className="d-flex gap-2 mt-4">
                 <button
                   type="submit"
-                  className="btn btn-primary"
+                  className="btn btn-admin"
                   disabled={loading}
                 >
                   {loading ? "Création en cours..." : "Créer"}

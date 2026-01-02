@@ -71,7 +71,7 @@ function AdminFormation() {
         <div className="row">
           <div className="d-flex justify-content-between col-12 mx-auto">
             <h3>Formation</h3>
-            <button className="btn btn-primary" onClick={handleAddFormation}>
+            <button className="btn btn-admin" onClick={handleAddFormation}>
               Ajouter
             </button>
           </div>
@@ -110,7 +110,7 @@ function AdminFormation() {
               <div className="col-6">{formation.description}</div>
               <div className="col-2">
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-admin"
                   onClick={() => handleEditFormation(formation.id)}
                 >
                   Modifier

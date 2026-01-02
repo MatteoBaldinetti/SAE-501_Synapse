@@ -69,7 +69,7 @@ function AdminSession() {
         <div className="row">
           <div className="d-flex justify-content-between col-12 mx-auto">
             <h3>Sessions</h3>
-            <button className="btn btn-primary" onClick={handleAddSession}>
+            <button className="btn btn-admin" onClick={handleAddSession}>
               Ajouter
             </button>
           </div>
@@ -105,7 +105,7 @@ function AdminSession() {
               <div className="col-5">{session.training?.title || "N/A"}</div>
               <div className="col-2">
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-admin"
                   onClick={() => handleEditSession(session.id)}
                 >
                   Modifier

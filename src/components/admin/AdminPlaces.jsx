@@ -64,7 +64,7 @@ function AdminPlaces() {
         <div className="row">
           <div className="d-flex justify-content-between col-12 mx-auto">
             <h3>Lieux</h3>
-            <button className="btn btn-primary" onClick={handleAddPlace}>
+            <button className="btn btn-admin" onClick={handleAddPlace}>
               Ajouter
             </button>
           </div>
@@ -109,7 +109,7 @@ function AdminPlaces() {
                 <div className="col-1">{place.maxCapacity || 0}</div>
                 <div className="col-2">
                   <button
-                    className="btn btn-primary"
+                    className="btn btn-admin"
                     onClick={() => handleEditPlace(place.id)}
                   >
                     Modifier

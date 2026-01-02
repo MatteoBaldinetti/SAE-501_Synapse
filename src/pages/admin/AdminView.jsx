@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../../styles/AdminDashboard.css";
-import AdminFormation from "../../components/admin/Admin_formation";
-import AdminDashboard from "../../components/admin/Admin_dashboard";
+import AdminFormation from "../../components/admin/AdminFormation";
+import AdminDashboard from "../../components/admin/AdminDashboard";
 import AdminSession from "../../components/admin/AdminSession";
 import AdminAccounts from "../../components/admin/AdminAccounts";
 
@@ -64,22 +64,6 @@ function AdminView() {
                   <path d="M216 64C229.3 64 240 74.7 240 88L240 128L400 128L400 88C400 74.7 410.7 64 424 64C437.3 64 448 74.7 448 88L448 128L480 128C515.3 128 544 156.7 544 192L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 192C96 156.7 124.7 128 160 128L192 128L192 88C192 74.7 202.7 64 216 64zM216 176L160 176C151.2 176 144 183.2 144 192L144 240L496 240L496 192C496 183.2 488.8 176 480 176L216 176zM144 288L144 480C144 488.8 151.2 496 160 496L480 496C488.8 496 496 488.8 496 480L496 288L144 288z" />
                 </svg>
                 <span>Sessions</span>
-              </div>
-              <div
-                className={`${
-                  CurrentLayout === "teachers" ? "selected-button" : ""
-                } d-flex align-items-center p-2 my-2`}
-                onClick={() => SetCurrentLayout("teachers")}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 640 640"
-                  className="me-2"
-                  style={{ width: "1.5em", height: "1.5em" }}
-                >
-                  <path d="M448 112C456.8 112 464 119.2 464 128L464 512C464 520.8 456.8 528 448 528L160 528C151.2 528 144 520.8 144 512L144 128C144 119.2 151.2 112 160 112L448 112zM160 64C124.7 64 96 92.7 96 128L96 512C96 547.3 124.7 576 160 576L448 576C483.3 576 512 547.3 512 512L512 128C512 92.7 483.3 64 448 64L160 64zM304 312C334.9 312 360 286.9 360 256C360 225.1 334.9 200 304 200C273.1 200 248 225.1 248 256C248 286.9 273.1 312 304 312zM272 352C227.8 352 192 387.8 192 432C192 440.8 199.2 448 208 448L400 448C408.8 448 416 440.8 416 432C416 387.8 380.2 352 336 352L272 352zM576 144C576 135.2 568.8 128 560 128C551.2 128 544 135.2 544 144L544 208C544 216.8 551.2 224 560 224C568.8 224 576 216.8 576 208L576 144zM560 256C551.2 256 544 263.2 544 272L544 336C544 344.8 551.2 352 560 352C568.8 352 576 344.8 576 336L576 272C576 263.2 568.8 256 560 256zM576 400C576 391.2 568.8 384 560 384C551.2 384 544 391.2 544 400L544 464C544 472.8 551.2 480 560 480C568.8 480 576 472.8 576 464L576 400z" />
-                </svg>
-                <span>Enseignants</span>
               </div>
               <div
                 className={`${

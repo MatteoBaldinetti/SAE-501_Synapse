@@ -1,4 +1,5 @@
 import { useState } from "react";
+import bcrypt from "bcryptjs";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
@@ -29,12 +30,23 @@ function CreateUser({ onClose }) {
     setError(null);
 
     try {
+      const salt = await bcrypt.genSalt(5);
+
+      const newUser = {
+        firstname: formData.firstname,
+        lastname: formData.lastname,
+        email: formData.email,
+        password: await bcrypt.hash(formData.password, salt),
+        type: formData.type,
+        phoneNumber: formData.phoneNumber,
+      };
+
       const response = await fetch(`${API_URL}/api/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(newUser),
       });
 
       if (!response.ok) {
@@ -78,7 +90,7 @@ function CreateUser({ onClose }) {
             )}
             <form onSubmit={handleSubmit}>
               <div className="row">
-                <div className="col-md-6 mb-3">
+                <div className="col-md-6 mb-4">
                   <label htmlFor="firstname" className="form-label">
                     Prénom <span className="text-danger">*</span>
                   </label>
@@ -94,7 +106,7 @@ function CreateUser({ onClose }) {
                   />
                 </div>
 
-                <div className="col-md-6 mb-3">
+                <div className="col-md-6 mb-4">
                   <label htmlFor="lastname" className="form-label">
                     Nom <span className="text-danger">*</span>
                   </label>
@@ -112,7 +124,7 @@ function CreateUser({ onClose }) {
               </div>
 
               <div className="row">
-                <div className="col-md-6 mb-3">
+                <div className="col-md-6 mb-4">
                   <label htmlFor="email" className="form-label">
                     Email <span className="text-danger">*</span>
                   </label>
@@ -128,7 +140,7 @@ function CreateUser({ onClose }) {
                   />
                 </div>
 
-                <div className="col-md-6 mb-3">
+                <div className="col-md-6 mb-4">
                   <label htmlFor="phoneNumber" className="form-label">
                     Téléphone
                   </label>
@@ -145,7 +157,7 @@ function CreateUser({ onClose }) {
               </div>
 
               <div className="row">
-                <div className="col-md-6 mb-3">
+                <div className="col-md-6 mb-4">
                   <label htmlFor="password" className="form-label">
                     Mot de passe <span className="text-danger">*</span>
                   </label>
@@ -165,7 +177,7 @@ function CreateUser({ onClose }) {
                   </small>
                 </div>
 
-                <div className="col-md-6 mb-3">
+                <div className="col-md-6 mb-4">
                   <label htmlFor="type" className="form-label">
                     Type de compte <span className="text-danger">*</span>
                   </label>

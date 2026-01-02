@@ -5,9 +5,21 @@ import AdminDashboard from "../../components/admin/AdminDashboard";
 import AdminSession from "../../components/admin/AdminSession";
 import AdminAccounts from "../../components/admin/AdminAccounts";
 import AdminInstructors from "../../components/admin/AdminInstructors";
+import AdminPlaces from "../../components/admin/AdminPlaces";
+import ProfileComponents from "../../components/ProfileComponents";
+import { useAuth } from "../../contexts/AuthContext";
 
 function AdminView() {
   const [CurrentLayout, SetCurrentLayout] = useState("dashboard");
+  const {
+    userId,
+    userEmail,
+    userFirstname,
+    userLastname,
+    userPhone,
+    userImage,
+    logout,
+  } = useAuth();
 
   document.title = "Admin - Dashboard";
 
@@ -16,6 +28,25 @@ function AdminView() {
       <div className="container-fluid py-5">
         <div className="row">
           <div className="col-3">
+            <div className="profil gestionnaire ms-3">
+              <h4>Profil</h4>
+              <div
+                className={`${
+                  CurrentLayout === "profile" ? "selected-button" : ""
+                } d-flex align-items-center p-2 my-2`}
+                onClick={() => SetCurrentLayout("profile")}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 640 640"
+                  className="me-2"
+                  style={{ width: "1.5em", height: "1.5em" }}
+                >
+                  <path d="M320 128C284.7 128 256 156.7 256 192C256 227.3 284.7 256 320 256C355.3 256 384 227.3 384 192C384 156.7 355.3 128 320 128zM208 192C208 130.1 258.1 80 320 80C381.9 80 432 130.1 432 192C432 253.9 381.9 304 320 304C258.1 304 208 253.9 208 192zM192 416C174.3 416 160 430.3 160 448L160 480C160 497.7 145.7 512 128 512C110.3 512 96 497.7 96 480L96 448C96 394.1 138.1 352 192 352L448 352C501.9 352 544 394.1 544 448L544 480C544 497.7 529.7 512 512 512C494.3 512 480 497.7 480 480L480 448C480 430.3 465.7 416 448 416L192 416z" />
+                </svg>
+                <span>Mon Profil</span>
+              </div>
+            </div>
             <div className="gestionnaire ms-3">
               <h4>Gestionnaire</h4>
               <div
@@ -98,6 +129,22 @@ function AdminView() {
                 </svg>
                 <span>Comptes</span>
               </div>
+              <div
+                className={`${
+                  CurrentLayout === "places" ? "selected-button" : ""
+                } d-flex align-items-center p-2 my-2`}
+                onClick={() => SetCurrentLayout("places")}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 640 640"
+                  className="me-2"
+                  style={{ width: "1.5em", height: "1.5em" }}
+                >
+                  <path d="M320 0C261.9 0 213.3 48.6 213.3 106.7C213.3 176 320 320 320 320C320 320 426.7 176 426.7 106.7C426.7 48.6 378.1 0 320 0zM320 160C293.5 160 272 138.5 272 112C272 85.5 293.5 64 320 64C346.5 64 368 85.5 368 112C368 138.5 346.5 160 320 160zM0 416C0 398.3 14.3 384 32 384L608 384C625.7 384 640 398.3 640 416C640 433.7 625.7 448 608 448L32 448C14.3 448 0 433.7 0 416zM64 512C64 494.3 78.3 480 96 480L544 480C561.7 480 576 494.3 576 512C576 529.7 561.7 544 544 544L96 544C78.3 544 64 529.7 64 512z" />
+                </svg>
+                <span>Lieux</span>
+              </div>
             </div>
           </div>
           <div className="col-9">
@@ -106,6 +153,18 @@ function AdminView() {
             {CurrentLayout === "sessions" && <AdminSession />}
             {CurrentLayout === "accounts" && <AdminAccounts />}
             {CurrentLayout === "instructors" && <AdminInstructors />}
+            {CurrentLayout === "places" && <AdminPlaces />}
+            {CurrentLayout === "profile" && (
+              <ProfileComponents
+                userId={userId}
+                userEmail={userEmail}
+                userFirstname={userFirstname}
+                userLastname={userLastname}
+                userPhone={userPhone}
+                userImage={userImage}
+                logout={logout}
+              />
+            )}
           </div>
         </div>
       </div>

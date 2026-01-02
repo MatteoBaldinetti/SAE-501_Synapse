@@ -166,41 +166,42 @@ function EditFormation({ formationId, onClose }) {
               </div>
             )}
             <form onSubmit={handleSubmit}>
-              <div className="row">
-                <div className="col-md-6 mb-3">
-                  <label htmlFor="titre" className="form-label">
-                    Titre <span className="text-danger">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="title"
-                    name="title"
-                    value={formData.title}
-                    onChange={handleChange}
-                    placeholder="Titre de la formation"
-                    required
-                  />
-                </div>
-
-                <div className="col-md-6 mb-3">
-                  <label htmlFor="category" className="form-label">
-                    Catégorie <span className="text-danger">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="category"
-                    name="category"
-                    value={formData.category}
-                    onChange={handleChange}
-                    placeholder="Ex: Développement, Design, etc."
-                    required
-                  />
-                </div>
+              {/* Titre - Pleine largeur */}
+              <div className="mb-4">
+                <label htmlFor="titre" className="form-label">
+                  Titre <span className="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="title"
+                  name="title"
+                  value={formData.title}
+                  onChange={handleChange}
+                  placeholder="Titre de la formation"
+                  required
+                />
               </div>
 
-              <div className="mb-3">
+              {/* Catégorie - Pleine largeur */}
+              <div className="mb-4">
+                <label htmlFor="category" className="form-label">
+                  Catégorie <span className="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="category"
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  placeholder="Ex: Développement, Design, etc."
+                  required
+                />
+              </div>
+
+              {/* Description courte - Pleine largeur */}
+              <div className="mb-4">
                 <label htmlFor="description" className="form-label">
                   Description courte <span className="text-danger">*</span>
                 </label>
@@ -216,7 +217,8 @@ function EditFormation({ formationId, onClose }) {
                 ></textarea>
               </div>
 
-              <div className="mb-3">
+              {/* Description détaillée - Pleine largeur */}
+              <div className="mb-4">
                 <label htmlFor="detailedDescription" className="form-label">
                   Description détaillée <span className="text-danger">*</span>
                 </label>
@@ -232,7 +234,8 @@ function EditFormation({ formationId, onClose }) {
                 ></textarea>
               </div>
 
-              <div className="mb-3">
+              {/* Ce que vous allez apprendre - Pleine largeur */}
+              <div className="mb-4">
                 <label htmlFor="learnText" className="form-label">
                   Ce que vous allez apprendre{" "}
                   <span className="text-danger">*</span>
@@ -249,7 +252,8 @@ function EditFormation({ formationId, onClose }) {
                 ></textarea>
               </div>
 
-              <div className="mb-3">
+              {/* Prérequis - Pleine largeur */}
+              <div className="mb-4">
                 <label htmlFor="prerequisites" className="form-label">
                   Prérequis
                 </label>
@@ -264,8 +268,9 @@ function EditFormation({ formationId, onClose }) {
                 ></textarea>
               </div>
 
+              {/* Champs courts sur une ligne */}
               <div className="row">
-                <div className="col-md-4 mb-3">
+                <div className="col-md-4 mb-4">
                   <label htmlFor="duration" className="form-label">
                     Durée <span className="text-danger">*</span>
                   </label>
@@ -281,7 +286,7 @@ function EditFormation({ formationId, onClose }) {
                   />
                 </div>
 
-                <div className="col-md-4 mb-3">
+                <div className="col-md-4 mb-4">
                   <label htmlFor="price" className="form-label">
                     Prix <span className="text-danger">*</span>
                   </label>
@@ -298,7 +303,7 @@ function EditFormation({ formationId, onClose }) {
                   />
                 </div>
 
-                <div className="col-md-4 mb-3">
+                <div className="col-md-4 mb-4">
                   <label htmlFor="imgName" className="form-label">
                     Nom de l'image <span className="text-danger">*</span>
                   </label>
@@ -315,7 +320,8 @@ function EditFormation({ formationId, onClose }) {
                 </div>
               </div>
 
-              <div className="mb-3">
+              {/* Nom du fichier modèle - Pleine largeur */}
+              <div className="mb-4">
                 <label htmlFor="modelFileName" className="form-label">
                   Nom du fichier modèle
                 </label>

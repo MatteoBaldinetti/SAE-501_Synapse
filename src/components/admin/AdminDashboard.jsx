@@ -357,10 +357,10 @@ function AdminDashboard() {
 
   return (
     <div>
-      <h4>
-        Bienvenue, {userFirstname} {userLastname}
-      </h4>
       <div className="container px-3">
+        <h4 className="mb-4">
+          Bienvenue, {userFirstname} {userLastname}
+        </h4>
         <div className="row g-3">
           <div className="col-lg-3 col-md-3 col-sm-6 col-6 mb-3">
             <div className="bg-white p-4 rounded-3 h-100">

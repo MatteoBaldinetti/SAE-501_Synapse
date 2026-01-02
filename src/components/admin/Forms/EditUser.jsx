@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import bcrypt from "bcryptjs";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
@@ -62,9 +63,12 @@ function EditUser({ userId, onClose }) {
     setError(null);
 
     try {
-      // Ne pas envoyer le mot de passe s'il est vide
       const dataToSend = { ...formData };
-      if (!dataToSend.password) {
+
+      if (dataToSend.password && dataToSend.password.trim() !== "") {
+        const salt = await bcrypt.genSalt(5);
+        dataToSend.password = await bcrypt.hash(dataToSend.password, salt);
+      } else {
         delete dataToSend.password;
       }
 
@@ -164,8 +168,9 @@ function EditUser({ userId, onClose }) {
               </div>
             )}
             <form onSubmit={handleSubmit}>
+              {/* Prénom et Nom sur une ligne */}
               <div className="row">
-                <div className="col-md-6 mb-3">
+                <div className="col-md-6 mb-4">
                   <label htmlFor="firstname" className="form-label">
                     Prénom <span className="text-danger">*</span>
                   </label>
@@ -181,7 +186,7 @@ function EditUser({ userId, onClose }) {
                   />
                 </div>
 
-                <div className="col-md-6 mb-3">
+                <div className="col-md-6 mb-4">
                   <label htmlFor="lastname" className="form-label">
                     Nom <span className="text-danger">*</span>
                   </label>
@@ -198,8 +203,9 @@ function EditUser({ userId, onClose }) {
                 </div>
               </div>
 
+              {/* Email et Téléphone sur une ligne */}
               <div className="row">
-                <div className="col-md-6 mb-3">
+                <div className="col-md-6 mb-4">
                   <label htmlFor="email" className="form-label">
                     Email <span className="text-danger">*</span>
                   </label>
@@ -215,7 +221,7 @@ function EditUser({ userId, onClose }) {
                   />
                 </div>
 
-                <div className="col-md-6 mb-3">
+                <div className="col-md-6 mb-4">
                   <label htmlFor="phoneNumber" className="form-label">
                     Téléphone
                   </label>
@@ -231,8 +237,9 @@ function EditUser({ userId, onClose }) {
                 </div>
               </div>
 
+              {/* Mot de passe et Type de compte sur une ligne */}
               <div className="row">
-                <div className="col-md-6 mb-3">
+                <div className="col-md-6 mb-4">
                   <label htmlFor="password" className="form-label">
                     Nouveau mot de passe
                   </label>
@@ -252,7 +259,7 @@ function EditUser({ userId, onClose }) {
                   </small>
                 </div>
 
-                <div className="col-md-6 mb-3">
+                <div className="col-md-6 mb-4">
                   <label htmlFor="type" className="form-label">
                     Type de compte <span className="text-danger">*</span>
                   </label>

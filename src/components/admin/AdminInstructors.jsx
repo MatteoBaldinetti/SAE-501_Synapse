@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import SearchBar from "../SearchBar";
-import CreateSession from "./Forms/CreateSession";
-import EditSession from "./Forms/EditSession";
+import CreateInstructor from "./Forms/CreateInstructor";
+import EditInstructor from "./Forms/EditInstructor";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
@@ -34,7 +34,7 @@ function AdminInstructors() {
     setEditSessionId(null);
     // Recharger les données après modification
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/sessions`);
+      const res = await fetch(`${API_URL}/api/instructors`);
       const data = await res.json();
       setData(data);
     };
@@ -45,7 +45,7 @@ function AdminInstructors() {
     setShowCreateForm(false);
     // Recharger les données après création
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/sessions`);
+      const res = await fetch(`${API_URL}/api/instructors`);
       const data = await res.json();
       setData(data);
     };
@@ -54,12 +54,14 @@ function AdminInstructors() {
 
   // Si on est en mode édition, afficher le formulaire d'édition
   if (editSessionId) {
-    return <EditSession sessionId={editSessionId} onClose={handleCloseEdit} />;
+    return (
+      <EditInstructor instructorId={editSessionId} onClose={handleCloseEdit} />
+    );
   }
 
   // Si on est en mode création, afficher le formulaire de création
   if (showCreateForm) {
-    return <CreateSession onClose={handleCloseCreate} />;
+    return <CreateInstructor onClose={handleCloseCreate} />;
   }
 
   // Sinon, afficher la liste des sessions
@@ -89,24 +91,33 @@ function AdminInstructors() {
         </div>
         <div className="container">
           <div className="row mt-3 p-3 border rounded-top-3 bg-white">
-            <div className="col-5">
-              <b>Titre</b>
+            <div className="col-3">
+              <b>Identité</b>
             </div>
-            <div className="col-5">
-              <b>Formation</b>
+            <div className="col-3">
+              <b>Contrat</b>
+            </div>
+            <div className="col-4">
+              <b>Spécialité</b>
             </div>
             <div className="col-2">
-              <b>Actions</b>
+              <b>Action</b>
             </div>
           </div>
-          {data.map((session, index) => (
-            <div className="row py-3 border bg-white" key={session.id || index}>
-              <div className="col-5">{session.title}</div>
-              <div className="col-5">{session.training?.title || "N/A"}</div>
+          {data.map((instructor, index) => (
+            <div
+              className="row py-3 border bg-white"
+              key={instructor.id || index}
+            >
+              <div className="col-3">
+                {instructor.firstName + " " + instructor.lastName}
+              </div>
+              <div className="col-3">{instructor.contractType || "N/A"}</div>
+              <div className="col-4">{instructor.specialty || "N/A"}</div>
               <div className="col-2">
                 <button
                   className="btn btn-primary"
-                  onClick={() => handleEditSession(session.id)}
+                  onClick={() => handleEditSession(instructor.id)}
                 >
                   Modifier
                 </button>

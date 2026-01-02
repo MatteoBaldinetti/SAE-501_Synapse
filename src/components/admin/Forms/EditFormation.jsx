@@ -7,7 +7,7 @@ function EditFormation({ formationId, onClose }) {
     title: "",
     description: "",
     detailedDescription: "",
-    prequerties: "",
+    prerequisites: "",
     imgName: "",
     category: "",
     duration: "",
@@ -35,7 +35,7 @@ function EditFormation({ formationId, onClose }) {
           title: data.title || "",
           description: data.description || "",
           detailedDescription: data.detailedDescription || "",
-          prequerties: data.prequerties || "",
+          prerequisites: data.prerequisites || "",
           imgName: data.imgName || "",
           category: data.category || "",
           duration: data.duration || "",
@@ -86,6 +86,39 @@ function EditFormation({ formationId, onClose }) {
       console.log("Formation modifiée avec succès:", result);
 
       // Retourner à la liste après modification
+      onClose();
+    } catch (err) {
+      setError(err.message);
+      console.error("Erreur:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (
+      !window.confirm(
+        "Êtes-vous sûr de vouloir supprimer cette formation ? Cette action est irréversible."
+      )
+    ) {
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`${API_URL}/api/trainings/${formationId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de la suppression de la formation");
+      }
+
+      console.log("Formation supprimée avec succès");
+
+      // Retourner à la liste après suppression
       onClose();
     } catch (err) {
       setError(err.message);
@@ -217,14 +250,14 @@ function EditFormation({ formationId, onClose }) {
               </div>
 
               <div className="mb-3">
-                <label htmlFor="prequerties" className="form-label">
+                <label htmlFor="prerequisites" className="form-label">
                   Prérequis
                 </label>
                 <textarea
                   className="form-control"
-                  id="prequerties"
-                  name="prequerties"
-                  value={formData.prequerties}
+                  id="prerequisites"
+                  name="prerequisites"
+                  value={formData.prerequisites}
                   onChange={handleChange}
                   placeholder="Prérequis nécessaires (optionnel)"
                   rows="3"
@@ -297,22 +330,32 @@ function EditFormation({ formationId, onClose }) {
                 />
               </div>
 
-              <div className="d-flex gap-2 mt-4">
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  disabled={loading}
-                >
-                  {loading ? "Modification en cours..." : "Modifier"}
-                </button>
+              <div className="d-flex justify-content-between mt-4">
                 <button
                   type="button"
-                  className="btn btn-secondary"
-                  onClick={onClose}
+                  className="btn btn-danger"
+                  onClick={handleDelete}
                   disabled={loading}
                 >
-                  Annuler
+                  {loading ? "Suppression en cours..." : "Supprimer"}
                 </button>
+                <div className="d-flex gap-2">
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    disabled={loading}
+                  >
+                    {loading ? "Modification en cours..." : "Modifier"}
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={onClose}
+                    disabled={loading}
+                  >
+                    Annuler
+                  </button>
+                </div>
               </div>
             </form>
           </div>

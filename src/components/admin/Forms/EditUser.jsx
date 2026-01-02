@@ -93,6 +93,39 @@ function EditUser({ userId, onClose }) {
     }
   };
 
+  const handleDelete = async () => {
+    if (
+      !window.confirm(
+        "Êtes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible."
+      )
+    ) {
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`${API_URL}/api/users/${userId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de la suppression de l'utilisateur");
+      }
+
+      console.log("Utilisateur supprimé avec succès");
+
+      // Retourner à la liste après suppression
+      onClose();
+    } catch (err) {
+      setError(err.message);
+      console.error("Erreur:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (loadingData) {
     return (
       <div className="container">
@@ -238,22 +271,32 @@ function EditUser({ userId, onClose }) {
                 </div>
               </div>
 
-              <div className="d-flex gap-2 mt-4">
-                <button
-                  type="submit"
-                  className="btn btn-primary"
-                  disabled={loading}
-                >
-                  {loading ? "Modification en cours..." : "Modifier"}
-                </button>
+              <div className="d-flex justify-content-between mt-4">
                 <button
                   type="button"
-                  className="btn btn-secondary"
-                  onClick={onClose}
+                  className="btn btn-danger"
+                  onClick={handleDelete}
                   disabled={loading}
                 >
-                  Annuler
+                  {loading ? "Suppression en cours..." : "Supprimer"}
                 </button>
+                <div className="d-flex gap-2">
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    disabled={loading}
+                  >
+                    {loading ? "Modification en cours..." : "Modifier"}
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={onClose}
+                    disabled={loading}
+                  >
+                    Annuler
+                  </button>
+                </div>
               </div>
             </form>
           </div>

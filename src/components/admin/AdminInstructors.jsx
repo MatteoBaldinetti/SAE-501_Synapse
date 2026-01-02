@@ -5,17 +5,17 @@ import EditSession from "./Forms/EditSession";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
-function AdminSession() {
+function AdminInstructors() {
   const [data, setData] = useState([]);
   const [filteredSessions, setFilteredSessions] = useState([]);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [editSessionId, setEditSessionId] = useState(null);
 
-  document.title = "Admin - Sessions";
+  document.title = "Admin - Instructors";
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/sessions`);
+      const res = await fetch(`${API_URL}/api/instructors`);
       const data = await res.json();
       setData(data);
     };
@@ -68,7 +68,7 @@ function AdminSession() {
       <div className="container">
         <div className="row">
           <div className="d-flex justify-content-between col-12 mx-auto">
-            <h3>Sessions</h3>
+            <h3>Enseignants</h3>
             <button className="btn btn-primary" onClick={handleAddSession}>
               Ajouter
             </button>
@@ -119,4 +119,4 @@ function AdminSession() {
   );
 }
 
-export default AdminSession;
+export default AdminInstructors;

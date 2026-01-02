@@ -7,7 +7,7 @@ function CreateFormation({ onClose }) {
     title: "",
     description: "",
     detailedDescription: "",
-    prequerties: "",
+    prerequisites: "",
     imgName: "",
     category: "",
     duration: "",
@@ -165,14 +165,14 @@ function CreateFormation({ onClose }) {
               </div>
 
               <div className="mb-3">
-                <label htmlFor="prequerties" className="form-label">
+                <label htmlFor="prerequisites" className="form-label">
                   Prérequis
                 </label>
                 <textarea
                   className="form-control"
-                  id="prequerties"
-                  name="prequerties"
-                  value={formData.prequerties}
+                  id="prerequisites"
+                  name="prerequisites"
+                  value={formData.prerequisites}
                   onChange={handleChange}
                   placeholder="Prérequis nécessaires (optionnel)"
                   rows="3"

@@ -4,15 +4,15 @@ import CreateFormation from "./Forms/CreateFormation";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
-function AdminSession() {
+function AdminAccounts() {
   const [data, setData] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
 
-  document.title = "Admin - Sessions";
+  document.title = "Admin - Comptes";
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/sessions`);
+      const res = await fetch(`${API_URL}/api/users`);
       const data = await res.json();
       setData(data);
     };
@@ -28,7 +28,7 @@ function AdminSession() {
       <div className="container">
         <div className="row">
           <div className="d-flex justify-content-between col-12 mx-auto">
-            <h3>Sessions</h3>
+            <h3>Comptes</h3>
             <button className="btn btn-primary" onClick={handleAddFormation}>
               Ajouter
             </button>
@@ -49,23 +49,26 @@ function AdminSession() {
         </div>
         <div className="container">
           <div className="row mt-3 p-3 border rounded-top-3 bg-white">
-            <div className="col-5">
-              <b>Titre</b>
+            <div className="col-4">
+              <b>Identité</b>
             </div>
-            <div className="col-5">
-              <b>Formation</b>
+            <div className="col-4">
+              <b>Mail</b>
+            </div>
+            <div className="col-2">
+              <b>Permissions</b>
             </div>
             <div className="col-2">
               <b>Actions</b>
             </div>
           </div>
-          {data.map((sessions, index) => (
-            <div
-              className="row py-3 border bg-white"
-              key={sessions.id || index}
-            >
-              <div className="col-5">{sessions.title}</div>
-              <div className="col-5">{sessions.training?.title || "N/A"}</div>
+          {data.map((users, index) => (
+            <div className="row py-3 border bg-white" key={users.id || index}>
+              <div className="col-4">
+                {users.firstName + " " + users.lastName}
+              </div>
+              <div className="col-4">{users.email || "N/A"}</div>
+              <div className="col-2">{users.permissions || "N/A"}</div>
               <div className="col-2">
                 <button className="btn btn-primary">Modifier</button>
               </div>
@@ -77,4 +80,4 @@ function AdminSession() {
   );
 }
 
-export default AdminSession;
+export default AdminAccounts;

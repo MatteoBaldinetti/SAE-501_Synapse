@@ -94,11 +94,8 @@ function AdminFormation() {
             <div className="col-4">
               <b>Titre</b>
             </div>
-            <div className="col-4">
+            <div className="col-6">
               <b>Description</b>
-            </div>
-            <div className="col-2">
-              <b>Inscrits</b>
             </div>
             <div className="col-2">
               <b>Actions</b>
@@ -110,8 +107,7 @@ function AdminFormation() {
               key={formation.id || index}
             >
               <div className="col-4">{formation.title}</div>
-              <div className="col-4">{formation.description}</div>
-              <div className="col-2">{formation.inscrits}</div>
+              <div className="col-6">{formation.description}</div>
               <div className="col-2">
                 <button
                   className="btn btn-primary"

@@ -4,7 +4,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 function EditFormation({ formationId, onClose }) {
   const [formData, setFormData] = useState({
-    titre: "",
+    title: "",
     description: "",
     detailedDescription: "",
     prequerties: "",
@@ -32,7 +32,7 @@ function EditFormation({ formationId, onClose }) {
 
         const data = await response.json();
         setFormData({
-          titre: data.titre || "",
+          title: data.title || "",
           description: data.description || "",
           detailedDescription: data.detailedDescription || "",
           prequerties: data.prequerties || "",
@@ -141,9 +141,9 @@ function EditFormation({ formationId, onClose }) {
                   <input
                     type="text"
                     className="form-control"
-                    id="titre"
-                    name="titre"
-                    value={formData.titre}
+                    id="title"
+                    name="title"
+                    value={formData.title}
                     onChange={handleChange}
                     placeholder="Titre de la formation"
                     required

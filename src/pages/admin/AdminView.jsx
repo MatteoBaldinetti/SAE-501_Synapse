@@ -3,6 +3,7 @@ import "../../styles/AdminDashboard.css";
 import AdminFormation from "../../components/admin/Admin_formation";
 import AdminDashboard from "../../components/admin/Admin_dashboard";
 import AdminSession from "../../components/admin/AdminSession";
+import AdminAccounts from "../../components/admin/AdminAccounts";
 
 function AdminView() {
   const [CurrentLayout, SetCurrentLayout] = useState("dashboard");
@@ -102,6 +103,7 @@ function AdminView() {
             {CurrentLayout === "dashboard" && <AdminDashboard />}
             {CurrentLayout === "formation" && <AdminFormation />}
             {CurrentLayout === "sessions" && <AdminSession />}
+            {CurrentLayout === "accounts" && <AdminAccounts />}
           </div>
         </div>
       </div>

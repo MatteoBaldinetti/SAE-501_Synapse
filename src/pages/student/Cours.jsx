@@ -1,3 +1,17 @@
+/**
+ * Cours.jsx - Page de liste des formations disponibles
+ * 
+ * Affiche :
+ * - Barre de recherche pour filtrer les formations
+ * - Liste/grille de toutes les formations disponibles
+ * - Filtres par catégorie, prix, durée
+ * - Pagination si nécessaire
+ * 
+ * Route : /cours
+ * Utilisé par : App.jsx
+ * Dépendances : SearchBar, TableCours, API_URL
+ */
+
 import { Link } from "react-router-dom";
 
 import "../../styles/Cours.css";
@@ -52,12 +66,11 @@ function Cours() {
           {data.map((formation, index) => (
             <div
               key={formation.ids || index}
-              className={`col-10 mx-auto course-card ${
-                filteredCourses.length === 0 ||
+              className={`col-10 mx-auto course-card ${filteredCourses.length === 0 ||
                 filteredCourses.includes(formation)
-                  ? ""
-                  : "hidden"
-              }`}
+                ? ""
+                : "hidden"
+                }`}
             >
               <div className="card mb-3">
                 <div className="row g-0">
@@ -111,10 +124,10 @@ function Cours() {
                       </Link>
                     </div>
                   </div>
-                  <div className="col-md-4">
+                  <div className="col-md-4 p-3 d-flex justify-content-center align-items-center">
                     <img
-                      src="..."
-                      className="img-fluid rounded-start"
+                      src={`${API_URL}/files/download/${formation.imgName}`}
+                      className="img-fluid rounded"
                       alt="..."
                     />
                   </div>

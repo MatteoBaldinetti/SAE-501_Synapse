@@ -1,3 +1,19 @@
+/**
+ * Login.jsx - Page de connexion et d'inscription
+ * 
+ * Page combinée permettant de :
+ * - Se connecter avec email et mot de passe
+ * - S'inscrire en créant un nouveau compte
+ * - Basculer entre les modes connexion/inscription
+ * - Lien vers la réinitialisation du mot de passe
+ * 
+ * Utilise AuthContext pour gérer l'authentification.
+ * 
+ * Route : /login
+ * Utilisé par : App.jsx
+ * Dépendances : AuthContext, API_URL, bcrypt
+ */
+
 import { useState, useRef, useEffect } from "react";
 import "../styles/Login.css";
 import { useAuth } from "../contexts/AuthContext";
@@ -84,6 +100,8 @@ function Login() {
         email: signupEmail,
         password: await bcrypt.hash(signupPassword, salt),
         type: 0,
+        phoneNumber: null,
+        imgName: null
       }
 
       const res = await fetch(`${API_URL}/users`, {

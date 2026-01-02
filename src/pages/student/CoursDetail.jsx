@@ -1,3 +1,21 @@
+/**
+ * CoursDetail.jsx - Page de détails d'une formation
+ * 
+ * Affiche les informations complètes d'une formation :
+ * - Titre, catégorie, image
+ * - Description détaillée
+ * - Ce que vous allez apprendre
+ * - Prérequis
+ * - Durée et prix
+ * - Sessions disponibles
+ * - Bouton d'inscription/paiement
+ * - Visualiseur 3D si modèle disponible
+ * 
+ * Route : /cours-detail/:id
+ * Utilisé par : App.jsx
+ * Dépendances : API_URL, ThreeDViewer (optionnel)
+ */
+
 import "../../styles/CoursDetail.css";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -17,8 +35,6 @@ function CoursDetail() {
         };
         fetchData();
     }, []);
-
-    console.log(data.id)
 
     return (
         <div className="blue-background container-fluid">
@@ -61,13 +77,23 @@ function CoursDetail() {
                         <h4 className="mt-5">Description</h4>
                         <p>{data.detailedDescription}</p>
 
+                        <div className="image-row">
+                            <div className="d-flex justify-content-center align-items-center">
+                                <img
+                                    src={`${API_URL}/files/download/${data.imgName}`}
+                                    alt={data.title}
+                                    className="cours-image"
+                                />
+                            </div>
+                        </div>
+
                         <h4 className="mt-5">Prérequis</h4>
                         <p>{data.prerequisites}</p>
                     </div>
                 </div>
 
                 <div className="row pb-5">
-                    <div className="col-md-12 d-flex justify-content-center">
+                    <div className="col-md-6 d-flex justify-content-center">
                         {userId !== null ? (
                             <Link className="btn btn-login-inscritpion" to={"/cours-payment"} state={data.id}>
                                 Incrivez vous à une session
@@ -78,8 +104,12 @@ function CoursDetail() {
                             </Link>
                         )}
                     </div>
+                    <div className="col-md-6 d-flex justify-content-center">
+                            <Link className="btn btn-3d" to={"/3d-viewer"} state={{ modelUrl: '/models/keyboard.glb' }}>
+                                Voir les outils en 3D
+                            </Link>
+                    </div>
                 </div>
-
             </div>
         </div>
     );

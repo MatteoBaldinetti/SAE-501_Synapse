@@ -1,23 +1,57 @@
+/**
+ * DashBoard.jsx - Tableau de bord étudiant
+ * 
+ * Affiche pour l'étudiant :
+ * - Ses formations en cours
+ * - Ses formations terminées
+ * - Ses prochaines sessions
+ * - Son profil (via ProfileComponents)
+ * - Ses certificats/badges
+ * 
+ * Route : /dashboard
+ * Utilisé par : App.jsx
+ * Dépendances : AuthContext, ProfileComponents, API_URL
+ */
+
 import "../../styles/Dashboard.css";
 import { useEffect, useState } from "react";
 import ProfileComponents from "../../components/ProfileComponents";
 import { useAuth } from "../../contexts/AuthContext";
 import TableCours from "../../components/TableCours";
+import { API_URL } from "../../constants/apiConstants";
+import logo from "../../assets/images/smallLogoPDF.jpeg";
+
+// Pour faire les PDF de la facture
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 function Dashboard() {
-    const { userId, userEmail, userFirstname, userLastname, userType, userPhone, login, logout, authLoading } = useAuth();
+    const { userId, userEmail, userFirstname, userLastname, userType, userPhone, userImage, login, logout, authLoading } = useAuth();
 
     const [currentLayout, SetCurrentLayout] = useState("profile");
     const [courseStatusLayout, setCourseStatusLayout] = useState("inscrit");
 
-    const [userSession, setUserSession] = useState([])
+    const [userSession, setUserSession] = useState([]);
+    const [userEvaluation, setUserEvaluation] = useState([]);
+    const [userPayment, setUserPayment] = useState([]);
 
     useEffect(() => {
-        if (currentLayout !== "cours") return;
         const fetchData = async () => {
-            const res = await fetch(`http://localhost:8080/api/users/${1}/trainings`);
-            const json = await res.json();
-            setUserSession(json);
+            if (currentLayout === "cours") {
+                const res = await fetch(`${API_URL}/users/${userId}/sessions`);
+                const json = await res.json();
+                setUserSession(json);
+
+                const res2 = await fetch(`${API_URL}/results/search?userId=${userId}`);
+                const json2 = await res2.json();
+                setUserEvaluation(json2);
+            }
+
+            if (currentLayout === "paiement") {
+                const res = await fetch(`${API_URL}/inscriptions/search?userId=${userId}`);
+                const json = await res.json();
+                setUserPayment(json.reverse());
+            }
         }
         fetchData();
     }, [currentLayout])
@@ -26,6 +60,86 @@ function Dashboard() {
     useEffect(() => {
         setCourseStatusLayout("inscrit");
     }, [currentLayout])
+
+    const formatDateISO = (isoDate) => {
+        const date = new Date(isoDate);
+
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+
+        return `${day}/${month}/${year} à ${hours}:${minutes}`;
+    }
+
+    const handleDownloadBill = (payment) => {
+        // Création du PDF
+        const doc = new jsPDF();
+
+        const img = new Image();
+        img.src = logo;
+
+        // Taille du logo
+        const logoWidth = 30;
+        const logoHeight = (img.height * logoWidth) / img.width;
+
+        img.onload = () => {
+            // LOGO
+            doc.addImage(img, "JPEG", 14, 15, logoWidth, logoHeight);
+
+            // INFO ENTREPRISE
+            doc.setFontSize(10);
+            doc.text(
+                "4 rue de la Paix\n75000 Paris\ncontact@txlforma.com\n+33 6 12 34 56 78",
+                14,
+                42
+            );
+
+            // FACTURE INFO
+            doc.setFontSize(16);
+            doc.text("FACTURE", 150, 20);
+
+            doc.setFontSize(10);
+            doc.text(`Numéro : FAC-${payment.id}`, 150, 28);
+            doc.text(`Date : ${formatDateISO(payment.date)}`, 150, 34);
+
+            // CLIENT
+            doc.setFontSize(12);
+            doc.text("Facturé à :", 14, 70);
+
+            doc.setFontSize(10);
+            doc.text(`${userFirstname} ${userLastname}`, 14, 78);
+            doc.text(userEmail, 14, 84);
+            if (userPhone) doc.text(userPhone, 14, 90);
+
+            // TABLEAU
+            autoTable(doc, {
+                startY: 105,
+                head: [["Formation", "Prix"]],
+                body: [[payment.training.title, `${payment.amount} €`]],
+                headStyles: { fillColor: [0, 93, 136] },
+                styles: { fontSize: 10 }
+            });
+
+            // TOTAL
+            const finalY = doc.lastAutoTable.finalY + 10;
+            doc.setFontSize(12);
+            doc.text("Total :", 140, finalY);
+            doc.text(`${payment.amount} €`, 170, finalY);
+
+            // FOOTER
+            doc.setFontSize(9);
+            doc.text(
+                "Merci pour votre confiance.\nTXLFORMA - Organisme de formation professionnelle",
+                14,
+                280
+            );
+
+            // SAUVEGARDE
+            doc.save(`facture-FAC-${payment.id}.pdf`);
+        };
+    };
 
     return (
         <div>
@@ -83,7 +197,7 @@ function Dashboard() {
                         {currentLayout === "profile" && (
                             <div className="p-5">
                                 <h2 className="mb-5">Votre profile</h2>
-                                <ProfileComponents userId={userId} userEmail={userEmail} userFirstname={userFirstname} userLastname={userLastname} userPhone={userPhone} />
+                                <ProfileComponents userId={userId} userEmail={userEmail} userFirstname={userFirstname} userLastname={userLastname} userPhone={userPhone} userImage={userImage} logout={logout} />
                             </div>
                         )}
 
@@ -113,24 +227,41 @@ function Dashboard() {
                                     </span>
                                 </div>
 
-                                <TableCours />
+                                <TableCours data={userSession} userId={userId} statusLayout={courseStatusLayout} />
 
                                 {courseStatusLayout === "termine" && (
                                     <>
                                         <h2 className="my-5 pt-5">Vos évaluations</h2>
-                                        <div className="container">
-                                            <div className="row mx-1 p-3 border border-dark rounded-top-3 bg-white">
-                                                <div className="col-4">
-                                                    <h6>Nom du cours</h6>
+                                        {userEvaluation.length > 0 ? (
+                                            <div className="container">
+                                                <div className="row mx-1 p-3 border rounded-top-3 bg-white">
+                                                    <div className="col-4">
+                                                        <h6>Nom du cours</h6>
+                                                    </div>
+                                                    <div className="col-4">
+                                                        <h6>Note</h6>
+                                                    </div>
+                                                    <div className="col-4">
+                                                        <h6>Commentaire</h6>
+                                                    </div>
                                                 </div>
-                                                <div className="col-4">
-                                                    <h6>Note</h6>
-                                                </div>
-                                                <div className="col-4">
-                                                    <h6>Commentaire</h6>
-                                                </div>
+                                                {userEvaluation.map((evaluation) => (
+                                                    <div key={evaluation.id} className="row mx-1 p-3 border bg-white">
+                                                        <div className="col-4">
+                                                            <h6>{evaluation.session.title}</h6>
+                                                        </div>
+                                                        <div className="col-4">
+                                                            <h6>{evaluation.grade}/20</h6>
+                                                        </div>
+                                                        <div className="col-4">
+                                                            <h6>{evaluation.description}</h6>
+                                                        </div>
+                                                    </div>
+                                                ))}
                                             </div>
-                                        </div>
+                                        ) : (
+                                            <h4 className="text-center">Vous n'avez pas encore été évalué</h4>
+                                        )}
                                     </>
                                 )}
                             </div>
@@ -138,23 +269,48 @@ function Dashboard() {
 
                         {currentLayout === "paiement" && (
                             <div className="p-5">
-                                <h2 className="mb-5">Vos paiement</h2>
-                                <div className="container">
-                                    <div className="row mx-1 p-3 border border-dark rounded-top-3 bg-white">
-                                        <div className="col-3">
-                                            <h6>Nom du cours</h6>
+                                <h2 className="mb-5">Vos paiements</h2>
+                                {userPayment.length > 0 ? (
+                                    <div className="container">
+                                        <div className="row mx-1 p-3 border rounded-top-3 bg-white">
+                                            <div className="col-3">
+                                                <h6>Nom du cours</h6>
+                                            </div>
+                                            <div className="col-3">
+                                                <h6>Montant</h6>
+                                            </div>
+                                            <div className="col-3">
+                                                <h6>Date</h6>
+                                            </div>
+                                            <div className="col-3">
+                                                <h6>Facture</h6>
+                                            </div>
                                         </div>
-                                        <div className="col-3">
-                                            <h6>Montant payé</h6>
-                                        </div>
-                                        <div className="col-3">
-                                            <h6>Status</h6>
-                                        </div>
-                                        <div className="col-3">
-                                            <h6>Date</h6>
-                                        </div>
+                                        {userPayment.map((payment) => (
+                                            <div key={payment.id} className="row mx-1 p-3 border bg-white">
+                                                <div className="col-3">
+                                                    <h6>{payment.training.title}</h6>
+                                                </div>
+                                                <div className="col-3">
+                                                    <h6>{payment.amount}€</h6>
+                                                </div>
+                                                <div className="col-3">
+                                                    <h6>{formatDateISO(payment.date)}</h6>
+                                                </div>
+                                                <div className="col-3">
+                                                    <button
+                                                        className="btn btn-blue"
+                                                        onClick={() => handleDownloadBill(payment)}
+                                                    >
+                                                        Télécharger la facture
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
-                                </div>
+                                ) : (
+                                    <h4 className="text-center">Vous n'avez aucun paiement effectué</h4>
+                                )}
                             </div>
                         )}
                     </div>

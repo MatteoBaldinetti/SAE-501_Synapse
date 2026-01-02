@@ -1,0 +1,45 @@
+.form-control:focus,
+textarea.form-control:focus,
+select.form-control:focus {
+    border-color: #005D88;
+    box-shadow: 0 0 0 0.25rem rgba(0, 93, 136, 0.25);
+    outline: none;
+}
+
+.is-invalid {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+
+.btn-contact {
+    background-color: #005D88;
+    color: white;
+    padding: 12px 20px;
+    transition: background-color 0.3s;
+}
+
+.btn-contact:hover {
+    background-color: #0C232B;
+    color: white;
+}
+
+a.phone-link {
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+
+a.phone-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px; 
+  width: 0;
+  height: 2px; 
+  background-color: #005D88;
+  transition: width 0.3s ease;
+}
+
+a.phone-link:hover::after {
+  width: 100%;
+}

@@ -1,10 +1,10 @@
 # SAE-501 Synapse
 
-## 📋 Description
+## Description
 
 Application web de gestion de formations en ligne pour l'entreprise TXLFORMA. Projet dans le cadre de la SAE501 du BUT MMI.
 
-## 🚀 Technologies Utilisées
+## Technologies Utilisées
 
 ### Frontend
 
@@ -28,7 +28,7 @@ Application web de gestion de formations en ligne pour l'entreprise TXLFORMA. Pr
 - **ESLint** (v9.36.0)
 - **@vitejs/plugin-react** (v5.0.4)
 
-## ️ Installation
+## Installation
 
 ### Prérequis
 
@@ -65,30 +65,3 @@ Application web de gestion de formations en ligne pour l'entreprise TXLFORMA. Pr
    ```
 
    L'application sera accessible à l'adresse : `http://localhost:5173`
-
-## Fonctionnalités
-
-### Pour les Étudiants
-
-- Consultation du catalogue de formations
-- Détails des formations et sessions
-- Inscription aux formations
-- Tableau de bord personnel
-- Gestion du profil
-
-### Pour les Administrateurs
-
-- Dashboard avec statistiques (Chart.js, CountUp.js)
-- Gestion des formations (CRUD)
-- Gestion des sessions (CRUD)
-- Gestion des comptes utilisateurs (CRUD)
-- Gestion des enseignants (CRUD)
-- Recherche et filtrage
-
-## 👥 Contributeurs
-
-Projet développé dans le cadre du SAE-501 par l'équipe Synapse.
-
-## 📄 Licence
-
-Ce projet est développé à des fins éducatives dans le cadre du SAE-501.

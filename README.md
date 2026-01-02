@@ -4,6 +4,14 @@
 
 Application web de gestion de formations en ligne pour l'entreprise TXLFORMA. Projet dans le cadre de la SAE501 du BUT MMI.
 
+## Liens annexes :
+
+### Figma :
+https://www.figma.com/design/rCju9B0B6GPkQZQteJamXs/Untitled?node-id=0-1&t=zppyp5AM8Lq6ocLu-1
+
+### Google Sheets (Gestion de projet)
+https://docs.google.com/spreadsheets/d/1pWGgZ2eqJKw4hhwJ4UL4aFLdzIzlTNApL_veXBvF-9M/edit?usp=sharing
+
 ## Technologies Utilisées
 
 ### Frontend

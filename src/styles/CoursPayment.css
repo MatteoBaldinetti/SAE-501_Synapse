@@ -105,7 +105,8 @@
     border-color: #005D88;
 }
 
-.form-check-input:focus {
-    box-shadow: 0 0 0 0.25rem rgba(0, 93, 136, 0.4);
+.form-check-input:checked {
+    background-color: #005D88;
     border-color: #005D88;
+    box-shadow: 0 0 0 0.25rem rgba(0, 93, 136, 0.4);
 }

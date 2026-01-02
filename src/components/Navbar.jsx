@@ -2,11 +2,12 @@ import "../styles/Navbar.css";
 import smallLogo from "../assets/images/smallLogo.webp";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { API_URL } from "../constants/apiConstants";
 
 import profilePicture from '../assets/images/profile_picture.webp';
 
 function Navbar() {
-    const { userId, userEmail, userFirstname, userLastname, userType, login, logout, authLoading } = useAuth();
+    const { userId, userEmail, userFirstname, userLastname, userType, userPhone, userImage, login, logout, authLoading } = useAuth();
     const navigate = useNavigate();
 
     const goToLogin = (isSignUp) => {
@@ -40,12 +41,6 @@ function Navbar() {
                         <li className="nav-item me-3">
                             <Link className="nav-link" to="/cours">Cours</Link>
                         </li>
-                        <li className="nav-item me-3">
-                            <Link className="nav-link" to="/instructeurs">Instructeurs</Link>
-                        </li>
-                        <li className="nav-item me-3">
-                            <Link className="nav-link" to="/apropos">À propos</Link>
-                        </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/contact">Contact</Link>
                         </li>
@@ -54,9 +49,10 @@ function Navbar() {
                     {userId !== null ? (
                         <div className="dropdown me-5">
                             <img
-                                src={profilePicture}
+                                src={userImage === null || userImage === "" ? profilePicture : `${API_URL}/files/download/${userImage}`}
                                 width={40}
-                                className="rounded-circle dropdown-toggle"
+                                height={40}
+                                className="rounded-circle profile-avatar dropdown-toggle"
                                 id="dropdownUser"
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"

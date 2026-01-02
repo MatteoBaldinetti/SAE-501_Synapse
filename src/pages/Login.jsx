@@ -84,6 +84,8 @@ function Login() {
         email: signupEmail,
         password: await bcrypt.hash(signupPassword, salt),
         type: 0,
+        phoneNumber: null,
+        imgName: null
       }
 
       const res = await fetch(`${API_URL}/users`, {

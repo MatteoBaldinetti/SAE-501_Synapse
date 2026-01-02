@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { API_URL } from "../constants/apiConstants";
 import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 import profilePicture from '../assets/images/profile_picture.webp';
 import ConfirmationDeleteModal from './ConfirmationDeleteModal';
 
@@ -10,6 +11,8 @@ import ProfileImageUploadModal from './ProfileImageUploadModal';
 function ProfileComponents({ userId, userEmail, userFirstname, userLastname, userPhone, userImage, logout }) {
 
     const { updateContext } = useAuth();
+
+    const navigate = useNavigate();
 
     const [modifierProfil, setModifierProfil] = useState(false);
 
@@ -82,6 +85,11 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
         if (id === "firstname") setFirstnameInput(newValue);
     };
 
+    const handleForgotPassword = () => {
+        sessionStorage.setItem("allowPasswordReset", "true");
+        navigate("/reset-password");
+    };
+
     useEffect(() => {
         const newErrors = {};
 
@@ -132,7 +140,7 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
         });
 
         updateContext(updatedPlayer.id, updatedPlayer.email, updatedPlayer.firstname, updatedPlayer.lastname, updatedPlayer.type, updatedPlayer.phoneNumber, updatedPlayer.imgName)
-        
+
         window.location.reload();
     }
 
@@ -219,7 +227,7 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
                         <h5>Mot de passe</h5>
                         {modifierProfil ? (
                             <div className="mt-3">
-                                <a className="text-secondary text-decoration-none link-pointer">
+                                <a className="text-secondary text-decoration-none link-pointer" onClick={handleForgotPassword}>
                                     Modifier votre mot de passe ?
                                 </a>
                             </div>

@@ -18,6 +18,7 @@ import RGPD from "./pages/RGPD";
 import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
 import CGU from "./pages/CGU";
 import ThreeDViewer from "./pages/3d/ThreeDViewer";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/rgpd" element={<RGPD />} />
           <Route path="/politique-confidentialite" element={<PolitiqueConfidentialite />} />
           <Route path="/3d-viewer" element={<ThreeDViewer />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
         </Routes>
         <Footer />
       </AuthProvider>

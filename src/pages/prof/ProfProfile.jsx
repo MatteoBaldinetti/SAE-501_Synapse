@@ -18,14 +18,24 @@ function ProfProfile() {
         const profData = await profRes.json();
         setProfessor(profData);
 
-        // Fetch courses created by this professor
+        // Fetch sessions where this professor is the instructor
+        const sessionsRes = await fetch(`${API_URL}/sessions`);
+        const allSessions = await sessionsRes.json();
+        const profSessions = allSessions.filter(
+          (session) => session.instructor?.id === parseInt(id)
+        );
+
+        // Get unique trainings from professor's sessions
+        const trainingIds = [...new Set(profSessions
+          .filter(s => s.training)
+          .map(s => s.training.id))];
+
         const coursesRes = await fetch(`${API_URL}/trainings`);
         const coursesData = await coursesRes.json();
-        // Filter courses by instructor if instructor field exists
-        const profCourses = coursesData.filter(course =>
-          course.instructor?.id === parseInt(id)
+        const profCourses = coursesData.filter(
+          (course) => trainingIds.includes(course.id)
         );
-        setCourses(profCourses.length > 0 ? profCourses : coursesData.slice(0, 3));
+        setCourses(profCourses);
 
         // Mock reviews data
         setReviews([

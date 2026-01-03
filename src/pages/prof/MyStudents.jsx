@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../constants/apiConstants";
 import ProfSidebarCollapsible from "../../components/ProfSidebarCollapsible";
+import { useAuth } from "../../contexts/AuthContext";
 
 function MyStudents() {
   const [inscriptions, setInscriptions] = useState([]);
@@ -9,15 +10,40 @@ function MyStudents() {
   const [editingInscription, setEditingInscription] = useState(null);
   const [editNote, setEditNote] = useState("");
   const navigate = useNavigate();
+  const { userId } = useAuth();
+
+  // Fonction pour récupérer les inscriptions du professeur
+  const fetchProfessorInscriptions = async () => {
+    try {
+      // 1. Récupérer toutes les sessions où le professeur est instructeur
+      const sessionsRes = await fetch(`${API_URL}/sessions`);
+      const allSessions = await sessionsRes.json();
+      const profSessions = allSessions.filter(
+        (session) => session.instructor?.id === userId
+      );
+      const profSessionIds = profSessions.map((s) => s.id);
+
+      // 2. Récupérer les inscriptions des étudiants
+      const inscriptionsRes = await fetch(`${API_URL}/inscriptions/search?userType=0`);
+      const allInscriptions = await inscriptionsRes.json();
+
+      // 3. Filtrer pour ne garder que les inscriptions aux sessions du prof
+      const profInscriptions = allInscriptions.filter(
+        (inscription) =>
+          inscription.session && profSessionIds.includes(inscription.session.id)
+      );
+
+      setInscriptions(profInscriptions);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(`${API_URL}/inscriptions`);
-      const data = await res.json();
-      setInscriptions(data);
-    };
-    fetchData();
-  }, []);
+    if (userId) {
+      fetchProfessorInscriptions();
+    }
+  }, [userId]);
 
   const filteredStudents = inscriptions.filter((inscription) => {
     if (!inscription.user) return false;
@@ -47,9 +73,7 @@ function MyStudents() {
 
       if (response.ok) {
         // Refresh data
-        const res = await fetch(`${API_URL}/inscriptions`);
-        const data = await res.json();
-        setInscriptions(data);
+        await fetchProfessorInscriptions();
       }
     } catch (error) {
       console.error("Error updating status:", error);
@@ -87,9 +111,7 @@ function MyStudents() {
 
       if (response.ok) {
         // Refresh data
-        const res = await fetch(`${API_URL}/inscriptions`);
-        const data = await res.json();
-        setInscriptions(data);
+        await fetchProfessorInscriptions();
         setEditingInscription(null);
         setEditNote("");
       } else {

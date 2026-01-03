@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../constants/apiConstants";
 import ProfSidebarCollapsible from "../../components/ProfSidebarCollapsible";
+import { useAuth } from "../../contexts/AuthContext";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -31,26 +32,48 @@ function ProfDashboard() {
   const [inscriptions, setInscriptions] = useState([]);
   const navigate = useNavigate();
   const countupInscriptionsRef = useRef(null);
+  const { userId } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
-      // Fetch courses
-      const coursesRes = await fetch(`${API_URL}/trainings`);
-      const coursesData = await coursesRes.json();
-      setCourses(coursesData.slice(0, 3)); // Display first 3 courses
+      if (!userId) return;
 
-      // Fetch inscriptions for statistics
+      // Fetch sessions where the professor is the instructor
+      const sessionsRes = await fetch(`${API_URL}/sessions`);
+      const allSessions = await sessionsRes.json();
+      const profSessions = allSessions.filter(
+        (session) => session.instructor?.id === userId
+      );
+      const profSessionIds = profSessions.map((s) => s.id);
+
+      // Get unique trainings from professor's sessions
+      const trainingIds = [...new Set(profSessions
+        .filter(s => s.training)
+        .map(s => s.training.id))];
+
+      const coursesRes = await fetch(`${API_URL}/trainings`);
+      const allCourses = await coursesRes.json();
+      const profCourses = allCourses.filter(
+        (course) => trainingIds.includes(course.id)
+      );
+      setCourses(profCourses.slice(0, 3)); // Display first 3 courses
+
+      // Fetch inscriptions for statistics (only for professor's sessions)
       const inscriptionsRes = await fetch(`${API_URL}/inscriptions`);
-      const inscriptionsData = await inscriptionsRes.json();
-      setInscriptions(inscriptionsData);
+      const allInscriptions = await inscriptionsRes.json();
+      const profInscriptions = allInscriptions.filter(
+        (inscription) =>
+          inscription.session && profSessionIds.includes(inscription.session.id)
+      );
+      setInscriptions(profInscriptions);
 
       // Initialize CountUp after data is loaded
-      if (inscriptionsData.length > 0) {
-        initCountUp(inscriptionsData.length);
+      if (profInscriptions.length > 0) {
+        initCountUp(profInscriptions.length);
       }
     };
     fetchData();
-  }, []);
+  }, [userId]);
 
   async function initCountUp(totalInscriptions) {
     const countUpModule = await import("countup.js");

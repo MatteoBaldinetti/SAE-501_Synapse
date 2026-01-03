@@ -2,21 +2,29 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../constants/apiConstants";
 import ProfSidebarCollapsible from "../../components/ProfSidebarCollapsible";
+import { useAuth } from "../../contexts/AuthContext";
 
 function Sessions() {
   const [sessions, setSessions] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [viewMode, setViewMode] = useState("week");
   const navigate = useNavigate();
+  const { userId } = useAuth();
 
   useEffect(() => {
     const fetchSessions = async () => {
+      if (!userId) return;
+
+      // Fetch only sessions where the professor is the instructor
       const res = await fetch(`${API_URL}/sessions`);
-      const data = await res.json();
-      setSessions(data);
+      const allSessions = await res.json();
+      const profSessions = allSessions.filter(
+        (session) => session.instructor?.id === userId
+      );
+      setSessions(profSessions);
     };
     fetchSessions();
-  }, []);
+  }, [userId]);
 
   // Get week days starting from Monday
   const getWeekDays = (date) => {
@@ -225,7 +233,7 @@ function Sessions() {
                   overflow: "auto",
                 }}
               >
-                <table className="table table-bordered mb-0" style={{ minWidth: "900px" }}>
+                <table className="table table-bordered mb-0" style={{ minWidth: "900px", tableLayout: "fixed" }}>
                   <thead style={{ position: "sticky", top: 0, backgroundColor: "#f8f9fa", zIndex: 10 }}>
                     <tr>
                       <th style={{ width: "80px", padding: "15px", borderRight: "2px solid #dee2e6" }}>
@@ -261,7 +269,7 @@ function Sessions() {
                   </thead>
                   <tbody>
                     {timeSlots.map((hour) => (
-                      <tr key={hour}>
+                      <tr key={hour} style={{ height: "60px" }}>
                         <td
                           style={{
                             padding: "10px",
@@ -281,8 +289,11 @@ function Sessions() {
                               style={{
                                 padding: "5px",
                                 verticalAlign: "top",
-                                minHeight: "60px",
+                                height: "60px",
+                                maxHeight: "60px",
+                                overflow: "hidden",
                                 position: "relative",
+                                width: "calc((100% - 80px) / 7)",
                               }}
                             >
                               {sessionsInSlot.map((session, idx) => (
@@ -347,6 +358,10 @@ function Sessions() {
                           borderLeft: `10px solid ${getSessionColor(index)}`,
                           boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
                           transition: "transform 0.2s",
+                          height: "220px",
+                          overflow: "hidden",
+                          display: "flex",
+                          flexDirection: "column",
                         }}
                         onMouseEnter={(e) => {
                           e.currentTarget.style.transform = "translateY(-2px)";
@@ -368,7 +383,17 @@ function Sessions() {
                             {session.capacity} places
                           </span>
                         </div>
-                        <p className="text-secondary mb-2" style={{ fontSize: "14px" }}>
+                        <p
+                          className="text-secondary mb-2"
+                          style={{
+                            fontSize: "14px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            display: "-webkit-box",
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: "vertical",
+                          }}
+                        >
                           {session.description}
                         </p>
                         <div className="d-flex flex-wrap gap-3 mt-3">

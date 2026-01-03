@@ -82,7 +82,7 @@ function CourseCatalog() {
                 style={{
                   borderRadius: "20px",
                   border: "1px solid #1a1a1a",
-                  backgroundColor: "transparent",
+                  backgroundColor: "#FFFFFF",
                   maxWidth: "150px",
                 }}
               >
@@ -97,7 +97,7 @@ function CourseCatalog() {
                 style={{
                   borderRadius: "20px",
                   border: "1px solid #1a1a1a",
-                  backgroundColor: "transparent",
+                  backgroundColor: "#FFFFFF",
                   maxWidth: "150px",
                 }}
               >
@@ -109,7 +109,7 @@ function CourseCatalog() {
                 style={{
                   borderRadius: "20px",
                   border: "1px solid #1a1a1a",
-                  backgroundColor: "transparent",
+                  backgroundColor: "#FFFFFF",
                   maxWidth: "150px",
                 }}
               >

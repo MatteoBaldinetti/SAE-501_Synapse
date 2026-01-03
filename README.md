@@ -58,12 +58,11 @@ https://docs.google.com/spreadsheets/d/1pWGgZ2eqJKw4hhwJ4UL4aFLdzIzlTNApL_veXBvF
    npm install
    ```
 
-3. **Configurer les variables d'environnement**
+3. **Démarrer le container Docker**
 
-   Créez un fichier `.env` à la racine du projet :
-
-   ```env
-   VITE_API_URL=http://localhost:8080
+   ```bash
+   cd docker
+   docker compose up -d
    ```
 
 4. **Lancer le serveur de développement**

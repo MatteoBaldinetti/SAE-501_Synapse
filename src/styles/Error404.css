@@ -1,6 +1,10 @@
 .error-404 {
     text-align: center;
-    min-height: 85vh;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .error-404 h1 {

@@ -2,11 +2,23 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../../constants/apiConstants";
 import ProfSidebarCollapsible from "../../components/ProfSidebarCollapsible";
+import { useAuth } from "../../contexts/AuthContext";
 
 function CourseContent() {
   const navigate = useNavigate();
   const [currentSection, setCurrentSection] = useState("formation");
   const [isLoading, setIsLoading] = useState(false);
+
+  const { userType } = useAuth();
+
+  // Gère la redirection en cas d'erreur d'accès
+  useEffect(() => {
+    if (userType === null) {
+      navigate("/401", { replace: true });
+    } else if (userType !== 2) {
+      navigate("/403", { replace: true });
+    }
+  }, [userType, navigate]);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -165,12 +177,12 @@ function CourseContent() {
     if (oversizedFiles.length > 0) {
       alert(
         `${oversizedFiles.length} fichier(s) trop gros (max 10MB) :\n` +
-          oversizedFiles
-            .map(
-              (f) =>
-                `- ${f.name} (${(f.size / 1024 / 1024).toFixed(2)}MB)`
-            )
-            .join("\n")
+        oversizedFiles
+          .map(
+            (f) =>
+              `- ${f.name} (${(f.size / 1024 / 1024).toFixed(2)}MB)`
+          )
+          .join("\n")
       );
       e.target.value = ""; // Reset input
       return;

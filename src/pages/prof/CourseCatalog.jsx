@@ -1,11 +1,25 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { API_URL } from "../../constants/apiConstants";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 function CourseCatalog() {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
+
+  const { userType } = useAuth();
+
+  // Gère la redirection en cas d'erreur d'accès
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (userType === null) {
+      navigate("/401", { replace: true });
+    } else if (userType !== 2) {
+      navigate("/403", { replace: true });
+    }
+  }, [userType, navigate]);
 
   useEffect(() => {
     const fetchData = async () => {

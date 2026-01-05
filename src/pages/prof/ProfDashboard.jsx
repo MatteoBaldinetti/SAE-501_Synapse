@@ -34,6 +34,15 @@ function ProfDashboard() {
   const countupInscriptionsRef = useRef(null);
   const { userId } = useAuth();
 
+  // Gère la redirection en cas d'erreur d'accès
+  useEffect(() => {
+    if (userType === null) {
+      navigate("/401", { replace: true });
+    } else if (userType !== 2) {
+      navigate("/403", { replace: true });
+    }
+  }, [userType, navigate]);
+
   useEffect(() => {
     const fetchData = async () => {
       if (!userId) return;

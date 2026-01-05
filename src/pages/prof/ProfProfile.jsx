@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { API_URL } from "../../constants/apiConstants";
+import { useAuth } from "../../contexts/AuthContext";
 
 function ProfProfile() {
   const { id } = useParams();
@@ -9,6 +10,16 @@ function ProfProfile() {
   const [courses, setCourses] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { userType } = useAuth();
+  
+  // Gère la redirection en cas d'erreur d'accès
+  useEffect(() => {
+    if (userType === null) {
+      navigate("/401", { replace: true });
+    } else if (userType !== 2) {
+      navigate("/403", { replace: true });
+    }
+  }, [userType, navigate]);
 
   useEffect(() => {
     const fetchData = async () => {

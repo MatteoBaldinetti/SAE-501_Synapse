@@ -15,7 +15,7 @@
 import "../../styles/CoursPayment.css";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { API_URL } from "../../constants/apiConstants";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 import { useAuth } from "../../contexts/AuthContext";
 
 function CoursPayment() {
@@ -183,7 +183,9 @@ function CoursPayment() {
     if (!isFormValid()) return;
 
     const session = await fetch(
-      `${API_URL}/sessions/search?userId=${userId}&trainingId=${data.id}`
+      `${API_URL}/sessions/search?userId=${userId}&trainingId=${data.id}`, {
+        headers: { "X-API-KEY": API_KEY }
+      }
     );
     const sessionJson = await session.json();
 
@@ -199,7 +201,10 @@ function CoursPayment() {
 
     await fetch(`${API_URL}/inscriptions`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-KEY": API_KEY
+      },
       body: JSON.stringify(inscription),
     });
 
@@ -208,7 +213,9 @@ function CoursPayment() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/trainings/${id}`);
+      const res = await fetch(`${API_URL}/trainings/${id}`, {
+        headers: { "X-API-KEY": API_KEY }
+      });
       const json = await res.json();
       setData(json);
     };

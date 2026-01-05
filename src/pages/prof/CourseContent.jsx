@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { API_URL } from "../../constants/apiConstants";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 import ProfSidebarCollapsible from "../../components/ProfSidebarCollapsible";
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -81,6 +81,7 @@ function CourseContent() {
     try {
       const response = await fetch(`${API_URL}/files/upload`, {
         method: "POST",
+        headers: { "X-API-KEY": API_KEY },
         body: formData,
       });
 
@@ -226,6 +227,7 @@ function CourseContent() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-API-KEY": API_KEY
         },
         body: JSON.stringify(trainingData),
       });

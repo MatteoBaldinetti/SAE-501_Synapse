@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_URL } from "../../constants/apiConstants";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 import ProfSidebarCollapsible from "../../components/ProfSidebarCollapsible";
 import { useAuth } from "../../contexts/AuthContext";
 import {
@@ -48,7 +48,9 @@ function ProfDashboard() {
       if (!userId) return;
 
       // Fetch sessions where the professor is the instructor
-      const sessionsRes = await fetch(`${API_URL}/sessions`);
+      const sessionsRes = await fetch(`${API_URL}/sessions`, {
+        headers: { "X-API-KEY": API_KEY }
+      });
       const allSessions = await sessionsRes.json();
       const profSessions = allSessions.filter(
         (session) => session.instructor?.id === userId
@@ -60,7 +62,9 @@ function ProfDashboard() {
         .filter(s => s.training)
         .map(s => s.training.id))];
 
-      const coursesRes = await fetch(`${API_URL}/trainings`);
+      const coursesRes = await fetch(`${API_URL}/trainings`, {
+        headers: { "X-API-KEY": API_KEY }
+      });
       const allCourses = await coursesRes.json();
       const profCourses = allCourses.filter(
         (course) => trainingIds.includes(course.id)
@@ -68,7 +72,9 @@ function ProfDashboard() {
       setCourses(profCourses.slice(0, 3)); // Display first 3 courses
 
       // Fetch inscriptions for statistics (only for professor's sessions)
-      const inscriptionsRes = await fetch(`${API_URL}/inscriptions`);
+      const inscriptionsRes = await fetch(`${API_URL}/inscriptions`, {
+        headers: { "X-API-KEY": API_KEY }
+      });
       const allInscriptions = await inscriptionsRes.json();
       const profInscriptions = allInscriptions.filter(
         (inscription) =>

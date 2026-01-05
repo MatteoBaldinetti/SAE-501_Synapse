@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { API_URL } from "../../constants/apiConstants";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -23,7 +23,9 @@ function CourseCatalog() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/trainings`);
+      const res = await fetch(`${API_URL}/trainings`, {
+        headers: { "X-API-KEY": API_KEY }
+      });
       const data = await res.json();
       setData(data);
     };

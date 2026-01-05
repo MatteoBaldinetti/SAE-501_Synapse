@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 import "../../styles/Cours.css";
 import SearchBar from "../../components/SearchBar";
 import { useEffect, useState } from "react";
-import { API_URL } from "../../constants/apiConstants";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 
 function Cours() {
   const [data, setData] = useState([]);
@@ -25,7 +25,11 @@ function Cours() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/trainings`);
+      const res = await fetch(`${API_URL}/trainings`,
+        {
+          headers: { "X-API-KEY": API_KEY }
+        }
+      );
       const data = await res.json();
       setData(data);
     };

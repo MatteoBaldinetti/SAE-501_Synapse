@@ -14,8 +14,7 @@
  */
 
 import { useState, useEffect } from "react";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+import { API_URL, API_KEY } from "../../../constants/apiConstants";
 
 function CreateSession({ onClose }) {
   const [formData, setFormData] = useState({
@@ -40,7 +39,9 @@ function CreateSession({ onClose }) {
   useEffect(() => {
     const fetchInstructors = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/instructors`);
+        const response = await fetch(`${API_URL}/api/instructors`, {
+          headers: { "X-API-KEY": API_KEY }
+        });
         if (!response.ok) {
           throw new Error("Erreur lors du chargement des instructeurs");
         }
@@ -61,7 +62,9 @@ function CreateSession({ onClose }) {
   useEffect(() => {
     const fetchPlaces = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/places`);
+        const response = await fetch(`${API_URL}/api/places`, {
+          headers: { "X-API-KEY": API_KEY }
+        });
         if (!response.ok) {
           throw new Error("Erreur lors du chargement des lieux");
         }
@@ -96,6 +99,7 @@ function CreateSession({ onClose }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-API-KEY": API_KEY
         },
         body: JSON.stringify(formData),
       });

@@ -19,7 +19,7 @@ import "../styles/Login.css";
 import { useAuth } from "../contexts/AuthContext";
 import { useLocation } from "react-router-dom";
 import bcrypt from "bcryptjs";
-import { API_URL } from "../constants/apiConstants";
+import { API_URL, API_KEY } from "../constants/apiConstants";
 
 function Login() {
   const { login, authLoading } = useAuth();
@@ -106,7 +106,10 @@ function Login() {
 
       const res = await fetch(`${API_URL}/users`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": API_KEY
+        },
         body: JSON.stringify(newUser),
       });
 

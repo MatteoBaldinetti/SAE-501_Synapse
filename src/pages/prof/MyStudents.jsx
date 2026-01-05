@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_URL } from "../../constants/apiConstants";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 import ProfSidebarCollapsible from "../../components/ProfSidebarCollapsible";
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -25,7 +25,9 @@ function MyStudents() {
   const fetchProfessorInscriptions = async () => {
     try {
       // 1. Récupérer toutes les sessions où le professeur est instructeur
-      const sessionsRes = await fetch(`${API_URL}/sessions`);
+      const sessionsRes = await fetch(`${API_URL}/sessions`, {
+        headers: { "X-API-KEY": API_KEY }
+      });
       const allSessions = await sessionsRes.json();
       const profSessions = allSessions.filter(
         (session) => session.instructor?.id === userId
@@ -33,7 +35,9 @@ function MyStudents() {
       const profSessionIds = profSessions.map((s) => s.id);
 
       // 2. Récupérer les inscriptions des étudiants
-      const inscriptionsRes = await fetch(`${API_URL}/inscriptions/search?userType=0`);
+      const inscriptionsRes = await fetch(`${API_URL}/inscriptions/search?userType=0`, {
+        headers: { "X-API-KEY": API_KEY }
+      });
       const allInscriptions = await inscriptionsRes.json();
 
       // 3. Filtrer pour ne garder que les inscriptions aux sessions du prof
@@ -70,7 +74,10 @@ function MyStudents() {
       const inscription = inscriptions.find((i) => i.id === inscriptionId);
       const response = await fetch(`${API_URL}/inscriptions/${inscriptionId}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": API_KEY
+        },
         body: JSON.stringify({
           ...inscription,
           status: newStatus,
@@ -108,7 +115,10 @@ function MyStudents() {
     try {
       const response = await fetch(`${API_URL}/inscriptions/${editingInscription.id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": API_KEY
+        },
         body: JSON.stringify({
           ...editingInscription,
           amount: noteValue,

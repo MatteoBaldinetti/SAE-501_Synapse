@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_URL } from "../../constants/apiConstants";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 import ProfSidebarCollapsible from "../../components/ProfSidebarCollapsible";
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -25,7 +25,9 @@ function Sessions() {
       if (!userId) return;
 
       // Fetch only sessions where the professor is the instructor
-      const res = await fetch(`${API_URL}/sessions`);
+      const res = await fetch(`${API_URL}/sessions`, {
+        headers: { "X-API-KEY": API_KEY }
+      });
       const allSessions = await res.json();
       const profSessions = allSessions.filter(
         (session) => session.instructor?.id === userId

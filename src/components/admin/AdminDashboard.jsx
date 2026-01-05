@@ -27,6 +27,7 @@ import {
   ArcElement,
 } from "chart.js";
 import { Line, Bar, Doughnut } from "react-chartjs-2";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 
 ChartJS.register(
   CategoryScale,
@@ -39,8 +40,6 @@ ChartJS.register(
   Legend,
   ArcElement
 );
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
 function AdminDashboard() {
   const { userId, userEmail, userFirstname, userLastname, userType } =
@@ -79,10 +78,18 @@ function AdminDashboard() {
       try {
         const [usersRes, trainingsRes, sessionsRes, inscriptionsRes] =
           await Promise.all([
-            fetch(`${API_URL}/api/users`),
-            fetch(`${API_URL}/api/trainings`),
-            fetch(`${API_URL}/api/sessions`),
-            fetch(`${API_URL}/api/inscriptions`),
+            fetch(`${API_URL}/api/users`, {
+              headers: { "X-API-KEY": API_KEY }
+            }),
+            fetch(`${API_URL}/api/trainings`, {
+              headers: { "X-API-KEY": API_KEY }
+            }),
+            fetch(`${API_URL}/api/sessions`, {
+              headers: { "X-API-KEY": API_KEY }
+            }),
+            fetch(`${API_URL}/api/inscriptions`, {
+              headers: { "X-API-KEY": API_KEY }
+            }),
           ]);
 
         const usersData = await usersRes.json();

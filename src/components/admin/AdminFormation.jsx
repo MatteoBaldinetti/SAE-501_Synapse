@@ -16,8 +16,7 @@ import { useState, useEffect } from "react";
 import SearchBar from "../SearchBar";
 import CreateFormation from "./Forms/CreateFormation";
 import EditFormation from "./Forms/EditFormation";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 
 function AdminFormation() {
   const [data, setData] = useState([]);
@@ -29,7 +28,9 @@ function AdminFormation() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/trainings`);
+      const res = await fetch(`${API_URL}/api/trainings`, {
+        headers: { "X-API-KEY": API_KEY }
+      });
       const data = await res.json();
       setData(data);
     };
@@ -48,7 +49,9 @@ function AdminFormation() {
     setEditFormationId(null);
     // Recharger les données après modification
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/trainings`);
+      const res = await fetch(`${API_URL}/api/trainings`, {
+        headers: { "X-API-KEY": API_KEY }
+      });
       const data = await res.json();
       setData(data);
     };
@@ -59,7 +62,9 @@ function AdminFormation() {
     setShowCreateForm(false);
     // Recharger les données après création
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/trainings`);
+      const res = await fetch(`${API_URL}/api/trainings`, {
+        headers: { "X-API-KEY": API_KEY }
+      });
       const data = await res.json();
       setData(data);
     };

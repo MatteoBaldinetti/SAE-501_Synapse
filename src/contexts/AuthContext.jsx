@@ -22,7 +22,7 @@
  */
 
 import { createContext, useState, useContext, useEffect } from "react";
-import { API_URL } from "../constants/apiConstants";
+import { API_URL, API_KEY } from "../constants/apiConstants";
 import { useNavigate } from "react-router-dom";
 import bcrypt from "bcryptjs";
 
@@ -71,7 +71,9 @@ export function AuthProvider({ children }) {
   const login = async (email, password) => {
     setAuthLoading(true);
     try {
-      const res = await fetch(`${API_URL}/users/search?email=${email}`);
+      const res = await fetch(`${API_URL}/users/search?email=${email}`, {
+        headers: { "X-API-KEY": API_KEY }
+      });
 
       if (!res.ok) {
         throw new Error("Erreur lors de la connexion");

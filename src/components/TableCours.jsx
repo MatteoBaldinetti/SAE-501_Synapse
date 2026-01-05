@@ -13,7 +13,7 @@
  */
 
 import { useState, useEffect } from "react";
-import { API_URL } from "../constants/apiConstants";
+import { API_URL, API_KEY } from "../constants/apiConstants";
 
 function TableCours({ data, userId, statusLayout }) {
 
@@ -26,10 +26,14 @@ function TableCours({ data, userId, statusLayout }) {
                 const sessionId = data[i].id;
                 const trainingId = data[i].training.id;
 
-                const resInscription = await fetch(`${API_URL}/inscriptions/search?userId=${userId}&sessionId=${sessionId}`);
+                const resInscription = await fetch(`${API_URL}/inscriptions/search?userId=${userId}&sessionId=${sessionId}`, {
+                    headers: { "X-API-KEY": API_KEY }
+                });
                 const jsonInscription = await resInscription.json();
 
-                const resTraining = await fetch(`${API_URL}/trainings/${trainingId}`);
+                const resTraining = await fetch(`${API_URL}/trainings/${trainingId}`, {
+                    headers: { "X-API-KEY": API_KEY }
+                });
                 const jsonTraining = await resTraining.json();
 
                 const formattedJson = {

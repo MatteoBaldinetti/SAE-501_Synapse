@@ -16,8 +16,7 @@ import { useState, useEffect } from "react";
 import SearchBar from "../SearchBar";
 import CreateSession from "./Forms/CreateSession";
 import EditSession from "./Forms/EditSession";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 
 function AdminSession() {
   const [data, setData] = useState([]);
@@ -29,7 +28,9 @@ function AdminSession() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/sessions`);
+      const res = await fetch(`${API_URL}/api/sessions`, {
+        headers: { "X-API-KEY": API_KEY }
+      });
       const data = await res.json();
       setData(data);
     };
@@ -48,7 +49,9 @@ function AdminSession() {
     setEditSessionId(null);
     // Recharger les données après modification
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/sessions`);
+      const res = await fetch(`${API_URL}/api/sessions`, {
+        headers: { "X-API-KEY": API_KEY }
+      });
       const data = await res.json();
       setData(data);
     };
@@ -59,7 +62,9 @@ function AdminSession() {
     setShowCreateForm(false);
     // Recharger les données après création
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/sessions`);
+      const res = await fetch(`${API_URL}/api/sessions`, {
+        headers: { "X-API-KEY": API_KEY }
+      });
       const data = await res.json();
       setData(data);
     };

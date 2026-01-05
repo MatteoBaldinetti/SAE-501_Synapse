@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { API_URL } from "../../constants/apiConstants";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 import { useAuth } from "../../contexts/AuthContext";
 
 function ProfProfile() {
@@ -25,12 +25,16 @@ function ProfProfile() {
     const fetchData = async () => {
       try {
         // Fetch professor data
-        const profRes = await fetch(`${API_URL}/users/${id}`);
+        const profRes = await fetch(`${API_URL}/users/${id}`, {
+          headers: { "X-API-KEY": API_KEY }
+        });
         const profData = await profRes.json();
         setProfessor(profData);
 
         // Fetch sessions where this professor is the instructor
-        const sessionsRes = await fetch(`${API_URL}/sessions`);
+        const sessionsRes = await fetch(`${API_URL}/sessions`, {
+          headers: { "X-API-KEY": API_KEY }
+        });
         const allSessions = await sessionsRes.json();
         const profSessions = allSessions.filter(
           (session) => session.instructor?.id === parseInt(id)
@@ -41,7 +45,9 @@ function ProfProfile() {
           .filter(s => s.training)
           .map(s => s.training.id))];
 
-        const coursesRes = await fetch(`${API_URL}/trainings`);
+        const coursesRes = await fetch(`${API_URL}/trainings`, {
+          headers: { "X-API-KEY": API_KEY }
+        });
         const coursesData = await coursesRes.json();
         const profCourses = coursesData.filter(
           (course) => trainingIds.includes(course.id)
@@ -121,6 +127,7 @@ function ProfProfile() {
     try {
       const response = await fetch(`${API_URL}/users/${id}`, {
         method: "DELETE",
+        headers: { "X-API-KEY": API_KEY }
       });
 
       if (!response.ok) {

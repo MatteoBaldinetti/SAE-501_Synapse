@@ -297,7 +297,7 @@ function Dashboard() {
                                                 <h6>Montant</h6>
                                             </div>
                                             <div className="col-3">
-                                                <h6>Date</h6>
+                                                <h6>Date de paiement</h6>
                                             </div>
                                             <div className="col-3">
                                                 <h6>Facture</h6>
@@ -312,7 +312,7 @@ function Dashboard() {
                                                     <h6>{payment.amount}€</h6>
                                                 </div>
                                                 <div className="col-3">
-                                                    <h6>{formatDateISO(payment.date)}</h6>
+                                                    <h6>{formatDateISO(payment.inscriptionDate)}</h6>
                                                 </div>
                                                 <div className="col-3">
                                                     <button

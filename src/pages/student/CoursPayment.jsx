@@ -192,7 +192,7 @@ function CoursPayment() {
     const inscription = {
       inscriptionDate: new Date().toISOString(),
       status: "CONFIRM",
-      date: sessionJson[0].endDate,
+      date: new Date().toISOString(),
       amount: data.price,
       user: { id: userId },
       session: { id: sessionJson[0].id },

@@ -243,50 +243,23 @@ function CourseContent() {
   const handleSaveDraft = () => saveTraining(true);
 
   return (
-    <div style={{ backgroundColor: "#FFECC8", minHeight: "100vh" }}>
-      <div className="container-fluid">
-        <div className="row">
-          {/* Sidebar */}
-          <ProfSidebarCollapsible />
+    <div>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h3>Contenu du cours</h3>
+        <button
+          onClick={() => navigate("/prof-dashboard")}
+          className="btn btn-prof"
+        >
+          Retour
+        </button>
+      </div>
+      <p className="text-secondary mb-4">
+        Gérez le contenu de votre cours
+      </p>
 
-          {/* Main Content */}
-          <div className="col p-5">
-            <div className="d-flex align-items-center mb-4">
-              <button
-                onClick={() => navigate(-1)}
-                className="btn me-3"
-                style={{
-                  backgroundColor: "#ff8c00",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "8px",
-                  padding: "10px 15px",
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
-                  />
-                </svg>
-              </button>
-              <div>
-                <h2 className="mb-0">Contenu du cours</h2>
-              </div>
-            </div>
-            <p className="text-secondary mb-4">
-              Gérez le contenu de votre cours
-            </p>
-
-            <input
-              type="text"
-              className="form-control mb-4"
+      <input
+        type="text"
+        className="form-control mb-4"
               placeholder=""
               style={{
                 maxWidth: "400px",
@@ -600,9 +573,6 @@ function CourseContent() {
                 {isLoading ? "Chargement..." : "Enregistrer le brouillon"}
               </button>
             </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

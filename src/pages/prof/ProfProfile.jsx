@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../constants/apiConstants";
+import { useAuth } from "../../contexts/AuthContext";
 
 function ProfProfile() {
-  const { id } = useParams();
+  const { userId } = useAuth();
   const navigate = useNavigate();
   const [professor, setProfessor] = useState(null);
   const [courses, setCourses] = useState([]);
@@ -12,9 +13,11 @@ function ProfProfile() {
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!userId) return;
+
       try {
         // Fetch professor data
-        const profRes = await fetch(`${API_URL}/users/${id}`);
+        const profRes = await fetch(`${API_URL}/users/${userId}`);
         const profData = await profRes.json();
         setProfessor(profData);
 
@@ -22,7 +25,7 @@ function ProfProfile() {
         const sessionsRes = await fetch(`${API_URL}/sessions`);
         const allSessions = await sessionsRes.json();
         const profSessions = allSessions.filter(
-          (session) => session.instructor?.id === parseInt(id)
+          (session) => session.instructor?.id === userId
         );
 
         // Get unique trainings from professor's sessions
@@ -63,7 +66,7 @@ function ProfProfile() {
     };
 
     fetchData();
-  }, [id]);
+  }, [userId]);
 
   const getRatingDistribution = () => {
     return [
@@ -91,13 +94,13 @@ function ProfProfile() {
 
   // Modifier le profil
   const handleEditProfile = () => {
-    navigate(`/edit-profile/${id}`);
+    navigate(`/edit-profile/${userId}`);
   };
 
   // Contacter l'admin
   const handleContactAdmin = () => {
     const subject = `Contact depuis le profil de ${professor?.firstname} ${professor?.lastname}`;
-    const body = `Bonjour,\n\nJe vous contacte au sujet du professeur ${professor?.firstname} ${professor?.lastname} (ID: ${id}).\n\n`;
+    const body = `Bonjour,\n\nJe vous contacte au sujet du professeur ${professor?.firstname} ${professor?.lastname} (ID: ${userId}).\n\n`;
     window.location.href = `mailto:admin@txlforma.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
@@ -108,7 +111,7 @@ function ProfProfile() {
     }
 
     try {
-      const response = await fetch(`${API_URL}/users/${id}`, {
+      const response = await fetch(`${API_URL}/users/${userId}`, {
         method: "DELETE",
       });
 
@@ -136,42 +139,23 @@ function ProfProfile() {
 
   if (loading) {
     return (
-      <div style={{ backgroundColor: "#FFECC8", minHeight: "100vh", padding: "50px" }}>
+      <div className="p-5" style={{ backgroundColor: "#FFECC8", minHeight: "100vh" }}>
         <div className="text-center">Chargement...</div>
       </div>
     );
   }
 
   return (
-    <div style={{ backgroundColor: "#FFECC8", minHeight: "100vh" }}>
-      <div className="container py-5">
-        {/* Back Button */}
+    <div>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h3>Profil de Professeur</h3>
         <button
-          onClick={() => navigate(-1)}
-          className="btn mb-4"
-          style={{
-            backgroundColor: "#ff8c00",
-            color: "white",
-            border: "none",
-            borderRadius: "8px",
-            padding: "10px 15px",
-          }}
+          onClick={() => navigate("/prof-dashboard")}
+          className="btn btn-prof"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            viewBox="0 0 16 16"
-          >
-            <path
-              fillRule="evenodd"
-              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
-            />
-          </svg>
+          Retour
         </button>
-
-        <h2 className="mb-4">Profil de Professeur</h2>
+      </div>
 
         {/* Profile Header */}
         <div className="d-flex align-items-center mb-5">
@@ -210,12 +194,7 @@ function ProfProfile() {
         {/* Informations Personnelles */}
         <div className="mb-5">
           <h4 className="mb-3">Informations Personnelles</h4>
-          <div
-            className="bg-white rounded-3 p-4"
-            style={{
-              border: "2px solid #1a1a1a",
-            }}
-          >
+          <div className="bg-white border rounded p-4">
             <div className="row">
               <div className="col-md-6 mb-3">
                 <strong>Nom</strong>
@@ -248,13 +227,7 @@ function ProfProfile() {
         {/* Cours Créés */}
         <div className="mb-5">
           <h4 className="mb-3">Cours Créés</h4>
-          <div
-            className="bg-white rounded-3"
-            style={{
-              border: "2px solid #1a1a1a",
-              overflow: "hidden",
-            }}
-          >
+          <div className="bg-white border rounded" style={{ overflow: "hidden" }}>
             <table className="table table-hover mb-0">
               <thead style={{ backgroundColor: "#f8f9fa" }}>
                 <tr>
@@ -336,10 +309,7 @@ function ProfProfile() {
           {/* Rating Summary */}
           <div className="row mb-4">
             <div className="col-md-4">
-              <div
-                className="bg-white rounded-3 p-4 text-center"
-                style={{ border: "2px solid #1a1a1a" }}
-              >
+              <div className="bg-white border rounded p-4 text-center">
                 <h1 className="mb-2" style={{ fontSize: "60px", fontWeight: "bold" }}>
                   4.5
                 </h1>
@@ -348,10 +318,7 @@ function ProfProfile() {
               </div>
             </div>
             <div className="col-md-8">
-              <div
-                className="bg-white rounded-3 p-4"
-                style={{ border: "2px solid #1a1a1a" }}
-              >
+              <div className="bg-white border rounded p-4">
                 {getRatingDistribution().map((item) => (
                   <div key={item.stars} className="d-flex align-items-center mb-2">
                     <span style={{ minWidth: "20px" }}>{item.stars}</span>
@@ -388,8 +355,7 @@ function ProfProfile() {
             {reviews.map((review) => (
               <div
                 key={review.id}
-                className="bg-white rounded-3 p-4 mb-3"
-                style={{ border: "2px solid #1a1a1a" }}
+                className="bg-white border rounded p-4 mb-3"
               >
                 <div className="d-flex align-items-center mb-2">
                   <div
@@ -433,49 +399,24 @@ function ProfProfile() {
           <div className="d-flex gap-3">
             <button
               onClick={handleEditProfile}
-              className="btn"
-              style={{
-                backgroundColor: "#28a745",
-                color: "white",
-                border: "none",
-                borderRadius: "8px",
-                padding: "10px 30px",
-                fontWeight: "500",
-              }}
+              className="btn btn-prof"
             >
               Modifier le profil
             </button>
             <button
               onClick={handleContactAdmin}
               className="btn"
-              style={{
-                backgroundColor: "#F5F5F5",
-                color: "#1a1a1a",
-                border: "2px solid #D3D3D3",
-                borderRadius: "8px",
-                padding: "10px 30px",
-                fontWeight: "500",
-              }}
             >
               Contacter l'admin
             </button>
             <button
               onClick={handleSuspendAccount}
-              className="btn"
-              style={{
-                backgroundColor: "#dc3545",
-                color: "white",
-                border: "none",
-                borderRadius: "8px",
-                padding: "10px 30px",
-                fontWeight: "500",
-              }}
+              className="btn btn-danger"
             >
               Suspendre le Compte
             </button>
           </div>
         </div>
-      </div>
     </div>
   );
 }

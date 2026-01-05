@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../constants/apiConstants";
-import ProfSidebarCollapsible from "../../components/ProfSidebarCollapsible";
 import { useAuth } from "../../contexts/AuthContext";
 import {
   Chart as ChartJS,
@@ -120,19 +119,63 @@ function ProfDashboard() {
     ],
   };
 
-  // Données pour le graphique en barres (progression des élèves)
+  // Calculer les statistiques de notes par formation
+  const getGradeStatsByTraining = () => {
+    const trainingStats = {};
+
+    inscriptions.forEach((inscription) => {
+      if (!inscription.session?.training || inscription.amount == null) return;
+
+      const trainingId = inscription.session.training.id;
+      const trainingTitle = inscription.session.training.title;
+      const grade = inscription.amount;
+
+      if (!trainingStats[trainingId]) {
+        trainingStats[trainingId] = {
+          title: trainingTitle,
+          grades: [],
+          total: 0,
+          count: 0,
+        };
+      }
+
+      trainingStats[trainingId].grades.push(grade);
+      trainingStats[trainingId].total += grade;
+      trainingStats[trainingId].count++;
+    });
+
+    // Calculer les moyennes
+    Object.keys(trainingStats).forEach((key) => {
+      const stats = trainingStats[key];
+      stats.average = stats.count > 0 ? stats.total / stats.count : 0;
+    });
+
+    return trainingStats;
+  };
+
+  const gradeStats = getGradeStatsByTraining();
+  const trainingsWithGrades = Object.values(gradeStats);
+
+  // Calculer la moyenne globale
+  const globalAverage = trainingsWithGrades.length > 0
+    ? trainingsWithGrades.reduce((sum, t) => sum + t.average, 0) / trainingsWithGrades.length
+    : 0;
+
+  // Convertir en pourcentage sur 20
+  const globalPercentage = ((globalAverage / 20) * 100).toFixed(0);
+
+  // Données pour le graphique en barres (notes moyennes par formation)
   const barChartData = {
-    labels: ["Sem. 1", "Sem. 2", "Sem. 3", "Sem. 4"],
+    labels: trainingsWithGrades.map(t =>
+      t.title.length > 20 ? t.title.substring(0, 20) + "..." : t.title
+    ),
     datasets: [
       {
-        label: "Progression (%)",
-        data: [85, 70, 65, 75],
-        backgroundColor: [
-          "rgba(139, 69, 19, 0.8)",
-          "rgba(139, 69, 19, 0.6)",
-          "rgba(139, 69, 19, 0.5)",
-          "rgba(139, 69, 19, 0.4)",
-        ],
+        label: "Note moyenne (/20)",
+        data: trainingsWithGrades.map(t => t.average.toFixed(1)),
+        backgroundColor: trainingsWithGrades.map((_, index) =>
+          `rgba(139, 69, 19, ${0.8 - index * 0.1})`
+        ),
         borderColor: "#8B4513",
         borderWidth: 2,
       },
@@ -149,74 +192,46 @@ function ProfDashboard() {
     },
   };
 
-  return (
-    <div style={{ backgroundColor: "#FFECC8", minHeight: "100vh" }}>
-      <div className="container-fluid">
-        <div className="row">
-          {/* Sidebar */}
-          <ProfSidebarCollapsible />
+  const barChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        max: 20,
+        ticks: {
+          stepSize: 5,
+        },
+      },
+    },
+  };
 
-          {/* Main Content */}
-          <div className="col p-5">
-              <div className="d-flex justify-content-between align-items-center mb-4">
-                <div className="d-flex align-items-center">
-                  <button
-                    onClick={() => navigate(-1)}
-                    className="btn me-3"
-                    style={{
-                      backgroundColor: "#ff8c00",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "8px",
-                      padding: "10px 15px",
-                    }}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
-                      />
-                    </svg>
-                  </button>
+  return (
+    <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+                <h3>Tableau de bord Professeur</h3>
+                <div className="d-flex gap-3">
                   <button
                     onClick={() => navigate("/course-content")}
-                    className="btn"
-                    style={{
-                      backgroundColor: "#FFA500",
-                      color: "#1a1a1a",
-                      border: "2px solid #1a1a1a",
-                      borderRadius: "8px",
-                      padding: "10px 20px",
-                      fontWeight: "500",
-                    }}
+                    className="btn btn-prof"
                   >
                     Créer un nouveau cours
                   </button>
+                  <button
+                    onClick={() => navigate("/sessions")}
+                    className="btn btn-prof"
+                  >
+                    Voir le calendrier
+                  </button>
                 </div>
-                <button
-                  onClick={() => navigate("/sessions")}
-                  className="btn"
-                  style={{
-                    backgroundColor: "#FFA500",
-                    color: "#1a1a1a",
-                    border: "2px solid #1a1a1a",
-                    borderRadius: "8px",
-                    padding: "10px 20px",
-                    fontWeight: "500",
-                  }}
-                >
-                  Voir le calendrier
-                </button>
               </div>
 
               <div>
-                <h2>Tableau de bord Professeur</h2>
                 <p className="text-secondary">
                   Vue d'ensemble de vos cours et de vos performances
                 </p>
@@ -225,12 +240,7 @@ function ProfDashboard() {
               {/* Mes cours Section */}
               <div className="mt-4">
                 <h4 className="mb-3">Mes cours</h4>
-                <div
-                  className="bg-white rounded-3 p-4"
-                  style={{
-                    border: "2px solid #1a1a1a",
-                  }}
-                >
+                <div className="bg-white border rounded p-4">
                   <div className="row g-4">
                     {courses.map((course) => (
                       <div key={course.id} className="col-md-4">
@@ -270,35 +280,35 @@ function ProfDashboard() {
               <div className="mt-4 pb-5">
                 <h4 className="mb-3">Statistiques</h4>
                 <div className="row g-4">
-                  {/* Progression des élèves */}
+                  {/* Notes moyennes par formation */}
                   <div className="col-md-6">
-                    <div
-                      className="bg-white rounded-3 p-4"
-                      style={{
-                        border: "2px solid #1a1a1a",
-                        height: "100%",
-                      }}
-                    >
-                      <h5 className="mb-3">Progression des élèves</h5>
-                      <h2 className="mb-2">75%</h2>
+                    <div className="bg-white border rounded p-4" style={{ height: "100%" }}>
+                      <h5 className="mb-3">Notes moyennes par formation</h5>
+                      <h2 className="mb-2">
+                        {trainingsWithGrades.length > 0
+                          ? `${globalAverage.toFixed(1)}/20`
+                          : "Aucune note"}
+                      </h2>
                       <p className="text-secondary mb-4" style={{ fontSize: "14px" }}>
-                        Cours: Introduction à la programmation
+                        {trainingsWithGrades.length > 0
+                          ? `Moyenne globale (${globalPercentage}%) - ${trainingsWithGrades.length} formation${trainingsWithGrades.length > 1 ? 's' : ''}`
+                          : "Aucune note disponible pour le moment"}
                       </p>
                       <div style={{ height: "250px" }}>
-                        <Bar data={barChartData} options={chartOptions} />
+                        {trainingsWithGrades.length > 0 ? (
+                          <Bar data={barChartData} options={barChartOptions} />
+                        ) : (
+                          <div className="d-flex align-items-center justify-content-center h-100">
+                            <p className="text-secondary">Aucune donnée à afficher</p>
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
 
                   {/* Évolution des inscriptions */}
                   <div className="col-md-6">
-                    <div
-                      className="bg-white rounded-3 p-4"
-                      style={{
-                        border: "2px solid #1a1a1a",
-                        height: "100%",
-                      }}
-                    >
+                    <div className="bg-white border rounded p-4" style={{ height: "100%" }}>
                       <h5 className="mb-3">Évolution des inscriptions</h5>
                       <h2 className="mb-2">
                         <span ref={countupInscriptionsRef}>0</span>
@@ -313,9 +323,6 @@ function ProfDashboard() {
                   </div>
                 </div>
               </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

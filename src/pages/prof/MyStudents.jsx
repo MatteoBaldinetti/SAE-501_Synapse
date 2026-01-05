@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_URL } from "../../constants/apiConstants";
-import ProfSidebarCollapsible from "../../components/ProfSidebarCollapsible";
 import { useAuth } from "../../contexts/AuthContext";
 
 function MyStudents() {
@@ -9,6 +8,8 @@ function MyStudents() {
   const [searchTerm, setSearchTerm] = useState("");
   const [editingInscription, setEditingInscription] = useState(null);
   const [editNote, setEditNote] = useState("");
+  const [selectedTraining, setSelectedTraining] = useState("all");
+  const [availableTrainings, setAvailableTrainings] = useState([]);
   const navigate = useNavigate();
   const { userId } = useAuth();
 
@@ -34,6 +35,17 @@ function MyStudents() {
       );
 
       setInscriptions(profInscriptions);
+
+      // Extraire les formations uniques
+      const trainings = [...new Set(profInscriptions
+        .filter(i => i.session?.training)
+        .map(i => JSON.stringify({
+          id: i.session.training.id,
+          title: i.session.training.title
+        })))]
+        .map(t => JSON.parse(t));
+
+      setAvailableTrainings(trainings);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -54,6 +66,36 @@ function MyStudents() {
       email.includes(searchTerm.toLowerCase())
     );
   });
+
+  // Grouper les élèves par formation
+  const groupByTraining = () => {
+    const grouped = {};
+
+    filteredStudents.forEach((inscription) => {
+      const trainingId = inscription.session?.training?.id;
+      const trainingTitle = inscription.session?.training?.title || "Sans formation";
+
+      if (!grouped[trainingId]) {
+        grouped[trainingId] = {
+          title: trainingTitle,
+          students: []
+        };
+      }
+
+      grouped[trainingId].students.push(inscription);
+    });
+
+    return Object.values(grouped);
+  };
+
+  const groupedStudents = groupByTraining();
+
+  // Filtrer par formation sélectionnée
+  const displayedGroups = selectedTraining === "all"
+    ? groupedStudents
+    : groupedStudents.filter(group =>
+        group.students.some(s => s.session?.training?.id === parseInt(selectedTraining))
+      );
 
   // Update inscription status
   const updateStatus = async (inscriptionId, newStatus) => {
@@ -233,39 +275,42 @@ function MyStudents() {
   };
 
   return (
-    <div style={{ backgroundColor: "#FFECC8", minHeight: "100vh" }}>
-      <div className="container-fluid">
-        <div className="row">
-          <ProfSidebarCollapsible />
+    <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h3>Mes élèves</h3>
+        <button
+          onClick={() => navigate("/prof-dashboard")}
+          className="btn btn-prof"
+        >
+          Retour
+        </button>
+      </div>
 
-          <div className="col p-5">
-            <div className="d-flex align-items-center mb-4">
-              <button
-                onClick={() => navigate(-1)}
-                className="btn me-3"
-                style={{
-                  backgroundColor: "#ff8c00",
-                  color: "white",
-                  border: "none",
-                  borderRadius: "8px",
-                  padding: "10px 15px",
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
-                  />
-                </svg>
-              </button>
-              <h2 className="mb-0">Mes élèves</h2>
-            </div>
+      {/* Training Filter */}
+      <div className="mb-4">
+        <label className="form-label" style={{ fontWeight: "500", marginBottom: "10px" }}>
+          Filtrer par formation :
+        </label>
+        <select
+          className="form-select"
+          value={selectedTraining}
+          onChange={(e) => setSelectedTraining(e.target.value)}
+          style={{
+            borderRadius: "8px",
+            border: "1px solid #cbd5e0",
+            backgroundColor: "#e8f0f8",
+            padding: "10px 15px",
+            maxWidth: "400px",
+          }}
+        >
+          <option value="all">Toutes les formations</option>
+          {availableTrainings.map((training) => (
+            <option key={training.id} value={training.id}>
+              {training.title}
+            </option>
+          ))}
+        </select>
+      </div>
 
             <div className="position-relative mb-4">
               <svg
@@ -301,74 +346,56 @@ function MyStudents() {
               />
             </div>
 
-            <div
-              className="bg-white rounded-3 mt-4 pb-5"
-              style={{
-                border: "2px solid #1a1a1a",
-                overflow: "hidden",
-              }}
-            >
-              <table className="table table-hover mb-0">
-                <thead style={{ backgroundColor: "#f8f9fa" }}>
-                  <tr>
-                    <th style={{ padding: "15px", borderBottom: "2px solid #dee2e6" }}>
-                      Nom
-                    </th>
-                    <th style={{ padding: "15px", borderBottom: "2px solid #dee2e6" }}>
-                      Email
-                    </th>
-                    <th style={{ padding: "15px", borderBottom: "2px solid #dee2e6" }}>
-                      Hébergement
-                    </th>
-                    <th style={{ padding: "15px", borderBottom: "2px solid #dee2e6" }}>
-                      Dernière activité
-                    </th>
-                    <th style={{ padding: "15px", borderBottom: "2px solid #dee2e6" }}>
-                      Note
-                    </th>
-                    <th style={{ padding: "15px", borderBottom: "2px solid #dee2e6" }}>
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredStudents.map((inscription) => (
-                    <tr key={inscription.id}>
-                      <td style={{ padding: "15px", verticalAlign: "middle" }}>
-                        {inscription.user?.firstname} {inscription.user?.lastname}
-                      </td>
-                      <td style={{ padding: "15px", verticalAlign: "middle" }}>
-                        {inscription.user?.email || "-"}
-                      </td>
-                      <td style={{ padding: "15px", verticalAlign: "middle" }}>
-                        {getStatusBadge(inscription.id, inscription.status)}
-                      </td>
-                      <td style={{ padding: "15px", verticalAlign: "middle" }}>
-                        {formatDate(inscription.date || inscription.inscriptionDate)}
-                      </td>
-                      <td style={{ padding: "15px", verticalAlign: "middle" }}>
-                        {inscription.amount ? `${inscription.amount}/20` : "-"}
-                      </td>
-                      <td style={{ padding: "15px", verticalAlign: "middle" }}>
-                        <button
-                          onClick={() => handleEditClick(inscription)}
-                          className="btn btn-sm"
-                          style={{
-                            backgroundColor: "transparent",
-                            border: "1px solid #1a1a1a",
-                            color: "#1a1a1a",
-                            borderRadius: "8px",
-                            padding: "5px 15px",
-                          }}
-                        >
-                          Modifier
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            {displayedGroups.length > 0 ? (
+              displayedGroups.map((group, groupIndex) => (
+                <div key={groupIndex} className="mb-4">
+                  <h5 className="mb-3">
+                    {group.title}
+                  </h5>
+                  <div className="container">
+                    <div className="row p-3 border rounded-top-3 bg-white">
+                      <div className="col-2"><b>Nom</b></div>
+                      <div className="col-2"><b>Email</b></div>
+                      <div className="col-2"><b>Statut</b></div>
+                      <div className="col-2"><b>Dernière activité</b></div>
+                      <div className="col-2"><b>Note</b></div>
+                      <div className="col-2"><b>Actions</b></div>
+                    </div>
+                    {group.students.map((inscription) => (
+                      <div key={inscription.id} className="row py-3 border bg-white">
+                        <div className="col-2">
+                          {inscription.user?.firstname} {inscription.user?.lastname}
+                        </div>
+                        <div className="col-2">
+                          {inscription.user?.email || "-"}
+                        </div>
+                        <div className="col-2">
+                          {getStatusBadge(inscription.id, inscription.status)}
+                        </div>
+                        <div className="col-2">
+                          {formatDate(inscription.date || inscription.inscriptionDate)}
+                        </div>
+                        <div className="col-2">
+                          {inscription.amount ? `${inscription.amount}/20` : "-"}
+                        </div>
+                        <div className="col-2">
+                          <button
+                            onClick={() => handleEditClick(inscription)}
+                            className="btn btn-prof btn-sm"
+                          >
+                            Modifier
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="bg-white border rounded p-5 text-center mt-4">
+                <p className="mb-0">Aucun élève trouvé</p>
+              </div>
+            )}
 
             {/* Modal d'édition de note */}
             {editingInscription && (
@@ -420,26 +447,12 @@ function MyStudents() {
                     <button
                       onClick={() => setEditingInscription(null)}
                       className="btn"
-                      style={{
-                        backgroundColor: "#F5F5F5",
-                        color: "#1a1a1a",
-                        border: "1px solid #D3D3D3",
-                        borderRadius: "8px",
-                        padding: "8px 20px",
-                      }}
                     >
                       Annuler
                     </button>
                     <button
                       onClick={handleSaveNote}
-                      className="btn"
-                      style={{
-                        backgroundColor: "#28a745",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "8px",
-                        padding: "8px 20px",
-                      }}
+                      className="btn btn-prof"
                     >
                       Enregistrer
                     </button>
@@ -447,9 +460,6 @@ function MyStudents() {
                 </div>
               </div>
             )}
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

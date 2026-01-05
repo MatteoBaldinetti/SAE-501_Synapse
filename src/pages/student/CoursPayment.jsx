@@ -25,6 +25,12 @@ function CoursPayment() {
   const location = useLocation();
   const id = location.state;
 
+  useEffect(() => {
+    if (id === null) {
+      navigate("/403");
+    }
+  }, [id])
+
   const [data, setData] = useState([]);
   const [payment, setPayment] = useState("card");
   const [displayPayment, setDisplayPayment] = useState("card");
@@ -197,7 +203,7 @@ function CoursPayment() {
       body: JSON.stringify(inscription),
     });
 
-    navigate("/payment-confirmation");
+    navigate("/payment-confirmation", {state: {id}});
   };
 
   useEffect(() => {
@@ -656,7 +662,7 @@ function CoursPayment() {
                 </svg>
                 Payer {data.price}€
               </button>
-              
+
             </div>
             <p className="mt-4 fw-bold text-center">
               Garantie satisfait ou remboursé de 30 jours

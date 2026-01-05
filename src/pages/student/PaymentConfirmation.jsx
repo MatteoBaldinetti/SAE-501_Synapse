@@ -11,12 +11,21 @@
  * Route : /payment-confirmation
  * Utilisé par : App.jsx
  */
-
+import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../../styles/PaymentConfirmation.css";
+import { useNavigate } from "react-router-dom";
 
 function PaymentConfirmation() {
     const location = useLocation();
+    const id = location.state;
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (id === null) {
+            navigate("/403");
+        }
+    }, [id])
 
     return (
         <div className="container-fluid content-container blue-background">

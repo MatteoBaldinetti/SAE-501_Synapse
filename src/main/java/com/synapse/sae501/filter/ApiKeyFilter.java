@@ -18,7 +18,9 @@ public class ApiKeyFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-        return !request.getRequestURI().startsWith("/api/") || "OPTIONS".equalsIgnoreCase(request.getMethod());
+        return !request.getRequestURI().startsWith("/api/") ||
+                "OPTIONS".equalsIgnoreCase(request.getMethod()) ||
+                request.getRequestURI().startsWith("/api/files/download");
     }
 
     @Override

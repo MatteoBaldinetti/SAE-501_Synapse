@@ -1,0 +1,27 @@
+.error-401 {
+    text-align: center;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-401 h1 {
+    font-size: 10rem;
+    color: #005E87;
+}
+
+.error-401 h2 {
+    font-size: 2rem;
+}
+
+.blue-button {
+    background-color: #005E87;
+    color: white;
+    border: none;
+}
+
+.blue-button:hover {
+    background-color: #0C232B;
+}

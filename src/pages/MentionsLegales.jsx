@@ -1,3 +1,12 @@
+/**
+ * MentionsLegales.jsx - Page des mentions légales
+ * 
+ * Affiche les mentions légales obligatoires du site.
+ * 
+ * Route : /mentions-legales
+ * Utilisé par : App.jsx, Footer.jsx
+ */
+
 import "../App.css"
 
 function MentionsLegales() {

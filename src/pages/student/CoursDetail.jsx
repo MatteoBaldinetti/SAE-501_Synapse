@@ -1,3 +1,21 @@
+/**
+ * CoursDetail.jsx - Page de détails d'une formation
+ * 
+ * Affiche les informations complètes d'une formation :
+ * - Titre, catégorie, image
+ * - Description détaillée
+ * - Ce que vous allez apprendre
+ * - Prérequis
+ * - Durée et prix
+ * - Sessions disponibles
+ * - Bouton d'inscription/paiement
+ * - Visualiseur 3D si modèle disponible
+ * 
+ * Route : /cours-detail/:id
+ * Utilisé par : App.jsx
+ * Dépendances : API_URL, ThreeDViewer (optionnel)
+ */
+
 import "../../styles/CoursDetail.css";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";

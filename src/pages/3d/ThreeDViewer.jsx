@@ -1,3 +1,20 @@
+/**
+ * ThreeDViewer.jsx - Visualiseur 3D pour les modèles de formation
+ * 
+ * Permet de visualiser des modèles 3D associés aux formations :
+ * - Chargement de fichiers 3D (GLB, GLTF, etc.)
+ * - Contrôles de rotation, zoom, pan
+ * - Annotations sur le modèle
+ * 
+ * Peut être utilisé :
+ * - En page standalone (route /3d-viewer)
+ * - Intégré dans CoursDetail.jsx
+ * 
+ * Route : /3d-viewer
+ * Utilisé par : App.jsx, CoursDetail.jsx (optionnel)
+ * Dépendances : Three.js ou bibliothèque 3D similaire
+ */
+
 import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Html } from '@react-three/drei';

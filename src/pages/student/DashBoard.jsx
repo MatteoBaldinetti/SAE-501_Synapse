@@ -1,3 +1,18 @@
+/**
+ * DashBoard.jsx - Tableau de bord étudiant
+ * 
+ * Affiche pour l'étudiant :
+ * - Ses formations en cours
+ * - Ses formations terminées
+ * - Ses prochaines sessions
+ * - Son profil (via ProfileComponents)
+ * - Ses certificats/badges
+ * 
+ * Route : /dashboard
+ * Utilisé par : App.jsx
+ * Dépendances : AuthContext, ProfileComponents, API_URL
+ */
+
 import "../../styles/Dashboard.css";
 import { useEffect, useState } from "react";
 import ProfileComponents from "../../components/ProfileComponents";
@@ -5,6 +20,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import TableCours from "../../components/TableCours";
 import { API_URL } from "../../constants/apiConstants";
 import logo from "../../assets/images/smallLogoPDF.jpeg";
+import { useNavigate } from "react-router-dom";
 
 // Pour faire les PDF de la facture
 import jsPDF from "jspdf";
@@ -19,6 +35,16 @@ function Dashboard() {
     const [userSession, setUserSession] = useState([]);
     const [userEvaluation, setUserEvaluation] = useState([]);
     const [userPayment, setUserPayment] = useState([]);
+
+    // Gère la redirection en cas d'erreur d'accès
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (userType === null) {
+            navigate("/401", { replace: true });
+        } else if (userType !== 0) {
+            navigate("/403", { replace: true });
+        }
+    }, [userType, navigate]);
 
     useEffect(() => {
         const fetchData = async () => {

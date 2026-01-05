@@ -1,3 +1,17 @@
+/**
+ * CoursPayment.jsx - Page de paiement d'une formation
+ * 
+ * Permet à l'utilisateur de :
+ * - Voir le récapitulatif de sa commande
+ * - Sélectionner une session
+ * - Saisir ses informations de paiement
+ * - Valider le paiement
+ * 
+ * Route : /cours-payment
+ * Utilisé par : App.jsx
+ * Dépendances : API_URL
+ */
+
 import "../../styles/CoursPayment.css";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -636,7 +650,7 @@ function CoursPayment() {
                   viewBox="0 0 448 512"
                 >
                   <path
-                    fill="#ffffff"
+                    fill={isFormValid() ? "#ffffff" : "#6B6E71"}
                     d="M400 192h-24v-72C376 53.8 322.2 0 256 0S136 53.8 136 120v72H112c-26.5 0-48 21.5-48 48v224c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V240c0-26.5-21.5-48-48-48zM184 120c0-39.7 32.3-72 72-72s72 32.3 72 72v72H184v-72zm216 344c0 8.8-7.2 16-16 16H112c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16h288c8.8 0 16 7.2 16 16v224z"
                   />
                 </svg>

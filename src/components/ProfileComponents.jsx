@@ -1,3 +1,22 @@
+/**
+ * ProfileComponents.jsx - Composant de gestion du profil utilisateur
+ * 
+ * Permet à l'utilisateur de :
+ * - Voir ses informations personnelles (nom, prénom, email, téléphone)
+ * - Modifier ses informations
+ * - Changer sa photo de profil (avec upload)
+ * - Modifier son mot de passe
+ * - Supprimer son compte
+ * 
+ * Fonctionnalités :
+ * - Upload d'image de profil avec aperçu
+ * - Validation des champs (email, téléphone)
+ * - Modal de confirmation pour la suppression du compte
+ * 
+ * Utilisé par : Dashboard.jsx, AdminView.jsx
+ * Dépendances : AuthContext, API_URL, ProfileImageUploadModal, ConfirmationDeleteModal
+ */
+
 import { useState, useEffect } from 'react';
 import { API_URL } from "../constants/apiConstants";
 import { useAuth } from "../contexts/AuthContext";

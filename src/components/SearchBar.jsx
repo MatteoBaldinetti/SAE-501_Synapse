@@ -1,3 +1,14 @@
+/**
+ * SearchBar.jsx - Barre de recherche pour filtrer les formations
+ * 
+ * Permet aux utilisateurs de rechercher des formations par :
+ * - Titre
+ * - Catégorie
+ * - Mots-clés dans la description
+ * 
+ * Utilisé par : Cours.jsx
+ */
+
 import { useState } from "react";
 import "../styles/Cours.css";
 

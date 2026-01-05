@@ -1,3 +1,17 @@
+/**
+ * Contact.jsx - Page de contact
+ * 
+ * Formulaire de contact permettant aux visiteurs de :
+ * - Envoyer un message à l'équipe
+ * - Poser des questions
+ * - Demander des informations
+ * 
+ * Affiche également les coordonnées de contact (email, téléphone, adresse).
+ * 
+ * Route : /contact
+ * Utilisé par : App.jsx
+ */
+
 import { useState } from "react";
 import "../styles/Contact.css";
 

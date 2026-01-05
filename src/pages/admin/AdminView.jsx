@@ -20,7 +20,7 @@
  * Dépendances : AuthContext, tous les composants Admin
  */
 
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import "../../styles/AdminDashboard.css";
 import AdminFormation from "../../components/admin/AdminFormation";
 import AdminDashboard from "../../components/admin/AdminDashboard";
@@ -48,12 +48,12 @@ function AdminView() {
   // Gère la redirection en cas d'erreur d'accès
   const navigate = useNavigate();
   useEffect(() => {
-  if (userType === null) {
-    navigate("/401", { replace: true });
-  } else if (userType !== 2) {
-    navigate("/403", { replace: true });
-  }
-}, [userType, navigate]);
+    if (userType === null) {
+      navigate("/401", { replace: true });
+    } else if (userType !== 2) {
+      navigate("/403", { replace: true });
+    }
+  }, [userType, navigate]);
 
   document.title = "Admin - Dashboard";
 

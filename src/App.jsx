@@ -20,6 +20,9 @@
  * - /cgu, /mentions-legales, /rgpd, /politique-confidentialite : Pages légales
  * - /3d-viewer : Visualiseur 3D
  * - /reset-password : Réinitialisation du mot de passe
+ * - /401 : Page d'erreur - Non autorisé
+ * - /403 : Page d'erreur - Accès interdit
+ * - * : Page d'erreur 404 - Page non trouvée
  *
  * Utilisé par : main.jsx
  */
@@ -51,6 +54,9 @@ import ProfDashboard from "./pages/prof/ProfDashboard";
 import Sessions from "./pages/prof/Sessions";
 import ProfProfile from "./pages/prof/ProfProfile";
 import ResetPassword from "./pages/ResetPassword";
+import Error404 from "./pages/errors/Error404";
+import Error401 from "./pages/errors/Error401";
+import Error403 from "./pages/errors/Error403";
 
 function App() {
   return (
@@ -86,6 +92,9 @@ function App() {
           />
           <Route path="/3d-viewer" element={<ThreeDViewer />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="*" element={<Error404 />} />
+          <Route path="/401" element={<Error401 />} />
+          <Route path="/403" element={<Error403 />} />
         </Routes>
         <Footer />
       </AuthProvider>

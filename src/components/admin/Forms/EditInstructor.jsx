@@ -29,7 +29,7 @@ function EditInstructor({ instructorId, onClose }) {
     const fetchInstructor = async () => {
       try {
         const response = await fetch(
-          `${API_URL}/api/instructors/${instructorId}`, {
+          `${API_URL}/instructors/${instructorId}`, {
             headers: { "X-API-KEY": API_KEY }
           }
         );
@@ -62,7 +62,7 @@ function EditInstructor({ instructorId, onClose }) {
   useEffect(() => {
     const fetchSessions = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/sessions`, {
+        const response = await fetch(`${API_URL}/sessions`, {
           headers: { "X-API-KEY": API_KEY }
         });
         if (!response.ok) {
@@ -100,7 +100,7 @@ function EditInstructor({ instructorId, onClose }) {
 
     try {
       const response = await fetch(
-        `${API_URL}/api/instructors/${instructorId}`,
+        `${API_URL}/instructors/${instructorId}`,
         {
           method: "PUT",
           headers: {
@@ -141,7 +141,7 @@ function EditInstructor({ instructorId, onClose }) {
 
     try {
       const response = await fetch(
-        `${API_URL}/api/instructors/${instructorId}`,
+        `${API_URL}/instructors/${instructorId}`,
         {
           method: "DELETE",
           headers: { "X-API-KEY": API_KEY }

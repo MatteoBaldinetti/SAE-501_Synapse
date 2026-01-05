@@ -28,7 +28,7 @@ function AdminPlaces() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/places`, {
+      const res = await fetch(`${API_URL}/places`, {
         headers: { "X-API-KEY": API_KEY }
       });
       const data = await res.json();
@@ -48,7 +48,7 @@ function AdminPlaces() {
   const handleCloseEdit = () => {
     setEditPlaceId(null);
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/places`, {
+      const res = await fetch(`${API_URL}/places`, {
         headers: { "X-API-KEY": API_KEY }
       });
       const data = await res.json();
@@ -60,7 +60,7 @@ function AdminPlaces() {
   const handleCloseCreate = () => {
     setShowCreateForm(false);
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/places`, {
+      const res = await fetch(`${API_URL}/places`, {
         headers: { "X-API-KEY": API_KEY }
       });
       const data = await res.json();
@@ -76,6 +76,8 @@ function AdminPlaces() {
   if (showCreateForm) {
     return <CreatePlace onClose={handleCloseCreate} />;
   }
+
+  const placesToDisplay = filteredPlaces.length > 0 ? filteredPlaces : data;
 
   return (
     <div>
@@ -119,7 +121,7 @@ function AdminPlaces() {
               <b>Action</b>
             </div>
           </div>
-          {(filteredPlaces.length > 0 ? filteredPlaces : data).map(
+          {placesToDisplay.map(
             (place, index) => (
               <div className="row py-3 border bg-white" key={place.id || index}>
                 <div className="col-3">{place.city || "N/A"}</div>

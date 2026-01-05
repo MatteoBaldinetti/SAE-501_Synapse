@@ -28,7 +28,7 @@ function AdminFormation() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/trainings`, {
+      const res = await fetch(`${API_URL}/trainings`, {
         headers: { "X-API-KEY": API_KEY }
       });
       const data = await res.json();
@@ -49,7 +49,7 @@ function AdminFormation() {
     setEditFormationId(null);
     // Recharger les données après modification
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/trainings`, {
+      const res = await fetch(`${API_URL}/trainings`, {
         headers: { "X-API-KEY": API_KEY }
       });
       const data = await res.json();
@@ -62,7 +62,7 @@ function AdminFormation() {
     setShowCreateForm(false);
     // Recharger les données après création
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/trainings`, {
+      const res = await fetch(`${API_URL}/trainings`, {
         headers: { "X-API-KEY": API_KEY }
       });
       const data = await res.json();
@@ -82,6 +82,8 @@ function AdminFormation() {
   if (showCreateForm) {
     return <CreateFormation onClose={handleCloseCreate} />;
   }
+
+  const formationsToDisplay = filteredCourses.length > 0 ? filteredCourses : data;
 
   // Sinon, afficher la liste des formations
   return (
@@ -120,7 +122,7 @@ function AdminFormation() {
               <b>Actions</b>
             </div>
           </div>
-          {data.map((formation, index) => (
+          {formationsToDisplay.map((formation, index) => (
             <div
               className="row py-3 border bg-white"
               key={formation.id || index}

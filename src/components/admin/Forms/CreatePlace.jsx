@@ -40,7 +40,7 @@ function CreatePlace({ onClose }) {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/api/places`, {
+      const response = await fetch(`${API_URL}/places`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

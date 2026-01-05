@@ -78,16 +78,16 @@ function AdminDashboard() {
       try {
         const [usersRes, trainingsRes, sessionsRes, inscriptionsRes] =
           await Promise.all([
-            fetch(`${API_URL}/api/users`, {
+            fetch(`${API_URL}/users`, {
               headers: { "X-API-KEY": API_KEY }
             }),
-            fetch(`${API_URL}/api/trainings`, {
+            fetch(`${API_URL}/trainings`, {
               headers: { "X-API-KEY": API_KEY }
             }),
-            fetch(`${API_URL}/api/sessions`, {
+            fetch(`${API_URL}/sessions`, {
               headers: { "X-API-KEY": API_KEY }
             }),
-            fetch(`${API_URL}/api/inscriptions`, {
+            fetch(`${API_URL}/inscriptions`, {
               headers: { "X-API-KEY": API_KEY }
             }),
           ]);

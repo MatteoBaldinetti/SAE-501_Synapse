@@ -39,7 +39,7 @@ function CreateInstructor({ onClose }) {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/api/instructors`, {
+      const response = await fetch(`${API_URL}/instructors`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

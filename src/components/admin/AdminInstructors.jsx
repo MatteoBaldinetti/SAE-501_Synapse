@@ -28,7 +28,7 @@ function AdminInstructors() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/instructors`, {
+      const res = await fetch(`${API_URL}/instructors`, {
         headers: { "X-API-KEY": API_KEY }
       });
       const data = await res.json();
@@ -49,7 +49,7 @@ function AdminInstructors() {
     setEditSessionId(null);
     // Recharger les données après modification
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/instructors`, {
+      const res = await fetch(`${API_URL}/instructors`, {
         headers: { "X-API-KEY": API_KEY }
       });
       const data = await res.json();
@@ -62,7 +62,7 @@ function AdminInstructors() {
     setShowCreateForm(false);
     // Recharger les données après création
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/instructors`, {
+      const res = await fetch(`${API_URL}/instructors`, {
         headers: { "X-API-KEY": API_KEY }
       });
       const data = await res.json();
@@ -82,6 +82,8 @@ function AdminInstructors() {
   if (showCreateForm) {
     return <CreateInstructor onClose={handleCloseCreate} />;
   }
+  
+  const instructorsToDisplay = filteredSessions.length > 0 ? filteredSessions : data;
 
   // Sinon, afficher la liste des sessions
   return (
@@ -98,11 +100,11 @@ function AdminInstructors() {
         <div className="row mt-3">
           <div className="col-12 mx-auto">
             <SearchBar
-              placeholder="Rechercher une session"
-              data={data.map((s) => s.title)}
-              onResults={(filteredTitles) =>
+              placeholder="Rechercher un enseignant"
+              data={data.map((s) => s.firstName + " " + s.lastName)}
+              onResults={(filteredNames) =>
                 setFilteredSessions(
-                  data.filter((s) => filteredTitles.includes(s.title))
+                  data.filter((s) => filteredNames.includes(s.firstName + " " + s.lastName))
                 )
               }
             />
@@ -123,7 +125,7 @@ function AdminInstructors() {
               <b>Action</b>
             </div>
           </div>
-          {data.map((instructor, index) => (
+          {instructorsToDisplay.map((instructor, index) => (
             <div
               className="row py-3 border bg-white"
               key={instructor.id || index}

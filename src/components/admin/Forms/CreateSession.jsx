@@ -39,7 +39,7 @@ function CreateSession({ onClose }) {
   useEffect(() => {
     const fetchInstructors = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/instructors`, {
+        const response = await fetch(`${API_URL}/instructors`, {
           headers: { "X-API-KEY": API_KEY }
         });
         if (!response.ok) {
@@ -62,7 +62,7 @@ function CreateSession({ onClose }) {
   useEffect(() => {
     const fetchPlaces = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/places`, {
+        const response = await fetch(`${API_URL}/places`, {
           headers: { "X-API-KEY": API_KEY }
         });
         if (!response.ok) {
@@ -95,7 +95,7 @@ function CreateSession({ onClose }) {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/api/sessions`, {
+      const response = await fetch(`${API_URL}/sessions`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -35,7 +35,7 @@ function EditSession({ sessionId, onClose }) {
   useEffect(() => {
     const fetchInstructors = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/instructors`, {
+        const response = await fetch(`${API_URL}/instructors`, {
           headers: { "X-API-KEY": API_KEY }
         });
         if (!response.ok) {
@@ -57,7 +57,7 @@ function EditSession({ sessionId, onClose }) {
   useEffect(() => {
     const fetchPlaces = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/places`, {
+        const response = await fetch(`${API_URL}/places`, {
           headers: { "X-API-KEY": API_KEY }
         });
         if (!response.ok) {
@@ -79,7 +79,7 @@ function EditSession({ sessionId, onClose }) {
   useEffect(() => {
     const fetchSession = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/sessions/${sessionId}`, {
+        const response = await fetch(`${API_URL}/sessions/${sessionId}`, {
           headers: { "X-API-KEY": API_KEY }
         });
 
@@ -133,7 +133,7 @@ function EditSession({ sessionId, onClose }) {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/api/sessions/${sessionId}`, {
+      const response = await fetch(`${API_URL}/sessions/${sessionId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -172,7 +172,7 @@ function EditSession({ sessionId, onClose }) {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/api/sessions/${sessionId}`, {
+      const response = await fetch(`${API_URL}/sessions/${sessionId}`, {
         method: "DELETE",
         headers: { "X-API-KEY": API_KEY }
       });

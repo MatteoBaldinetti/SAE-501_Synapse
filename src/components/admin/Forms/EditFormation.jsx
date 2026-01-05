@@ -33,7 +33,7 @@ function EditFormation({ formationId, onClose }) {
   useEffect(() => {
     const fetchFormation = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/trainings/${formationId}`, {
+        const response = await fetch(`${API_URL}/trainings/${formationId}`, {
           headers: { "X-API-KEY": API_KEY }
         });
 
@@ -81,7 +81,7 @@ function EditFormation({ formationId, onClose }) {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/api/trainings/${formationId}`, {
+      const response = await fetch(`${API_URL}/trainings/${formationId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -120,7 +120,7 @@ function EditFormation({ formationId, onClose }) {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/api/trainings/${formationId}`, {
+      const response = await fetch(`${API_URL}/trainings/${formationId}`, {
         method: "DELETE",
         headers: { "X-API-KEY": API_KEY }
       });

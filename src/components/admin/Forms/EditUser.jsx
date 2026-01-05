@@ -30,7 +30,7 @@ function EditUser({ userId, onClose }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/users/${userId}`, {
+        const response = await fetch(`${API_URL}/users/${userId}`, {
           headers: { "X-API-KEY": API_KEY }
         });
 
@@ -83,7 +83,7 @@ function EditUser({ userId, onClose }) {
         delete dataToSend.password;
       }
 
-      const response = await fetch(`${API_URL}/api/users/${userId}`, {
+      const response = await fetch(`${API_URL}/users/${userId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -122,7 +122,7 @@ function EditUser({ userId, onClose }) {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/api/users/${userId}`, {
+      const response = await fetch(`${API_URL}/users/${userId}`, {
         method: "DELETE",
         headers: { "X-API-KEY": API_KEY }
       });

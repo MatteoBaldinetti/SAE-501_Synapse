@@ -20,7 +20,7 @@
  * Dépendances : AuthContext, tous les composants Admin
  */
 
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import "../../styles/AdminDashboard.css";
 import AdminFormation from "../../components/admin/AdminFormation";
 import AdminDashboard from "../../components/admin/AdminDashboard";
@@ -30,6 +30,7 @@ import AdminInstructors from "../../components/admin/AdminInstructors";
 import AdminPlaces from "../../components/admin/AdminPlaces";
 import ProfileComponents from "../../components/ProfileComponents";
 import { useAuth } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function AdminView() {
   const [CurrentLayout, SetCurrentLayout] = useState("dashboard");
@@ -40,8 +41,19 @@ function AdminView() {
     userLastname,
     userPhone,
     userImage,
+    userType,
     logout,
   } = useAuth();
+
+  // Gère la redirection en cas d'erreur d'accès
+  const navigate = useNavigate();
+  useEffect(() => {
+  if (userType === null) {
+    navigate("/401", { replace: true });
+  } else if (userType !== 2) {
+    navigate("/403", { replace: true });
+  }
+}, [userType, navigate]);
 
   document.title = "Admin - Dashboard";
 
@@ -53,9 +65,8 @@ function AdminView() {
             <div className="profil gestionnaire ms-3">
               <h4>Profil</h4>
               <div
-                className={`${
-                  CurrentLayout === "profile" ? "selected-button" : ""
-                } d-flex align-items-center p-2 my-2`}
+                className={`${CurrentLayout === "profile" ? "selected-button" : ""
+                  } d-flex align-items-center p-2 my-2`}
                 onClick={() => SetCurrentLayout("profile")}
               >
                 <svg
@@ -72,9 +83,8 @@ function AdminView() {
             <div className="gestionnaire ms-3">
               <h4>Gestionnaire</h4>
               <div
-                className={`${
-                  CurrentLayout === "dashboard" ? "selected-button" : ""
-                } d-flex align-items-center p-2 my-2`}
+                className={`${CurrentLayout === "dashboard" ? "selected-button" : ""
+                  } d-flex align-items-center p-2 my-2`}
                 onClick={() => SetCurrentLayout("dashboard")}
               >
                 <svg
@@ -88,9 +98,8 @@ function AdminView() {
                 <span>Tableau de bord</span>
               </div>
               <div
-                className={`${
-                  CurrentLayout === "formation" ? "selected-button" : ""
-                } d-flex align-items-center p-2 my-2`}
+                className={`${CurrentLayout === "formation" ? "selected-button" : ""
+                  } d-flex align-items-center p-2 my-2`}
                 onClick={() => SetCurrentLayout("formation")}
               >
                 <svg
@@ -104,9 +113,8 @@ function AdminView() {
                 <span>Formations</span>
               </div>
               <div
-                className={`${
-                  CurrentLayout === "sessions" ? "selected-button" : ""
-                } d-flex align-items-center p-2 my-2`}
+                className={`${CurrentLayout === "sessions" ? "selected-button" : ""
+                  } d-flex align-items-center p-2 my-2`}
                 onClick={() => SetCurrentLayout("sessions")}
               >
                 <svg
@@ -120,9 +128,8 @@ function AdminView() {
                 <span>Sessions</span>
               </div>
               <div
-                className={`${
-                  CurrentLayout === "instructors" ? "selected-button" : ""
-                } d-flex align-items-center p-2 my-2`}
+                className={`${CurrentLayout === "instructors" ? "selected-button" : ""
+                  } d-flex align-items-center p-2 my-2`}
                 onClick={() => SetCurrentLayout("instructors")}
               >
                 <svg
@@ -136,9 +143,8 @@ function AdminView() {
                 <span>Enseignants</span>
               </div>
               <div
-                className={`${
-                  CurrentLayout === "accounts" ? "selected-button" : ""
-                } d-flex align-items-center p-2 my-2`}
+                className={`${CurrentLayout === "accounts" ? "selected-button" : ""
+                  } d-flex align-items-center p-2 my-2`}
                 onClick={() => SetCurrentLayout("accounts")}
               >
                 <svg
@@ -152,9 +158,8 @@ function AdminView() {
                 <span>Comptes</span>
               </div>
               <div
-                className={`${
-                  CurrentLayout === "places" ? "selected-button" : ""
-                } d-flex align-items-center p-2 my-2`}
+                className={`${CurrentLayout === "places" ? "selected-button" : ""
+                  } d-flex align-items-center p-2 my-2`}
                 onClick={() => SetCurrentLayout("places")}
               >
                 <svg

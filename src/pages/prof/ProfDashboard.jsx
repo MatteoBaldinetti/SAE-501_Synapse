@@ -32,7 +32,7 @@ function ProfDashboard() {
   const [inscriptions, setInscriptions] = useState([]);
   const navigate = useNavigate();
   const countupInscriptionsRef = useRef(null);
-  const { userId } = useAuth();
+  const { userId, userType } = useAuth();
 
   // Gère la redirection en cas d'erreur d'accès
   useEffect(() => {
@@ -167,49 +167,34 @@ function ProfDashboard() {
 
           {/* Main Content */}
           <div className="col p-5">
-              <div className="d-flex justify-content-between align-items-center mb-4">
-                <div className="d-flex align-items-center">
-                  <button
-                    onClick={() => navigate(-1)}
-                    className="btn me-3"
-                    style={{
-                      backgroundColor: "#ff8c00",
-                      color: "white",
-                      border: "none",
-                      borderRadius: "8px",
-                      padding: "10px 15px",
-                    }}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    onClick={() => navigate("/course-content")}
-                    className="btn"
-                    style={{
-                      backgroundColor: "#FFA500",
-                      color: "#1a1a1a",
-                      border: "2px solid #1a1a1a",
-                      borderRadius: "8px",
-                      padding: "10px 20px",
-                      fontWeight: "500",
-                    }}
-                  >
-                    Créer un nouveau cours
-                  </button>
-                </div>
+            <div className="d-flex justify-content-between align-items-center mb-4">
+              <div className="d-flex align-items-center">
                 <button
-                  onClick={() => navigate("/sessions")}
+                  onClick={() => navigate(-1)}
+                  className="btn me-3"
+                  style={{
+                    backgroundColor: "#ff8c00",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "8px",
+                    padding: "10px 15px",
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => navigate("/course-content")}
                   className="btn"
                   style={{
                     backgroundColor: "#FFA500",
@@ -220,108 +205,123 @@ function ProfDashboard() {
                     fontWeight: "500",
                   }}
                 >
-                  Voir le calendrier
+                  Créer un nouveau cours
                 </button>
               </div>
+              <button
+                onClick={() => navigate("/sessions")}
+                className="btn"
+                style={{
+                  backgroundColor: "#FFA500",
+                  color: "#1a1a1a",
+                  border: "2px solid #1a1a1a",
+                  borderRadius: "8px",
+                  padding: "10px 20px",
+                  fontWeight: "500",
+                }}
+              >
+                Voir le calendrier
+              </button>
+            </div>
 
-              <div>
-                <h2>Tableau de bord Professeur</h2>
-                <p className="text-secondary">
-                  Vue d'ensemble de vos cours et de vos performances
-                </p>
-              </div>
+            <div>
+              <h2>Tableau de bord Professeur</h2>
+              <p className="text-secondary">
+                Vue d'ensemble de vos cours et de vos performances
+              </p>
+            </div>
 
-              {/* Mes cours Section */}
-              <div className="mt-4">
-                <h4 className="mb-3">Mes cours</h4>
-                <div
-                  className="bg-white rounded-3 p-4"
-                  style={{
-                    border: "2px solid #1a1a1a",
-                  }}
-                >
-                  <div className="row g-4">
-                    {courses.map((course) => (
-                      <div key={course.id} className="col-md-4">
-                        <div
-                          className="h-100"
-                          style={{
-                            border: "1px solid #dee2e6",
-                            borderRadius: "8px",
-                            overflow: "hidden",
-                          }}
-                        >
-                          {course.imgName && (
-                            <img
-                              src={`${API_URL}/files/download/${course.imgName}`}
-                              className="w-100"
-                              alt={course.title}
-                              style={{ height: "180px", objectFit: "cover" }}
-                            />
-                          )}
-                          <div className="p-3">
-                            <h6 className="mb-2">{course.title}</h6>
-                            <p
-                              className="text-secondary mb-0"
-                              style={{ fontSize: "14px" }}
-                            >
-                              {course.description}
-                            </p>
-                          </div>
+            {/* Mes cours Section */}
+            <div className="mt-4">
+              <h4 className="mb-3">Mes cours</h4>
+              <div
+                className="bg-white rounded-3 p-4"
+                style={{
+                  border: "2px solid #1a1a1a",
+                }}
+              >
+                <div className="row g-4">
+                  {courses.map((course) => (
+                    <div key={course.id} className="col-md-4">
+                      <div
+                        className="h-100"
+                        style={{
+                          border: "1px solid #dee2e6",
+                          borderRadius: "8px",
+                          overflow: "hidden",
+                        }}
+                      >
+                        {course.imgName && (
+                          <img
+                            src={`${API_URL}/files/download/${course.imgName}`}
+                            className="w-100"
+                            alt={course.title}
+                            style={{ height: "180px", objectFit: "cover" }}
+                          />
+                        )}
+                        <div className="p-3">
+                          <h6 className="mb-2">{course.title}</h6>
+                          <p
+                            className="text-secondary mb-0"
+                            style={{ fontSize: "14px" }}
+                          >
+                            {course.description}
+                          </p>
                         </div>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
               </div>
+            </div>
 
-              {/* Statistiques Section */}
-              <div className="mt-4 pb-5">
-                <h4 className="mb-3">Statistiques</h4>
-                <div className="row g-4">
-                  {/* Progression des élèves */}
-                  <div className="col-md-6">
-                    <div
-                      className="bg-white rounded-3 p-4"
-                      style={{
-                        border: "2px solid #1a1a1a",
-                        height: "100%",
-                      }}
-                    >
-                      <h5 className="mb-3">Progression des élèves</h5>
-                      <h2 className="mb-2">75%</h2>
-                      <p className="text-secondary mb-4" style={{ fontSize: "14px" }}>
-                        Cours: Introduction à la programmation
-                      </p>
-                      <div style={{ height: "250px" }}>
-                        <Bar data={barChartData} options={chartOptions} />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Évolution des inscriptions */}
-                  <div className="col-md-6">
-                    <div
-                      className="bg-white rounded-3 p-4"
-                      style={{
-                        border: "2px solid #1a1a1a",
-                        height: "100%",
-                      }}
-                    >
-                      <h5 className="mb-3">Évolution des inscriptions</h5>
-                      <h2 className="mb-2">
-                        <span ref={countupInscriptionsRef}>0</span>
-                      </h2>
-                      <p className="text-secondary mb-4" style={{ fontSize: "14px" }}>
-                        Derniers 6 mois
-                      </p>
-                      <div style={{ height: "250px" }}>
-                        <Line data={lineChartData} options={chartOptions} />
-                      </div>
+            {/* Statistiques Section */}
+            <div className="mt-4 pb-5">
+              <h4 className="mb-3">Statistiques</h4>
+              <div className="row g-4">
+                {/* Progression des élèves */}
+                <div className="col-md-6">
+                  <div
+                    className="bg-white rounded-3 p-4"
+                    style={{
+                      border: "2px solid #1a1a1a",
+                      height: "100%",
+                    }}
+                  >
+                    <h5 className="mb-3">Progression des élèves</h5>
+                    <h2 className="mb-2">75%</h2>
+                    <p className="text-secondary mb-4" style={{ fontSize: "14px" }}>
+                      Cours: Introduction à la programmation
+                    </p>
+                    <div style={{ height: "250px" }}>
+                      <Bar data={barChartData} options={chartOptions} />
                     </div>
                   </div>
                 </div>
+
+                {/* Évolution des inscriptions */}
+                <div className="col-md-6">
+                  <div
+                    className="bg-white rounded-3 p-4"
+                    style={{
+                      border: "2px solid #1a1a1a",
+                      height: "100%",
+                    }}
+                  >
+                    <h5 className="mb-3">Évolution des inscriptions</h5>
+                    <h2 className="mb-2">
+                      <span ref={countupInscriptionsRef}>0</span>
+                    </h2>
+                    <p className="text-secondary mb-4" style={{ fontSize: "14px" }}>
+                      Derniers 6 mois
+                    </p>
+                    <div style={{ height: "250px" }}>
+                      <Line data={lineChartData} options={chartOptions} />
+                    </div>
+                  </div>
+                </div>
               </div>
+            </div>
           </div>
         </div>
       </div>

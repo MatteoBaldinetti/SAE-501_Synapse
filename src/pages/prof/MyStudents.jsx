@@ -10,7 +10,7 @@ function MyStudents() {
   const [editingInscription, setEditingInscription] = useState(null);
   const [editNote, setEditNote] = useState("");
   const navigate = useNavigate();
-  const { userId } = useAuth();
+  const { userId, userType } = useAuth();
 
   // Gère la redirection en cas d'erreur d'accès
   useEffect(() => {

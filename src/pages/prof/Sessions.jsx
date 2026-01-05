@@ -9,7 +9,7 @@ function Sessions() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [viewMode, setViewMode] = useState("week");
   const navigate = useNavigate();
-  const { userId } = useAuth();
+  const { userId, userType } = useAuth();
 
 // Gère la redirection en cas d'erreur d'accès
   useEffect(() => {

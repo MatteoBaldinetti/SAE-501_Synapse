@@ -16,7 +16,7 @@ function CourseCatalog() {
   useEffect(() => {
     if (userType === null) {
       navigate("/401", { replace: true });
-    } else if (userType !== 2) {
+    } else if (userType !== 1) {
       navigate("/403", { replace: true });
     }
   }, [userType, navigate]);

@@ -1,5 +1,6 @@
 .error-401 {
     text-align: center;
+    min-height: 85vh;
 }
 
 .error-401 h1 {

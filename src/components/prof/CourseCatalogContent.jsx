@@ -2,7 +2,12 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { API_URL } from "../../constants/apiConstants";
 
-function CourseCatalog() {
+/**
+ * CourseCatalogContent
+ * Composant de contenu pour le catalogue de cours
+ * Affiche la liste des formations avec recherche et filtres
+ */
+function CourseCatalogContent() {
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
@@ -175,10 +180,9 @@ function CourseCatalog() {
             </div>
           ))}
         </div>
-
       </div>
     </div>
   );
 }
 
-export default CourseCatalog;
+export default CourseCatalogContent;

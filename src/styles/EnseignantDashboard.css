@@ -1,0 +1,92 @@
+.admin-view {
+    background-color: #e8f2ed;
+    min-height: 100vh;
+}
+
+
+.admin-view .selected-button {
+    cursor: default !important;
+    background-color: #2EE88A;
+}
+
+.text-admin {
+    color: #2EE88A;
+}
+
+.admin-view .selected-button:hover{
+    background-color: #2EE88A !important;
+}
+
+.admin-view .gestionnaire > div{
+    border-radius: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.admin-view .gestionnaire > div:hover{
+    cursor: pointer;
+    background-color: #2ee88b4f;
+    transition: background-color 0.2s ease;
+}
+
+.btn-admin {
+    background-color: #2EE88A;
+    border: none;
+}
+
+.btn-admin:hover {
+    background-color: #14683e;
+    color: white;
+    border: none;
+}
+
+.btn-prof {
+    background-color: #FFA500;
+    color: #1a1a1a;
+    border: none;
+}
+
+.btn-prof:hover {
+    background-color: #ff8c00;
+    color: white;
+    border: none;
+}
+
+.admin-sidebar {
+    background-color: #F8F9FA;
+    height: calc(100vh + 7rem);
+    margin-top: -3rem;
+    margin-bottom: -3rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.prof-sidebar {
+    background-color: #FFD89B;
+    height: calc(100vh + 7rem);
+    margin-top: -3rem;
+    margin-bottom: -3rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.selected-button-prof {
+    cursor: default !important;
+    background-color: #FFA500;
+}
+
+.selected-button-prof:hover {
+    background-color: #FFA500 !important;
+}
+
+.prof-sidebar .gestionnaire > div {
+    border-radius: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.prof-sidebar .gestionnaire > div:hover {
+    cursor: pointer;
+    background-color: #ffa5004f;
+    transition: background-color 0.2s ease;
+}
+
+

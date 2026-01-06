@@ -243,7 +243,7 @@ function CourseContent() {
   const handleSaveDraft = () => saveTraining(true);
 
   return (
-    <div>
+    <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h3>Contenu du cours</h3>
         <button

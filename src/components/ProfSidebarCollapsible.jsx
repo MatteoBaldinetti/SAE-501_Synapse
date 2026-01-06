@@ -91,7 +91,7 @@ function ProfSidebarCollapsible({ currentSection, onSectionChange }) {
   };
 
   return (
-    <div className="col-3 prof-sidebar">
+    <div className="col-3 prof-sidebar" style={{ paddingLeft: 0 }}>
       <div className="profil gestionnaire ms-3">
         <h4>Profil</h4>
         <div

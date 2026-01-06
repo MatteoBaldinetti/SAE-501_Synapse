@@ -50,8 +50,8 @@ function ProfLayout() {
 
   return (
     <div style={{ backgroundColor: "#FFECC8", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-      <div className="container-fluid py-5" style={{ flex: 1, display: "flex" }}>
-        <div className="row" style={{ flex: 1, width: "100%" }}>
+      <div className="container-fluid py-5" style={{ flex: 1, display: "flex", flexDirection: "column", paddingLeft: 0, paddingRight: 0 }}>
+        <div className="row" style={{ flex: 1, width: "100%", display: "flex", margin: 0, marginLeft: 0, marginRight: 0 }}>
           {/* Sidebar */}
           <ProfSidebarCollapsible />
 

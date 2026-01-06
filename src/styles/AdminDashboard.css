@@ -62,11 +62,12 @@
 
 .prof-sidebar {
     background-color: #FFD89B;
-    height: 100%;
     margin-top: -3rem;
     margin-bottom: -3rem;
     padding-top: 3rem;
     padding-bottom: 3rem;
+    align-self: stretch;
+    min-height: 100%;
 }
 
 .selected-button-prof {

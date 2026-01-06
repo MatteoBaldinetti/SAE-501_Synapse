@@ -146,7 +146,7 @@ function ProfProfile() {
   }
 
   return (
-    <div>
+    <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h3>Profil de Professeur</h3>
         <button
@@ -399,13 +399,13 @@ function ProfProfile() {
           <div className="d-flex gap-3">
             <button
               onClick={handleEditProfile}
-              className="btn btn-prof"
+              className="btn btn-success"
             >
               Modifier le profil
             </button>
             <button
               onClick={handleContactAdmin}
-              className="btn"
+              className="btn btn-outline-dark"
             >
               Contacter l'admin
             </button>

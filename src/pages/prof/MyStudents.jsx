@@ -355,10 +355,10 @@ function MyStudents() {
                   <div className="container">
                     <div className="row p-3 border rounded-top-3 bg-white">
                       <div className="col-2"><b>Nom</b></div>
-                      <div className="col-2"><b>Email</b></div>
+                      <div className="col-3"><b>Email</b></div>
                       <div className="col-2"><b>Statut</b></div>
                       <div className="col-2"><b>Dernière activité</b></div>
-                      <div className="col-2"><b>Note</b></div>
+                      <div className="col-1"><b>Note</b></div>
                       <div className="col-2"><b>Actions</b></div>
                     </div>
                     {group.students.map((inscription) => (
@@ -366,7 +366,7 @@ function MyStudents() {
                         <div className="col-2">
                           {inscription.user?.firstname} {inscription.user?.lastname}
                         </div>
-                        <div className="col-2">
+                        <div className="col-3">
                           {inscription.user?.email || "-"}
                         </div>
                         <div className="col-2">
@@ -375,7 +375,7 @@ function MyStudents() {
                         <div className="col-2">
                           {formatDate(inscription.date || inscription.inscriptionDate)}
                         </div>
-                        <div className="col-2">
+                        <div className="col-1">
                           {inscription.amount ? `${inscription.amount}/20` : "-"}
                         </div>
                         <div className="col-2">

@@ -18,6 +18,7 @@ public class ApiKeyFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
+        // Skip non-API endpoints, CORS preflight requests, and public downloads
         return !request.getRequestURI().startsWith("/api/") ||
                 "OPTIONS".equalsIgnoreCase(request.getMethod()) ||
                 request.getRequestURI().startsWith("/api/files/download");
@@ -32,6 +33,7 @@ public class ApiKeyFilter extends OncePerRequestFilter {
 
         String requestApiKey = request.getHeader("X-API-KEY");
 
+        // Validate API key before allowing the request to proceed
         if (apiKey.equals(requestApiKey)) {
             filterChain.doFilter(request, response);
         } else {

@@ -17,7 +17,7 @@ import { useState, useEffect } from "react";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
 
-function CreateSession({ onClose }) {
+function CreateSessionProf({ onClose }) {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -300,7 +300,7 @@ function CreateSession({ onClose }) {
               <div className="d-flex gap-2 mt-4">
                 <button
                   type="submit"
-                  className="btn btn-admin"
+                  className="btn btn-prof"
                   disabled={loading}
                 >
                   {loading ? "Création en cours..." : "Créer"}
@@ -322,4 +322,4 @@ function CreateSession({ onClose }) {
   );
 }
 
-export default CreateSession;
+export default CreateSessionProf;

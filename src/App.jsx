@@ -44,12 +44,7 @@ import RGPD from "./pages/RGPD";
 import PolitiqueConfidentialite from "./pages/PolitiqueConfidentialite";
 import CGU from "./pages/CGU";
 import ThreeDViewer from "./pages/3d/ThreeDViewer";
-import CourseCatalog from "./pages/prof/CourseCatalog";
-import CourseContent from "./pages/prof/CourseContent";
-import MyStudents from "./pages/prof/MyStudents";
-import ProfDashboard from "./pages/prof/ProfDashboard";
-import Sessions from "./pages/prof/Sessions";
-import ProfProfile from "./pages/prof/ProfProfile";
+import ProfView from "./pages/prof/ProfView";
 import ResetPassword from "./pages/ResetPassword";
 
 function App() {
@@ -70,12 +65,7 @@ function App() {
           />
           <Route path="/admin" element={<AdminView />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/catalogue" element={<CourseCatalog />} />
-          <Route path="/course-content" element={<CourseContent />} />
-          <Route path="/mes-eleves" element={<MyStudents />} />
-          <Route path="/prof-dashboard" element={<ProfDashboard />} />
-          <Route path="/sessions" element={<Sessions />} />
-          <Route path="/prof-profile/:id" element={<ProfProfile />} />
+          <Route path="/prof-dashboard" element={<ProfView />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/cgu" element={<CGU />} />
           <Route path="/mentions-legales" element={<MentionsLegales />} />

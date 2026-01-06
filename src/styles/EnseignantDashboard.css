@@ -60,6 +60,15 @@
     padding-bottom: 3rem;
 }
 
+.prof-sidebar {
+    background-color: #F8F9FA;
+    height: calc(100vh + 7rem);
+    margin-top: -3rem;
+    margin-bottom: -3rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
 .selected-button-prof {
     cursor: default !important;
     background-color: #FFA500;
@@ -68,4 +77,16 @@
 .selected-button-prof:hover {
     background-color: #FFA500 !important;
 }
+
+.prof-sidebar .gestionnaire > div {
+    border-radius: 10px;
+    transition: background-color 0.2s ease;
+}
+
+.prof-sidebar .gestionnaire > div:hover {
+    cursor: pointer;
+    background-color: #ffa5004f;
+    transition: background-color 0.2s ease;
+}
+
 

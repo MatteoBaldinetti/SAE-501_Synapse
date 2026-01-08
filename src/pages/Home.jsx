@@ -1,13 +1,13 @@
 /**
  * Home.jsx - Page d'accueil de l'application
- * 
+ *
  * Affiche :
  * - Bannière de présentation avec slogan
  * - Présentation des formations phares
  * - Témoignages d'étudiants
  * - Statistiques clés
  * - Appel à l'action (inscription, découverte des cours)
- * 
+ *
  * Route : /
  * Utilisé par : App.jsx
  */
@@ -40,12 +40,17 @@ function Home() {
     setShowCookieAgreement(false);
   }
 
+  function userDeclineCookies() {
+    localStorage.setItem("hasAcceptedCookies", false);
+    setShowCookieAgreement(false);
+  }
+
   return (
     <>
       <CookieAgreement
         visible={showCookieAgreement}
         onConfirm={userAcceptCookies}
-        onEdit={showCookieAgreement}
+        onDecline={userDeclineCookies}
       />
       <header className="container my-5">
         <div className="row">

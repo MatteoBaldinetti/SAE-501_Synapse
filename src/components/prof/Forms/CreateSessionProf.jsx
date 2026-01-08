@@ -14,14 +14,15 @@
  */
 
 import { useState, useEffect } from "react";
-import { API_URL, API_KEY } from "../../../constants/apiConstants";
 
-function CreateSession({ onClose }) {
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+
+function CreateSessionProf({ onClose }) {
   const [formData, setFormData] = useState({
-    startDate: "",
-    endDate: "",
     title: "",
     description: "",
+    startDate: "",
+    endDate: "",
     duration: "",
     capacity: "",
     instructorId: "",
@@ -39,9 +40,7 @@ function CreateSession({ onClose }) {
   useEffect(() => {
     const fetchInstructors = async () => {
       try {
-        const response = await fetch(`${API_URL}/instructors`, {
-          headers: { "X-API-KEY": API_KEY }
-        });
+        const response = await fetch(`${API_URL}/api/instructors`);
         if (!response.ok) {
           throw new Error("Erreur lors du chargement des instructeurs");
         }
@@ -62,9 +61,7 @@ function CreateSession({ onClose }) {
   useEffect(() => {
     const fetchPlaces = async () => {
       try {
-        const response = await fetch(`${API_URL}/places`, {
-          headers: { "X-API-KEY": API_KEY }
-        });
+        const response = await fetch(`${API_URL}/api/places`);
         if (!response.ok) {
           throw new Error("Erreur lors du chargement des lieux");
         }
@@ -94,41 +91,27 @@ function CreateSession({ onClose }) {
     setLoading(true);
     setError(null);
 
-    const payload = {
-      startDate: new Date(formData.startDate).toISOString(),
-      endDate: new Date(formData.endDate).toISOString(),
-      title: formData.title,
-      description: formData.description,
-      duration: Number(formData.duration),
-      capacity: Number(formData.capacity),
-      training: { id: Number(formData.trainingId) },
-      instructor: { id: Number(formData.instructorId) },
-      place: { id: Number(formData.placeId) },
-    };
-
-    console.log("payload envoyé =", payload);
-
     try {
-      const response = await fetch(`${API_URL}/sessions`, {
+      const response = await fetch(`${API_URL}/api/sessions`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": API_KEY
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
-        const text = await response.text();
-        throw new Error(text || "Erreur lors de la création de la session");
+        throw new Error("Erreur lors de la création de la session");
       }
 
       const result = await response.json();
       console.log("Session créée avec succès:", result);
+
+      // Retourner à la liste après création
       onClose();
     } catch (err) {
-      console.error("Erreur création session :", err);
       setError(err.message);
+      console.error("Erreur:", err);
     } finally {
       setLoading(false);
     }
@@ -317,7 +300,7 @@ function CreateSession({ onClose }) {
               <div className="d-flex gap-2 mt-4">
                 <button
                   type="submit"
-                  className="btn btn-admin"
+                  className="btn btn-prof"
                   disabled={loading}
                 >
                   {loading ? "Création en cours..." : "Créer"}
@@ -339,4 +322,4 @@ function CreateSession({ onClose }) {
   );
 }
 
-export default CreateSession;
+export default CreateSessionProf;

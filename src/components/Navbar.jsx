@@ -75,11 +75,33 @@ function Navbar() {
                 Accueil
               </Link>
             </li>
-            <li className="nav-item me-3">
-              <Link className="nav-link" to="/cours">
-                Cours
-              </Link>
-            </li>
+            {userType === 1 ? (
+              // Navigation pour les professeurs
+              <>
+                <li className="nav-item me-3">
+                  <Link className="nav-link" to="/catalogue">
+                    Catalogue
+                  </Link>
+                </li>
+                <li className="nav-item me-3">
+                  <Link className="nav-link" to="/sessions">
+                    Sessions
+                  </Link>
+                </li>
+                <li className="nav-item me-3">
+                  <Link className="nav-link" to="/mes-eleves">
+                    Mes élèves
+                  </Link>
+                </li>
+              </>
+            ) : (
+              // Navigation pour les étudiants et visiteurs
+              <li className="nav-item me-3">
+                <Link className="nav-link" to="/cours">
+                  Cours
+                </Link>
+              </li>
+            )}
             <li className="nav-item">
               <Link className="nav-link" to="/contact">
                 Contact
@@ -110,15 +132,22 @@ function Navbar() {
                 aria-labelledby="dropdownUser"
               >
                 <li>
-                  <span className="dropdown-item-text fw-bold">
+                  <Link
+                    className="dropdown-item fw-bold"
+                    to={userType === 1 ? `/prof-profile/${userId}` : "/dashboard"}
+                    style={{ cursor: "pointer" }}
+                  >
                     {userFirstname} {userLastname}
-                  </span>
+                  </Link>
                 </li>
                 <li>
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <Link className="dropdown-item" to={dashboardPath}>
+                  <Link
+                    className="dropdown-item"
+                    to={userType === 1 ? "/prof-dashboard" : "/dashboard"}
+                  >
                     Tableau de bord
                   </Link>
                 </li>

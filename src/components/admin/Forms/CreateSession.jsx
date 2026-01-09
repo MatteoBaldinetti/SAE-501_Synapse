@@ -1,6 +1,6 @@
 /**
  * CreateSession.jsx - Formulaire de création d'une session
- * 
+ *
  * Permet de créer une nouvelle session de formation avec :
  * - Sélection de la formation associée
  * - Nom de la session
@@ -8,7 +8,7 @@
  * - Sélection de l'instructeur
  * - Sélection du lieu
  * - Nombre de places disponibles
- * 
+ *
  * Utilisé par : AdminSession.jsx
  * Dépendances : API_URL
  */
@@ -18,10 +18,10 @@ import { API_URL, API_KEY } from "../../../constants/apiConstants";
 
 function CreateSession({ onClose }) {
   const [formData, setFormData] = useState({
-    title: "",
-    description: "",
     startDate: "",
     endDate: "",
+    title: "",
+    description: "",
     duration: "",
     capacity: "",
     instructorId: "",
@@ -94,6 +94,20 @@ function CreateSession({ onClose }) {
     setLoading(true);
     setError(null);
 
+    const payload = {
+      startDate: new Date(formData.startDate).toISOString(),
+      endDate: new Date(formData.endDate).toISOString(),
+      title: formData.title,
+      description: formData.description,
+      duration: Number(formData.duration),
+      capacity: Number(formData.capacity),
+      training: { id: Number(formData.trainingId) },
+      instructor: { id: Number(formData.instructorId) },
+      place: { id: Number(formData.placeId) },
+    };
+
+    console.log("payload envoyé =", payload);
+
     try {
       const response = await fetch(`${API_URL}/sessions`, {
         method: "POST",
@@ -101,21 +115,20 @@ function CreateSession({ onClose }) {
           "Content-Type": "application/json",
           "X-API-KEY": API_KEY
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
-        throw new Error("Erreur lors de la création de la session");
+        const text = await response.text();
+        throw new Error(text || "Erreur lors de la création de la session");
       }
 
       const result = await response.json();
       console.log("Session créée avec succès:", result);
-
-      // Retourner à la liste après création
       onClose();
     } catch (err) {
+      console.error("Erreur création session :", err);
       setError(err.message);
-      console.error("Erreur:", err);
     } finally {
       setLoading(false);
     }

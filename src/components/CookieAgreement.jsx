@@ -1,16 +1,16 @@
 /**
  * CookieAgreement.jsx - Bannière de consentement aux cookies
- * 
+ *
  * Affiche une bannière de consentement aux cookies conforme au RGPD.
  * Permet à l'utilisateur d'accepter ou de refuser les cookies.
  * Stocke le choix de l'utilisateur dans le localStorage.
- * 
+ *
  * Utilisé par : App.jsx ou composants de page
  */
 
 import "../styles/CookieAgreement.css";
 
-function CookieAgreement({ visible, onEdit, onConfirm }) {
+function CookieAgreement({ visible, onConfirm, onDecline }) {
   if (!visible) return null;
 
   return (
@@ -34,8 +34,11 @@ function CookieAgreement({ visible, onEdit, onConfirm }) {
                 >
                   Accepter
                 </button>
-                <button className="btn ca-choose w-100 mt-1" onClick={onEdit}>
-                  Choisir les cookies
+                <button
+                  className="btn ca-choose w-100 mt-1"
+                  onClick={onDecline}
+                >
+                  Refuser
                 </button>
               </div>
             </div>

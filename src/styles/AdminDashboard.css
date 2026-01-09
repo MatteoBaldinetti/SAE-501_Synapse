@@ -39,6 +39,18 @@
     border: none;
 }
 
+.btn-prof {
+    background-color: #FFA500;
+    color: #1a1a1a;
+    border: none;
+}
+
+.btn-prof:hover {
+    background-color: #ff8c00;
+    color: white;
+    border: none;
+}
+
 .admin-sidebar {
     background-color: #F8F9FA;
     height: calc(100vh + 7rem);

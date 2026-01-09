@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { API_URL } from "../../constants/apiConstants";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 
 /**
  * CourseContentContent
@@ -73,6 +73,7 @@ function CourseContentContent() {
     try {
       const response = await fetch(`${API_URL}/files/upload`, {
         method: "POST",
+        headers: { "X-API-KEY": API_KEY },
         body: formData,
       });
 
@@ -177,9 +178,9 @@ function CourseContentContent() {
     if (oversizedFiles.length > 0) {
       alert(
         `${oversizedFiles.length} fichier(s) trop gros (max 10MB) :\n` +
-          oversizedFiles
-            .map((f) => `- ${f.name} (${(f.size / 1024 / 1024).toFixed(2)}MB)`)
-            .join("\n")
+        oversizedFiles
+          .map((f) => `- ${f.name} (${(f.size / 1024 / 1024).toFixed(2)}MB)`)
+          .join("\n")
       );
       e.target.value = ""; // Reset input
       return;
@@ -226,6 +227,7 @@ function CourseContentContent() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-API-KEY": API_KEY,
         },
         body: JSON.stringify(trainingData),
       });

@@ -13,7 +13,7 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_URL } from "../constants/apiConstants";
+import { API_URL, API_KEY } from "../constants/apiConstants";
 import { useAuth } from "../contexts/AuthContext";
 import bcrypt from "bcryptjs";
 import '../styles/ResetPassword.css';
@@ -55,7 +55,10 @@ function ResetPassword() {
         }
 
         try {
-            const previousUserRes = await fetch(`${API_URL}/users/${userId}`);
+            const previousUserRes = await fetch(`${API_URL}/users/${userId}`, {
+                method: "GET",
+                headers: { "X-API-KEY": API_KEY },
+            });
             const previousUser = await previousUserRes.json();
 
             const salt = await bcrypt.genSalt(10);
@@ -65,7 +68,7 @@ function ResetPassword() {
 
             await fetch(`${API_URL}/users/${userId}`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json", "X-API-KEY": API_KEY },
                 body: JSON.stringify(updatedUser),
             });
 

@@ -10,7 +10,7 @@
 
 import { useState, useEffect } from "react";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+import { API_URL, API_KEY } from "../../../constants/apiConstants";
 
 function EditFormation({ formationId, onClose }) {
   const [formData, setFormData] = useState({
@@ -34,7 +34,10 @@ function EditFormation({ formationId, onClose }) {
   useEffect(() => {
     const fetchFormation = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/trainings/${formationId}`);
+        const response = await fetch(`${API_URL}/api/trainings/${formationId}`, {
+          method: "GET",
+          headers: { "X-API-KEY": API_KEY },
+        });
 
         if (!response.ok) {
           throw new Error("Erreur lors du chargement de la formation");
@@ -84,6 +87,7 @@ function EditFormation({ formationId, onClose }) {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          "X-API-KEY": API_KEY,
         },
         body: JSON.stringify(formData),
       });
@@ -120,6 +124,7 @@ function EditFormation({ formationId, onClose }) {
     try {
       const response = await fetch(`${API_URL}/api/trainings/${formationId}`, {
         method: "DELETE",
+        headers: { "X-API-KEY": API_KEY },
       });
 
       if (!response.ok) {

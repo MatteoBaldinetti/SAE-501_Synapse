@@ -14,7 +14,7 @@
 import { useState } from "react";
 import bcrypt from "bcryptjs";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+import { API_URL, API_KEY } from "../../../constants/apiConstants";
 
 function CreateUser({ onClose }) {
   const [formData, setFormData] = useState({
@@ -58,6 +58,7 @@ function CreateUser({ onClose }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-API-KEY": API_KEY,
         },
         body: JSON.stringify(newUser),
       });

@@ -10,7 +10,7 @@
 
 import { useState, useEffect } from "react";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+import { API_URL, API_KEY } from "../../../constants/apiConstants";
 
 function EditInstructor({ instructorId, onClose }) {
   const [formData, setFormData] = useState({
@@ -29,9 +29,10 @@ function EditInstructor({ instructorId, onClose }) {
   useEffect(() => {
     const fetchInstructor = async () => {
       try {
-        const response = await fetch(
-          `${API_URL}/api/instructors/${instructorId}`
-        );
+        const response = await fetch(`${API_URL}/api/instructors/${instructorId}`, {
+          method: "GET",
+          headers: { "X-API-KEY": API_KEY },
+        });
 
         if (!response.ok) {
           throw new Error("Erreur lors du chargement de l'enseignant");
@@ -61,7 +62,10 @@ function EditInstructor({ instructorId, onClose }) {
   useEffect(() => {
     const fetchSessions = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/sessions`);
+        const response = await fetch(`${API_URL}/api/sessions`, {
+          method: "GET",
+          headers: { "X-API-KEY": API_KEY },
+        });
         if (!response.ok) {
           throw new Error("Erreur lors du chargement des sessions");
         }
@@ -102,6 +106,7 @@ function EditInstructor({ instructorId, onClose }) {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            "X-API-KEY": API_KEY,
           },
           body: JSON.stringify(formData),
         }
@@ -140,6 +145,7 @@ function EditInstructor({ instructorId, onClose }) {
         `${API_URL}/api/instructors/${instructorId}`,
         {
           method: "DELETE",
+          headers: { "X-API-KEY": API_KEY },
         }
       );
 

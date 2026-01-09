@@ -17,7 +17,7 @@ import SearchBar from "../SearchBar";
 import CreateInstructor from "./Forms/CreateInstructor";
 import EditInstructor from "./Forms/EditInstructor";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 
 function AdminInstructors() {
   const [data, setData] = useState([]);
@@ -29,7 +29,10 @@ function AdminInstructors() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/instructors`);
+      const res = await fetch(`${API_URL}/api/instructors`, {
+        method: "GET",
+        headers: { "X-API-KEY": API_KEY },
+      });
       const data = await res.json();
       setData(data);
     };
@@ -48,7 +51,10 @@ function AdminInstructors() {
     setEditSessionId(null);
     // Recharger les données après modification
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/instructors`);
+      const res = await fetch(`${API_URL}/api/instructors`, {
+        method: "GET",
+        headers: { "X-API-KEY": API_KEY },
+      });
       const data = await res.json();
       setData(data);
     };
@@ -59,7 +65,10 @@ function AdminInstructors() {
     setShowCreateForm(false);
     // Recharger les données après création
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/instructors`);
+      const res = await fetch(`${API_URL}/api/instructors`, {
+        method: "GET",
+        headers: { "X-API-KEY": API_KEY },
+      });
       const data = await res.json();
       setData(data);
     };

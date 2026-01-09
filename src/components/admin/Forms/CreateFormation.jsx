@@ -19,7 +19,7 @@
  */
 
 import { useState } from "react";
-import { API_URL } from "../../../constants/apiConstants";
+import { API_URL, API_KEY } from "../../../constants/apiConstants";
 
 function CreateFormation({ onClose }) {
   const [formData, setFormData] = useState({
@@ -55,6 +55,7 @@ function CreateFormation({ onClose }) {
 
     const sendImage = await fetch(`${API_URL}/files/upload`, {
       method: "POST",
+      headers: { "X-API-KEY": API_KEY },
       body: formData,
     });
 
@@ -113,6 +114,7 @@ function CreateFormation({ onClose }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-API-KEY": API_KEY,
         },
         body: JSON.stringify(formData),
       });

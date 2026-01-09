@@ -10,7 +10,7 @@
 
 import { useState, useEffect } from "react";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+import { API_URL, API_KEY } from "../../../constants/apiConstants";
 
 function EditPlace({ placeId, onClose }) {
   const [formData, setFormData] = useState({
@@ -28,7 +28,10 @@ function EditPlace({ placeId, onClose }) {
   useEffect(() => {
     const fetchPlace = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/places/${placeId}`);
+        const response = await fetch(`${API_URL}/api/places/${placeId}`, {
+          method: "GET",
+          headers: { "X-API-KEY": API_KEY },
+        });
 
         if (!response.ok) {
           throw new Error("Erreur lors du chargement du lieu");
@@ -57,7 +60,10 @@ function EditPlace({ placeId, onClose }) {
   useEffect(() => {
     const fetchSessions = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/sessions`);
+        const response = await fetch(`${API_URL}/api/sessions`, {
+          method: "GET",
+          headers: { "X-API-KEY": API_KEY },
+        });
         if (!response.ok) {
           throw new Error("Erreur lors du chargement des sessions");
         }
@@ -95,6 +101,7 @@ function EditPlace({ placeId, onClose }) {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          "X-API-KEY": API_KEY,
         },
         body: JSON.stringify(formData),
       });
@@ -130,6 +137,7 @@ function EditPlace({ placeId, onClose }) {
     try {
       const response = await fetch(`${API_URL}/api/places/${placeId}`, {
         method: "DELETE",
+        headers: { "X-API-KEY": API_KEY },
       });
 
       if (!response.ok) {

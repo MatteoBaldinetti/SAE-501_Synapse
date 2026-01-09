@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import ProfileComponents from "../../components/ProfileComponents";
 import { useAuth } from "../../contexts/AuthContext";
 import TableCours from "../../components/TableCours";
-import { API_URL } from "../../constants/apiConstants";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 import logo from "../../assets/images/smallLogoPDF.jpeg";
 
 // Pour faire les PDF de la facture
@@ -38,17 +38,26 @@ function Dashboard() {
     useEffect(() => {
         const fetchData = async () => {
             if (currentLayout === "cours") {
-                const res = await fetch(`${API_URL}/users/${userId}/sessions`);
+                const res = await fetch(`${API_URL}/users/${userId}/sessions`, {
+                    method: "GET",
+                    headers: { "X-API-KEY": API_KEY },
+                });
                 const json = await res.json();
                 setUserSession(json);
 
-                const res2 = await fetch(`${API_URL}/results/search?userId=${userId}`);
+                const res2 = await fetch(`${API_URL}/results/search?userId=${userId}`, {
+                    method: "GET",
+                    headers: { "X-API-KEY": API_KEY },
+                });
                 const json2 = await res2.json();
                 setUserEvaluation(json2);
             }
 
             if (currentLayout === "paiement") {
-                const res = await fetch(`${API_URL}/inscriptions/search?userId=${userId}`);
+                const res = await fetch(`${API_URL}/inscriptions/search?userId=${userId}`, {
+                    method: "GET",
+                    headers: { "X-API-KEY": API_KEY },
+                });
                 const json = await res.json();
                 setUserPayment(json.reverse());
             }

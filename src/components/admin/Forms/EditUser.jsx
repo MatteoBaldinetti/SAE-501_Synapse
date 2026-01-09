@@ -11,7 +11,7 @@
 import { useState, useEffect } from "react";
 import bcrypt from "bcryptjs";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+import { API_URL, API_KEY } from "../../../constants/apiConstants";
 
 function EditUser({ userId, onClose }) {
   const [formData, setFormData] = useState({
@@ -31,7 +31,10 @@ function EditUser({ userId, onClose }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/users/${userId}`);
+        const response = await fetch(`${API_URL}/api/users/${userId}`, {
+          method: "GET",
+          headers: { "X-API-KEY": API_KEY },
+        });
 
         if (!response.ok) {
           throw new Error("Erreur lors du chargement de l'utilisateur");
@@ -86,6 +89,7 @@ function EditUser({ userId, onClose }) {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          "X-API-KEY": API_KEY,
         },
         body: JSON.stringify(dataToSend),
       });
@@ -122,6 +126,7 @@ function EditUser({ userId, onClose }) {
     try {
       const response = await fetch(`${API_URL}/api/users/${userId}`, {
         method: "DELETE",
+        headers: { "X-API-KEY": API_KEY },
       });
 
       if (!response.ok) {

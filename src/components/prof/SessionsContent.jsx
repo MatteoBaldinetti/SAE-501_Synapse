@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_URL } from "../../constants/apiConstants";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 import { useAuth } from "../../contexts/AuthContext";
 import CreateSessionProf from "./Forms/CreateSessionProf";
 
@@ -22,7 +22,10 @@ function SessionsContent() {
       if (!userId) return;
 
       // Fetch only sessions where the professor is the instructor
-      const res = await fetch(`${API_URL}/sessions`);
+      const res = await fetch(`${API_URL}/sessions`, {
+        method: "GET",
+        headers: { "X-API-KEY": API_KEY },
+      });
       const allSessions = await res.json();
       const profSessions = allSessions.filter(
         (session) => session.instructor?.id === userId
@@ -149,7 +152,10 @@ function SessionsContent() {
             // Recharger les sessions après création
             const fetchSessions = async () => {
               if (!userId) return;
-              const res = await fetch(`${API_URL}/sessions`);
+              const res = await fetch(`${API_URL}/sessions`, {
+                method: "GET",
+                headers: { "X-API-KEY": API_KEY },
+              });
               const allSessions = await res.json();
               const profSessions = allSessions.filter(
                 (session) => session.instructor?.id === userId
@@ -176,31 +182,26 @@ function SessionsContent() {
           <div className="d-flex align-items-center justify-content-between mb-4">
             <p className="text-secondary mb-0" style={{ fontSize: "14px" }}>
               {viewMode === "week"
-                ? `${weekStart.getDate()} ${
-                    monthNames[weekStart.getMonth()]
-                  } - ${weekEnd.getDate()} ${
-                    monthNames[weekEnd.getMonth()]
-                  } ${weekEnd.getFullYear()}`
-                : `${
-                    monthNames[currentDate.getMonth()]
-                  } ${currentDate.getFullYear()}`}
+                ? `${weekStart.getDate()} ${monthNames[weekStart.getMonth()]
+                } - ${weekEnd.getDate()} ${monthNames[weekEnd.getMonth()]
+                } ${weekEnd.getFullYear()}`
+                : `${monthNames[currentDate.getMonth()]
+                } ${currentDate.getFullYear()}`}
             </p>
 
             {/* View mode selector */}
             <div className="btn-group" role="group">
               <button
-                className={`btn ${
-                  viewMode === "week" ? "btn-dark" : "btn-outline-dark"
-                }`}
+                className={`btn ${viewMode === "week" ? "btn-dark" : "btn-outline-dark"
+                  }`}
                 onClick={() => setViewMode("week")}
                 style={{ borderRadius: "8px 0 0 8px" }}
               >
                 Semaine
               </button>
               <button
-                className={`btn ${
-                  viewMode === "month" ? "btn-dark" : "btn-outline-dark"
-                }`}
+                className={`btn ${viewMode === "month" ? "btn-dark" : "btn-outline-dark"
+                  }`}
                 onClick={() => setViewMode("month")}
                 style={{ borderRadius: "0 8px 8px 0" }}
               >

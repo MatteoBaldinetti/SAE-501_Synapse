@@ -17,7 +17,7 @@ import SearchBar from "../SearchBar";
 import CreatePlace from "./Forms/CreatePlace";
 import EditPlace from "./Forms/EditPlace";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8080";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 
 function AdminPlaces() {
   const [data, setData] = useState([]);
@@ -29,7 +29,10 @@ function AdminPlaces() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/places`);
+      const res = await fetch(`${API_URL}/api/places`, {
+        method: "GET",
+        headers: { "X-API-KEY": API_KEY },
+      });
       const data = await res.json();
       setData(data);
     };
@@ -47,7 +50,10 @@ function AdminPlaces() {
   const handleCloseEdit = () => {
     setEditPlaceId(null);
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/places`);
+      const res = await fetch(`${API_URL}/api/places`, {
+        method: "GET",
+        headers: { "X-API-KEY": API_KEY },
+      });
       const data = await res.json();
       setData(data);
     };
@@ -57,7 +63,10 @@ function AdminPlaces() {
   const handleCloseCreate = () => {
     setShowCreateForm(false);
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/places`);
+      const res = await fetch(`${API_URL}/api/places`, {
+        method: "GET",
+        headers: { "X-API-KEY": API_KEY },
+      });
       const data = await res.json();
       setData(data);
     };

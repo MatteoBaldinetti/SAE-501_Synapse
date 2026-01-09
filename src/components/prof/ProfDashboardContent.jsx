@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_URL } from "../../constants/apiConstants";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 import { useAuth } from "../../contexts/AuthContext";
 import {
   Chart as ChartJS,
@@ -43,7 +43,10 @@ function ProfDashboardContent() {
       if (!userId) return;
 
       // Fetch sessions where the professor is the instructor
-      const sessionsRes = await fetch(`${API_URL}/sessions`);
+      const sessionsRes = await fetch(`${API_URL}/sessions`, {
+        method: "GET",
+        headers: { "X-API-KEY": API_KEY },
+      });
       const allSessions = await sessionsRes.json();
       const profSessions = allSessions.filter(
         (session) => session.instructor?.id === userId
@@ -57,7 +60,10 @@ function ProfDashboardContent() {
         ),
       ];
 
-      const coursesRes = await fetch(`${API_URL}/trainings`);
+      const coursesRes = await fetch(`${API_URL}/trainings`, {
+        method: "GET",
+        headers: { "X-API-KEY": API_KEY },
+      });
       const allCourses = await coursesRes.json();
       const profCourses = allCourses.filter((course) =>
         trainingIds.includes(course.id)
@@ -65,7 +71,10 @@ function ProfDashboardContent() {
       setCourses(profCourses.slice(0, 3)); // Display first 3 courses
 
       // Fetch inscriptions for statistics (only for professor's sessions)
-      const inscriptionsRes = await fetch(`${API_URL}/inscriptions`);
+      const inscriptionsRes = await fetch(`${API_URL}/inscriptions`, {
+        method: "GET",
+        headers: { "X-API-KEY": API_KEY },
+      });
       const allInscriptions = await inscriptionsRes.json();
       const profInscriptions = allInscriptions.filter(
         (inscription) =>
@@ -169,7 +178,7 @@ function ProfDashboardContent() {
   const globalAverage =
     trainingsWithGrades.length > 0
       ? trainingsWithGrades.reduce((sum, t) => sum + t.average, 0) /
-        trainingsWithGrades.length
+      trainingsWithGrades.length
       : 0;
 
   // Convertir en pourcentage sur 20
@@ -299,9 +308,8 @@ function ProfDashboardContent() {
               </h2>
               <p className="text-secondary mb-4" style={{ fontSize: "14px" }}>
                 {trainingsWithGrades.length > 0
-                  ? `Moyenne globale (${globalPercentage}%) - ${
-                      trainingsWithGrades.length
-                    } formation${trainingsWithGrades.length > 1 ? "s" : ""}`
+                  ? `Moyenne globale (${globalPercentage}%) - ${trainingsWithGrades.length
+                  } formation${trainingsWithGrades.length > 1 ? "s" : ""}`
                   : "Aucune note disponible pour le moment"}
               </p>
               <div style={{ height: "250px" }}>

@@ -19,7 +19,7 @@
 import "../../styles/CoursDetail.css";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { API_URL } from "../../constants/apiConstants";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 import { useAuth } from "../../contexts/AuthContext";
 
 function CoursDetail() {
@@ -29,7 +29,10 @@ function CoursDetail() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await fetch(`${API_URL}/trainings/${id}`);
+            const res = await fetch(`${API_URL}/trainings/${id}`, {
+                method: "GET",
+                headers: { "X-API-KEY": API_KEY },
+            });
             const data = await res.json();
             setData(data);
         };
@@ -105,9 +108,9 @@ function CoursDetail() {
                         )}
                     </div>
                     <div className="col-md-6 d-flex justify-content-center">
-                            <Link className="btn btn-3d" to={"/3d-viewer"} state={{ modelUrl: '/models/keyboard.glb' }}>
-                                Voir les outils en 3D
-                            </Link>
+                        <Link className="btn btn-3d" to={"/3d-viewer"} state={{ modelUrl: '/models/keyboard.glb' }}>
+                            Voir les outils en 3D
+                        </Link>
                     </div>
                 </div>
             </div>

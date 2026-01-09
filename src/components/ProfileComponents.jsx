@@ -18,7 +18,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { API_URL } from "../constants/apiConstants";
+import { API_URL, API_KEY } from "../constants/apiConstants";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import profilePicture from '../assets/images/profile_picture.webp';
@@ -50,7 +50,10 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
     };
 
     const handleUpdateProfileButtonPress = async () => {
-        const previousPlayer = await fetch(`${API_URL}/users/${userId}`);
+        const previousPlayer = await fetch(`${API_URL}/users/${userId}`, {
+            method: "GET",
+            headers: { "X-API-KEY": API_KEY },
+        });
         const jsonPreviousPlayer = await previousPlayer.json();
 
         const updatedPlayer = {
@@ -66,7 +69,7 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
 
         const res = await fetch(`${API_URL}/users/${userId}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", "X-API-KEY": API_KEY },
             body: JSON.stringify(updatedPlayer),
         });
 
@@ -82,6 +85,7 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
     const handleDeleteProfile = async () => {
         const res = await fetch(`${API_URL}/users/${userId}`, {
             method: "DELETE",
+            headers: { "X-API-KEY": API_KEY },
         });
         setShowPopUpDelete(false);
         logout();
@@ -133,12 +137,16 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
 
         const sendImage = await fetch(`${API_URL}/files/upload`, {
             method: "POST",
+            headers: { "X-API-KEY": API_KEY },
             body: formData,
         })
 
         const jsonRes = await sendImage.json();
 
-        const previousPlayer = await fetch(`${API_URL}/users/${userId}`);
+        const previousPlayer = await fetch(`${API_URL}/users/${userId}`, {
+            method: "GET",
+            headers: { "X-API-KEY": API_KEY },
+        });
         const jsonPreviousPlayer = await previousPlayer.json();
 
         const updatedPlayer = {
@@ -154,7 +162,7 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
 
         const res = await fetch(`${API_URL}/users/${userId}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json", "X-API-KEY": API_KEY },
             body: JSON.stringify(updatedPlayer),
         });
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_URL } from "../../constants/apiConstants";
+import { API_URL, API_KEY } from "../../constants/apiConstants";
 import { useAuth } from "../../contexts/AuthContext";
 
 /**
@@ -22,7 +22,10 @@ function MyStudentsContent() {
   const fetchProfessorInscriptions = async () => {
     try {
       // 1. Récupérer toutes les sessions où le professeur est instructeur
-      const sessionsRes = await fetch(`${API_URL}/sessions`);
+      const sessionsRes = await fetch(`${API_URL}/sessions`, {
+        method: "GET",
+        headers: { "X-API-KEY": API_KEY },
+      });
       const allSessions = await sessionsRes.json();
       const profSessions = allSessions.filter(
         (session) => session.instructor?.id === userId
@@ -31,7 +34,10 @@ function MyStudentsContent() {
 
       // 2. Récupérer les inscriptions des étudiants
       const inscriptionsRes = await fetch(
-        `${API_URL}/inscriptions/search?userType=0`
+        `${API_URL}/inscriptions/search?userType=0`, {
+        method: "GET",
+        headers: { "X-API-KEY": API_KEY },
+      }
       );
       const allInscriptions = await inscriptionsRes.json();
 
@@ -89,10 +95,10 @@ function MyStudentsContent() {
       const sessionTitle = inscription.session?.title || "Sans session";
       const sessionDate = inscription.session?.startDate
         ? new Date(inscription.session.startDate).toLocaleDateString("fr-FR", {
-            day: "numeric",
-            month: "long",
-            year: "numeric",
-          })
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        })
         : "";
 
       if (!grouped[sessionId]) {
@@ -117,10 +123,10 @@ function MyStudentsContent() {
     selectedSession === "all"
       ? groupedStudents
       : groupedStudents.filter((group) =>
-          group.students.some(
-            (s) => s.session?.id === parseInt(selectedSession)
-          )
-        );
+        group.students.some(
+          (s) => s.session?.id === parseInt(selectedSession)
+        )
+      );
 
   // Update inscription status
   const updateStatus = async (inscriptionId, newStatus) => {
@@ -128,7 +134,7 @@ function MyStudentsContent() {
       const inscription = inscriptions.find((i) => i.id === inscriptionId);
       const response = await fetch(`${API_URL}/inscriptions/${inscriptionId}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "X-API-KEY": API_KEY },
         body: JSON.stringify({
           ...inscription,
           status: newStatus,
@@ -170,7 +176,7 @@ function MyStudentsContent() {
         `${API_URL}/inscriptions/${editingInscription.id}`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", "X-API-KEY": API_KEY },
           body: JSON.stringify({
             ...editingInscription,
             amount: noteValue,

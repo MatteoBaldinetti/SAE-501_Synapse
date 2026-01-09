@@ -108,7 +108,7 @@ function CoursDetail() {
                         )}
                     </div>
                     <div className="col-md-6 d-flex justify-content-center">
-                        <Link className="btn btn-3d" to={"/3d-viewer"} state={{ modelUrl: '/models/keyboard.glb' }}>
+                        <Link className="btn btn-3d" to={"/3d-viewer"} state={{ modelUrl: '/models/room.glb' }}>
                             Voir les outils en 3D
                         </Link>
                     </div>

@@ -87,20 +87,20 @@ https://docs.google.com/spreadsheets/d/1pWGgZ2eqJKw4hhwJ4UL4aFLdzIzlTNApL_veXBvF
 
 ### Lancement individuel
 
-## Web
+#### Web
 ```bash
 cd Web
 npm install
 npm run dev
 ```
 
-## API
-### Il faut d'abord lancer un serveur sql avant de lancer l'api
+#### API
+**Il faut d'abord lancer un serveur sql avant de lancer l'api**
 ```bash
 docker run -d --name txlforma-mysql -e MYSQL_ROOT_PASSWORD=txlforma -e MYSQL_DATABASE=txlforma -p 3306:3306 -v txlforma_db:/var/lib/mysql mysql:latest
 ```
 
-### Lancement de l'api
+#### Lancement de l'api
 ```bash
 cd api
 .\mvnw.cmd clean package

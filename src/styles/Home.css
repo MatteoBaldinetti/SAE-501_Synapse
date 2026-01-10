@@ -10,6 +10,7 @@ header {
     align-items: center;
     border-radius: 20px;
     overflow: hidden;
+    padding: 3rem 2rem;
 }
 
 header::before {
@@ -28,6 +29,15 @@ header>* {
 #header-title {
     font-size: 3vw;
     font-weight: bold;
+}
+
+/* Responsive header */
+@media (max-width: 767.98px) {
+    header {
+        min-height: 50vh;
+        padding: 2rem 1rem;
+        border-radius: 15px;
+    }
 }
 
 .blue-button {

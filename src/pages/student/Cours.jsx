@@ -40,7 +40,7 @@ function Cours() {
       <div className="container">
         {/* Header */}
         <div className="row">
-          <div className="col-10 mx-auto">
+          <div className="col-12 col-lg-10 mx-auto">
             <h2 className="mt-5">Découvrez nos cours</h2>
             <p className="text-secondary">
               Trouvez la formation idéale pour améliorer vos compétences et
@@ -51,7 +51,7 @@ function Cours() {
 
         {/* Search Bar */}
         <div className="row mt-3">
-          <div className="col-10 mx-auto">
+          <div className="col-12 col-lg-10 mx-auto">
             <SearchBar
               placeholder="Rechercher un cours"
               data={data.map((f) => f.title)}
@@ -69,7 +69,7 @@ function Cours() {
           {data.map((formation, index) => (
             <div
               key={formation.ids || index}
-              className={`col-10 mx-auto course-card ${filteredCourses.length === 0 ||
+              className={`col-12 col-lg-10 mx-auto course-card ${filteredCourses.length === 0 ||
                 filteredCourses.includes(formation)
                 ? ""
                 : "hidden"
@@ -77,14 +77,14 @@ function Cours() {
             >
               <div className="card mb-3">
                 <div className="row g-0">
-                  <div className="col-md-8">
+                  <div className="col-12 col-md-8 order-2 order-md-1">
                     <div className="card-body">
                       <h4 className="card-title">{formation.title}</h4>
                       <p className="card-text text-secondary fs-5 mb-0">
                         {formation.description}
                       </p>
                       <div className="row mb-3">
-                        <div className="col-4">
+                        <div className="col-6 col-sm-4">
                           <div className="icon-text mt-2">
                             <svg
                               width={20}
@@ -101,7 +101,7 @@ function Cours() {
                             </span>
                           </div>
                         </div>
-                        <div className="col-4">
+                        <div className="col-6 col-sm-4">
                           <div className="icon-text mt-2">
                             <svg
                               width={20}
@@ -127,11 +127,11 @@ function Cours() {
                       </Link>
                     </div>
                   </div>
-                  <div className="col-md-4 p-3 d-flex justify-content-center align-items-center">
+                  <div className="col-12 col-md-4 p-3 d-flex justify-content-center align-items-center order-1 order-md-2">
                     <img
                       src={`${API_URL}/files/download/${formation.imgName}`}
                       className="img-fluid rounded"
-                      alt="..."
+                      alt={formation.title}
                     />
                   </div>
                 </div>

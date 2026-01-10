@@ -52,15 +52,15 @@ function Home() {
         onConfirm={userAcceptCookies}
         onDecline={userDeclineCookies}
       />
-      <header className="container my-5">
+      <header className="container-fluid container-md my-3 my-md-5 px-2 px-md-3">
         <div className="row">
           <div className="col-12">
-            <h1 id="header-title" className="text-center text-white">
+            <h1 id="header-title" className="text-center text-white fs-2 fs-md-1">
               Libérez votre potentiel grâce à des
               <br />
               cours dispensés par des experts
             </h1>
-            <p className="text-white text-center fs-4">
+            <p className="text-white text-center fs-5 fs-md-4">
               Rejoignez une communauté dynamique d'apprenants et acquérez des
               compétences très recherchées grâce à nos programmes de formation
               complets.
@@ -80,8 +80,8 @@ function Home() {
           </div>
         </div>
         <div className="row mt-4">
-          <div className="col-4">
-            <img src={famousCourse1} className="famous-courses-image" />
+          <div className="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+            <img src={famousCourse1} className="famous-courses-image" alt="Développement Back" />
             <h5 className="mt-4">
               Développement Back : Symfony, Spring Boot, Laravel...
             </h5>
@@ -90,18 +90,18 @@ function Home() {
               applications puissantes.
             </p>
           </div>
-          <div className="col-4">
-            <img src={famousCourse2} className="famous-courses-image" />
+          <div className="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+            <img src={famousCourse2} className="famous-courses-image" alt="Administration système" />
             <h5 className="mt-4">
               Administration système : Windows Server, Linux, Unix...
             </h5>
             <p className="text-secondary">
               Gérez et sécurisez efficacement vos serveurs et systèmes
-              d’exploitation.
+              d'exploitation.
             </p>
           </div>
-          <div className="col-4">
-            <img src={famousCourse3} className="famous-courses-image" />
+          <div className="col-12 col-md-6 col-lg-4">
+            <img src={famousCourse3} className="famous-courses-image" alt="Réseaux et télécoms" />
             <h5 className="mt-4">
               Réseaux et télécoms : VLAN, adressage, routage, VPN...
             </h5>
@@ -115,7 +115,7 @@ function Home() {
           <div className="col-12">
             <h2>Donnez les moyens à votre parcours d'apprentissage</h2>
           </div>
-          <div className="col-8 fs-5">
+          <div className="col-12 col-lg-8 fs-5">
             Chez TXLFORMA, nous nous engageons à fournir une éducation
             accessible et de haute qualité qui permet à chacun d'atteindre ses
             objectifs professionnels.

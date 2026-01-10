@@ -18,11 +18,11 @@ function Footer() {
         <div className="container">
           <div className="row">
             {/* Liens */}
-            <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 text-md-start">
+            <div className="col-12 col-md-4 col-lg-3 mx-auto mt-3 text-center text-md-start">
               <h5 className="text-uppercase mb-4 font-weight-bold">Liens</h5>
               <p>
                 <Link to="/cgu" className="text-white text-decoration-none">
-                  Conditions générales d’utilisation
+                  Conditions générales d'utilisation
                 </Link>
               </p>
               <p>
@@ -48,11 +48,11 @@ function Footer() {
               </p>
             </div>
             {/* Réseaux sociaux */}
-            <div className="col-md-6 col-lg-6 col-xl-6 mx-auto mt-3 text-md-center">
+            <div className="col-12 col-md-4 col-lg-6 mx-auto mt-3 text-center">
               <h5 className="text-uppercase mb-4 font-weight-bold">
                 Suivez-nous
               </h5>
-              <Link to="#" className="text-white mx-3">
+              <Link to="#" className="text-white mx-2 mx-md-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 512 512"
@@ -65,7 +65,7 @@ function Footer() {
                   />
                 </svg>
               </Link>
-              <Link to="#" className="text-white mx-3">
+              <Link to="#" className="text-white mx-2 mx-md-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 448 512"
@@ -78,7 +78,7 @@ function Footer() {
                   />
                 </svg>
               </Link>
-              <Link to="#" className="text-white mx-3">
+              <Link to="#" className="text-white mx-2 mx-md-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 448 512"
@@ -91,7 +91,7 @@ function Footer() {
                   />
                 </svg>
               </Link>
-              <Link to="#" className="text-white mx-3">
+              <Link to="#" className="text-white mx-2 mx-md-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 448 512"
@@ -107,7 +107,7 @@ function Footer() {
             </div>
 
             {/* Contact */}
-            <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 text-md-end">
+            <div className="col-12 col-md-4 col-lg-3 mx-auto mt-3 text-center text-md-end">
               <h5 className="text-uppercase mb-4 font-weight-bold">Contact</h5>
               <p>
                 <i className="bi bi-house-door-fill me-2"></i>4 rue de la paix,
@@ -124,11 +124,11 @@ function Footer() {
 
           <hr className="mb-4" />
 
-          <div className="row align-items-center text-md-start">
-            <div className="col-md-7 col-lg-8">
+          <div className="row align-items-center text-center text-md-start">
+            <div className="col-12 col-md-7 col-lg-8">
               <p>&copy; 2025 TXLFORMA. Tous droits réservés.</p>
             </div>
-            <div className="col-md-5 col-lg-4"></div>
+            <div className="col-12 col-md-5 col-lg-4"></div>
           </div>
         </div>
       </footer>

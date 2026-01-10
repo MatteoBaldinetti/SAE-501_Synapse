@@ -45,8 +45,8 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
-        <Link className="navbar-brand ms-5" to="/">
-          <img src={smallLogo} height={"60vh"} width={"auto"} alt="Logo" />
+        <Link className="navbar-brand ms-2 ms-lg-5" to="/">
+          <img src={smallLogo} height={"60px"} width={"auto"} alt="Logo" />
         </Link>
 
         <button
@@ -62,13 +62,13 @@ function Navbar() {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ms-auto me-3 mb-2 mb-lg-0">
-            <li className="nav-item me-3">
+          <ul className="navbar-nav ms-auto me-2 me-lg-3 mb-2 mb-lg-0">
+            <li className="nav-item me-2 me-lg-3">
               <Link className="nav-link" to="/">
                 Accueil
               </Link>
             </li>
-            <li className="nav-item me-3">
+            <li className="nav-item me-2 me-lg-3">
               <Link className="nav-link" to="/cours">
                 Cours
               </Link>
@@ -81,7 +81,7 @@ function Navbar() {
           </ul>
 
           {userId !== null ? (
-            <div className="dropdown me-5">
+            <div className="dropdown me-2 me-lg-5">
               <img
                 src={
                   userImage === null || userImage === ""
@@ -138,9 +138,9 @@ function Navbar() {
               </ul>
             </div>
           ) : (
-            <>
+            <div className="d-flex flex-column flex-lg-row gap-2 w-100 w-lg-auto">
               <button
-                className="btn blue-button me-3"
+                className="btn blue-button"
                 type="button"
                 onClick={() => goToLogin(false)}
               >
@@ -153,7 +153,7 @@ function Navbar() {
               >
                 S'inscrire
               </button>
-            </>
+            </div>
           )}
         </div>
       </div>

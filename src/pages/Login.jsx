@@ -178,7 +178,7 @@ function Login() {
                   </a>
                 </div>
                 <div className="form-bottom d-flex flex-column align-items-center">
-                  <button type="submit" className="btn blue-button w-50 fs-5 mb-2" disabled={authLoading}>
+                  <button type="submit" className="btn blue-button w-100 w-md-75 w-lg-50 fs-5 mb-2" disabled={authLoading}>
                     {authLoading ? "Connexion..." : "Se connecter"}
                   </button>
                 </div>
@@ -189,7 +189,7 @@ function Login() {
             <div className={`form-content ${!isConnexion ? "active" : ""}`}>
               <form onSubmit={handleSubmitInscription}>
                 <div className="row">
-                  <div className="col-md-6 mb-3">
+                  <div className="col-12 col-md-6 mb-3">
                     <label>Prénom</label>
                     <input
                       type="text"
@@ -199,7 +199,7 @@ function Login() {
                       className="form-control"
                     />
                   </div>
-                  <div className="col-md-6 mb-3">
+                  <div className="col-12 col-md-6 mb-3">
                     <label>Nom</label>
                     <input
                       type="text"
@@ -221,7 +221,7 @@ function Login() {
                   />
                 </div>
                 <div className="row">
-                  <div className="col-md-6 position-relative">
+                  <div className="col-12 col-md-6 position-relative mb-3 mb-md-0">
                     <label>Mot de passe</label>
                     <div className="d-flex align-items-center position-relative">
                       <input
@@ -236,7 +236,7 @@ function Login() {
                       </div>
                     </div>
                   </div>
-                  <div className="col-md-6 position-relative">
+                  <div className="col-12 col-md-6 position-relative">
                     <label>Confirmer le mot de passe</label>
                     <div className="d-flex align-items-center position-relative">
                       <input
@@ -259,7 +259,7 @@ function Login() {
                   Minimum 8 caractères, doit contenir une majuscule et un caractère spécial.
                 </p>
                 <div className="form-bottom d-flex flex-column align-items-center">
-                  <button type="submit" className="btn blue-button w-50 fs-5 mb-2" disabled={authLoading}>
+                  <button type="submit" className="btn blue-button w-100 w-md-75 w-lg-50 fs-5 mb-2" disabled={authLoading}>
                     {authLoading ? "Inscription..." : "S'inscrire"}
                   </button>
                 </div>

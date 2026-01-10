@@ -1,4 +1,11 @@
 services:
+  web:
+    image: kendinh1/txlforma_web:latest
+    container_name: web
+    ports:
+      - "5173:80"
+    restart: unless-stopped
+
   db:
     image: mysql:latest
     container_name: db
@@ -17,6 +24,15 @@ services:
       interval: 5s
       retries: 10
       timeout: 5s
+
+  init-uploads:
+    image: busybox
+    container_name: init-uploads
+    volumes:
+      - api_uploads:/data
+      - ./uploads:/seed:ro
+    command: sh -c "cp -n /seed/* /data/"
+    restart: "no"
 
   api:
     image: kendinh1/txlforma:latest

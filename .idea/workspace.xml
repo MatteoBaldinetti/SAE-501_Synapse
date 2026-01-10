@@ -1,0 +1,780 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="sae501:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bd84dc30-4846-4c92-9b91-4107f92d32d0" name="Changes" comment="Added DTOs for PaymentController">
+      <change beforePath="$PROJECT_DIR$/.dockerignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/HELP.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/Sae501Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/config/ApiKeyFilterConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/config/OpenApiConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/config/StripeConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/controllers/FileController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/controllers/InscriptionController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/controllers/InstructorController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/controllers/PaymentController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/controllers/PlaceController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/controllers/ResultController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/controllers/SessionController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/controllers/TrainingController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/controllers/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/dto/CreatePaymentIntentDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/dto/InscriptionCreationDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/dto/InstructorCreationDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/dto/InstructorIdDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/dto/PaymentIntentSecretDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/dto/PlaceCreationDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/dto/PlaceIdDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/dto/ResultCreationDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/dto/SessionCreationDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/dto/SessionIdDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/dto/TrainingCreationDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/dto/TrainingIdDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/dto/UserCreationDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/dto/UserIdDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/exceptions/ApiError.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/exceptions/BadRequestException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/exceptions/GlobalExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/exceptions/ResourceNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/filter/ApiKeyFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/mappers/InscriptionMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/mappers/InstructorMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/mappers/PlaceMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/mappers/ResultMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/mappers/SessionMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/mappers/TrainingMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/mappers/UserMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/models/File.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/models/Inscription.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/models/Instructor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/models/Place.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/models/Result.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/models/Session.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/models/Training.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/models/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/repositories/FileRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/repositories/InscriptionRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/repositories/InstructorRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/repositories/PlaceRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/repositories/ResultRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/repositories/SessionRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/repositories/TrainingRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/repositories/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/services/FileService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/services/InscriptionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/services/InstructorService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/services/PlaceService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/services/ResultService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/services/SessionService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/services/TrainingService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/services/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/specifications/InscriptionSpecifications.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/specifications/InstructorSpecifications.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/specifications/PlaceSpecifications.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/specifications/ResultSpecifications.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/specifications/SessionSpecifications.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/specifications/TrainingSpecifications.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/synapse/sae501/specifications/UserSpecifications.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/txlforma/compose.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/txlforma/db/init.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/txlforma/uploads/1767199048837-fernando-alonso-aston-martin-r.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/txlforma/uploads/1767621182345-kirby-pictures-6f3961bh9tvmntwq.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/txlforma/uploads/1767684132665-slider-programme-dev-web.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/txlforma/uploads/1767684665621-101_UX_vs_UI_illustration_blog-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/txlforma/uploads/1767684747798-MicrosoftTeams-image-10.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/txlforma/uploads/1767687824225-kirby-pictures-6f3961bh9tvmntwq.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/txlforma/uploads/1767688034832-kirby-pictures-6f3961bh9tvmntwq.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/txlforma/uploads/1767717058580-admin-panel.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/txlforma/uploads/1767717915141-happy-young-man-laughing_23-2148911860.avif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/txlforma/uploads/1767717969329-premium_photo-1689551670902-19b441a6afde.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/txlforma/uploads/1767718018321-selfie-portrait-videocall_23-2149186122.avif" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Exception" />
+        <option value="Record" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="ea1887fc3d9d51df3517b6b3d56bac686b33a860" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Ken-Dinh&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/MatteoBaldinetti/SAE-501_Synapse.git&quot;,
+    &quot;accountId&quot;: &quot;0e5a1ee8-ac57-4d9d-9aa3-299551355e8d&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="351AhFxRAel9IBeW8qtrL54WyWD" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Sae501Application.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Docker Image (1).executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Docker Image.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.sae501 [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.sae501 [deploy:deploy-file,-X].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.sae501 [deploy:deploy-file].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.sae501 [deploy].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.sae501 [jar:help].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.sae501 [jar:jar].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.sae501 [site:jar].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.sae501 [spring-boot:build-image-no-fork].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.sae501 [spring-boot:build-image].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.sae501 [spring-boot:run].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.txlforma [clean,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.txlforma [spring-boot:build-image,-e].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.txlforma [spring-boot:build-image].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.txlforma [spring-boot:run].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main-back&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/Desktop/Univ Eiffel/Git/SAE-501_Synapse/Back/txlforma&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.50229883&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\User\Desktop\Univ Eiffel\Git\SAE-501_Synapse\Back\txlforma" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\User\Desktop\Univ Eiffel\Git\SAE-501_Synapse\Back" />
+      <recent name="C:\Users\User\Desktop\Univ Eiffel\Git\SAE-501_Synapse\Back\Back" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.synapse.sae501.models" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn jar:jar" />
+      <command value="mvn compile" />
+      <command value="mvn deploy:deploy-file" />
+      <command value="mvn deploy:deploy-file -X" />
+      <command value="mvn jar:help" />
+      <command value="mvn site:jar" />
+      <command value="mvn deploy" />
+      <command value="mvn spring-boot:build-image-no-fork" />
+      <command value="mvn spring-boot:run" />
+      <command value="mvn spring-boot:build-image" />
+      <command value="mvn spring-boot:build-image -e" />
+      <command value="docker build -t kendinh1/txlforma:latest ." />
+      <command value="docker compose build" />
+      <command value="docker buildx" />
+      <command value="mvn clean package" />
+      <command value="docker buildx build --platform linux/amd64,linux/arm64 -t kendinh1/txlforma:latest --push ." />
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.Sae501Application">
+    <configuration name="Sae501Application" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.synapse.sae501.Sae501Application" />
+      <module name="sae501" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.synapse.sae501.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Back" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Back" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Docker Image" type="docker-deploy" factoryName="docker-image" temporary="true" server-name="Docker">
+      <deployment type="docker-image">
+        <settings>
+          <option name="imageTag" value="sae501:0.0.1" />
+          <option name="containerName" value="" />
+          <option name="portBindings">
+            <list>
+              <DockerPortBindingImpl>
+                <option name="containerPort" value="8080" />
+                <option name="hostPort" value="8080" />
+              </DockerPortBindingImpl>
+            </list>
+          </option>
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-image" temporary="true">
+      <deployment type="docker-image">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="compose.yaml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="compose.yaml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.Sae501Application" />
+      <item itemvalue="Docker.compose.yaml: Compose Deployment" />
+      <item itemvalue="Docker.Docker Image" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.compose.yaml: Compose Deployment" />
+        <item itemvalue="Docker.Docker Image" />
+        <item itemvalue="Docker.Docker Image" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26199.169" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bd84dc30-4846-4c92-9b91-4107f92d32d0" name="Changes" comment="" />
+      <created>1762267322237</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1762267322237</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Changed firstName and lastName to firstname and lastname">
+      <option name="closed" value="true" />
+      <created>1763049761524</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1763049761536</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added configuration to allow localhost:5173">
+      <option name="closed" value="true" />
+      <created>1763050503932</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1763050503932</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Removed CorsConfig and added CrossOrigin to Controllers">
+      <option name="closed" value="true" />
+      <created>1763050689739</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1763050689739</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Fixed PutMapping not working by using the id from the parameter">
+      <option name="closed" value="true" />
+      <created>1763052271525</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1763052271525</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Removed salt from the database completely since bcrypt already handles it">
+      <option name="closed" value="true" />
+      <created>1763052619615</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1763052619615</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Fixed a few functions in Controllers and Services">
+      <option name="closed" value="true" />
+      <created>1763106672206</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1763106672206</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Fixed the API return result with a lot of data.&#10;Renamed some api names to follow a naming convention.">
+      <option name="closed" value="true" />
+      <created>1764146866015</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1764146866015</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Reverted the JSON Annotations.">
+      <option name="closed" value="true" />
+      <created>1764164971956</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1764164971957</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Small cleanup of unused packages.">
+      <option name="closed" value="true" />
+      <created>1764172974852</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1764172974852</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Removed some unused annotations.">
+      <option name="closed" value="true" />
+      <created>1764237843324</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1764237843324</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Small fix for infinite recursion when doing a GET method.">
+      <option name="closed" value="true" />
+      <created>1764238831738</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1764238831738</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Small fix for infinite recursion when doing a GET method.">
+      <option name="closed" value="true" />
+      <created>1764238857560</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1764238857560</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Added image upload/download.&#10;Added 3 new columns for Training.java: detailedDescription, prerequisites, imgName.">
+      <option name="closed" value="true" />
+      <created>1764242124177</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1764242124177</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Added a GET method for getting images.">
+      <option name="closed" value="true" />
+      <created>1764248290909</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1764248290909</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Changed the models, added title, description and duration for Session.java, and added a ManyToOne relationship to Inscription.java.">
+      <option name="closed" value="true" />
+      <created>1764251097966</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1764251097966</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Added dockerfile.">
+      <option name="closed" value="true" />
+      <created>1764339700382</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1764339700382</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Added search for all entities.">
+      <option name="closed" value="true" />
+      <created>1765373619949</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1765373619949</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Added learnText column in Training.">
+      <option name="closed" value="true" />
+      <created>1765375080975</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1765375080975</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Added phoneNumber column in User.">
+      <option name="closed" value="true" />
+      <created>1765452949479</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1765452949480</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Renamed from Image to File.">
+      <option name="closed" value="true" />
+      <created>1765534259190</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1765534259190</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Changed Docker configuration.">
+      <option name="closed" value="true" />
+      <created>1765535501522</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1765535501522</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Added User.imgName">
+      <option name="closed" value="true" />
+      <created>1765536166790</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1765536166790</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Updated init.sql">
+      <option name="closed" value="true" />
+      <created>1765536716213</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1765536716213</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Updated init.sql">
+      <option name="closed" value="true" />
+      <created>1765538147246</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1765538147246</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Added OpenAPI Swagger.">
+      <option name="closed" value="true" />
+      <created>1765542674793</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1765542674793</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Updated all controllers.">
+      <option name="closed" value="true" />
+      <created>1765807487338</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1765807487338</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Changed Iterable to List.">
+      <option name="closed" value="true" />
+      <created>1765809569161</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1765809569161</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Updated controllers to all return a response entity.">
+      <option name="closed" value="true" />
+      <created>1765958912700</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1765958912700</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Added Swagger docs to all controllers&#10;Added getSessionsByUser">
+      <option name="closed" value="true" />
+      <created>1765967589617</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1765967589617</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Added getSessionsByUser">
+      <option name="closed" value="true" />
+      <created>1765967637916</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1765967637916</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Updated delete with foreign keys.">
+      <option name="closed" value="true" />
+      <created>1765984347348</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1765984347348</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Added custom exceptions for the controllers' response codes.">
+      <option name="closed" value="true" />
+      <created>1765988899796</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1765988899796</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Added custom exceptions for the controllers' response codes.">
+      <option name="closed" value="true" />
+      <created>1765989005667</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1765989005667</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Added the exception message to the ApiError for easier debugging.">
+      <option name="closed" value="true" />
+      <created>1765989392802</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1765989392802</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Fixed typo.">
+      <option name="closed" value="true" />
+      <created>1765989749326</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1765989749326</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Added DTOs to send only relevant data when adding or updating.">
+      <option name="closed" value="true" />
+      <created>1766153107161</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1766153107161</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Fixed mappers">
+      <option name="closed" value="true" />
+      <created>1766952782757</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1766952782757</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Fixed the sql file">
+      <option name="closed" value="true" />
+      <created>1766956193073</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1766956193073</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Fixed getSessionsByUser's path variable">
+      <option name="closed" value="true" />
+      <created>1767085835970</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1767085835970</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Added a modelFileName field in Training">
+      <option name="closed" value="true" />
+      <created>1767200182203</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1767200182203</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Updated Dockerfile to simplify image building">
+      <option name="closed" value="true" />
+      <created>1767611100002</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1767611100002</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Updated Dockerfile to simplify image building">
+      <option name="closed" value="true" />
+      <created>1767611212127</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1767611212127</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Deleted unused files">
+      <option name="closed" value="true" />
+      <created>1767611249425</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1767611249425</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Added initial uploads for the volumes&#10;Added a max upload size to 1GB">
+      <option name="closed" value="true" />
+      <created>1767615728706</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1767615728706</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Added access to download files without an API key.">
+      <option name="closed" value="true" />
+      <created>1767621683875</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1767621683875</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Updated the initial database">
+      <option name="closed" value="true" />
+      <created>1767718588696</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1767718588698</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Added some comments to understand difficult parts of the code">
+      <option name="closed" value="true" />
+      <created>1767720836197</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1767720836197</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Added Stripe">
+      <option name="closed" value="true" />
+      <created>1768066395957</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1768066395958</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Added DTOs for PaymentController">
+      <option name="closed" value="true" />
+      <created>1768067463226</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1768067463226</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/main-back" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added User.imgName" />
+    <MESSAGE value="Updated init.sql" />
+    <MESSAGE value="Added OpenAPI Swagger." />
+    <MESSAGE value="Updated all controllers." />
+    <MESSAGE value="Changed Iterable to List." />
+    <MESSAGE value="Updated controllers to all return a response entity." />
+    <MESSAGE value="Added Swagger docs to all controllers&#10;Added getSessionsByUser" />
+    <MESSAGE value="Added getSessionsByUser" />
+    <MESSAGE value="Updated delete with foreign keys." />
+    <MESSAGE value="Added custom exceptions for the controllers' response codes." />
+    <MESSAGE value="Added the exception message to the ApiError for easier debugging." />
+    <MESSAGE value="Fixed typo." />
+    <MESSAGE value="Added DTOs to send only relevant data when adding or updating." />
+    <MESSAGE value="Fixed mappers" />
+    <MESSAGE value="Fixed the sql file" />
+    <MESSAGE value="Fixed getSessionsByUser's path variable" />
+    <MESSAGE value="Added a modelFileName field in Training" />
+    <MESSAGE value="Updated Dockerfile to simplify image building" />
+    <MESSAGE value="Deleted unused files" />
+    <MESSAGE value="Added initial uploads for the volumes&#10;Added a max upload size to 1GB" />
+    <MESSAGE value="Added access to download files without an API key." />
+    <MESSAGE value="Updated the initial database" />
+    <MESSAGE value="Added some comments to understand difficult parts of the code" />
+    <MESSAGE value="Added Stripe" />
+    <MESSAGE value="Added DTOs for PaymentController" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added DTOs for PaymentController" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="com.synapse.sae501.exceptions.ResourceNotFoundException" package="com.synapse.sae501.exceptions" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Back$Sae501Application.ic" NAME="Sae501Application Coverage Results" MODIFIED="1763027634137" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>com.synapse.sae501.*</FILTER>
+    </SUITE>
+  </component>
+</project>

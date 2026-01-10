@@ -52,23 +52,11 @@ https://docs.google.com/spreadsheets/d/1pWGgZ2eqJKw4hhwJ4UL4aFLdzIzlTNApL_veXBvF
    cd SAE-501_Synapse
    ```
 
-2. **Installer les dépendances**
-
-   ```bash
-   npm install
-   ```
-
-3. **Démarrer le container Docker**
+2. **Démarrer le container Docker**
 
    ```bash
    cd docker
    docker compose up -d
    ```
-
-4. **Lancer le serveur de développement**
-
-   ```bash
-   npm run dev
-   ```
-
+   
    L'application sera accessible à l'adresse : `http://localhost:5173`

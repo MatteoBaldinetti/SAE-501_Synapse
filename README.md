@@ -33,10 +33,18 @@ https://docs.google.com/spreadsheets/d/1pWGgZ2eqJKw4hhwJ4UL4aFLdzIzlTNApL_veXBvF
 
 - **bcryptjs** (v3.0.3)
 
+### Backend
+- **Sprint Boot** (v3.5.7)
+- **MySQL** (v9.5.0)
+- **Stripe** (v24.12.0)
+- **OpenAPI/Swagger** (v2.8.14)
+- **Maven** (v3.9.9)
+
 ### Outils de Développement
 
 - **ESLint** (v9.36.0)
 - **@vitejs/plugin-react** (v5.0.4)
+- **IntelliJ IDEA** (v2025.2.2)
 
 ## Installation
 
@@ -44,6 +52,7 @@ https://docs.google.com/spreadsheets/d/1pWGgZ2eqJKw4hhwJ4UL4aFLdzIzlTNApL_veXBvF
 
 - Node.js (version 16 ou supérieure)
 - npm ou yarn
+- Maven 3.9.9
 
 ### Étapes d'installation
 
@@ -58,7 +67,34 @@ https://docs.google.com/spreadsheets/d/1pWGgZ2eqJKw4hhwJ4UL4aFLdzIzlTNApL_veXBvF
 
    ```bash
    cd docker
-   docker compose up -d
+   docker compose -p txlforma up -d
    ```
    
    L'application sera accessible à l'adresse : `http://localhost:5173`
+
+   #### Pour enlever le projet en entier
+   ```bash
+   docker-compose -p txlforma down -v
+   ```
+
+### Lancement individuel
+
+## Web
+```bash
+cd Web
+npm install
+npm run dev
+```
+
+## API
+### Il faut d'abord lancer un serveur sql avant de lancer l'api
+```bash
+docker run -d --name txlforma-mysql -e MYSQL_ROOT_PASSWORD=txlforma -e MYSQL_DATABASE=txlforma -p 3306:3306 -v txlforma_db:/var/lib/mysql mysql:latest
+```
+
+### Lancement de l'api
+```bash
+cd api
+.\mvnw.cmd clean package
+.\mvnw.cmd spring-boot:run
+```

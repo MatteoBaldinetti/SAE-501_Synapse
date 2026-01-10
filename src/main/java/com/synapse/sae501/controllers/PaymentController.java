@@ -56,7 +56,7 @@ public class PaymentController {
 
         PaymentIntentCreateParams params =
                 PaymentIntentCreateParams.builder()
-                        .setAmount(amount.longValue()) // centimes
+                        .setAmount(amount.longValue())
                         .setCurrency("eur")
                         .setAutomaticPaymentMethods(
                                 PaymentIntentCreateParams.AutomaticPaymentMethods

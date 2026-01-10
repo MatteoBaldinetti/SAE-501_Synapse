@@ -4,6 +4,8 @@
 
 Application web de gestion de formations en ligne pour l'entreprise TXLFORMA. Projet dans le cadre de la SAE501 du BUT MMI.
 
+Toutes les parties du projet (Front, Back, Base de données) se trouvent dans une image Docker afin de pouvoir tout lancer en une commande (Voir la partie Installation)
+
 ## Liens annexes :
 
 ### Figma :
@@ -52,23 +54,11 @@ https://docs.google.com/spreadsheets/d/1pWGgZ2eqJKw4hhwJ4UL4aFLdzIzlTNApL_veXBvF
    cd SAE-501_Synapse
    ```
 
-2. **Installer les dépendances**
-
-   ```bash
-   npm install
-   ```
-
-3. **Démarrer le container Docker**
+2. **Démarrer le container Docker**
 
    ```bash
    cd docker
    docker compose up -d
    ```
-
-4. **Lancer le serveur de développement**
-
-   ```bash
-   npm run dev
-   ```
-
+   
    L'application sera accessible à l'adresse : `http://localhost:5173`

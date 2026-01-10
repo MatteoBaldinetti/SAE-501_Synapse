@@ -6,9 +6,16 @@ Application web de gestion de formations en ligne pour l'entreprise TXLFORMA. Pr
 
 Toutes les parties du projet (Front, Back, Base de données) se trouvent dans une image Docker afin de pouvoir tout lancer en une commande (Voir la partie Installation)
 
-## Liens annexes :
+## Sommaire
 
-### Figma :
+- [Description](#description)
+- [Liens annexes](#liens-annexes)
+- [Technologies Utilisées](#technologies-utilisées)
+- [Installation](#installation)
+
+## Liens annexes
+
+### Figma
 https://www.figma.com/design/rCju9B0B6GPkQZQteJamXs/Untitled?node-id=0-1&t=zppyp5AM8Lq6ocLu-1
 
 ### Google Sheets (Gestion de projet)
@@ -53,6 +60,7 @@ https://docs.google.com/spreadsheets/d/1pWGgZ2eqJKw4hhwJ4UL4aFLdzIzlTNApL_veXBvF
 - Node.js (version 16 ou supérieure)
 - npm ou yarn
 - Maven 3.9.9
+- Docker
 
 ### Étapes d'installation
 

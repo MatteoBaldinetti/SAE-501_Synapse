@@ -16,7 +16,7 @@ COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
 
-RUN mkdir -p /workspace/uploads
-VOLUME ["/workspace/uploads"]
+RUN mkdir -p /app/uploads
+VOLUME ["/app/uploads"]
 
 ENTRYPOINT ["java","-jar","app.jar"]

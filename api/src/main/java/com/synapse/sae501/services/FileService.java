@@ -27,7 +27,7 @@ public class FileService {
     @Autowired
     private FileRepository fileRepository;
 
-    private final String uploadDir = "/workspace/uploads/";
+    private final Path uploadDir = Paths.get("uploads");
 
     public List<File> getAllFiles() {
         return fileRepository.findAll();
@@ -54,10 +54,10 @@ public class FileService {
         }
 
         try {
-            Files.createDirectories(Paths.get(uploadDir));
+            Files.createDirectories(uploadDir);
 
             String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
-            Path path = Paths.get(uploadDir, fileName);
+            Path path = uploadDir.resolve(fileName);
 
             Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
@@ -76,7 +76,7 @@ public class FileService {
 
     public ResponseEntity<Resource> downloadFile(String fileName) {
         try {
-            Path path = Paths.get(uploadDir + fileName);
+            Path path = uploadDir.resolve(fileName);
 
             Resource resource = new UrlResource(path.toUri());
 

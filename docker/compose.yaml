@@ -29,9 +29,9 @@ services:
     image: busybox
     container_name: init-uploads
     volumes:
-      - api_uploads:/data
+      - api_uploads:/app/uploads
       - ./uploads:/seed:ro
-    command: sh -c "cp -n /seed/* /data/"
+    command: sh -c "cp -n /seed/* /app/uploads/"
     restart: "no"
 
   api:
@@ -48,7 +48,7 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: txlforma
     volumes:
-      - api_uploads:/workspace/uploads
+      - api_uploads:/app/uploads
 
 volumes:
   db_data:

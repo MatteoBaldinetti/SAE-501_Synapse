@@ -56,8 +56,7 @@ function ResetPassword() {
 
         try {
             const previousUserRes = await fetch(`${API_URL}/users/${userId}`, {
-                method: "GET",
-                headers: { "X-API-KEY": API_KEY },
+                headers: { "X-API-KEY": API_KEY }
             });
             const previousUser = await previousUserRes.json();
 
@@ -68,7 +67,10 @@ function ResetPassword() {
 
             await fetch(`${API_URL}/users/${userId}`, {
                 method: "PUT",
-                headers: { "Content-Type": "application/json", "X-API-KEY": API_KEY },
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-API-KEY": API_KEY
+                },
                 body: JSON.stringify(updatedUser),
             });
 

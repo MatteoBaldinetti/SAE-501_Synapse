@@ -9,7 +9,6 @@
  */
 
 import { useState, useEffect } from "react";
-
 import { API_URL, API_KEY } from "../../../constants/apiConstants";
 
 function EditFormation({ formationId, onClose }) {
@@ -34,9 +33,8 @@ function EditFormation({ formationId, onClose }) {
   useEffect(() => {
     const fetchFormation = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/trainings/${formationId}`, {
-          method: "GET",
-          headers: { "X-API-KEY": API_KEY },
+        const response = await fetch(`${API_URL}/trainings/${formationId}`, {
+          headers: { "X-API-KEY": API_KEY }
         });
 
         if (!response.ok) {
@@ -83,11 +81,11 @@ function EditFormation({ formationId, onClose }) {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/api/trainings/${formationId}`, {
+      const response = await fetch(`${API_URL}/trainings/${formationId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": API_KEY,
+          "X-API-KEY": API_KEY
         },
         body: JSON.stringify(formData),
       });
@@ -122,9 +120,9 @@ function EditFormation({ formationId, onClose }) {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/api/trainings/${formationId}`, {
+      const response = await fetch(`${API_URL}/trainings/${formationId}`, {
         method: "DELETE",
-        headers: { "X-API-KEY": API_KEY },
+        headers: { "X-API-KEY": API_KEY }
       });
 
       if (!response.ok) {

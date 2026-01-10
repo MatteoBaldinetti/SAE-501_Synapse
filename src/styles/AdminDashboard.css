@@ -13,16 +13,16 @@
     color: #2EE88A;
 }
 
-.admin-view .selected-button:hover{
+.admin-view .selected-button:hover {
     background-color: #2EE88A !important;
 }
 
-.admin-view .gestionnaire > div{
+.admin-view .gestionnaire>div {
     border-radius: 10px;
     transition: background-color 0.2s ease;
 }
 
-.admin-view .gestionnaire > div:hover{
+.admin-view .gestionnaire>div:hover {
     cursor: pointer;
     background-color: #2ee88b4f;
     transition: background-color 0.2s ease;
@@ -60,12 +60,18 @@
     padding-bottom: 3rem;
 }
 
-.selected-button-prof {
-    cursor: default !important;
-    background-color: #FFA500;
+.elements {
+    opacity: 1;
+    visibility: visible;
+    max-height: 500px;
+    transition: 
+        opacity 0.3s ease,
+        max-height 0.3s ease,
+        visibility 0.3s;
 }
 
-.selected-button-prof:hover {
-    background-color: #FFA500 !important;
+.elements.hidden {
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0;
 }
-

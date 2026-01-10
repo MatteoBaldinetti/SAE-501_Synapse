@@ -114,7 +114,7 @@ function CreateFormation({ onClose }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": API_KEY,
+          "X-API-KEY": API_KEY
         },
         body: JSON.stringify(formData),
       });

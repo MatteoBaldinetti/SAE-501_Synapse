@@ -9,7 +9,6 @@
  */
 
 import { useState, useEffect } from "react";
-
 import { API_URL, API_KEY } from "../../../constants/apiConstants";
 
 function EditPlace({ placeId, onClose }) {
@@ -28,9 +27,8 @@ function EditPlace({ placeId, onClose }) {
   useEffect(() => {
     const fetchPlace = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/places/${placeId}`, {
-          method: "GET",
-          headers: { "X-API-KEY": API_KEY },
+        const response = await fetch(`${API_URL}/places/${placeId}`, {
+          headers: { "X-API-KEY": API_KEY }
         });
 
         if (!response.ok) {
@@ -60,9 +58,8 @@ function EditPlace({ placeId, onClose }) {
   useEffect(() => {
     const fetchSessions = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/sessions`, {
-          method: "GET",
-          headers: { "X-API-KEY": API_KEY },
+        const response = await fetch(`${API_URL}/sessions`, {
+          headers: { "X-API-KEY": API_KEY }
         });
         if (!response.ok) {
           throw new Error("Erreur lors du chargement des sessions");
@@ -97,11 +94,11 @@ function EditPlace({ placeId, onClose }) {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/api/places/${placeId}`, {
+      const response = await fetch(`${API_URL}/places/${placeId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": API_KEY,
+          "X-API-KEY": API_KEY
         },
         body: JSON.stringify(formData),
       });
@@ -135,9 +132,9 @@ function EditPlace({ placeId, onClose }) {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/api/places/${placeId}`, {
+      const response = await fetch(`${API_URL}/places/${placeId}`, {
         method: "DELETE",
-        headers: { "X-API-KEY": API_KEY },
+        headers: { "X-API-KEY": API_KEY }
       });
 
       if (!response.ok) {

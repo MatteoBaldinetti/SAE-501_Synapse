@@ -42,6 +42,13 @@ function Navbar() {
     navigate("/login", { state: { isSignUp } });
   };
 
+  const dashboardPath =
+    userType === 2
+      ? "/admin"
+      : userType === 1
+        ? "/prof-dashboard"
+        : "/dashboard";
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">

@@ -20,6 +20,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import TableCours from "../../components/TableCours";
 import { API_URL, API_KEY } from "../../constants/apiConstants";
 import logo from "../../assets/images/smallLogoPDF.jpeg";
+import { useNavigate } from "react-router-dom";
 
 // Pour faire les PDF de la facture
 import jsPDF from "jspdf";
@@ -35,19 +36,27 @@ function Dashboard() {
     const [userEvaluation, setUserEvaluation] = useState([]);
     const [userPayment, setUserPayment] = useState([]);
 
+    // Gère la redirection en cas d'erreur d'accès
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (userType === null) {
+            navigate("/401", { replace: true });
+        } else if (userType !== 0) {
+            navigate("/403", { replace: true });
+        }
+    }, [userType, navigate]);
+
     useEffect(() => {
         const fetchData = async () => {
             if (currentLayout === "cours") {
                 const res = await fetch(`${API_URL}/users/${userId}/sessions`, {
-                    method: "GET",
-                    headers: { "X-API-KEY": API_KEY },
+                    headers: { "X-API-KEY": API_KEY }
                 });
                 const json = await res.json();
                 setUserSession(json);
 
                 const res2 = await fetch(`${API_URL}/results/search?userId=${userId}`, {
-                    method: "GET",
-                    headers: { "X-API-KEY": API_KEY },
+                    headers: { "X-API-KEY": API_KEY }
                 });
                 const json2 = await res2.json();
                 setUserEvaluation(json2);
@@ -55,8 +64,7 @@ function Dashboard() {
 
             if (currentLayout === "paiement") {
                 const res = await fetch(`${API_URL}/inscriptions/search?userId=${userId}`, {
-                    method: "GET",
-                    headers: { "X-API-KEY": API_KEY },
+                    headers: { "X-API-KEY": API_KEY }
                 });
                 const json = await res.json();
                 setUserPayment(json.reverse());
@@ -289,7 +297,7 @@ function Dashboard() {
                                                 <h6>Montant</h6>
                                             </div>
                                             <div className="col-3">
-                                                <h6>Date</h6>
+                                                <h6>Date de paiement</h6>
                                             </div>
                                             <div className="col-3">
                                                 <h6>Facture</h6>
@@ -304,7 +312,7 @@ function Dashboard() {
                                                     <h6>{payment.amount}€</h6>
                                                 </div>
                                                 <div className="col-3">
-                                                    <h6>{formatDateISO(payment.date)}</h6>
+                                                    <h6>{formatDateISO(payment.inscriptionDate)}</h6>
                                                 </div>
                                                 <div className="col-3">
                                                     <button

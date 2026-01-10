@@ -27,14 +27,12 @@ function TableCours({ data, userId, statusLayout }) {
                 const trainingId = data[i].training.id;
 
                 const resInscription = await fetch(`${API_URL}/inscriptions/search?userId=${userId}&sessionId=${sessionId}`, {
-                    method: "GET",
-                    headers: { "X-API-KEY": API_KEY },
+                    headers: { "X-API-KEY": API_KEY }
                 });
                 const jsonInscription = await resInscription.json();
 
                 const resTraining = await fetch(`${API_URL}/trainings/${trainingId}`, {
-                    method: "GET",
-                    headers: { "X-API-KEY": API_KEY },
+                    headers: { "X-API-KEY": API_KEY }
                 });
                 const jsonTraining = await resTraining.json();
 

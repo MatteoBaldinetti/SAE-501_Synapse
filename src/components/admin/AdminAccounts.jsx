@@ -16,7 +16,6 @@ import { useState, useEffect } from "react";
 import SearchBar from "../SearchBar";
 import CreateUser from "./Forms/CreateUser";
 import EditUser from "./Forms/EditUser";
-
 import { API_URL, API_KEY } from "../../constants/apiConstants";
 
 function AdminAccounts() {
@@ -29,9 +28,8 @@ function AdminAccounts() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/users`, {
-        method: "GET",
-        headers: { "X-API-KEY": API_KEY },
+      const res = await fetch(`${API_URL}/users`, {
+        headers: { "X-API-KEY": API_KEY }
       });
       const data = await res.json();
       setData(data);
@@ -51,9 +49,8 @@ function AdminAccounts() {
     setEditUserId(null);
     // Recharger les données après modification
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/users`, {
-        method: "GET",
-        headers: { "X-API-KEY": API_KEY },
+      const res = await fetch(`${API_URL}/users`, {
+        headers: { "X-API-KEY": API_KEY }
       });
       const data = await res.json();
       setData(data);
@@ -65,9 +62,8 @@ function AdminAccounts() {
     setShowCreateForm(false);
     // Recharger les données après création
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/users`, {
-        method: "GET",
-        headers: { "X-API-KEY": API_KEY },
+      const res = await fetch(`${API_URL}/users`, {
+        headers: { "X-API-KEY": API_KEY }
       });
       const data = await res.json();
       setData(data);
@@ -98,6 +94,8 @@ function AdminAccounts() {
   if (showCreateForm) {
     return <CreateUser onClose={handleCloseCreate} />;
   }
+
+  const usersToDisplay = filteredUsers.length > 0 ? filteredUsers : data;
 
   // Sinon, afficher la liste des utilisateurs
   return (
@@ -141,7 +139,7 @@ function AdminAccounts() {
               <b>Actions</b>
             </div>
           </div>
-          {data.map((users, index) => (
+          {usersToDisplay.map((users, index) => (
             <div className="row py-3 border bg-white" key={users.id || index}>
               <div className="col-4">
                 {users.firstname + " " + users.lastname}

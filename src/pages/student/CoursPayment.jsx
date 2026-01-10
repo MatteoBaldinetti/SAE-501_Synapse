@@ -25,6 +25,12 @@ function CoursPayment() {
   const location = useLocation();
   const id = location.state;
 
+  useEffect(() => {
+    if (id === null) {
+      navigate("/403");
+    }
+  }, [id])
+
   const [data, setData] = useState([]);
   const [payment, setPayment] = useState("card");
   const [displayPayment, setDisplayPayment] = useState("card");
@@ -178,16 +184,15 @@ function CoursPayment() {
 
     const session = await fetch(
       `${API_URL}/sessions/search?userId=${userId}&trainingId=${data.id}`, {
-      method: "GET",
-      headers: { "X-API-KEY": API_KEY },
-    }
+        headers: { "X-API-KEY": API_KEY }
+      }
     );
     const sessionJson = await session.json();
 
     const inscription = {
       inscriptionDate: new Date().toISOString(),
       status: "CONFIRM",
-      date: sessionJson[0].endDate,
+      date: new Date().toISOString(),
       amount: data.price,
       user: { id: userId },
       session: { id: sessionJson[0].id },
@@ -196,18 +201,20 @@ function CoursPayment() {
 
     await fetch(`${API_URL}/inscriptions`, {
       method: "POST",
-      headers: { "Content-Type": "application/json", "X-API-KEY": API_KEY },
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-KEY": API_KEY
+      },
       body: JSON.stringify(inscription),
     });
 
-    navigate("/payment-confirmation");
+    navigate("/payment-confirmation", {state: {id}});
   };
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(`${API_URL}/trainings/${id}`, {
-        method: "GET",
-        headers: { "X-API-KEY": API_KEY },
+        headers: { "X-API-KEY": API_KEY }
       });
       const json = await res.json();
       setData(json);
@@ -656,7 +663,7 @@ function CoursPayment() {
                   viewBox="0 0 448 512"
                 >
                   <path
-                    fill="#ffffff"
+                    fill={isFormValid() ? "#ffffff" : "#6B6E71"}
                     d="M400 192h-24v-72C376 53.8 322.2 0 256 0S136 53.8 136 120v72H112c-26.5 0-48 21.5-48 48v224c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V240c0-26.5-21.5-48-48-48zM184 120c0-39.7 32.3-72 72-72s72 32.3 72 72v72H184v-72zm216 344c0 8.8-7.2 16-16 16H112c-8.8 0-16-7.2-16-16V240c0-8.8 7.2-16 16-16h288c8.8 0 16 7.2 16 16v224z"
                   />
                 </svg>

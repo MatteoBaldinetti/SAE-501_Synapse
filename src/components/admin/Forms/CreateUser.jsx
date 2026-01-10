@@ -13,7 +13,6 @@
 
 import { useState } from "react";
 import bcrypt from "bcryptjs";
-
 import { API_URL, API_KEY } from "../../../constants/apiConstants";
 
 function CreateUser({ onClose }) {
@@ -54,11 +53,11 @@ function CreateUser({ onClose }) {
         phoneNumber: formData.phoneNumber,
       };
 
-      const response = await fetch(`${API_URL}/api/users`, {
+      const response = await fetch(`${API_URL}/users`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": API_KEY,
+          "X-API-KEY": API_KEY
         },
         body: JSON.stringify(newUser),
       });

@@ -16,7 +16,6 @@ import { useState, useEffect } from "react";
 import SearchBar from "../SearchBar";
 import CreateSession from "./Forms/CreateSession";
 import EditSession from "./Forms/EditSession";
-
 import { API_URL, API_KEY } from "../../constants/apiConstants";
 
 function AdminSession() {
@@ -29,9 +28,8 @@ function AdminSession() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/sessions`, {
-        method: "GET",
-        headers: { "X-API-KEY": API_KEY },
+      const res = await fetch(`${API_URL}/sessions`, {
+        headers: { "X-API-KEY": API_KEY }
       });
       const data = await res.json();
       setData(data);
@@ -51,9 +49,8 @@ function AdminSession() {
     setEditSessionId(null);
     // Recharger les données après modification
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/sessions`, {
-        method: "GET",
-        headers: { "X-API-KEY": API_KEY },
+      const res = await fetch(`${API_URL}/sessions`, {
+        headers: { "X-API-KEY": API_KEY }
       });
       const data = await res.json();
       setData(data);
@@ -65,9 +62,8 @@ function AdminSession() {
     setShowCreateForm(false);
     // Recharger les données après création
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/api/sessions`, {
-        method: "GET",
-        headers: { "X-API-KEY": API_KEY },
+      const res = await fetch(`${API_URL}/sessions`, {
+        headers: { "X-API-KEY": API_KEY }
       });
       const data = await res.json();
       setData(data);
@@ -84,6 +80,8 @@ function AdminSession() {
   if (showCreateForm) {
     return <CreateSession onClose={handleCloseCreate} />;
   }
+
+  const sessionsToDisplay = filteredSessions.length > 0 ? filteredSessions : data;
 
   // Sinon, afficher la liste des sessions
   return (
@@ -122,8 +120,8 @@ function AdminSession() {
               <b>Actions</b>
             </div>
           </div>
-          {data.map((session, index) => (
-            <div className="row py-3 border bg-white" key={session.id || index}>
+          {sessionsToDisplay.map((session, index) => (
+            <div key={session.id || index} className="row py-3 border bg-white elements">
               <div className="col-5">{session.title}</div>
               <div className="col-5">{session.training?.title || "N/A"}</div>
               <div className="col-2">
@@ -138,7 +136,7 @@ function AdminSession() {
           ))}
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 

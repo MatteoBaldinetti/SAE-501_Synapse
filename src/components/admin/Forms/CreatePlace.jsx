@@ -13,7 +13,6 @@
  */
 
 import { useState } from "react";
-
 import { API_URL, API_KEY } from "../../../constants/apiConstants";
 
 function CreatePlace({ onClose }) {
@@ -41,11 +40,11 @@ function CreatePlace({ onClose }) {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/api/places`, {
+      const response = await fetch(`${API_URL}/places`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": API_KEY,
+          "X-API-KEY": API_KEY
         },
         body: JSON.stringify(formData),
       });

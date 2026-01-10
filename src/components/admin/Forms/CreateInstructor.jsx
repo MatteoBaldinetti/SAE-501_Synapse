@@ -12,7 +12,6 @@
  */
 
 import { useState } from "react";
-
 import { API_URL, API_KEY } from "../../../constants/apiConstants";
 
 function CreateInstructor({ onClose }) {
@@ -40,11 +39,11 @@ function CreateInstructor({ onClose }) {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/api/instructors`, {
+      const response = await fetch(`${API_URL}/instructors`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": API_KEY,
+          "X-API-KEY": API_KEY
         },
         body: JSON.stringify(formData),
       });

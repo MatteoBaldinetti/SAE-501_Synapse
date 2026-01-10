@@ -10,7 +10,6 @@
 
 import { useState, useEffect } from "react";
 import bcrypt from "bcryptjs";
-
 import { API_URL, API_KEY } from "../../../constants/apiConstants";
 
 function EditUser({ userId, onClose }) {
@@ -31,9 +30,8 @@ function EditUser({ userId, onClose }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`${API_URL}/api/users/${userId}`, {
-          method: "GET",
-          headers: { "X-API-KEY": API_KEY },
+        const response = await fetch(`${API_URL}/users/${userId}`, {
+          headers: { "X-API-KEY": API_KEY }
         });
 
         if (!response.ok) {
@@ -85,11 +83,11 @@ function EditUser({ userId, onClose }) {
         delete dataToSend.password;
       }
 
-      const response = await fetch(`${API_URL}/api/users/${userId}`, {
+      const response = await fetch(`${API_URL}/users/${userId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "X-API-KEY": API_KEY,
+          "X-API-KEY": API_KEY
         },
         body: JSON.stringify(dataToSend),
       });
@@ -124,9 +122,9 @@ function EditUser({ userId, onClose }) {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/api/users/${userId}`, {
+      const response = await fetch(`${API_URL}/users/${userId}`, {
         method: "DELETE",
-        headers: { "X-API-KEY": API_KEY },
+        headers: { "X-API-KEY": API_KEY }
       });
 
       if (!response.ok) {

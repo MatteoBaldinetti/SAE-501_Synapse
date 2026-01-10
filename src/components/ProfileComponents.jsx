@@ -51,9 +51,9 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
 
     const handleUpdateProfileButtonPress = async () => {
         const previousPlayer = await fetch(`${API_URL}/users/${userId}`, {
-            method: "GET",
-            headers: { "X-API-KEY": API_KEY },
-        });
+            headers: { "X-API-KEY": API_KEY }
+        }
+        );
         const jsonPreviousPlayer = await previousPlayer.json();
 
         const updatedPlayer = {
@@ -69,7 +69,10 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
 
         const res = await fetch(`${API_URL}/users/${userId}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json", "X-API-KEY": API_KEY },
+            headers: {
+                "Content-Type": "application/json",
+                "X-API-KEY": API_KEY
+            },
             body: JSON.stringify(updatedPlayer),
         });
 
@@ -85,7 +88,7 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
     const handleDeleteProfile = async () => {
         const res = await fetch(`${API_URL}/users/${userId}`, {
             method: "DELETE",
-            headers: { "X-API-KEY": API_KEY },
+            headers: { "X-API-KEY": API_KEY }
         });
         setShowPopUpDelete(false);
         logout();
@@ -144,8 +147,7 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
         const jsonRes = await sendImage.json();
 
         const previousPlayer = await fetch(`${API_URL}/users/${userId}`, {
-            method: "GET",
-            headers: { "X-API-KEY": API_KEY },
+            headers: { "X-API-KEY": API_KEY }
         });
         const jsonPreviousPlayer = await previousPlayer.json();
 
@@ -162,7 +164,10 @@ function ProfileComponents({ userId, userEmail, userFirstname, userLastname, use
 
         const res = await fetch(`${API_URL}/users/${userId}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json", "X-API-KEY": API_KEY },
+            headers: {
+                "Content-Type": "application/json",
+                "X-API-KEY": API_KEY
+            },
             body: JSON.stringify(updatedPlayer),
         });
 

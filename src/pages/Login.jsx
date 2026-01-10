@@ -106,7 +106,10 @@ function Login() {
 
       const res = await fetch(`${API_URL}/users`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", "X-API-KEY": API_KEY },
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": API_KEY
+        },
         body: JSON.stringify(newUser),
       });
 

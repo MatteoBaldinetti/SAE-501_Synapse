@@ -3,4 +3,4 @@ export const API_URL = import.meta.env.PROD
   ? "http://localhost:8080/api"
   : "/api";
 
-export const API_KEY = "@txlforma2026!"
+export const API_KEY = "@txlforma2026!";

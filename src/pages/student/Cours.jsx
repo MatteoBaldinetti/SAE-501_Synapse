@@ -25,10 +25,11 @@ function Cours() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch(`${API_URL}/trainings`, {
-        method: "GET",
-        headers: { "X-API-KEY": API_KEY },
-      });
+      const res = await fetch(`${API_URL}/trainings`,
+        {
+          headers: { "X-API-KEY": API_KEY }
+        }
+      );
       const data = await res.json();
       setData(data);
     };

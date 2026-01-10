@@ -72,8 +72,7 @@ export function AuthProvider({ children }) {
     setAuthLoading(true);
     try {
       const res = await fetch(`${API_URL}/users/search?email=${email}`, {
-        method: "GET",
-        headers: { "X-API-KEY": API_KEY },
+        headers: { "X-API-KEY": API_KEY }
       });
 
       if (!res.ok) {

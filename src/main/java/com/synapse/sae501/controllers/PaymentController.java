@@ -3,6 +3,8 @@ package com.synapse.sae501.controllers;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
 import com.stripe.param.PaymentIntentCreateParams;
+import com.synapse.sae501.dto.CreatePaymentIntentDTO;
+import com.synapse.sae501.dto.PaymentIntentSecretDTO;
 import com.synapse.sae501.exceptions.ApiError;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,8 +13,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/payments")
@@ -48,11 +48,11 @@ public class PaymentController {
             )
     })
     @PostMapping("/create-intent")
-    public Map<String, String> createPaymentIntent(
-            @RequestBody Map<String, Object> data
+    public PaymentIntentSecretDTO createPaymentIntent(
+            @RequestBody CreatePaymentIntentDTO request
     ) throws StripeException {
 
-        Integer amount = (Integer) data.get("amount");
+        Integer amount = request.amount();
 
         PaymentIntentCreateParams params =
                 PaymentIntentCreateParams.builder()
@@ -68,8 +68,6 @@ public class PaymentController {
 
         PaymentIntent intent = PaymentIntent.create(params);
 
-        return Map.of(
-                "clientSecret", intent.getClientSecret()
-        );
+        return new PaymentIntentSecretDTO(intent.getClientSecret());
     }
 }

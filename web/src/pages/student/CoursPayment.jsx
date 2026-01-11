@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { API_URL, API_KEY } from "../../constants/apiConstants";
 import { useAuth } from "../../contexts/AuthContext";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js"
 
 function CoursPayment() {
   const navigate = useNavigate();
@@ -24,6 +25,9 @@ function CoursPayment() {
 
   const location = useLocation();
   const id = location.state;
+
+  const stripe = useStripe();
+  const elements = useElements();
 
   useEffect(() => {
     if (id === null) {
@@ -35,6 +39,7 @@ function CoursPayment() {
   const [payment, setPayment] = useState("card");
   const [displayPayment, setDisplayPayment] = useState("card");
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isCardComplete, setIsCardComplete] = useState(false);
 
   const [personalInfo, setPersonalInfo] = useState({
     firstName: "",
@@ -56,12 +61,6 @@ function CoursPayment() {
   });
 
   const [sameAddress, setSameAddress] = useState(false);
-
-  const [cardData, setCardData] = useState({
-    number: "",
-    exp: "",
-    cvc: "",
-  });
 
   const [errors, setErrors] = useState({});
 
@@ -114,25 +113,6 @@ function CoursPayment() {
     }
   };
 
-  const handleCardChange = (e) => {
-    const { name, value } = e.target;
-
-    if (name === "number") {
-      let digits = value.replace(/\D/g, "").slice(0, 16);
-      digits = digits.replace(/(.{4})/g, "$1 ").trim();
-      setCardData((prev) => ({ ...prev, number: digits }));
-    } else if (name === "cvc") {
-      let digits = value.replace(/\D/g, "").slice(0, 3);
-      setCardData((prev) => ({ ...prev, cvc: digits }));
-    }
-  };
-
-  const handleCardDate = (e) => {
-    let value = e.target.value.replace(/\D/g, "").slice(0, 4);
-    if (value.length > 2) value = value.slice(0, 2) + "/" + value.slice(2);
-    setCardData((prev) => ({ ...prev, exp: value }));
-  };
-
   const changePayment = (method) => {
     if (method === payment) return;
     setIsTransitioning(true);
@@ -164,51 +144,78 @@ function CoursPayment() {
       }
     }
 
-    if (payment === "card") {
-      if (
-        cardData.number.replace(/\s/g, "").length !== 16 ||
-        cardData.cvc.length !== 3 ||
-        cardData.exp.length !== 5
-      ) {
-        return false;
-      }
-    }
-
     if (Object.keys(errors).length > 0) return false;
+
+    if (payment === "card" && !isCardComplete) return false;
 
     return true;
   };
 
   const handlePayment = async () => {
-    if (!isFormValid()) return;
+    if (!stripe || !elements || !isFormValid()) return;
 
+    const cardElement = elements.getElement(CardElement);
+
+    // Création PaymentMethod Stripe
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: cardElement,
+      billing_details: {
+        name: `${personalInfo.firstName} ${personalInfo.lastName}`,
+        email: personalInfo.email,
+      },
+    });
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    // Appel backend Spring Boot
+    const response = await fetch(`${API_URL}/payments/create-intent`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-KEY": API_KEY,
+      },
+      body: JSON.stringify({
+        paymentMethodId: paymentMethod.id,
+        amount: data.price * 100, // CENTIMES
+      }),
+    });
+
+    const result = await response.json();
+
+    if (result.clientSecret === undefined) {
+      alert("Paiement refusé");
+      return;
+    }
+
+    // Paiement OK = inscription
     const session = await fetch(
-      `${API_URL}/sessions/search?userId=${userId}&trainingId=${data.id}`, {
-        headers: { "X-API-KEY": API_KEY }
-      }
+      `${API_URL}/sessions/search?userId=${userId}&trainingId=${data.id}`,
+      { headers: { "X-API-KEY": API_KEY } }
     );
     const sessionJson = await session.json();
-
-    const inscription = {
-      inscriptionDate: new Date().toISOString(),
-      status: "CONFIRM",
-      date: new Date().toISOString(),
-      amount: data.price,
-      user: { id: userId },
-      session: { id: sessionJson[0].id },
-      training: { id: data.id },
-    };
 
     await fetch(`${API_URL}/inscriptions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-API-KEY": API_KEY
+        "X-API-KEY": API_KEY,
       },
-      body: JSON.stringify(inscription),
+      body: JSON.stringify({
+        inscriptionDate: new Date().toISOString(),
+        status: "CONFIRM",
+        amount: data.price,
+        date: new Date().toISOString(),
+        user: { id: userId },
+        session: { id: sessionJson[0].id },
+        training: { id: data.id },
+      }),
     });
 
-    navigate("/payment-confirmation", {state: {id}});
+    navigate("/payment-confirmation", { state: { id } });
   };
 
   useEffect(() => {
@@ -237,59 +244,35 @@ function CoursPayment() {
     )
       newErrors.phone = "Téléphone invalide";
 
-    if (cardData.number && cardData.number.replace(/\s/g, "").length !== 16)
-      newErrors.number = "Numéro de carte invalide";
-
-    if (cardData.cvc && cardData.cvc.length !== 3)
-      newErrors.cvc = "CVC invalide";
-
     setErrors(newErrors);
-  }, [personalInfo, cardData]);
+  }, [personalInfo]);
 
   const renderDrawer = (method) => {
     if (method === "card") {
       return (
         <>
           <h6>Carte bancaire</h6>
-          <div className="mb-3">
-            <label className="form-label">Numéro de carte</label>
-            <input
-              type="text"
-              className={`form-control ${errors.number ? "is-invalid" : ""}`}
-              name="number"
-              value={cardData.number}
-              onChange={handleCardChange}
+          <div className="border rounded p-3 bg-white">
+            <CardElement
+              onChange={(event) => {
+                setIsCardComplete(event.complete);
+              }}
+              options={{
+                hidePostalCode: true,
+                style: {
+                  base: {
+                    fontSize: "16px",
+                    color: "#32325d",
+                    "::placeholder": {
+                      color: "#aab7c4",
+                    },
+                  },
+                  invalid: {
+                    color: "#fa755a",
+                  },
+                },
+              }}
             />
-            {errors.number && (
-              <div className="invalid-feedback">{errors.number}</div>
-            )}
-          </div>
-
-          <div className="row">
-            <div className="col-md-6 mb-3">
-              <label className="form-label">Date d'expiration</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="MM/AA"
-                value={cardData.exp}
-                onChange={handleCardDate}
-              />
-            </div>
-
-            <div className="col-md-6 mb-3">
-              <label className="form-label">CVC</label>
-              <input
-                type="text"
-                className={`form-control ${errors.cvc ? "is-invalid" : ""}`}
-                name="cvc"
-                value={cardData.cvc}
-                onChange={handleCardChange}
-              />
-              {errors.cvc && (
-                <div className="invalid-feedback">{errors.cvc}</div>
-              )}
-            </div>
           </div>
         </>
       );

@@ -6,6 +6,8 @@ Application web de gestion de formations en ligne pour l'entreprise TXLFORMA. Pr
 
 Toutes les parties du projet (Front, Back, Base de données) se trouvent dans une image Docker afin de pouvoir tout lancer en une commande (Voir la partie Installation)
 
+---
+
 ## Sommaire
 
 - [Description](#description)
@@ -13,13 +15,15 @@ Toutes les parties du projet (Front, Back, Base de données) se trouvent dans un
 - [Technologies Utilisées](#technologies-utilisées)
 - [Installation](#installation)
 
+---
+
 ## Liens annexes
 
-### Figma
-https://www.figma.com/design/rCju9B0B6GPkQZQteJamXs/Untitled?node-id=0-1&t=zppyp5AM8Lq6ocLu-1
+#### [Figma](https://www.figma.com/design/rCju9B0B6GPkQZQteJamXs/Untitled?node-id=0-1&t=zppyp5AM8Lq6ocLu-1)
 
-### Google Sheets (Gestion de projet)
-https://docs.google.com/spreadsheets/d/1pWGgZ2eqJKw4hhwJ4UL4aFLdzIzlTNApL_veXBvF-9M/edit?usp=sharing
+#### [Google Sheets (Gestion de projet)](https://docs.google.com/spreadsheets/d/1pWGgZ2eqJKw4hhwJ4UL4aFLdzIzlTNApL_veXBvF-9M/edit?usp=sharing)
+
+---
 
 ## Technologies Utilisées
 
@@ -46,6 +50,7 @@ https://docs.google.com/spreadsheets/d/1pWGgZ2eqJKw4hhwJ4UL4aFLdzIzlTNApL_veXBvF
 - **Stripe** (v24.12.0)
 - **OpenAPI/Swagger** (v2.8.14)
 - **Maven** (v3.9.9)
+- **Java** (v25)
 
 ### Outils de Développement
 
@@ -53,14 +58,16 @@ https://docs.google.com/spreadsheets/d/1pWGgZ2eqJKw4hhwJ4UL4aFLdzIzlTNApL_veXBvF
 - **@vitejs/plugin-react** (v5.0.4)
 - **IntelliJ IDEA** (v2025.2.2)
 
+---
+
 ## Installation
 
 ### Prérequis
 
 - Node.js (version 16 ou supérieure)
 - npm ou yarn
-- Maven 3.9.9
 - Docker
+- Java 25
 
 ### Étapes d'installation
 
@@ -79,30 +86,36 @@ https://docs.google.com/spreadsheets/d/1pWGgZ2eqJKw4hhwJ4UL4aFLdzIzlTNApL_veXBvF
    ```
    
    L'application sera accessible à l'adresse : `http://localhost:5173`
-
-   #### Pour enlever le projet en entier
+   
+   ---
+   ###### Pour enlever le projet en entier
    ```bash
    docker-compose -p txlforma down -v
    ```
 
 ### Lancement individuel
+   #### Web
+   ```bash
+   cd Web
+   npm install
+   npm run dev
+   ```
+   Accessible avec : `http://localhost:5173`
 
-#### Web
-```bash
-cd Web
-npm install
-npm run dev
-```
+   #### API
+   **Il faut d'abord lancer un serveur sql avant de lancer l'api**
+   ```bash
+   docker run -d --name txlforma-mysql -e MYSQL_ROOT_PASSWORD=txlforma -e MYSQL_DATABASE=txlforma -p 3306:3306 -v txlforma_db:/var/lib/mysql mysql:latest
+   ```
 
-#### API
-**Il faut d'abord lancer un serveur sql avant de lancer l'api**
-```bash
-docker run -d --name txlforma-mysql -e MYSQL_ROOT_PASSWORD=txlforma -e MYSQL_DATABASE=txlforma -p 3306:3306 -v txlforma_db:/var/lib/mysql mysql:latest
-```
+   #### Lancement de l'api
+   ```bash
+   cd api
+   .\mvnw.cmd clean package
+   .\mvnw.cmd spring-boot:run
+   ```
+   Accessible avec : `http://localhost:8080/api/*`
 
-#### Lancement de l'api
-```bash
-cd api
-.\mvnw.cmd clean package
-.\mvnw.cmd spring-boot:run
-```
+   ## Documentation de l'API
+   Une fois l'api lancé, la documentation sera accessible avec : `http:localhost:8080/swagger-ui.html`
+   Pour utiliser les endpoints, il faut mettre la clé d'api en cliquant sur `Authorize` et mettre `@txlforma2026!` dans `value`.

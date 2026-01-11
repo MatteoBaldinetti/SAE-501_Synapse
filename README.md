@@ -14,6 +14,8 @@ Toutes les parties du projet (Front, Back, Base de données) se trouvent dans un
 - [Liens annexes](#liens-annexes)
 - [Technologies Utilisées](#technologies-utilisées)
 - [Installation](#installation)
+- [Architecture du projet](#architecture-du-projet)
+- [Diagramme de classes](#diagramme-de-classes)
 
 ---
 
@@ -85,7 +87,7 @@ Toutes les parties du projet (Front, Back, Base de données) se trouvent dans un
    docker compose -p txlforma up -d
    ```
    
-   L'application sera accessible à l'adresse : `http://localhost:5173`
+   L'application sera accessible à l'adresse : http://localhost:5173
    
    ---
    ###### Pour enlever le projet en entier
@@ -100,7 +102,7 @@ Toutes les parties du projet (Front, Back, Base de données) se trouvent dans un
    npm install
    npm run dev
    ```
-   Accessible avec : `http://localhost:5173`
+   Accessible avec : http://localhost:5173
 
    #### API
    **Il faut d'abord lancer un serveur sql avant de lancer l'api**
@@ -117,5 +119,73 @@ Toutes les parties du projet (Front, Back, Base de données) se trouvent dans un
    Accessible avec : `http://localhost:8080/api/*`
 
    ## Documentation de l'API
-   Une fois l'api lancé, la documentation sera accessible avec : `http:localhost:8080/swagger-ui.html`
+   Une fois l'api lancé, la documentation sera accessible avec : http://localhost:8080/swagger-ui.html.
    Pour utiliser les endpoints, il faut mettre la clé d'api en cliquant sur `Authorize` et mettre `@txlforma2026!` dans `value`.
+
+---
+
+## Architecture du projet
+
+### Web
+```
+root
+│   .dockerignore
+│   .gitignore
+│   Dockerfile
+│   index.html
+│   nginx.conf
+│   package-lock.json
+│   package.json
+│   vite.config.js
+├───public
+│   └───models
+└───src
+    ├───assets
+    │   └───images
+    ├───components
+    │   ├───admin
+    │   │   └───Forms
+    │   └───prof
+    │       └───Forms
+    ├───constants
+    ├───contexts
+    ├───pages
+    │   ├───3d
+    │   ├───admin
+    │   ├───errors
+    │   ├───prof
+    │   └───student
+    └───styles
+```
+   ---
+### API
+```
+root
+│   .dockerignore
+│   .gitignore
+│   Dockerfile
+│   pom.xml
+├───src
+│   └───main
+│       ├───java
+│       │   └───com
+│       │       └───synapse
+│       │           └───sae501
+│       │               ├───config
+│       │               ├───controllers
+│       │               ├───dto
+│       │               ├───exceptions
+│       │               ├───filter
+│       │               ├───mappers
+│       │               ├───models
+│       │               ├───repositories
+│       │               ├───services
+│       │               └───specifications
+│       └───resources
+│               application.properties
+└───uploads
+```
+
+## Diagramme de classes
+
+![Image du diagramme de classes](images/class_diagram.png)

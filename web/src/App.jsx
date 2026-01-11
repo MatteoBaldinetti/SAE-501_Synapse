@@ -30,6 +30,8 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
@@ -52,6 +54,7 @@ import ResetPassword from "./pages/ResetPassword";
 import Error404 from "./pages/errors/Error404";
 import Error401 from "./pages/errors/Error401";
 import Error403 from "./pages/errors/Error403";
+import { stripePromise } from "../config/stripe";
 
 function App() {
   return (
@@ -64,7 +67,14 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/cours" element={<Cours />} />
           <Route path="/cours-detail/:id" element={<CoursDetail />} />
-          <Route path="/cours-payment" element={<CoursPayment />} />
+          <Route
+            path="/cours-payment"
+            element={
+              <Elements stripe={stripePromise}>
+                <CoursPayment />
+              </Elements>
+            }
+          />
           <Route
             path="/payment-confirmation"
             element={<PaymentConfirmation />}

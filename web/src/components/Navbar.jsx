@@ -69,99 +69,105 @@ function Navbar() {
         </button>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ms-auto me-2 me-lg-3 mb-2 mb-lg-0">
-            <li className="nav-item me-2 me-lg-3">
-              <Link className="nav-link" to="/">
-                Accueil
-              </Link>
-            </li>
-            <li className="nav-item me-2 me-lg-3">
-              <Link className="nav-link" to="/cours">
-                Cours
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/contact">
-                Contact
-              </Link>
-            </li>
-          </ul>
+          {/* WRAPPER QUI POUSSE TOUT À DROITE */}
+          <div className="ms-auto d-flex align-items-center gap-3">
 
-          {userId !== null ? (
-            <div className="dropdown me-2 me-lg-5">
-              <img
-                src={
-                  userImage === null || userImage === ""
-                    ? profilePicture
-                    : `${API_URL}/files/download/${userImage}`
-                }
-                width={40}
-                height={40}
-                className="rounded-circle profile-avatar dropdown-toggle"
-                id="dropdownUser"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                alt="Profil"
-                style={{ cursor: "pointer" }}
-              />
+            {/* LIENS DE NAVIGATION */}
+            <ul className="navbar-nav mb-2 mb-lg-0">
+              <li className="nav-item me-2 me-lg-3">
+                <Link className="nav-link" to="/">
+                  Accueil
+                </Link>
+              </li>
+              <li className="nav-item me-2 me-lg-3">
+                <Link className="nav-link" to="/cours">
+                  Cours
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/contact">
+                  Contact
+                </Link>
+              </li>
+            </ul>
 
-              <ul
-                className="dropdown-menu dropdown-menu-end profile-dropdown"
-                aria-labelledby="dropdownUser"
-              >
-                <li>
-                  <Link
-                    className="dropdown-item fw-bold"
-                    to={userType === 1 ? `/prof-profile/${userId}` : "/dashboard"}
-                    style={{ cursor: "pointer" }}
-                  >
-                    {userFirstname} {userLastname}
-                  </Link>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <Link
-                    className="dropdown-item"
-                    to={userType === 1 ? "/prof-dashboard" : "/dashboard"}
-                  >
-                    Tableau de bord
-                  </Link>
-                </li>
+            {/* AUTH / PROFIL */}
+            {userId !== null ? (
+              <div className="dropdown me-2 me-lg-5">
+                <img
+                  src={
+                    userImage === null || userImage === ""
+                      ? profilePicture
+                      : `${API_URL}/files/download/${userImage}`
+                  }
+                  width={40}
+                  height={40}
+                  className="rounded-circle profile-avatar dropdown-toggle"
+                  id="dropdownUser"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  alt="Profil"
+                  style={{ cursor: "pointer" }}
+                />
 
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
+                <ul
+                  className="dropdown-menu dropdown-menu-end profile-dropdown"
+                  aria-labelledby="dropdownUser"
+                >
+                  <li>
+                    <Link
+                      className="dropdown-item fw-bold"
+                      to={userType === 1 ? `/prof-profile/${userId}` : "/dashboard"}
+                      style={{ cursor: "pointer" }}
+                    >
+                      {userFirstname} {userLastname}
+                    </Link>
+                  </li>
+                  <li>
+                    <hr className="dropdown-divider" />
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item"
+                      to={userType === 1 ? "/prof-dashboard" : "/dashboard"}
+                    >
+                      Tableau de bord
+                    </Link>
+                  </li>
 
-                <li>
-                  <button
-                    className="dropdown-item text-danger"
-                    onClick={logout}
-                  >
-                    Se déconnecter
-                  </button>
-                </li>
-              </ul>
-            </div>
-          ) : (
-            <div className="d-flex flex-column flex-lg-row gap-2 w-100 w-lg-auto">
-              <button
-                className="btn blue-button"
-                type="button"
-                onClick={() => goToLogin(false)}
-              >
-                Se connecter
-              </button>
-              <button
-                className="btn blue-button-outline"
-                type="button"
-                onClick={() => goToLogin(true)}
-              >
-                S'inscrire
-              </button>
-            </div>
-          )}
+                  <li>
+                    <hr className="dropdown-divider" />
+                  </li>
+
+                  <li>
+                    <button
+                      className="dropdown-item text-danger"
+                      onClick={logout}
+                    >
+                      Se déconnecter
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <div className="d-flex flex-column flex-lg-row gap-2">
+                <button
+                  className="btn blue-button"
+                  type="button"
+                  onClick={() => goToLogin(false)}
+                >
+                  Se connecter
+                </button>
+                <button
+                  className="btn blue-button-outline"
+                  type="button"
+                  onClick={() => goToLogin(true)}
+                >
+                  S'inscrire
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </nav>

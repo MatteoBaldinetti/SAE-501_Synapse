@@ -39,6 +39,7 @@ function CoursPayment() {
   const [payment, setPayment] = useState("card");
   const [displayPayment, setDisplayPayment] = useState("card");
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isCardComplete, setIsCardComplete] = useState(false);
 
   const [personalInfo, setPersonalInfo] = useState({
     firstName: "",
@@ -145,74 +146,77 @@ function CoursPayment() {
 
     if (Object.keys(errors).length > 0) return false;
 
+    if (payment === "card" && !isCardComplete) return false;
+
     return true;
   };
 
-const handlePayment = async () => {
-  if (!stripe || !elements || !isFormValid()) return;
+  const handlePayment = async () => {
+    if (!stripe || !elements || !isFormValid()) return;
 
-  const cardElement = elements.getElement(CardElement);
+    const cardElement = elements.getElement(CardElement);
 
-  // 1️⃣ Création PaymentMethod Stripe
-  const { error, paymentMethod } = await stripe.createPaymentMethod({
-    type: "card",
-    card: cardElement,
-    billing_details: {
-      name: `${personalInfo.firstName} ${personalInfo.lastName}`,
-      email: personalInfo.email,
-    },
-  });
+    // Création PaymentMethod Stripe
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: cardElement,
+      billing_details: {
+        name: `${personalInfo.firstName} ${personalInfo.lastName}`,
+        email: personalInfo.email,
+      },
+    });
 
-  if (error) {
-    alert(error.message);
-    return;
-  }
+    if (error) {
+      alert(error.message);
+      return;
+    }
 
-  // 2️⃣ Appel backend Spring Boot
-  const response = await fetch(`${API_URL}/payments/stripe`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-API-KEY": API_KEY,
-    },
-    body: JSON.stringify({
-      paymentMethodId: paymentMethod.id,
-      amount: data.price * 100, // CENTIMES
-    }),
-  });
+    // Appel backend Spring Boot
+    const response = await fetch(`${API_URL}/payments/create-intent`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-KEY": API_KEY,
+      },
+      body: JSON.stringify({
+        paymentMethodId: paymentMethod.id,
+        amount: data.price * 100, // CENTIMES
+      }),
+    });
 
-  const result = await response.json();
+    const result = await response.json();
 
-  if (result.status !== "succeeded") {
-    alert("Paiement refusé");
-    return;
-  }
+    if (result.clientSecret === undefined) {
+      alert("Paiement refusé");
+      return;
+    }
 
-  // 3️⃣ Paiement OK → inscription
-  const session = await fetch(
-    `${API_URL}/sessions/search?userId=${userId}&trainingId=${data.id}`,
-    { headers: { "X-API-KEY": API_KEY } }
-  );
-  const sessionJson = await session.json();
+    // Paiement OK = inscription
+    const session = await fetch(
+      `${API_URL}/sessions/search?userId=${userId}&trainingId=${data.id}`,
+      { headers: { "X-API-KEY": API_KEY } }
+    );
+    const sessionJson = await session.json();
 
-  await fetch(`${API_URL}/inscriptions`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-API-KEY": API_KEY,
-    },
-    body: JSON.stringify({
-      inscriptionDate: new Date().toISOString(),
-      status: "CONFIRM",
-      amount: data.price,
-      user: { id: userId },
-      session: { id: sessionJson[0].id },
-      training: { id: data.id },
-    }),
-  });
+    await fetch(`${API_URL}/inscriptions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-API-KEY": API_KEY,
+      },
+      body: JSON.stringify({
+        inscriptionDate: new Date().toISOString(),
+        status: "CONFIRM",
+        amount: data.price,
+        date: new Date().toISOString(),
+        user: { id: userId },
+        session: { id: sessionJson[0].id },
+        training: { id: data.id },
+      }),
+    });
 
-  navigate("/payment-confirmation", { state: { id } });
-};
+    navigate("/payment-confirmation", { state: { id } });
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -250,6 +254,9 @@ const handlePayment = async () => {
           <h6>Carte bancaire</h6>
           <div className="border rounded p-3 bg-white">
             <CardElement
+              onChange={(event) => {
+                setIsCardComplete(event.complete);
+              }}
               options={{
                 hidePostalCode: true,
                 style: {

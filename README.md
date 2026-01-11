@@ -14,6 +14,7 @@ Toutes les parties du projet (Front, Back, Base de données) se trouvent dans un
 - [Liens annexes](#liens-annexes)
 - [Technologies Utilisées](#technologies-utilisées)
 - [Installation](#installation)
+- [Architecture de l'application](#architecture-de-lapplication)
 - [Architecture du projet](#architecture-du-projet)
 - [Diagramme de classes](#diagramme-de-classes)
 

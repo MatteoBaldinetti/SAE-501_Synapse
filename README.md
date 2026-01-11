@@ -118,9 +118,16 @@ Toutes les parties du projet (Front, Back, Base de données) se trouvent dans un
    ```
    Accessible avec : `http://localhost:8080/api/*`
 
-   ## Documentation de l'API
-   Une fois l'api lancé, la documentation sera accessible avec : http://localhost:8080/swagger-ui.html.
-   Pour utiliser les endpoints, il faut mettre la clé d'api en cliquant sur `Authorize` et mettre `@txlforma2026!` dans `value`.
+---
+
+## Documentation de l'API
+Une fois l'api lancé, la documentation sera accessible avec : http://localhost:8080/swagger-ui.html.
+Pour utiliser les endpoints, il faut mettre la clé d'api en cliquant sur `Authorize` et mettre `@txlforma2026!` dans `value`.
+
+---
+
+## Architecture de l'application
+![Image de l'architecture de l'application](images/application_architecture.png)
 
 ---
 

@@ -31,7 +31,7 @@ services:
     volumes:
       - api_uploads:/app/uploads
       - ./uploads:/seed:ro
-    command: sh -c "cp -n /seed/* /app/uploads/"
+    command: sh -c "if [ ! -f /app/uploads/.initialized ]; then cp -r /seed/* /app/uploads/ && touch /app/uploads/.initialized; fi"
     restart: "no"
 
   api:

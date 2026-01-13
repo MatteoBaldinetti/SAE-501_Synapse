@@ -1,12 +1,12 @@
 /**
  * CoursPayment.jsx - Page de paiement d'une formation
- * 
+ *
  * Permet à l'utilisateur de :
  * - Voir le récapitulatif de sa commande
  * - Sélectionner une session
  * - Saisir ses informations de paiement
  * - Valider le paiement
- * 
+ *
  * Route : /cours-payment
  * Utilisé par : App.jsx
  * Dépendances : API_URL
@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { API_URL, API_KEY } from "../../constants/apiConstants";
 import { useAuth } from "../../contexts/AuthContext";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js"
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 function CoursPayment() {
   const navigate = useNavigate();
@@ -33,13 +33,15 @@ function CoursPayment() {
     if (id === null) {
       navigate("/403");
     }
-  }, [id])
+  }, [id]);
 
   const [data, setData] = useState([]);
   const [payment, setPayment] = useState("card");
   const [displayPayment, setDisplayPayment] = useState("card");
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isCardComplete, setIsCardComplete] = useState(false);
+
+  const [paymentError, setPaymentError] = useState(false);
 
   const [personalInfo, setPersonalInfo] = useState({
     firstName: "",
@@ -154,6 +156,9 @@ function CoursPayment() {
   const handlePayment = async () => {
     if (!stripe || !elements || !isFormValid()) return;
 
+    // Reset payment error at the start of a new payment attempt
+    setPaymentError(false);
+
     const cardElement = elements.getElement(CardElement);
 
     // Création PaymentMethod Stripe
@@ -167,7 +172,7 @@ function CoursPayment() {
     });
 
     if (error) {
-      alert(error.message);
+      setPaymentError(true);
       return;
     }
 
@@ -186,16 +191,31 @@ function CoursPayment() {
 
     const result = await response.json();
 
-    if (result.clientSecret === undefined) {
-      alert("Paiement refusé");
+    if (!result.clientSecret) {
+      setPaymentError(true);
       return;
     }
 
-    // Paiement OK = inscription
+    const { paymentIntent, error: confirmError } =
+      await stripe.confirmCardPayment(result.clientSecret, {
+        payment_method: paymentMethod.id,
+      });
+
+    if (confirmError) {
+      setPaymentError(true);
+      return;
+    }
+
+    if (paymentIntent.status !== "succeeded") {
+      setPaymentError(true);
+      return;
+    }
+
     const session = await fetch(
       `${API_URL}/sessions/search?userId=${userId}&trainingId=${data.id}`,
       { headers: { "X-API-KEY": API_KEY } }
     );
+
     const sessionJson = await session.json();
 
     await fetch(`${API_URL}/inscriptions`, {
@@ -221,7 +241,7 @@ function CoursPayment() {
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(`${API_URL}/trainings/${id}`, {
-        headers: { "X-API-KEY": API_KEY }
+        headers: { "X-API-KEY": API_KEY },
       });
       const json = await res.json();
       setData(json);
@@ -407,8 +427,9 @@ function CoursPayment() {
                   </label>
                   <input
                     type="text"
-                    className={`form-control ${errors.postalCode ? "is-invalid" : ""
-                      }`}
+                    className={`form-control ${
+                      errors.postalCode ? "is-invalid" : ""
+                    }`}
                     id="postalCode"
                     required
                     value={personalInfo.postalCode}
@@ -439,8 +460,9 @@ function CoursPayment() {
                   </label>
                   <input
                     type="email"
-                    className={`form-control ${errors.email ? "is-invalid" : ""
-                      }`}
+                    className={`form-control ${
+                      errors.email ? "is-invalid" : ""
+                    }`}
                     id="email"
                     required
                     value={personalInfo.email}
@@ -454,8 +476,9 @@ function CoursPayment() {
                   <label className="form-label">Téléphone</label>
                   <input
                     type="tel"
-                    className={`form-control ${errors.phone ? "is-invalid" : ""
-                      }`}
+                    className={`form-control ${
+                      errors.phone ? "is-invalid" : ""
+                    }`}
                     id="phone"
                     value={personalInfo.phone}
                     onChange={handlePersonalChange}
@@ -637,8 +660,18 @@ function CoursPayment() {
                 Conditions générales d'utilisation
               </Link>
             </p>
+            {paymentError && (
+              <div className="alert alert-danger text-center mb-3" role="alert">
+                Le paiement a été refusé ! Veuillez vérifier à nouveau les
+                informations et réessayez.
+              </div>
+            )}
             <div className="d-flex justify-content-center align-items-center">
-              <button className="btn btn-payment d-flex align-items-center justify-content-center gap-2" onClick={handlePayment} disabled={!isFormValid()}>
+              <button
+                className="btn btn-payment d-flex align-items-center justify-content-center gap-2"
+                onClick={handlePayment}
+                disabled={!isFormValid()}
+              >
                 <svg
                   width={20}
                   height={20}
@@ -652,7 +685,6 @@ function CoursPayment() {
                 </svg>
                 Payer {data.price}€
               </button>
-
             </div>
             <p className="mt-4 fw-bold text-center">
               Garantie satisfait ou remboursé de 30 jours

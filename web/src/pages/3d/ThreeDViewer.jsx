@@ -34,7 +34,7 @@ function ThreeDViewer() {
   return (
     <div style={{ width: '100vw', height: '90vh' }}>
       <Canvas
-        camera={{ position: [0, 2, 5], fov: 60 }}
+        camera={{ position: [0, 0, 2], fov: 60 }}
         gl={{ antialias: true }}
         style={{ background: '#9d9c9cff' }} 
       >

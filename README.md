@@ -14,6 +14,8 @@ Toutes les parties du projet (Front, Back, Base de données) se trouvent dans un
 - [Liens annexes](#liens-annexes)
 - [Technologies Utilisées](#technologies-utilisées)
 - [Installation](#installation)
+- [Comptes](#comptes)
+- [Documentation de l'API](#documentation-de-lapi)
 - [Architecture de l'application](#architecture-de-lapplication)
 - [Architecture du projet](#architecture-du-projet)
 - [Diagramme de classes](#diagramme-de-classes)
@@ -118,6 +120,21 @@ Toutes les parties du projet (Front, Back, Base de données) se trouvent dans un
    .\mvnw.cmd spring-boot:run
    ```
    Accessible avec : `http://localhost:8080/api/*`
+
+---
+
+## Comptes
+
+### Étudiant
+`camille.dupont@gmail.com` : `Azerty123!`
+
+`lucas.moreau@gmail.com` : `Azerty123!`
+
+### Enseignant
+`sofia.bernard@gmail.com` : `Azerty123!`
+
+### Admin
+`admin@txlforma.fr` : `Admin123!`
 
 ---
 

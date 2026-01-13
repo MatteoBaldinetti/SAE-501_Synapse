@@ -115,13 +115,11 @@ function Navbar() {
                   aria-labelledby="dropdownUser"
                 >
                   <li>
-                    <Link
-                      className="dropdown-item fw-bold"
-                      to={userType === 1 ? `/prof-profile/${userId}` : "/dashboard"}
-                      style={{ cursor: "pointer" }}
+                    <p
+                      className="dropdown-item fw-bold pe-none bg-transparent"
                     >
                       {userFirstname} {userLastname}
-                    </Link>
+                    </p>
                   </li>
                   <li>
                     <hr className="dropdown-divider" />
@@ -129,7 +127,7 @@ function Navbar() {
                   <li>
                     <Link
                       className="dropdown-item"
-                      to={userType === 1 ? "/prof-dashboard" : "/dashboard"}
+                      to={userType === 1 ? "/prof-dashboard" : userType === 2 ? "/admin" : "/dashboard"}
                     >
                       Tableau de bord
                     </Link>

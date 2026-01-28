@@ -1,6 +1,6 @@
 services:
   web:
-    image: kendinh1/txlforma_web:latest
+    build: ../web
     container_name: web
     ports:
       - "5173:80"
@@ -35,7 +35,7 @@ services:
     restart: "no"
 
   api:
-    image: kendinh1/txlforma:latest
+    build: ../api
     container_name: api
     restart: always
     ports:
